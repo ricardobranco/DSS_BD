@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,6 +33,8 @@ public class Home extends JFrame implements ActionListener {
 	public static final int VISITANTE = 0;
 	public static final int REGISTADO = 1;
 	public static int ESTADO = Home.VISITANTE; 
+	
+	public static final Icon THUMB_SEM_TITULO = new ImageIcon(Home.class.getResource("/Imagens/Sem_Imagem.png"));
 	
 	private JPanel contentPane;
 	private JTextField textField;
@@ -291,18 +294,18 @@ public class Home extends JFrame implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addGap(43)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+						.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 724, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
 							.addGap(18)
-							.addComponent(comboBox, 0, 198, Short.MAX_VALUE)
+							.addComponent(comboBox, 0, 208, Short.MAX_VALUE)
 							.addGap(6)
 							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -318,27 +321,103 @@ public class Home extends JFrame implements ActionListener {
 					.addGap(6)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Últimos Produtos", null, panel_2, null);
 		
 		JButton btnNewButton_4 = new JButton("Ver todos");
+		
+		
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label = new JLabel("");
+		label.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel lblNewLabel_10 = new JLabel("");
+		lblNewLabel_10.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel lblNewLabel_11 = new JLabel("");
+		lblNewLabel_11.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_4 = new JLabel("");
+		label_4.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_5 = new JLabel("");
+		label_5.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_6 = new JLabel("");
+		label_6.setIcon( Home.THUMB_SEM_TITULO);
+		
+		JLabel label_7 = new JLabel("");
+		label_7.setIcon( Home.THUMB_SEM_TITULO);
+		
+		
+		
+		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(591, Short.MAX_VALUE)
-					.addComponent(btnNewButton_4)
-					.addContainerGap())
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addContainerGap(17, Short.MAX_VALUE)
+							.addComponent(btnNewButton_4))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(71)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblNewLabel_10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblNewLabel_11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(label_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addGap(139)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+						.addComponent(label_4, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+						.addComponent(label_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+						.addComponent(label_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+						.addComponent(label_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+						.addComponent(label_7, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+					.addGap(593))
 		);
 		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(336, Short.MAX_VALUE)
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(21)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(label)
+							.addGap(18)
+							.addComponent(lblNewLabel_10)
+							.addGap(18)
+							.addComponent(lblNewLabel_11)
+							.addGap(18)
+							.addComponent(label_2)))
+					.addGap(129)
 					.addComponent(btnNewButton_4)
-					.addContainerGap())
+					.addGap(0))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
