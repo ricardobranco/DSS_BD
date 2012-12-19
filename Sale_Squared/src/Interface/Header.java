@@ -13,41 +13,45 @@ public class Header extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
 	public static final int VISITANTE = 0;
 	public static final int REGISTADO = 1;
-	public static int ESTADO = Header.VISITANTE;
-
+	public static int ESTADO = VISITANTE;
+	
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public Header() {
 		
-		JLabel lblNewLabel = new JLabel("\n");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Header.class.getResource("/Imagens/header.png")));
 		
-		JPanel panel;
-		if(ESTADO==VISITANTE)
-			panel = new Visintante_Panel();
-		else
+		JPanel panel = new JPanel();
+		if(ESTADO==REGISTADO)
 			panel = new Registado_Panel();
+		else
+			panel = new Visitante_Panel();
+			
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(26)
 					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED, 389, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 526, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(7, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel))
+					.addContainerGap(21, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 

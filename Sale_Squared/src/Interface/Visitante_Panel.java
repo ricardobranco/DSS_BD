@@ -5,8 +5,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Visintante_Panel extends JPanel {
+public class Visitante_Panel extends JPanel {
 
 	/**
 	 * 
@@ -16,11 +18,17 @@ public class Visintante_Panel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Visintante_Panel() {
+	public Visitante_Panel() {
 		
 		JButton btnNewButton = new JButton("Registar");
 		
 		JButton btnNewButton_1 = new JButton("Entrar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Login().setVisible(true);
+				
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

@@ -3,17 +3,13 @@ package Interface;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -28,7 +24,6 @@ public class Home extends JFrame{
 	
 	
 	private JPanel contentPane;
-	private JTextField textField;
 
 	ImageIcon header = new ImageIcon(
 			Home.class.getResource("/Imagens/header.png"));
@@ -57,7 +52,7 @@ public class Home extends JFrame{
 	 */
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 750);
+		setBounds(100, 100, 843, 750);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,11 +64,8 @@ public class Home extends JFrame{
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE))
-					.addContainerGap())
+				.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
+				.addComponent(panel_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -83,16 +75,6 @@ public class Home extends JFrame{
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(11))
 		);
-
-		textField = new JTextField();
-		textField.setColumns(10);
-
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Moda", "Casa e Jardim", "Carros",
-				"Tecnologia e Electr\u00F3nica", "Desporto e Entrenimento",
-				"Pe\u00E7as Auto", "Coleccion\u00E1veis e Arte", "Sa\u00FAde",
-				"Outros" }));
 
 		JPanel panel_1 = new JPanel();
 
@@ -291,110 +273,34 @@ public class Home extends JFrame{
 										.addGap(5)));
 		panel_1.setLayout(gl_panel_1);
 
-		JPanel panel_3 = new JPanel();
-
-		JButton btnNewButton_2 = new JButton("Pesquisa");
-
-		JButton btnNewButton_3 = new JButton("Pesquisa Avan\u00E7ada");
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel_3
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								gl_panel_3
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnNewButton_2,
-												GroupLayout.DEFAULT_SIZE, 218,
-												Short.MAX_VALUE)
-										.addComponent(btnNewButton_3,
-												GroupLayout.DEFAULT_SIZE, 218,
-												Short.MAX_VALUE))
-						.addContainerGap()));
-		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel_3.createSequentialGroup().addComponent(btnNewButton_2)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnNewButton_3)
-						.addContainerGap(12, Short.MAX_VALUE)));
-		panel_3.setLayout(gl_panel_3);
-
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
+		JPanel panel_3 = new Pesquisa_Bar();
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addGap(43)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addComponent(
-																		textField,
-																		GroupLayout.DEFAULT_SIZE,
-																		262,
-																		Short.MAX_VALUE)
-																.addGap(18)
-																.addComponent(
-																		comboBox,
-																		0,
-																		199,
-																		Short.MAX_VALUE)
-																.addGap(6)
-																.addComponent(
-																		panel_3,
-																		GroupLayout.PREFERRED_SIZE,
-																		250,
-																		GroupLayout.PREFERRED_SIZE))
-												.addComponent(
-														panel_1,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addComponent(
-														tabbedPane,
-														GroupLayout.PREFERRED_SIZE,
-														735, Short.MAX_VALUE))
-								.addContainerGap()));
-		gl_panel.setVerticalGroup(gl_panel
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addGap(6)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING)
-												.addComponent(
-														textField,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(2)
-																.addComponent(
-																		comboBox,
-																		GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE))
-												.addComponent(
-														panel_3,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-								.addGap(6)
-								.addComponent(panel_1,
-										GroupLayout.PREFERRED_SIZE, 79,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED,
-										17, Short.MAX_VALUE)
-								.addComponent(tabbedPane,
-										GroupLayout.PREFERRED_SIZE, 411,
-										GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addGap(43)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+							.addContainerGap())))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
 		
 		JPanel panel_2 = new Home_Product_Panel();
 		
