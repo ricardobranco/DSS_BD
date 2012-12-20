@@ -5,10 +5,10 @@ import java.util.GregorianCalendar ;
 public class Transaccao {
 
     // v. i.
-    Anuncio anuncio;
-    UtilizadorRegistado vendedor;
-    UtilizadorRegistado comprador;
-    Avaliacao avaliacao;
+    private Anuncio anuncio;
+    private UtilizadorRegistado vendedor;
+    private UtilizadorRegistado comprador;
+    private Avaliacao avaliacao;
     private int id;
     private GregorianCalendar data;
     private double valor;
@@ -131,39 +131,9 @@ public class Transaccao {
             return false;
         }
         final Transaccao other = (Transaccao) obj;
-        if (!this.anuncio.equals(other.getAnuncio())) {
-            return false;
-        }
-        if (!this.vendedor.equals(other.getVendedor())) {
-            return false;
-        }
-        if (!this.comprador.equals(other.getComprador())) {
-            return false;
-        }
-        if (!this.avaliacao.equals(other.getAvaliacao())) {
-            return false;
-        }
         if (this.id != other.getId()) {
             return false;
-        }
-        if (!this.data.equals(other.getData())) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.getValor())) {
-            return false;
-        }
-        if (!this.modoPagamento.equals(other.getModoPagamento())) {
-            return false;
-        }
-        if (!this.morada.equals(other.getMorada())) {
-            return false;
-        }
-        if (this.estado != other.getEstado()) {
-            return false;
-        }
-        if (this.quantidade != other.getQuantidade()) {
-            return false;
-        }
+        }        
         return true;
     }
 

@@ -1,25 +1,26 @@
 package camadaNegocio ;
 
 import java.util.GregorianCalendar;
-import java.util.List ;
+import java.util.Map;
+import java.util.Set;
 
 public class AnuncioCompra extends Anuncio {
 
     // v. i.
-    List<Anuncio> respostas;
+    Map<Integer, Anuncio> respostas;
     
     // construtor
-    public AnuncioCompra(List<Tag> tags, Categoria categoria, List<Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, List<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, List<Anuncio> respostas) {
+    public AnuncioCompra(Map<String,Tag> tags, Categoria categoria, Map<Integer, Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, Set<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, Map<Integer, Anuncio> respostas) {
         super(tags, categoria, avaliacoes, codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, imagens, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;
         this.respostas = respostas ;
     }
     
     // get e set
-    public List<Anuncio> getRespostas() {
+    public Map<Integer, Anuncio> getRespostas() {
         return respostas;
     }
 
-    public void setRespostas(List<Anuncio> respostas) {
+    public void setRespostas(Map<Integer, Anuncio> respostas) {
         this.respostas = respostas;
     }
     

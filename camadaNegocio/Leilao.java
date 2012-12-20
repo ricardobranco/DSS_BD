@@ -11,7 +11,8 @@ public class Leilao extends ModoVenda {
     private int nLicitacoes;
     
     // construtores
-    public Leilao (double precoB, GregorianCalendar dataF, int nLicit) {
+    public Leilao (int id, double precoB, GregorianCalendar dataF, int nLicit) {
+        super(id) ;
         this.precoBase = precoB ;
         this.dataFim = dataF ;
         this.nLicitacoes = nLicit ;
@@ -52,13 +53,7 @@ public class Leilao extends ModoVenda {
             return false;
         }
         final Leilao other = (Leilao) obj;
-        if (Double.doubleToLongBits(this.precoBase) != Double.doubleToLongBits(other.getPrecoBase())) {
-            return false;
-        }
-        if (!this.dataFim.equals(other.getDataFim())) {
-            return false;
-        }
-        if (this.nLicitacoes != other.getnLicitacoes()) {
+        if (!super.equals(other)) {
             return false;
         }
         return true;
@@ -66,12 +61,13 @@ public class Leilao extends ModoVenda {
 
     @Override
     public String toString() {
-        return "Leilao{" + "precoBase=" + this.precoBase + ", dataFim=" + this.dataFim.toString() + ", nLicitacoes=" + this.nLicitacoes + '}';
+        return "Leilao{" + "precoBase=" + this.precoBase + ", dataFim=" + this.dataFim.toString() 
+         + ", nLicitacoes=" + this.nLicitacoes + super.toString() + '}';
     }
     
     @Override
     public Leilao clone () {
-        return new Leilao(this.precoBase, this.dataFim, this.nLicitacoes) ;
+        return new Leilao(this.getId(), this.precoBase, this.dataFim, this.nLicitacoes) ;
     }
     
 }

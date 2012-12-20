@@ -5,20 +5,30 @@ import java.util.GregorianCalendar;
 public class Avaliacao {
 
     // v. i.
-    UtilizadorRegistado avaliador;
+    private int id ;
+    private UtilizadorRegistado avaliador;
     private GregorianCalendar data;
     private double classificacao;
     private String comentario;
 
     // construtor
-    public Avaliacao(UtilizadorRegistado avaliador, GregorianCalendar data, Double classificacao, String comentario) {
+    public Avaliacao(int id, UtilizadorRegistado avaliador, GregorianCalendar data, Double classificacao, String comentario) {
+        this.id = id ;
         this.avaliador = avaliador;
         this.data = data;
         this.classificacao = classificacao;
         this.comentario = comentario;
     }
-    
+
     // get e set
+     public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public UtilizadorRegistado getAvaliador() {
         return avaliador;
     }
@@ -61,16 +71,7 @@ public class Avaliacao {
             return false;
         }
         final Avaliacao other = (Avaliacao) obj;
-        if (!this.avaliador.equals(other.getAvaliador())) {
-            return false;
-        }
-        if (!this.data.equals(other.getData())) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.classificacao) != Double.doubleToLongBits(other.getClassificacao())) {
-            return false;
-        }
-        if (!this.comentario.equals(other.getComentario())) {
+        if (this.id != other.getId()) {
             return false;
         }
         return true;
@@ -78,13 +79,13 @@ public class Avaliacao {
 
     @Override
     public String toString() {
-        return "Avaliacao{" + "avaliador=" + this.avaliador.toString() + ", data=" 
+        return "Avaliacao{" + "id=" + this.id + "avaliador=" + this.avaliador.toString() + ", data=" 
         + this.data.toString() + ", classificacao=" + this.classificacao + ", comentario=" + this.comentario + '}';
     }
     /* dao
     @Override
     public Avaliacao clone () {
-        return new Avaliacao(this.avaliador.clone(), this.data, this.classificacao, this.comentario) ;
+        return new Avaliacao(this.id, this.avaliador.clone(), this.data, this.classificacao, this.comentario) ;
     }
     */
     

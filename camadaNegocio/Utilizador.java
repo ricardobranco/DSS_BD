@@ -1,11 +1,11 @@
 package camadaNegocio ;
 
-import java.util.List ;
+import java.util.Map;
 
 public class Utilizador {
 
     // v. i.    
-    private List<Anuncio> historicoAnunc;
+    private Map<Integer, Anuncio> historicoAnunc;
     
     // construtor - DAO
     public Utilizador() {
@@ -13,11 +13,11 @@ public class Utilizador {
     }
     
     // get and set
-    public List<Anuncio> getHistoricoAnunc() {
+    public Map<Integer, Anuncio> getHistoricoAnunc() {
         return historicoAnunc;
     }
 
-    public void setHistoricoAnunc(List<Anuncio> historicoAnunc) {
+    public void setHistoricoAnunc(Map<Integer, Anuncio> historicoAnunc) {
         this.historicoAnunc = historicoAnunc;
     }
     

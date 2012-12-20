@@ -6,15 +6,17 @@ import java.util.Objects;
 public class Mensagem {
 
     // v. i.
-    UtilizadorRegistado emissor;
-    UtilizadorRegistado receptor;	
+    private int id ;
+    private UtilizadorRegistado emissor;
+    private UtilizadorRegistado receptor;	
     private GregorianCalendar dataEnvio;
     private String assunto;
     private String corpo;
     private boolean lida;
     
     // construtor
-    public Mensagem(UtilizadorRegistado emissor, UtilizadorRegistado receptor, GregorianCalendar dataEnvio, String assunto, String corpo, boolean lida) {
+    public Mensagem(int id, UtilizadorRegistado emissor, UtilizadorRegistado receptor, GregorianCalendar dataEnvio, String assunto, String corpo, boolean lida) {
+        this.id = id ;
         this.emissor = emissor;
         this.receptor = receptor;
         this.dataEnvio = dataEnvio;
@@ -22,8 +24,16 @@ public class Mensagem {
         this.corpo = corpo;
         this.lida = lida;
     }
-    
+
     // get e set
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public UtilizadorRegistado getEmissor() {
         return emissor;
     }
@@ -82,30 +92,15 @@ public class Mensagem {
             return false;
         }
         final Mensagem other = (Mensagem) obj;
-        if (!this.emissor.equals(other.getEmissor())) {
+        if (this.id != other.getId()) {
             return false;
-        }
-        if (!this.receptor.equals(other.getReceptor())) {
-            return false;
-        }
-        if (!this.dataEnvio.equals(other.getDataEnvio())) {
-            return false;
-        }
-        if (!this.assunto.equals(other.getAssunto())) {
-            return false;
-        }
-        if (!this.corpo.equals(other.getCorpo())) {
-            return false;
-        }
-        if (this.lida != other.getLida()) {
-            return false;
-        }
+        }        
         return true;
     }
                                                                                 
     @Override
     public String toString() {
-        return "Mensagem{" + "emissor=" + this.emissor.toString() + ", receptor=" + this.receptor.toString() 
+        return "Mensagem{" + "id=" + this.id + "emissor=" + this.emissor.toString() + ", receptor=" + this.receptor.toString() 
         + ", dataEnvio=" + this.dataEnvio.toString() + ", assunto=" + this.assunto + ", corpo=" 
         + this.corpo + ", lida=" + this.lida + '}';
     }
@@ -113,7 +108,7 @@ public class Mensagem {
     /* falta clone em UserRegistado
     @Override
     public Mensagem clone () {
-        return new Mensagem(this.emissor.clone(), this.receptor.clone(), this.dataEnvio, this.assunto, this.corpo, this.lida) ;
+        return new Mensagem(this.id, this.emissor.clone(), this.receptor.clone(), this.dataEnvio, this.assunto, this.corpo, this.lida) ;
     }
     */ 
 

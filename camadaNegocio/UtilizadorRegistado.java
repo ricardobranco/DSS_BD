@@ -1,17 +1,17 @@
 package camadaNegocio ;
 
-import java.util.List;
+import java.util.Map;
 import java.util.GregorianCalendar;
 
 public class UtilizadorRegistado extends Utilizador {
 
     // v. i.
-    private List<UtilizadorRegistado> usersSeguidos;
-    private List<Mensagem> enviadas;
-    private List<Mensagem> recebidas;
-    private List<Anuncio> anuncSeguidos;
-    private List<Categoria> categSeguidas;
-    private List<Transaccao> transaccoes;
+    private Map<String, UtilizadorRegistado> usersSeguidos;
+    private Map<Integer, Mensagem> enviadas;
+    private Map<Integer, Mensagem> recebidas;
+    private Map<Integer, Anuncio> anuncSeguidos;
+    private Map<String, Categoria> categSeguidas;
+    private Map<Integer, Transaccao> transaccoes;
     private String username;
     private String password;
     private char estado;
@@ -130,51 +130,51 @@ public class UtilizadorRegistado extends Utilizador {
         this.dataNasc = dn;
     }
 
-    public List<UtilizadorRegistado> getUsersSeguidos() {
+    public Map<String, UtilizadorRegistado> getUsersSeguidos() {
         return usersSeguidos;
     }
 
-    public void setUsersSeguidos(List<UtilizadorRegistado> usersSeguidos) {
+    public void setUsersSeguidos(Map<String, UtilizadorRegistado> usersSeguidos) {
         this.usersSeguidos = usersSeguidos;
     }
 
-    public List<Mensagem> getEnviadas() {
+    public Map<Integer, Mensagem> getEnviadas() {
         return enviadas;
     }
 
-    public void setEnviadas(List<Mensagem> enviadas) {
+    public void setEnviadas(Map<Integer, Mensagem> enviadas) {
         this.enviadas = enviadas;
     }
 
-    public List<Mensagem> getRecebidas() {
+    public Map<Integer, Mensagem> getRecebidas() {
         return recebidas;
     }
 
-    public void setRecebidas(List<Mensagem> recebidas) {
+    public void setRecebidas(Map<Integer, Mensagem> recebidas) {
         this.recebidas = recebidas;
     }
 
-    public List<Anuncio> getAnuncSeguidos() {
+    public Map<Integer, Anuncio> getAnuncSeguidos() {
         return anuncSeguidos;
     }
 
-    public void setAnuncSeguidos(List<Anuncio> anuncSeguidos) {
+    public void setAnuncSeguidos(Map<Integer, Anuncio> anuncSeguidos) {
         this.anuncSeguidos = anuncSeguidos;
     }
 
-    public List<Categoria> getCategSeguidas() {
+    public Map<String, Categoria> getCategSeguidas() {
         return categSeguidas;
     }
 
-    public void setCategSeguidas(List<Categoria> categSeguidas) {
+    public void setCategSeguidas(Map<String, Categoria> categSeguidas) {
         this.categSeguidas = categSeguidas;
     }
 
-    public List<Transaccao> getTransaccoes() {
+    public Map<Integer, Transaccao> getTransaccoes() {
         return transaccoes;
     }
 
-    public void setTransaccoes(List<Transaccao> transaccoes) {
+    public void setTransaccoes(Map<Integer, Transaccao> transaccoes) {
         this.transaccoes = transaccoes;
     }
     

@@ -1,16 +1,16 @@
 package camadaNegocio ;
 
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Objects;
+import java.util.Map;
+import java.util.Set;
 
 public class AnuncioVenda extends Anuncio {
 
     // v. i.
-    ModoVenda tipoVenda;
+    private ModoVenda tipoVenda;
     
     // construtor
-    public AnuncioVenda(List<Tag> tags, Categoria categoria, List<Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, List<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, ModoVenda modoV) {
+    public AnuncioVenda(Map<String,Tag> tags, Categoria categoria, Map<Integer, Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, Set<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, ModoVenda modoV) {
         super(tags, categoria, avaliacoes, codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, imagens, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;
         this.tipoVenda = modoV ;
     }

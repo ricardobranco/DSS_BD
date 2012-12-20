@@ -6,7 +6,8 @@ public class VendaDirecta extends ModoVenda {
     private int nPropostas;
 
     // construtores
-    public VendaDirecta(int nPropostas) {
+    public VendaDirecta(int id, int nPropostas) {
+        super(id) ;
         this.nPropostas = nPropostas;
     }   
     
@@ -29,7 +30,7 @@ public class VendaDirecta extends ModoVenda {
             return false;
         }
         final VendaDirecta other = (VendaDirecta) obj;
-        if (this.nPropostas != other.getnPropostas()) {
+        if (!super.equals(other)) {
             return false;
         }
         return true;
@@ -37,11 +38,11 @@ public class VendaDirecta extends ModoVenda {
 
     @Override
     public String toString() {
-        return "VendaDirecta{" + "nPropostas=" + this.nPropostas + '}';
+        return "VendaDirecta{" + "nPropostas=" + this.nPropostas + super.toString() + '}';
     }
     
     @Override
     public VendaDirecta clone () {
-        return new VendaDirecta(this.nPropostas) ;
+        return new VendaDirecta(this.getId(), this.nPropostas) ;
     }
 }

@@ -1,14 +1,16 @@
 package camadaNegocio ;
 
 import java.util.GregorianCalendar;
-import java.util.List;
+//import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class Anuncio {
 
     // v. i.
-    List<Tag> tags;
-    Categoria categoria;
-    List<Avaliacao> avaliacoes;
+    private Map<String, Tag> tags;
+    private Categoria categoria;
+    private Map<Integer, Avaliacao> avaliacoes;
     private int codigo;
     private String titulo;
     private GregorianCalendar dataInser;
@@ -16,14 +18,14 @@ public abstract class Anuncio {
     private double preco;
     private String descricao;
     private int quantidade;
-    private List<String> imagens;
+    private Set<String> imagens;
     private int nVisitas;
     private boolean estadoProduto;
     private char estadoAnuncio;
     private UtilizadorRegistado anunciante ;
     
     // construtor
-    public Anuncio(List<Tag> tags, Categoria categoria, List<Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, List<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
+    public Anuncio(Map<String,Tag> tags, Categoria categoria, Map<Integer, Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, Set<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
         this.tags = tags;
         this.categoria = categoria;
         this.avaliacoes = avaliacoes;
@@ -42,11 +44,11 @@ public abstract class Anuncio {
     }
     
     // get e set
-    public List<Tag> getTags() {
+    public Map<String, Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Map<String, Tag> tags) {
         this.tags = tags;
     }
 
@@ -58,11 +60,11 @@ public abstract class Anuncio {
         this.categoria = categoria;
     }
 
-    public List<Avaliacao> getAvaliacoes() {
+    public Map<Integer, Avaliacao> getAvaliacoes() {
         return avaliacoes;
     }
 
-    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+    public void setAvaliacoes(Map<Integer, Avaliacao> avaliacoes) {
         this.avaliacoes = avaliacoes;
     }
 
@@ -122,11 +124,11 @@ public abstract class Anuncio {
         this.quantidade = quantidade;
     }
 
-    public List<String> getImagens() {
+    public Set<String> getImagens() {
         return imagens;
     }
 
-    public void setImagens(List<String> imagens) {
+    public void setImagens(Set<String> imagens) {
         this.imagens = imagens;
     }
 

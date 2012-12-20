@@ -1,14 +1,13 @@
 package camadaNegocio ;
 
-import java.util.List;
+import java.util.Map;
 
 public class SaleSquared implements SaleSquaredFacade {
 
     // v. i.
-    List<UtilizadorRegistado> users;
-    List<Anuncio> anuncios;
-    List<Categoria> categorias;
-    List<Tag> tags;
+    Map<String, UtilizadorRegistado> users;
+    Map<Integer, Anuncio> anuncios;
+    Map<String, Categoria> categorias;
     Utilizador emSessao;
     
     // construtor -- dao
@@ -17,36 +16,28 @@ public class SaleSquared implements SaleSquaredFacade {
     }
     
     // get e set
-    public List<UtilizadorRegistado> getUsers() {
+    public Map<String, UtilizadorRegistado> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UtilizadorRegistado> users) {
+    public void setUsers(Map<String, UtilizadorRegistado> users) {
         this.users = users;
     }
 
-    public List<Anuncio> getAnuncios() {
+    public Map<Integer, Anuncio> getAnuncios() {
         return anuncios;
     }
 
-    public void setAnuncios(List<Anuncio> anuncios) {
+    public void setAnuncios(Map<Integer, Anuncio> anuncios) {
         this.anuncios = anuncios;
     }
 
-    public List<Categoria> getCategorias() {
+    public Map<String, Categoria> getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(List<Categoria> categorias) {
+    public void setCategorias(Map<String, Categoria> categorias) {
         this.categorias = categorias;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public Utilizador getEmSessao() {
@@ -76,9 +67,6 @@ public class SaleSquared implements SaleSquaredFacade {
         if (!this.categorias.equals(other.getCategorias())) {
             return false;
         }
-        if (!this.tags.equals(other.getTags())) {
-            return false;
-        }
         if (!this.emSessao.equals(other.getEmSessao())) {
             return false;
         }
@@ -88,8 +76,7 @@ public class SaleSquared implements SaleSquaredFacade {
     @Override
     public String toString() {
         return "SaleSquared{" + "users=" + this.users.toString() + ", anuncios=" + this.anuncios.toString() 
-         + ", categorias=" + this.categorias.toString() + ", tags=" + this.tags.toString() 
-         + ", emSessao=" + this.emSessao.toString() + '}';
+         + ", categorias=" + this.categorias.toString() + ", emSessao=" + this.emSessao.toString() + '}';
     }
     /* -- clone dao 
     @Override
