@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 
 public class Pesquisa_Bar extends JPanel {
 
@@ -25,6 +26,7 @@ public class Pesquisa_Bar extends JPanel {
 		textField.setColumns(10);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos     ", "    Moda", "    Casa e Jardim", "    Carros", "    Tecnologia e Electr\u00F3nica", "    Coleccion\u00E1veis e Arte", "    Sa\u00FAde", "    Desporto e Entretenimento", "    Pe\u00E7as Auto", "    Outros\t"}));
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);

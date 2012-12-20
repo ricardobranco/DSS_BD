@@ -1,5 +1,6 @@
 package Interface;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -8,7 +9,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Visitante_Panel extends JPanel {
+public class Visitante_Panel extends JPanel  {
 
 	/**
 	 * 
@@ -18,14 +19,16 @@ public class Visitante_Panel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Visitante_Panel() {
+	public Visitante_Panel(final JFrame jf) {
 		
 		JButton btnNewButton = new JButton("Registar");
 		
 		JButton btnNewButton_1 = new JButton("Entrar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Login().setVisible(true);
+				jf.enableInputMethods(false);
+				new Login(jf).setVisible(true);
+			
 				
 			}
 		});

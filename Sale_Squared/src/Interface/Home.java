@@ -60,7 +60,7 @@ public class Home extends JFrame{
 		JPanel panel = new JPanel();
 		
 
-		JPanel panel_6 = new Header();
+		JPanel panel_6 = new Header(this);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -305,6 +305,9 @@ public class Home extends JFrame{
 		JPanel panel_2 = new Home_Product_Panel();
 		
 		tabbedPane.addTab("Últimos Produtos", null, panel_2, null);
+		
+		JPanel panel_5 = new Home_Leiloes_Panel();
+		tabbedPane.addTab("Negócios a Fechar", null, panel_5, null);
 		
 		JPanel panel_4 = new Home_Product_Panel();
 		tabbedPane.addTab("Sugestões", null, panel_4, null);

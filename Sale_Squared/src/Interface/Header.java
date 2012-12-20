@@ -1,5 +1,6 @@
 package Interface;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,7 +23,7 @@ public class Header extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Header() {
+	public Header(JFrame jf) {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Header.class.getResource("/Imagens/header.png")));
@@ -31,7 +32,7 @@ public class Header extends JPanel {
 		if(ESTADO==REGISTADO)
 			panel = new Registado_Panel();
 		else
-			panel = new Visitante_Panel();
+			panel = new Visitante_Panel(jf);
 			
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(

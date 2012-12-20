@@ -6,12 +6,17 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JDialog {
 
@@ -24,24 +29,25 @@ public class Login extends JDialog {
 	private JButton cancelButton;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Create the dialog.
 	 */
-	public Login() {
+	public Login(final JFrame jf) {
+		addWindowListener(new WindowAdapter() {
+			
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				jf.setEnabled(true);
+			}
+		});
 		setResizable(false);
 		setBounds(100, 100, 338, 164);
 		getContentPane().setLayout(new BorderLayout());
@@ -93,6 +99,12 @@ public class Login extends JDialog {
 			}
 			{
 				cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+						jf.enableInputMethods(true);
+						}
+				});
 				cancelButton.setActionCommand("Cancel");
 			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);

@@ -5,7 +5,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Home_Product_Panel extends JPanel {
+public class Home_Leiloes_Panel extends JPanel {
 
 	/**
 	 * 
@@ -15,13 +15,13 @@ public class Home_Product_Panel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Home_Product_Panel() {
+	public Home_Leiloes_Panel() {
 		
-		JPanel panel = new Produtos_Coluna();
+		JPanel panel = new Leiloes_Coluna();
 		
-		JPanel panel_1 = new Produtos_Coluna();
+		JPanel panel_1 = new Leiloes_Coluna();
 		
-		JPanel panel_2 = new Produtos_Coluna();
+		JPanel panel_2 = new Leiloes_Coluna();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
