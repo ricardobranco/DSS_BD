@@ -40,6 +40,9 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login(final JFrame jf) {
+		setResizable(false);
+		setAlwaysOnTop(true);
+		jf.setEnabled(false);
 		addWindowListener(new WindowAdapter() {
 			
 			
@@ -48,7 +51,6 @@ public class Login extends JDialog {
 				jf.setEnabled(true);
 			}
 		});
-		setResizable(false);
 		setBounds(100, 100, 338, 164);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -26,7 +26,6 @@ public class Visitante_Panel extends JPanel  {
 		JButton btnNewButton_1 = new JButton("Entrar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jf.enableInputMethods(false);
 				new Login(jf).setVisible(true);
 			
 				

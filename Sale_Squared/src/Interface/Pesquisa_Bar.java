@@ -23,10 +23,11 @@ public class Pesquisa_Bar extends JPanel {
 	public Pesquisa_Bar() {
 		
 		textField = new JTextField();
+		textField.setToolTipText("");
 		textField.setColumns(10);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos     ", "    Moda", "    Casa e Jardim", "    Carros", "    Tecnologia e Electr\u00F3nica", "    Coleccion\u00E1veis e Arte", "    Sa\u00FAde", "    Desporto e Entretenimento", "    Pe\u00E7as Auto", "    Outros\t"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Todos", "    Moda", "        Vestu\u00E1rio", "        Acess\u00F3rios", "    Casa e Jardim", "        Animais", "        Artigos de Jardim", "        Im\u00F3veis", "        M\u00F3veis", "    Tecnologia e Electr\u00F3nica", "        \u00C1udio,Tv e V\u00EDdeo", "        Consolas", "        Fotografia", "        Inform\u00E1tica", "        Telem\u00F3veis e Telefones", "    Coleccion\u00E1veis e Arte", "        Selos", "        Moeda e Notas", "        Medalhas", "        Antiguidades", "        Arte", "    Sa\u00FAde", "        Cosm\u00E9ticos", "    Desporto e Entretenimento", "        Brinquedos", "        Artigos de Desporto", "        Filmes e Cinema", "        Livros e Revistas", "        M\u00FAsica", "    Auto    ", "        Ve\u00EDculos", "        Pe\u00E7as auto", "    Outros    \t"}));
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);

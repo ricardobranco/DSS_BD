@@ -25,14 +25,11 @@ public class Produtos_Coluna extends JPanel {
 		
 		Produto_Base panel_3 = new Produto_Base();
 		
-		Produto_Base panel_4 = new Produto_Base();
-		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
 						.addComponent(panel_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
 						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
 						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
@@ -48,9 +45,7 @@ public class Produtos_Coluna extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-					.addGap(5)
-					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 

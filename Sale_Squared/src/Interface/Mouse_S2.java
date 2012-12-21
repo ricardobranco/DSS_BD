@@ -1,5 +1,6 @@
 package Interface;
 
+import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,11 +14,13 @@ public class Mouse_S2 {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				jl.setFont(Text_S2.fontBold(jl));
+				jl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				jl.setFont(Text_S2.fontNormal(jl));
+				jl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
 			}
 		});

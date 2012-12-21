@@ -17,7 +17,7 @@ public class Produto_Base extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static final Icon THUMB_SEM_TITULO = new ImageIcon(
-			Home.class.getResource("/Imagens/Sem_Imagem.png"));
+			Sale_Squared.class.getResource("/Imagens/Sem_Imagem.png"));
 
 
 	/**
