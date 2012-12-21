@@ -10,7 +10,7 @@ import java.awt.SystemColor;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
-public class Home_Categorias extends JPanel {
+public class Categorias extends JPanel {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Home_Categorias extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Home_Categorias() {
+	public Categorias() {
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		
@@ -62,45 +62,6 @@ public class Home_Categorias extends JPanel {
 		JLabel label_7 = new JLabel("    Móveis");
 		label_7.setForeground(SystemColor.controlHighlight);
 		Mouse_S2.mouseINOUT(label_7);
-
-		GroupLayout gl_layeredPane = new GroupLayout(layeredPane);
-		gl_layeredPane.setHorizontalGroup(
-			gl_layeredPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_layeredPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_layeredPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(label_7, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(label_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(label_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(label_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(label, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-						.addComponent(label_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(label_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-						.addComponent(label_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(5))
-		);
-		gl_layeredPane.setVerticalGroup(
-			gl_layeredPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_layeredPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label, GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_2, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(label_3, GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_4, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_5, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_7)
-					.addGap(40))
-		);
-		layeredPane.setLayout(gl_layeredPane);
 		
 		JLayeredPane layeredPane_1 = new JLayeredPane();
 		
@@ -189,28 +150,42 @@ public class Home_Categorias extends JPanel {
 		layeredPane_1.setLayout(gl_layeredPane_1);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(layeredPane_2, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+		GroupLayout gl_layeredPane = new GroupLayout(layeredPane);
+		gl_layeredPane.setHorizontalGroup(
+			gl_layeredPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_layeredPane.createSequentialGroup()
+					.addGap(6)
+					.addGroup(gl_layeredPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(label, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)))
 		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 216, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(layeredPane_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-						.addComponent(layeredPane_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
-					.addContainerGap())
+		gl_layeredPane.setVerticalGroup(
+			gl_layeredPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_layeredPane.createSequentialGroup()
+					.addGap(6)
+					.addComponent(label)
+					.addGap(6)
+					.addComponent(label_1)
+					.addGap(6)
+					.addComponent(label_2)
+					.addGap(18)
+					.addComponent(label_3)
+					.addGap(6)
+					.addComponent(label_4)
+					.addGap(6)
+					.addComponent(label_5)
+					.addGap(6)
+					.addComponent(label_6)
+					.addGap(6)
+					.addComponent(label_7))
 		);
+		layeredPane.setLayout(gl_layeredPane);
 		
 		JLabel lblNewLabel_4 = new JLabel("Tecnologia e Electrónica");
 		lblNewLabel_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
@@ -298,6 +273,30 @@ public class Home_Categorias extends JPanel {
 					.addGap(8))
 		);
 		layeredPane_2.setLayout(gl_layeredPane_2);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(layeredPane_2, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+					.addGap(0))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE))
+						.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		setLayout(groupLayout);
 
 	}

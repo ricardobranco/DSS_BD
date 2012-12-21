@@ -1,5 +1,6 @@
 package Interface;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -26,7 +27,9 @@ public class Visitante_Panel extends JPanel  {
 		JButton btnNewButton_1 = new JButton("Entrar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Login(jf).setVisible(true);
+				JDialog frame =new Login(jf);
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 			
 				
 			}
