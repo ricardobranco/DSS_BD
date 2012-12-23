@@ -4,7 +4,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 
-public class Produtos_Coluna extends JPanel {
+public class Utilizadores_Coluna extends JPanel {
 
 	/**
 	 * 
@@ -14,17 +14,17 @@ public class Produtos_Coluna extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Produtos_Coluna() {
+	public Utilizadores_Coluna() {
 		
-		JPanel panel = new Utilizador_Base();
+		JPanel panel = new Produto_Base();
 		
-		JPanel panel_1 = new Utilizador_Base();
+		JPanel panel_1 = new Produto_Base();
 		
-		JPanel panel_2 = new Utilizador_Base();
+		JPanel panel_2 = new Produto_Base();
 		
-		JPanel panel_3 = new Utilizador_Base();
+		JPanel panel_3 = new Produto_Base();
 		
-		JPanel panel_4 = new Utilizador_Base();
+		JPanel panel_4 = new Produto_Base();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

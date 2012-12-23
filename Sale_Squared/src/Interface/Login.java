@@ -104,7 +104,7 @@ public class Login extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
-						jf.enableInputMethods(true);
+						jf.setEnabled(true);
 						}
 				});
 				cancelButton.setActionCommand("Cancel");

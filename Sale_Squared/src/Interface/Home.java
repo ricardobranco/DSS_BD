@@ -1,9 +1,10 @@
 package Interface;
 
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JSeparator;
 
 public class Home extends JPanel {
 
@@ -17,24 +18,46 @@ public class Home extends JPanel {
 	 */
 	public Home() {
 		
-		JPanel panel = new Categorias ();
+		JPanel panel = new Categorias();
+		
+		JPanel panel_2 = new Tabbed_Produtos();
+		
+		JPanel panel_1 = new Tabbed_Outros();
+		panel_1.setVisible(true);
+		
+		JSeparator separator = new JSeparator();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(292, Short.MAX_VALUE))
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+							.addGap(7))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-					.addGap(67))
+					.addContainerGap()
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(3)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 521, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		setLayout(groupLayout);
 
 	}
-
 }

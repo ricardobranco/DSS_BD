@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
 
 public class Sale_Squared extends JFrame{
 
@@ -21,12 +21,10 @@ public class Sale_Squared extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	private JPanel contentPane;
-
 	ImageIcon header = new ImageIcon(
 			Sale_Squared.class.getResource("/Imagens/header.png"));
+	private static final String OS = System.getProperty("os.name").toLowerCase();
+
 
 	double x = 0.3;
 	double y = 0.3;
@@ -39,13 +37,20 @@ public class Sale_Squared extends JFrame{
 			public void run() {
 				try {
 					Sale_Squared frame = new Sale_Squared();
-					enableOSXFullscreen(frame);
+					if(isMac())
+						enableOSXFullscreen(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	public static boolean isMac() {
+		 
+		return (OS.indexOf("mac") >= 0);
+ 
 	}
 
 	 public static void enableOSXFullscreen(Window window) {
@@ -67,32 +72,33 @@ public class Sale_Squared extends JFrame{
 		setTitle("Sale Squared - Home");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sale_Squared.class.getResource("/Imagens/header.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 946, 621);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setBounds(100, 100, 1023, 621);
+		
+		JPanel panel = new Header(this);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
-					.addGap(0))
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE))
+					.addContainerGap())
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
-					.addGap(0))
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+					.addContainerGap())
 		);
-		
-		JPanel panel = new Header(this);
-		scrollPane.setColumnHeaderView(panel);
 		
 		JPanel panel_1 = new Home();
 		scrollPane.setViewportView(panel_1);
-		contentPane.setLayout(gl_contentPane);
+		getContentPane().setLayout(groupLayout);
 	}
 }
