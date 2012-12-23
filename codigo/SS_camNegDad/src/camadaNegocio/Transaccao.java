@@ -6,11 +6,18 @@ public class Transaccao {
     
     // v. c.
     public static final char SUCESSO = 0 ;
-    public static final char INSSUCESSO = 1 ;
-    public static final char AGUARDAR_RECEPCAO = 2 ;
-    public static final char AGUARDAR_PAGAMENTO = 3 ;    
-    public static final char AGUARDAR_POR_ACEITACAO = 4 ;   
-    public static final char AGUARDAR_ACEITACAO = 5 ;
+        
+    public static final char REJEITADA = 1 ;
+    public static final char REPORTADA = 6 ;
+    
+    public static final char COMP_AGUARDAR_RECEPCAO = 2 ;
+    public static final char COMP_AGUARDAR_PAGAMENTO = 7 ;
+    
+    public static final char VEND_AGUARDAR_PAGAMENTO = 3 ;    
+    public static final char VEND_AGUARDAR_RECEPCAO = 8 ;    
+    
+    public static final char COMP_AGUARDAR_ACEITACAO = 4 ;   
+    public static final char VEND_AGUARDAR_ACEITACAO = 5 ;
         
     // v. i.
     private Anuncio anuncio;
@@ -41,93 +48,28 @@ public class Transaccao {
     }
     
     // get and set
-    public Anuncio getAnuncio() {
-        return anuncio;
-    }
-
-    public void setAnuncio(Anuncio anuncio) {
-        this.anuncio = anuncio;
-    }
-
-    public UtilizadorRegistado getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(UtilizadorRegistado vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public UtilizadorRegistado getComprador() {
-        return comprador;
-    }
-
-    public void setComprador(UtilizadorRegistado comprador) {
-        this.comprador = comprador;
-    }
-
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public GregorianCalendar getData() {
-        return data;
-    }
-
-    public void setData(GregorianCalendar data) {
-        this.data = data;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public String getModoPagamento() {
-        return modoPagamento;
-    }
-
-    public void setModoPagamento(String modoPagamento) {
-        this.modoPagamento = modoPagamento;
-    }
-
-    public String getMorada() {
-        return morada;
-    }
-
-    public void setMorada(String morada) {
-        this.morada = morada;
-    }
-
-    public char getEstado() {
-        return estado;
-    }
-
-    public void setEstado(char estado) {
-        this.estado = estado;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+    public Anuncio getAnuncio() {return anuncio;}
+    public void setAnuncio(Anuncio anuncio) {this.anuncio = anuncio;}
+    public UtilizadorRegistado getVendedor() {return vendedor;}
+    public void setVendedor(UtilizadorRegistado vendedor) {this.vendedor = vendedor;}
+    public UtilizadorRegistado getComprador() {return comprador;}
+    public void setComprador(UtilizadorRegistado comprador) {this.comprador = comprador;}
+    public Avaliacao getAvaliacao() {return avaliacao;}
+    public void setAvaliacao(Avaliacao avaliacao) {this.avaliacao = avaliacao;}
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
+    public GregorianCalendar getData() {return data;}
+    public void setData(GregorianCalendar data) {this.data = data;}
+    public double getValor() {return valor;}
+    public void setValor(double valor) {this.valor = valor;}
+    public String getModoPagamento() {return modoPagamento;}
+    public void setModoPagamento(String modoPagamento) {this.modoPagamento = modoPagamento;}
+    public String getMorada() {return morada;}
+    public void setMorada(String morada) {this.morada = morada;}
+    public char getEstado() {return estado;}
+    public void setEstado(char estado) {this.estado = estado;}
+    public int getQuantidade() {return quantidade;}
+    public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
     
     // e, c, tS
     @Override

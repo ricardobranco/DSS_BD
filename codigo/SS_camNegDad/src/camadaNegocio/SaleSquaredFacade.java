@@ -2,8 +2,9 @@ package camadaNegocio ;
 
 import java.util.Set ;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.SortedSet;
+import java.util.Iterator;
 
 public interface SaleSquaredFacade {
 
@@ -14,21 +15,21 @@ public interface SaleSquaredFacade {
     
     public void inserirCategoria(Categoria c) ;
     public void removerCategoria(String categoria) ;
-    public void encontrarCategoria(String categoria) ;
+    public Categoria encontrarCategoria(String categoria) ;
     public boolean existeCategoria(String categoria) ;
     public boolean temCategorias() ;
     public boolean eNullCategorias () ;
     
     public void inserirUtilizadorReg(UtilizadorRegistado u) ;
     public void removerUtilizadorReg(String username) ;
-    public void encontrarUtilizadorReg(String username) ;
+    public UtilizadorRegistado encontrarUtilizadorReg(String username) ;
     public boolean existeUtilizadorReg(String username) ;
     public boolean temUtilizadorRegs() ;
     public boolean eNullUtilizadorRegs () ;
     
     public void inserirAnuncio(Anuncio a) ;
     public void removerAnuncio(int codAnunc) ;
-    public void encontrarAnuncio(int codAnunc) ;
+    public Anuncio encontrarAnuncio(int codAnunc) ;
     public boolean existeAnuncio(int codAnunc) ;
     public boolean temAnuncios() ;
     public boolean eNullAnuncios () ;
@@ -63,8 +64,13 @@ public interface SaleSquaredFacade {
     // pré-condição: utilizador tem permissão para fazer propostas; vendedor, comprador e anuncio existem ; valor e quantidade são válidos ;    
     public void inserirProposta (Transaccao tVenda, Transaccao tCompra);
 
-    public void confirmarPagam(String vendedor, int codigoTrans);
-    public void confirmarRecep(String comprador, int codigoTrans);
+    public void confirmarPagamTransacc(String vendedor, int codigoTrans);
+    public void confirmarRecepTransacc(String comprador, int codigoTrans);
+    public void confirmarPagamTroca(String vendedor, int codigoTrans);
+    public void confirmarRecepTroca(String comprador, int codigoTrans);    
+    public void aceitarPropostaTransacc(String vendedor, int codTransac) ;
+    public void aceitarPropostaTroca(String vendedor, int codTransac) ;
+    public void rejeitarProposta(String vendedor, int codTransac) ;    
 
     public void editarAnuncioTags(int codAnuncio, Set<String> tags);
     public void editarAnuncioCategorias(int codAnuncio, Set<String> categorias);
@@ -72,7 +78,8 @@ public interface SaleSquaredFacade {
     public void editarAnuncioQuantidade(int codAnuncio, int quantidade);
     public void editarAnuncioTitulo(int codAnuncio, String titulo);
     public void editarAnuncioImagens(int codAnuncio, Set<String> imagens);
-    public void incAnuncioVisitas(int codAnuncio);
+    public void editarAnuncioEstado(int codAnuncio, char estado) ;
+    public void incAnuncioVisitas(int codAnuncio);    
     
     public void editarRegistadoUsername(String username, String novoUsername) ;
     public void editarRegistadoEmail(String username, String email) ;
@@ -85,15 +92,17 @@ public interface SaleSquaredFacade {
     public void adicionarLeilaoLicitacao(int codAnunc, double valor) ;
     public void adicionarVendaDirectaProposta(int codAnunc) ;
     
+    public boolean temRating (String username) ;
     public double calcularRegistadoRating(String username) ;
+    public boolean eUserConfiavel (String username) ;
     
     public Set<Anuncio> procurarAnuncTag(String nome);
     public Set<Anuncio> procurarAnuncCat(String nome);
     public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores);
     public SortedSet<Anuncio> procurarAnuncMaisVis() ;    
 
-    public void reportarAnuncio(int codAnunc, Avaliacao avaliacao) ;
-    public void reportarTransac(Avaliacao avalicao, String avaliado, int codTransac) ;    
+    public void avaliarAnuncio(int codAnunc, Avaliacao avaliacao) ;
+    public void avaliarTransac(Avaliacao avalicao, String avaliado, int codTransac) ;    
     
     public boolean eValidoEmail (String email);
     public boolean eValidaPassword (String pw);
@@ -103,4 +112,15 @@ public interface SaleSquaredFacade {
     public int registaIdTransac () ;
     public int registaIdAnuncio () ;
     public int registaIdAvaliacao () ;
+    
+    public boolean eValidoLogin(String username, String pw) ;
+    
+    public ArrayList<Anuncio> sugerirAnuncios (String username, ArrayList<Character> causa) ;
+    
+    public boolean ePossivelTrocar (String comprador, String vendedor) ;
+    public SortedSet<Anuncio> sugerirAnunciosTroca (String comprador, String vendedor) ;
+    
+    public Iterator<Anuncio> ultimosAnuncios () ;
+    public GregorianCalendar tempoRestanteLeilao (int codAnunc) ;
+    public Set<Anuncio> anunciosSeguidos (String username) ;    
 }

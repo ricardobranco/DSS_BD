@@ -4,6 +4,11 @@ import java.util.*;
 
 public class SaleSquared extends Observable implements SaleSquaredFacade {
 
+    // v.c.
+    public static final char CATEG_E_USER = 0 ;
+    public static final char CATEG = 1 ;
+    public static final char USER = 2 ;
+    
     // v. i.
     private Map<String, UtilizadorRegistado> users;
     private Map<Integer, Anuncio> anuncios;
@@ -65,21 +70,21 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     // gestão de maps
     public void inserirCategoria(Categoria c) {this.categorias.put(c.getNome(), c.clone()) ;}
     public void removerCategoria(String categoria) {this.categorias.remove(categoria) ;}
-    public void encontrarCategoria(String categoria) {this.categorias.get(categoria) ;}
+    public Categoria encontrarCategoria(String categoria) {return this.categorias.get(categoria) ;}
     public boolean existeCategoria(String categoria) {return this.categorias.containsKey(categoria) ;}
     public boolean temCategorias() {return !this.categorias.isEmpty() ;}
     public boolean eNullCategorias () {return this.categorias == null; }
     
     public void inserirUtilizadorReg(UtilizadorRegistado u) {this.users.put(u.getUsername(), u.clone()) ;}
     public void removerUtilizadorReg(String username) {this.users.remove(username) ;}
-    public void encontrarUtilizadorReg(String username) {this.users.get(username) ;}
+    public UtilizadorRegistado encontrarUtilizadorReg(String username) {return this.users.get(username) ;}
     public boolean existeUtilizadorReg(String username) {return this.users.containsKey(username) ;}
     public boolean temUtilizadorRegs() {return !this.users.isEmpty() ;}
     public boolean eNullUtilizadorRegs () {return this.users == null; }
     
     public void inserirAnuncio(Anuncio a) {this.anuncios.put(a.getCodigo(), a.clone()) ;}
     public void removerAnuncio(int codAnunc) {this.anuncios.remove(codAnunc) ;}
-    public void encontrarAnuncio(int codAnunc) {this.anuncios.get(codAnunc) ;}
+    public Anuncio encontrarAnuncio(int codAnunc) {return this.anuncios.get(codAnunc) ;}
     public boolean existeAnuncio(int codAnunc) {return this.anuncios.containsKey(codAnunc) ;}
     public boolean temAnuncios() {return !this.anuncios.isEmpty() ;}
     public boolean eNullAnuncios () {return this.anuncios == null; }
@@ -168,7 +173,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     }
     
     // pré-condição: possível confirmar pagamento
-    public void confirmarPagam(String vendedor, int codigoTrans) {
+    public void confirmarPagamTransacc(String vendedor, int codigoTrans) {
         
         UtilizadorRegistado rV = this.users.get(vendedor) ;
         Transaccao tVenda = rV.getTransaccoes().get(codigoTrans), tCompra = null ;
@@ -176,22 +181,22 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         boolean exitFlag = true ;
         for(Iterator<Transaccao> it = rC.getTransaccoes().values().iterator(); it.hasNext() && exitFlag; ) {
             tCompra = it.next() ;
-            if(tCompra.getData().equals(tVenda.getData()))
+            if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
                 exitFlag = false ;
         }
-        if(tCompra.getEstado() == Transaccao.AGUARDAR_PAGAMENTO) {
+        if(tCompra.getEstado() == Transaccao.COMP_AGUARDAR_PAGAMENTO) {
             tVenda.setEstado(Transaccao.SUCESSO);
             tCompra.setEstado(Transaccao.SUCESSO);
             rV.inserirTransaccao(tVenda.clone());
             rC.inserirTransaccao(tCompra.clone());
         }
         else {
-            tVenda.setEstado(Transaccao.AGUARDAR_RECEPCAO) ;
+            tVenda.setEstado(Transaccao.VEND_AGUARDAR_RECEPCAO) ;
             rV.inserirTransaccao(tVenda.clone());
         }
     }    
     // pré-condição: possível confirmar recepção
-    public void confirmarRecep(String comprador, int codigoTrans) {
+    public void confirmarRecepTransacc(String comprador, int codigoTrans) {
         
         UtilizadorRegistado rC = this.users.get(comprador) ;
         Transaccao tCompra = rC.getTransaccoes().get(codigoTrans), tVenda = null ;
@@ -199,20 +204,142 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         boolean exitFlag = true ;
         for(Iterator<Transaccao> it = rV.getTransaccoes().values().iterator(); it.hasNext() && exitFlag; ) {
             tVenda = it.next() ;
-            if(tCompra.getData().equals(tVenda.getData()))
+            if(tCompra.getComprador().getUsername().equals(comprador) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
                 exitFlag = false ;
         }
-        if(tVenda.getEstado() == Transaccao.AGUARDAR_RECEPCAO) {
+        if(tVenda.getEstado() == Transaccao.VEND_AGUARDAR_RECEPCAO) {
             tVenda.setEstado(Transaccao.SUCESSO);
             tCompra.setEstado(Transaccao.SUCESSO);
-            rV.inserirTransaccao(tVenda);
-            rC.inserirTransaccao(tCompra);
+            rV.inserirTransaccao(tVenda.clone());
+            rC.inserirTransaccao(tCompra.clone());
         }
         else {
-            tCompra.setEstado(Transaccao.AGUARDAR_PAGAMENTO) ;
-            rC.inserirTransaccao(tCompra);
+            tCompra.setEstado(Transaccao.COMP_AGUARDAR_PAGAMENTO) ;
+            rC.inserirTransaccao(tCompra.clone());
         }
+    }    
+    // é possível confirmar pagamento
+    public void confirmarPagamTroca(String vendedor, int codigoTrans) {
+        
+        UtilizadorRegistado rV = this.users.get(vendedor) ;
+        Transaccao tVenda = rV.getTransaccoes().get(codigoTrans), tCompra = null ;
+        UtilizadorRegistado rC = this.users.get(tVenda.getComprador().getUsername()) ;
+        boolean exitFlag = true ;
+        for(Iterator<Transaccao> it = rC.getTransaccoes().values().iterator(); it.hasNext() && exitFlag; ) {
+            tCompra = it.next() ;
+            if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
+                exitFlag = false ;
+        }
+        if(tVenda.getEstado() == Troca.AGUARDAR_RECEPCAO_PAGAMENTO) {
+            tVenda.setEstado(Transaccao.AGUARDAR_RECEPCAO);            
+            rV.inserirTransaccao(tVenda.clone());            
+        }
+        else {
+            if(tCompra.getEstado() == Troca.AGUARDAR_PAGAMENTO) {
+                tVenda.setEstado(Transaccao.SUCESSO) ;
+                tCompra.setEstado(Transaccao.SUCESSO) ;
+                rC.inserirTransaccao(tCompra.clone()) ;
+                rV.inserirTransaccao(tVenda.clone());
+            }
+            else {
+                tVenda.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+                rV.inserirTransaccao(tVenda.clone()) ;
+            }
+        }
+    }    
+    public void confirmarRecepTroca(String comerciante, int codigoTrans) {
+        
+        boolean beVendedor ;
+        UtilizadorRegistado a = this.users.get(comerciante), b ;
+        Transaccao tA = a.getTransaccoes().get(codigoTrans), tB = null ;
+        if(tA.getVendedor().getUsername().equals(comerciante)) {
+            b = this.users.get(tA.getComprador().getUsername()) ;
+            beVendedor = false ;
+        }
+        else {
+            b = this.users.get(tA.getVendedor().getUsername()) ;
+            beVendedor = true ;
+        }
+        boolean exitFlag = true ;
+        for(Iterator<Transaccao> it = b.getTransaccoes().values().iterator(); it.hasNext() && exitFlag; ) {
+            tB = it.next() ;
+            if((beVendedor ? tB.getComprador().getUsername().equals(comerciante) : tB.getVendedor().getUsername().equals(comerciante)) && tA.getAnuncio().equals(tB.getAnuncio()) && tA.getValor() == tB.getValor()*(-1))
+                exitFlag = false ;
+        }
+        if(tA.getEstado() == Troca.AGUARDAR_RECEPCAO_PAGAMENTO) {
+            tA.setEstado(Troca.AGUARDAR_PAGAMENTO);            
+            a.inserirTransaccao(tA.clone());
+        }
+        else {
+            if(tB.getValor() > 0) {
+                if(tB.getEstado() == Troca.AGUARDAR_PAGAMENTO) 
+            }
+            tCompra.setEstado(Transaccao.COMP_AGUARDAR_PAGAMENTO) ;
+            rC.inserirTransaccao(tCompra.clone());
+        }
+    } 
+    //pré-condição: vendedor e transaccao existem; proposta pode ser confirmada
+    public void aceitarPropostaTransacc(String vendedor, int codTransac) {
+        
+        boolean exitFlag = false ;
+        UtilizadorRegistado v = this.users.get(vendedor), c ;
+        Transaccao tVenda = this.users.get(vendedor).getTransaccoes().get(codTransac), tCompra = null ;
+        c = this.users.get(tVenda.getComprador().getUsername()) ;
+        for(Iterator<Transaccao> itT = c.getTransaccoes().values().iterator(); itT.hasNext() && !exitFlag; ) {
+            tCompra = itT.next() ;
+            if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
+                exitFlag = true ;
+        }
+        tCompra.setEstado(Transaccao.COMP_AGUARDAR_RECEPCAO) ;
+        tVenda.setEstado(Transaccao.VEND_AGUARDAR_PAGAMENTO) ;
+        v.inserirTransaccao(tVenda.clone()) ;
+        c.inserirTransaccao(tCompra.clone()) ;        
     }
+    //pré-condição: vendedor e transaccao existem; proposta pode ser confirmada
+    public void aceitarPropostaTroca(String vendedor, int codTransac) {
+        
+        boolean exitFlag = false ;
+        UtilizadorRegistado v = this.users.get(vendedor), c ;
+        Transaccao tVenda = v.getTransaccoes().get(codTransac), tCompra = null ;
+        c = this.users.get(tVenda.getComprador().getUsername()) ;
+        for(Iterator<Transaccao> itT = c.getTransaccoes().values().iterator(); itT.hasNext() && !exitFlag; ) {
+            tCompra = itT.next() ;
+            if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == (tVenda.getValor()*(-1))) // simetria dos valores da troca
+                exitFlag = true ;
+        }
+        if(tVenda.getValor() > 0) {
+            tVenda.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+            tCompra.setEstado(Troca.AGUARDAR_RECEPCAO_PAGAMENTO) ;
+        }
+        else {       
+            if (tVenda.getValor() < 0) {
+                tCompra.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+                tVenda.setEstado(Troca.AGUARDAR_RECEPCAO_PAGAMENTO) ;
+            }
+            else {
+                tVenda.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+                tCompra.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+            }
+        }
+        v.inserirTransaccao(tVenda.clone()) ;
+        c.inserirTransaccao(tCompra.clone()) ;        
+    }
+    public void rejeitarProposta(String vendedor, int codTransac) {
+        
+        boolean exitFlag = false ;
+        UtilizadorRegistado v = this.users.get(vendedor), c ;
+        Transaccao tVenda = this.users.get(vendedor).getTransaccoes().get(codTransac), tCompra = null ;
+        c = this.users.get(tVenda.getComprador().getUsername()) ;
+        for(Iterator<Transaccao> itT = c.getTransaccoes().values().iterator(); itT.hasNext() && !exitFlag; ) {
+            tCompra = itT.next() ;
+            if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
+                exitFlag = true ;
+        }
+        tCompra.setEstado(Transaccao.REJEITADA) ;
+        tVenda.setEstado(Transaccao.REJEITADA) ;
+        v.inserirTransaccao(tVenda.clone()) ;
+        c.inserirTransaccao(tCompra.clone()) ;        
+    } 
     
     public void editarAnuncioTags(int codAnuncio, Set<String> tags) {this.anuncios.get(codAnuncio).editarTags(tags) ;}    
     public void editarAnuncioCategorias(int codAnuncio, Set<String> categorias) {this.anuncios.get(codAnuncio).editarCategorias(categorias);}
@@ -234,7 +361,13 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         a.setTitulo(titulo);
         this.anuncios.put(codAnuncio, a.clone()) ;
     }    
-    public void editarAnuncioImagens(int codAnuncio, Set<String> imagens) {this.anuncios.get(codAnuncio).editarImagens(imagens); }      
+    public void editarAnuncioImagens(int codAnuncio, Set<String> imagens) {this.anuncios.get(codAnuncio).editarImagens(imagens); }
+    public void editarAnuncioEstado(int codAnuncio, char estado) {
+        
+        Anuncio a = this.anuncios.get(codAnuncio) ;
+        a.setEstadoAnuncio(estado);
+        this.anuncios.put(codAnuncio, a.clone()) ;
+    }
     public void incAnuncioVisitas(int codAnuncio) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;        
@@ -301,8 +434,11 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         this.anuncios.put(codAnunc, a) ;
     }
     
+    public boolean temUserRating (String username) {return this.users.get(username).temRating();}
     // pré-condição: existem ratings para o utilizador
     public double calcularRegistadoRating(String username) {return this.users.get(username).calcularRating();}
+    // pré-condição: existem ratings para o utilizador
+    public boolean eUserConfiavel (String username) {return this.users.get(username).eRecomendado() ;}
     
     public Set<Anuncio> procurarAnuncTag(String nome) {
         
@@ -360,8 +496,9 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         return res ;
     }    
     
-    public void reportarAnuncio(int codAnunc, Avaliacao avaliacao) {this.anuncios.get(codAnunc).inserirAvaliacao(avaliacao);}    
-    public void reportarTransac(Avaliacao avalicao, String avaliador, int codTransac) {this.users.get(avaliador).reportarTransaccao(avalicao, codTransac);}
+    //pré-condição: classificação entre 0 e 100
+    public void avaliarAnuncio(int codAnunc, Avaliacao avaliacao) {this.anuncios.get(codAnunc).inserirAvaliacao(avaliacao);}    
+    public void avaliarTransac(Avaliacao avalicao, String avaliador, int codTransac) {this.users.get(avaliador).reportarTransaccao(avalicao, codTransac);}
     
     public SortedSet<Anuncio> procurarAnuncMaisVis() {
         
@@ -374,4 +511,78 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public boolean eValidoEmail (String email) {return UtilizadorRegistado.validaEmail(email);}
     public boolean eValidaPassword (String pw) {return UtilizadorRegistado.passwordValida(pw);}
     public boolean eValidoContacto (String contacto) {return UtilizadorRegistado.validaContacto(contacto) ;}
+    
+    // pré-condição: username é válido
+    public boolean eValidoLogin(String username, String pw) {return this.users.get(username).passwordCorresponde(pw) ;}
+    
+    // vazio se não houver nenhum anúncio que seja de um user ou de uma categoria seguida
+    // na cabeça da lista o best match
+    // o resto aleatoriamente ordenado
+    public ArrayList<Anuncio> sugerirAnuncios (String username, ArrayList<Character> causa) {
+        
+        ArrayList<Anuncio> res = new ArrayList<Anuncio>(), catOuUser = new ArrayList<Anuncio>() ;
+        ArrayList<Character> catOuUserChar = new ArrayList<Character>() ;
+        UtilizadorRegistado u = this.users.get(username) ;
+        Set<String> categSeg = u.getCategSeguidas().keySet(), usersSeg = u.getUsersSeguidos().keySet() ;
+        for(Anuncio a : this.anuncios.values()) {
+            boolean c = contemAlgumElem(categSeg, a.getCategorias().keySet()), us = u.existeUserSeguido(a.getAnunciante().getUsername()) ;
+            if(c && us) {
+                res.add(a.clone()) ;
+                causa.add(CATEG_E_USER) ;
+            }
+            else {
+                if (c || us) {
+                    catOuUser.add(a.clone()) ;
+                    catOuUserChar.add(c == true ? CATEG : USER) ;
+                }
+            }                
+        }
+        long l = System.nanoTime() ;
+        Collections.shuffle(catOuUser, new Random(l)) ;
+        Collections.shuffle(catOuUserChar, new Random(l)) ;
+        res.addAll(catOuUser) ;
+        causa.addAll(catOuUserChar) ;
+        return res;
+    }
+    
+    private boolean contemAlgumElem (Set<String> a, Set<String> b) {
+        
+        boolean res = false ;
+        for(Iterator<String> it = a.iterator(); it.hasNext() && !res; ) 
+            if(b.contains(it.next()))
+                res = true ;
+        return res ;
+    }
+    
+    public boolean ePossivelTrocar (String comprador, String vendedor) {
+        
+        boolean res = false ;
+        UtilizadorRegistado c = this.users.get(comprador), v = this.users.get(vendedor) ;
+        Set<String> catSegVend = this.users.get(vendedor).getCategSeguidas().keySet() ;
+        Collection<Anuncio> anuncs = this.anuncios.values() ;
+        for(Iterator<Anuncio> itA = anuncs.iterator(); itA.hasNext() && !res; ) {
+            Anuncio a = itA.next() ;
+            if((a.getEstadoAnuncio() == Anuncio.ABERTO) && (a.getQuantidade() > 0) && (a.getClass().toString().equals("VendaDirecta")) && a.getAnunciante().getUsername().equals(comprador) && contemAlgumElem(a.getCategorias().keySet(), catSegVend))
+                res = true ;
+        }
+        return res ;
+    }
+    
+    // pré-condição: comprador e vendedor existem
+    // Set vazio se não for possível sugerir
+    // ordenado de forma crescente pelo módulo da diferença entre o produto requerido pelo comprador e os sugeridos pela troca
+    public SortedSet<Anuncio> sugerirAnunciosTroca (String comprador, String vendedor, int codAnunc) {
+        
+        TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncTroca()) ;
+        UtilizadorRegistado c = this.users.get(comprador), v = this.users.get(vendedor) ;
+        Set<String> catSegVend = this.users.get(vendedor).getCategSeguidas().keySet() ;
+        Collection<Anuncio> anuncs = this.anuncios.values() ;
+        ComparadorAnuncTroca.precoAnuncTroca = this.anuncios.get(codAnunc).getPreco() ;
+        for(Iterator<Anuncio> itA = anuncs.iterator(); itA.hasNext(); ) {
+            Anuncio a = itA.next() ;
+            if((a.getEstadoAnuncio() == Anuncio.ABERTO) && (a.getQuantidade() > 0) && (a.getClass().toString().equals("VendaDirecta")) && a.getAnunciante().getUsername().equals(comprador) && contemAlgumElem(a.getCategorias().keySet(), catSegVend))
+                res.add(a.clone()) ;
+        }
+        return res ;
+    }
 }

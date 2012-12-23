@@ -8,6 +8,9 @@ import java.util.StringTokenizer;
 
 public class UtilizadorRegistado extends Utilizador {
 
+    // v. c.
+    private static double CLASSIFICACAO_MINIMA = 90 ;
+    
     // v. i.
     private Map<String, UtilizadorRegistado> usersSeguidos;
     private Map<Integer, Mensagem> enviadas;
@@ -209,6 +212,12 @@ public class UtilizadorRegistado extends Utilizador {
         t.setAvaliacao(a.clone());
         this.transaccoes.put(codTransac, t) ;
     }
+    
+    public boolean passwordCorresponde (String pw) {return this.password.equals(pw);}    
+    
+    public boolean eRecomendado () {return this.calcularRating() >= CLASSIFICACAO_MINIMA ;}
+    
+    public UtilizadorRegistado compradorTransaccao (int codTransac) {return this.transaccoes.get(codTransac).getComprador() ;}
     
     // m. c.
     // fonte: http://www.devx.com/tips/Tip/42339

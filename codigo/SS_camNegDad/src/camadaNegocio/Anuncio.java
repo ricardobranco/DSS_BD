@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Set;
 import java.util.Comparator;
+import java.lang.Math;
 
 public abstract class Anuncio {
 
@@ -15,9 +16,9 @@ public abstract class Anuncio {
     //public static final char ANUNCIO_COMPRA = 0 ;
     //public static final char ANUNCIO_VENDA = 1 ;
     
-    public static final char ABERTO = 2 ;
-    public static final char BLOQUEADO = 3 ;
-    public static final char ENCERRADO = 4 ;
+    public static final char ABERTO = 0 ;
+    public static final char BLOQUEADO = 1 ;
+    public static final char ENCERRADO = 2 ;
     
     // v. i.
     private Map<String, Tag> tags;
@@ -182,4 +183,19 @@ class ComparadorAnuncNVis implements Comparator<Anuncio> {
             return 1 ;
     }    
     public boolean equals (Object obj) { return this.equals(obj) ;}
+}
+
+class ComparadorAnuncTroca implements Comparator<Anuncio> {
+    
+    public static double precoAnuncTroca ;
+    
+    public int compare (Anuncio a, Anuncio b) {
+        
+        if(Math.abs(a.getPreco() - precoAnuncTroca) >= Math.abs(b.getPreco() - precoAnuncTroca))
+            return 1 ;
+        else
+            return -1 ;
+    }
+    public boolean equals (Object obj) {return this.equals(obj) ;}
+    
 }
