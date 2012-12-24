@@ -20,7 +20,12 @@ public class Sale_Squared extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int VISITANTE = 0;
+	public static final int REGISTADO = 1;
+	public static int ESTADO = VISITANTE;
 
+	JScrollPane scrollPane;
+	private JPanel panel_1;	
 	ImageIcon header = new ImageIcon(
 			Sale_Squared.class.getResource("/Imagens/header.png"));
 	private static final String OS = System.getProperty("os.name").toLowerCase();
@@ -37,8 +42,7 @@ public class Sale_Squared extends JFrame{
 			public void run() {
 				try {
 					Sale_Squared frame = new Sale_Squared();
-					if(isMac())
-						enableOSXFullscreen(frame);
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,6 +50,8 @@ public class Sale_Squared extends JFrame{
 			}
 		});
 	}
+	
+	
 	
 	public static boolean isMac() {
 		 
@@ -73,32 +79,44 @@ public class Sale_Squared extends JFrame{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sale_Squared.class.getResource("/Imagens/header.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1023, 621);
+		if(isMac())
+			enableOSXFullscreen(this);
 		
 		JPanel panel = new Header(this);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE))
+						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1011, Short.MAX_VALUE)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1011, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		JPanel panel_1 = new Home();
-		scrollPane.setViewportView(panel_1);
+		panel_1 = new Home(this);
+		scrollPane.setViewportView(this.panel_1);
 		getContentPane().setLayout(groupLayout);
 	}
+	
+	
+public void setBody(JPanel jp,String nome) {
+		this.setTitle("Sale Squared - "+ nome);
+		scrollPane.remove(this.panel_1);
+		scrollPane.setViewportView(jp);
+		
+	}
+	
+	
 }

@@ -2,6 +2,7 @@ package Interface;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
@@ -16,13 +17,13 @@ public class Home extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Home() {
+	public Home(JFrame jf) {
 		
 		JPanel panel = new Categorias();
 		
-		JPanel panel_2 = new Tabbed_Produtos();
+		JPanel panel_2 = new Tabbed_Produtos(jf);
 		
-		JPanel panel_1 = new Tabbed_Outros();
+		JPanel panel_1 = new Tabbed_Outros(jf);
 		panel_1.setVisible(true);
 		
 		JSeparator separator = new JSeparator();

@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -23,11 +24,21 @@ public class Produto_Base extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Produto_Base() {
+	public Produto_Base(final JFrame jf) {
 		
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JPanel anuncio = new Anuncio();
+				((Sale_Squared) jf).setBody(anuncio,"Nome do anuncio");
+				
+		
+		
+				
+				
+				
+				
+				
 			}
 		});
 		button.setIcon(new ImageIcon(Produto_Base.class.getResource("/Imagens/Sem_Imagem.png")));

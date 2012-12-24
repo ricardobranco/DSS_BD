@@ -96,6 +96,15 @@ public class Login extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton("Entrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						jf.dispose();
+						Sale_Squared.ESTADO=Sale_Squared.REGISTADO;
+						new Sale_Squared().setVisible(true);
+						dispose();
+						
+					}
+				});
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
 			}

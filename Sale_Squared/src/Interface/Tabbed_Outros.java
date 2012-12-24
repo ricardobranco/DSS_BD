@@ -1,5 +1,6 @@
 package Interface;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,7 +16,7 @@ public class Tabbed_Outros extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Outros() {
+	public Tabbed_Outros(JFrame jf) {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -35,9 +36,9 @@ public class Tabbed_Outros extends JPanel {
 		JPanel panel = new Top_Produtos();
 		tabbedPane.addTab("Mais Procurados", null, panel, null);
 		
-		JPanel panel_1 = new Produtos_Coluna();
-		JPanel panel_2 = new Utilizadores_Coluna();
-		if(Header.ESTADO != Header.REGISTADO){
+		JPanel panel_1 = new Utilizadores_Coluna();
+		JPanel panel_2 = new Produtos_Coluna(jf);
+		if(Sale_Squared.ESTADO == Sale_Squared.REGISTADO){
 			tabbedPane.addTab("Utilizadores Vigiados", null, panel_1, null);
 			tabbedPane.addTab("Negócios Vigiados", null, panel_2, null);
 			}

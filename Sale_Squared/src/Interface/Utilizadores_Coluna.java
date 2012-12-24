@@ -16,15 +16,15 @@ public class Utilizadores_Coluna extends JPanel {
 	 */
 	public Utilizadores_Coluna() {
 		
-		JPanel panel = new Produto_Base();
+		JPanel panel = new Utilizador_Base();
 		
-		JPanel panel_1 = new Produto_Base();
+		JPanel panel_1 = new Utilizador_Base();
 		
-		JPanel panel_2 = new Produto_Base();
+		JPanel panel_2 = new Utilizador_Base();
 		
-		JPanel panel_3 = new Produto_Base();
+		JPanel panel_3 = new Utilizador_Base();
 		
-		JPanel panel_4 = new Produto_Base();
+		JPanel panel_4 = new Utilizador_Base();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

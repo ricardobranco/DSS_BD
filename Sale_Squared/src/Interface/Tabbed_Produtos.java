@@ -1,5 +1,6 @@
 package Interface;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,7 +16,7 @@ public class Tabbed_Produtos extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Produtos() {
+	public Tabbed_Produtos(JFrame jf) {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -28,13 +29,13 @@ public class Tabbed_Produtos extends JPanel {
 				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
 		);
 		
-		JPanel panel = new Produtos_Coluna();
+		JPanel panel = new Produtos_Coluna(jf);
 		tabbedPane.addTab("Últimos Anúncios", null, panel, null);
 		
-		JPanel panel_1 = new Produtos_Coluna();
+		JPanel panel_1 = new Produtos_Coluna(jf);
 		tabbedPane.addTab("Negócios a Fechar", null, panel_1, null);
 		
-		JPanel panel_2 = new Produtos_Coluna();
+		JPanel panel_2 = new Produtos_Coluna(jf);
 		tabbedPane.addTab("Sugestões", null, panel_2, null);
 		setLayout(groupLayout);
 
