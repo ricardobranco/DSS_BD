@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.SortedSet;
 import java.util.Iterator;
+import java.util.Collection;
 
 public interface SaleSquaredFacade {
 
@@ -121,6 +122,8 @@ public interface SaleSquaredFacade {
     public SortedSet<Anuncio> sugerirAnunciosTroca (String comprador, String vendedor) ;
     
     public Iterator<Anuncio> ultimosAnuncios () ;
-    public GregorianCalendar tempoRestanteLeilao (int codAnunc) ;
-    public Set<Anuncio> anunciosSeguidos (String username) ;    
+    
+    public long tempoRestanteLeilao (int codAnunc) ;
+    
+    public Collection<Anuncio> anunciosSeguidos (String username) ;    
 }

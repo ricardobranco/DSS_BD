@@ -7,17 +7,20 @@ public class Transaccao {
     // v. c.
     public static final char SUCESSO = 0 ;
         
-    public static final char REJEITADA = 1 ;
-    public static final char REPORTADA = 6 ;
+    public static final char EU_REJEITAR = 1 ;
+    public static final char OUTRO_REJEITAR = 11 ;
     
-    public static final char COMP_AGUARDAR_RECEPCAO = 2 ;
-    public static final char COMP_AGUARDAR_PAGAMENTO = 7 ;
+    public static final char EU_REPORTAR = 6 ;
+    public static final char OUTRO_REPORTAR = 12 ;
     
-    public static final char VEND_AGUARDAR_PAGAMENTO = 3 ;    
-    public static final char VEND_AGUARDAR_RECEPCAO = 8 ;    
+    public static final char EU_AGUARDAR_RECEPCAO = 2 ;
+    public static final char EU_AGUARDAR_PAGAMENTO = 7 ;
     
-    public static final char COMP_AGUARDAR_ACEITACAO = 4 ;   
-    public static final char VEND_AGUARDAR_ACEITACAO = 5 ;
+    public static final char OUTRO_AGUARDAR_PAGAMENTO = 3 ;    
+    public static final char OUTRO_AGUARDAR_RECEPCAO = 8 ;    
+    
+    public static final char EU_AGUARDAR_ACEITACAO = 4 ;   
+    public static final char OUTRO_AGUARDAR_ACEITACAO = 5 ;
         
     // v. i.
     private Anuncio anuncio;

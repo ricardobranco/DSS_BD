@@ -56,4 +56,10 @@ public class Leilao extends ModoVenda {
         return new Leilao(this.precoBase, this.dataFim, this.nLicitacoes, this.precoActual) ;
     }
     
+    // outros métodos
+    public long calculaTempoRestante () {
+        
+        GregorianCalendar agora = new GregorianCalendar();
+        return this.dataFim.getTimeInMillis() - agora.getTimeInMillis() ;
+    }
 }

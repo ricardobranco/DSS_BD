@@ -4,11 +4,8 @@ import java.util.GregorianCalendar;
 
 public class Troca extends Transaccao {   
     
-    public static final char VEND_AGUARDAR_RECEPCAO_PAGAMENTO = 9 ;
-    public static final char COMP_AGUARDAR_RECEPCAO_PAGAMENTO = 9 ;   
-    
-    public static final char AGUARDAR_PAGAMENTO = 10 ;
-    public static final char AGUARDAR_RECEPCAO = 11 ;    
+    public static final char EU_AGUARDAR_RECEPCAO_PAGAMENTO = 9 ;
+    public static final char OUTRO_AGUARDAR_RECEPCAO_PAGAMENTO = 10 ;    
     
     // v.i.
     private Anuncio anuncioComp ;

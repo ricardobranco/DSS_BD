@@ -63,4 +63,9 @@ public class AnuncioVenda extends Anuncio {
         v.setnPropostas(v.getnPropostas()+1);
     }
     
+    // pré-condição: modo de venda é leilão
+    public long calculaTempoRestanteLeilao () {return ((Leilao)this.tipoVenda).calculaTempoRestante() ;}
+        
+    }
+    
 }
