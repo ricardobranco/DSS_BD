@@ -657,4 +657,21 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public long tempoRestanteLeilao (int codAnunc) {return ((AnuncioVenda)this.anuncios.get(codAnunc)).calculaTempoRestanteLeilao() ;}
     
     public Collection<Anuncio> anunciosSeguidos (String username) {return this.users.get(username).getAnuncSeguidos().values() ;}    
+    
+    // ordem decrescente de número de ocorrências
+    public SortedSet<Tag> topTags () {
+        
+        ComparadorAnuncioTag.ocorrenciasTags.clear() ;
+        for(Anuncio a : this.anuncios.values()) {
+            for(Tag t : a.getTags().values()) {
+                if(ComparadorAnuncioTag.ocorrenciasTags.containsKey(t))
+                    ComparadorAnuncioTag.ocorrenciasTags.put(t, ComparadorAnuncioTag.ocorrenciasTags.get(t)+1) ;
+                else
+                    ComparadorAnuncioTag.ocorrenciasTags.put(t, 1) ;
+            }
+        }
+        TreeSet<Tag> res = new TreeSet<Tag>(new ComparadorAnuncioTag()) ;
+        res.addAll(ComparadorAnuncioTag.ocorrenciasTags.keySet()) ;
+        return res ;
+    }
 }

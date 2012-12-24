@@ -126,4 +126,6 @@ public interface SaleSquaredFacade {
     public long tempoRestanteLeilao (int codAnunc) ;
     
     public Collection<Anuncio> anunciosSeguidos (String username) ;    
+    
+    public SortedSet<Tag> topTags () ;
 }

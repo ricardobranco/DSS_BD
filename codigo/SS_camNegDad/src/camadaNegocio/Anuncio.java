@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Set;
 import java.util.Comparator;
-import java.lang.Math;
+import java.util.HashMap;
 
 public abstract class Anuncio {
 
@@ -214,4 +214,18 @@ class ComparadorUltimosAnunc implements Comparator<Anuncio> {
             return -1 ;
     }
     public boolean equals (Object obj) {return this.equals(obj) ;}    
+}
+
+class ComparadorAnuncioTag implements Comparator<Tag> {
+    
+    public static Map<Tag, Integer> ocorrenciasTags = new HashMap<Tag, Integer>() ;
+    
+    public int compare (Tag a, Tag b) {
+        
+        if(ocorrenciasTags.get(a) >= ocorrenciasTags.get(b))
+            return -1 ;
+        else
+            return 1 ;
+    }
+    public boolean equals (Object obj) {return this.equals(obj) ;}        
 }
