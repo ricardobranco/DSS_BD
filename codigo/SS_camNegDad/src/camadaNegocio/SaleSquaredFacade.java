@@ -128,4 +128,6 @@ public interface SaleSquaredFacade {
     public Collection<Anuncio> anunciosSeguidos (String username) ;    
     
     public SortedSet<Tag> topTags () ;
+    
+    public void iniciarConexao () ;
 }

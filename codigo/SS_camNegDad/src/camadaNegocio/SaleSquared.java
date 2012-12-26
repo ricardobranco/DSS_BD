@@ -1,6 +1,7 @@
 package camadaNegocio ;
 
 import java.util.*;
+import camadaDados.ConexaoBD ;
 
 public class SaleSquared extends Observable implements SaleSquaredFacade {
 
@@ -674,4 +675,6 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         res.addAll(ComparadorAnuncioTag.ocorrenciasTags.keySet()) ;
         return res ;
     }
+    
+    public void iniciarConexao () { ConexaoBD.iniciarConexao() ;}
 }
