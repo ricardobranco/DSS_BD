@@ -1,0 +1,122 @@
+package Presentation_Layer;
+
+import java.awt.CardLayout;
+import java.awt.EventQueue;
+import java.awt.Window;
+import java.lang.reflect.Method;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+public class Sale_Squared extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static boolean REGISTADO = false;
+	public static final String OS = System.getProperty("os.name").toLowerCase();
+
+	private final JPanel panel = new JPanel();
+	private final JPanel panel_1 = new JPanel();
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					final Sale_Squared frame = new Sale_Squared();
+					if(isMac())
+						enableOSXFullscreen(frame);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
+	public static boolean isMac() {
+		 
+		return (OS.indexOf("mac") >= 0);
+ 
+	}
+
+	 public static void enableOSXFullscreen(Window window) {
+	        try {
+	            Class<?> util = Class.forName("com.apple.eawt.FullScreenUtilities");
+	            Class<?> params[] = new Class[]{Window.class, Boolean.TYPE};
+	            Method method = util.getMethod("setWindowCanFullScreen", params);
+	            method.invoke(util, window, true);
+	        } catch (ClassNotFoundException exp) {
+	            exp.printStackTrace();
+	        } catch (Exception exp) {
+	            exp.printStackTrace();
+	        }
+	    }
+	 
+	 
+	 
+
+	/**
+	 * Create the frame.
+	 */
+	public Sale_Squared() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 685, 574);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		scrollPane.setViewportView(panel_1);
+		panel_1.setLayout(new CardLayout(0, 0));
+		panel.setLayout(new CardLayout(0, 0));
+		panel.add(new Header(this),"Header");
+		panel_1.add(new Home(this),"Home");
+		getContentPane().setLayout(groupLayout);
+		
+	}
+	
+	public void reloadHeader(){
+		this.panel.removeAll();
+		this.panel.add(new Header(this),"Header");
+		this.panel.updateUI();
+		this.panel.validate();
+	}
+	
+	public void setBody(JPanel jp , String nome){
+		this.panel_1.removeAll();
+		this.panel_1.add(jp, nome);
+		this.panel_1.updateUI();
+		this.panel_1.validate();
+		}
+}
