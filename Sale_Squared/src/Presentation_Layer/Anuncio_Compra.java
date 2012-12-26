@@ -96,6 +96,8 @@ public class Anuncio_Compra extends JPanel {
 		JLabel lblNewLabel_16 = new JLabel("Sale_Squared");
 		
 		JButton btnNewButton_4 = new JButton("Ver Perfil");
+		
+		JButton btnNewButton_5 = new JButton("Trocar");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -104,7 +106,7 @@ public class Anuncio_Compra extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(separator, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+								.addComponent(separator, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(lblNewLabel)
@@ -121,7 +123,9 @@ public class Anuncio_Compra extends JPanel {
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblNewLabel_7)
 											.addGap(18)
-											.addComponent(btnNewButton))
+											.addComponent(btnNewButton)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnNewButton_5))
 										.addComponent(lblNewLabel_12)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblNewLabel_9)
@@ -131,7 +135,8 @@ public class Anuncio_Compra extends JPanel {
 												.addGroup(groupLayout.createSequentialGroup()
 													.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(btnNewButton_1))))))))
+													.addComponent(btnNewButton_1)))))
+									.addGap(33))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(44)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -144,19 +149,16 @@ public class Anuncio_Compra extends JPanel {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblLocalizo)
 									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblNewLabel_13)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblNewLabel_13)
-											.addGap(172))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblNewLabel_14, Alignment.LEADING)
-												.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-													.addGap(37)
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-														.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
-											.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE)))))))
+											.addGap(6)
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(lblNewLabel_14, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(btnNewButton_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addComponent(btnNewButton_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+							.addGap(147)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -178,7 +180,8 @@ public class Anuncio_Compra extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_6)
 						.addComponent(lblNewLabel_7)
-						.addComponent(btnNewButton))
+						.addComponent(btnNewButton)
+						.addComponent(btnNewButton_5))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_11)
@@ -204,11 +207,11 @@ public class Anuncio_Compra extends JPanel {
 						.addComponent(lblNewLabel_13))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblNewLabel_14)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton_2)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton_3)
-					.addContainerGap(31, Short.MAX_VALUE))
+					.addContainerGap(131, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 

@@ -28,6 +28,7 @@ public class Header extends JPanel {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				root.reloadHeader();
+				root.setBody(new Home(root),"Home");
 			}
 		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

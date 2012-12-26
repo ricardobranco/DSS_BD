@@ -28,7 +28,7 @@ public class Produto_Base extends JPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel anuncio = new Anuncio();
+				JPanel anuncio = new Anuncio(root);
 				root.setBody(anuncio,"Nome do anuncio");
 				
 		
