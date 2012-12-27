@@ -8,8 +8,8 @@ public class Moderador extends UtilizadorRegistado {
     private char nivelPermiss;
     
     // construtor
-    public Moderador (String username, String password, char estado, String email, String morada, String infPessoal, String imagem, double rating, String contacto, String nome, GregorianCalendar dn, char nivelPerm) {
-        super(username, password, estado, email, morada, infPessoal, imagem, rating, contacto, nome, dn) ;
+    public Moderador (int id, String username, String password, char estado, String email, String morada, String codPostal, String localidade, String pais, String infPessoal, String imagem, String contacto, String nome, GregorianCalendar dn, char nivelPerm) {
+        super(id, username, password, estado, email, morada, codPostal, localidade, pais, infPessoal, imagem, contacto, nome, dn) ;
         this.nivelPermiss = nivelPerm ;
     }
     
@@ -27,26 +27,19 @@ public class Moderador extends UtilizadorRegistado {
             return false;
         }
         final Moderador other = (Moderador) obj;
-        if (this.nivelPermiss != other.getNivelPermiss()) {
+        if (!this.getUsername().equals(other.getUsername())) {
             return false;
-        }
-        if (!super.equals((UtilizadorRegistado)other))
-            return false;
+        }        
         return true;
     }
 
     @Override
     public String toString() {
-        return "Moderador{" + "nivelPermiss=" + this.nivelPermiss + '}';
+        return "Moderador{" + "nivelPermiss=" + this.nivelPermiss + super.toString() + '}';
     }
-    /* dao..
+    
     @Override
     public Moderador clone () {
-        return new Moderador() ;
+        return new Moderador(this.getId(), this.getUsername(), this.getPassword(), this.getEstado(), this.getEmail(), this.getMorada(), this.getCodPostal(), this.getLocalidade(), this.getPais(), this.getInfPessoal(), this.getImagem(), this.getContacto(), this.getNome(), this.getDataNasc(), this.nivelPermiss) ;
     } 
-    */ 
-    
-    
-    
-
 }

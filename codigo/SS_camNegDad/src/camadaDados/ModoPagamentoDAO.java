@@ -3,13 +3,13 @@ package camadaDados ;
 import java.util.* ;
 import java.sql.* ;
 
-public class ImagemAnuncioDAO implements Set<String> {
+public class ModoPagamentoDAO implements Set<String> {
 
     // v. i.
     private int codAnunc ;
     
     // construtor
-    public ImagemAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
+    public ModoPagamentoDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
     
     // interface Set
     public boolean add(String s) {

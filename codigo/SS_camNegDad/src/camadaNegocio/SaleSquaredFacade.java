@@ -37,7 +37,7 @@ public interface SaleSquaredFacade {
     
     public void seguirUser(String uNameSeguidor, UtilizadorRegistado u);
     public void seguirAnuncio(String uName, Anuncio anuncio);
-    public void seguirCategoria(String uName, String categoria);
+    public void seguirCategoria(String uName, Categoria categoria);
 
     public void deixarSegUser(String uNameSeguidor, String uNameSeguido);
     public void deixarSegAnuncio(String uNameSeguidor, int codAnunc) ;
@@ -93,7 +93,7 @@ public interface SaleSquaredFacade {
     public void adicionarLeilaoLicitacao(int codAnunc, double valor) ;
     public void adicionarVendaDirectaProposta(int codAnunc) ;
     
-    public boolean temRating (String username) ;
+    public boolean temUserRating (String username) ;
     public double calcularRegistadoRating(String username) ;
     public boolean eUserConfiavel (String username) ;
     
@@ -103,11 +103,11 @@ public interface SaleSquaredFacade {
     public SortedSet<Anuncio> procurarAnuncMaisVis() ;    
 
     public void avaliarAnuncio(int codAnunc, Avaliacao avaliacao) ;
-    public void avaliarTransac(Avaliacao avalicao, String avaliado, int codTransac) ;    
+    public void avaliarTransac(/*Avaliacao avalicao,*/ String avaliado, int codTransac) ;    
     
     public boolean eValidoEmail (String email);
     public boolean eValidaPassword (String pw);
-    public boolean eValidoContacto (String contacto);
+    //public boolean eValidoContacto (String contacto);
     
     public int registaIdMsg () ;
     public int registaIdTransac () ;
@@ -119,7 +119,7 @@ public interface SaleSquaredFacade {
     public ArrayList<Anuncio> sugerirAnuncios (String username, ArrayList<Character> causa) ;
     
     public boolean ePossivelTrocar (String comprador, String vendedor) ;
-    public SortedSet<Anuncio> sugerirAnunciosTroca (String comprador, String vendedor) ;
+    public SortedSet<Anuncio> sugerirAnunciosTroca (String comprador, String vendedor, int codAnunc) ;
     
     public Iterator<Anuncio> ultimosAnuncios () ;
     
@@ -130,4 +130,5 @@ public interface SaleSquaredFacade {
     public SortedSet<Tag> topTags () ;
     
     public void iniciarConexao () ;
+    public void terminarConexao () ;
 }

@@ -19,21 +19,10 @@ public class Categoria {
     }
 
     // get and set
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Categoria getCategoriaPai() {
-        return categoriaPai;
-    }
-
-    public void setCategoriaPai(Categoria categoriaPai) {
-        this.categoriaPai = categoriaPai;
-    }
+    public String getNome() {return nome;}
+    public void setNome(String nome) {this.nome = nome;}
+    public Categoria getCategoriaPai() {return categoriaPai;}
+    public void setCategoriaPai(Categoria categoriaPai) {this.categoriaPai = categoriaPai;}
     
     // e, c, tS 
     @Override
@@ -48,9 +37,6 @@ public class Categoria {
         if (!this.nome.equals(other.getNome())) {
             return false;
         }
-        if (!this.categoriaPai.equals(other.getCategoriaPai())) {
-            return false;
-        }
         return true;
     }
 
@@ -63,8 +49,4 @@ public class Categoria {
     public Categoria clone () {
         return new Categoria(this.nome, (this.categoriaPai == null ? null : this.categoriaPai.clone())) ;
     }
-    
-    
-    
-
 }

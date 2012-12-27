@@ -1,27 +1,60 @@
 package camadaNegocio ;
 
 import java.util.GregorianCalendar;
-import java.util.Map;
 import java.util.Set;
+import camadaDados.ModoPagamentoDAO ;
 
 public class AnuncioVenda extends Anuncio {
 
+    // v. c.
+    public static String[] MODOS_PAGAMENTO = {"PayPal", "Transferência Bancária", "Dinheiro", "Envio à cobranca", "Descrição"} ;
+    
     // v. i.
     private ModoVenda tipoVenda;
+    private Set<String> modosPagamento ;
+    private boolean envioEstrangeiro ;
+    private String condicoesEnvio ;
+    private double precoEnvio ;
+    private double seguro ;
+    private String metodoEnvio ;
+    private boolean propostaTrocar; 
     
     // construtor
-    public AnuncioVenda(Map<String,Tag> tags, Map<String, Categoria> categorias, Map<Integer, Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, Set<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, ModoVenda modoV) {
-        super(tags, categorias, avaliacoes, codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, imagens, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;
+    public AnuncioVenda(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, boolean envioEstrangeiro, String condicoesEnvio, double precoEnvio, double seguro, String metodoEnvio, boolean possivelTrocar, ModoVenda modoV) {
+        super(codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;
         this.tipoVenda = modoV ;
+        this.modosPagamento = new ModoPagamentoDAO(codigo) ;
+        this.envioEstrangeiro = envioEstrangeiro ;
+        this.condicoesEnvio = condicoesEnvio ;
+        this.precoEnvio = precoEnvio ;
+        this.seguro = seguro ;
+        this.metodoEnvio = metodoEnvio ;
+        this.propostaTrocar = possivelTrocar ;
+    
     }
     
     public AnuncioVenda (int codigo) {
-        super(codigo) ;
+        super(codigo) ;        
+        this.modosPagamento = new ModoPagamentoDAO(codigo) ;
     }
     
     // get e set
     public ModoVenda getTipoVenda() {return tipoVenda;}
     public void setTipoVenda(ModoVenda tipoVenda) {this.tipoVenda = tipoVenda;}
+    public Set<String> getModosPagamento() {return modosPagamento;}
+    public void setModosPagamento(Set<String> modosPagamento) {this.modosPagamento = modosPagamento;}
+    public boolean isEnvioEstrangeiro() {return envioEstrangeiro;}
+    public void setEnvioEstrangeiro(boolean envioEstrangeiro) {this.envioEstrangeiro = envioEstrangeiro;}
+    public String getCondicoesEnvio() {return condicoesEnvio;}
+    public void setCondicoesEnvio(String condicoesEnvio) {this.condicoesEnvio = condicoesEnvio;}
+    public double getSeguro() {return seguro;}
+    public void setSeguro(double seguro) {this.seguro = seguro;}
+    public double getPrecoEnvio () {return this.precoEnvio ;}
+    public void setPrecoEnvio (double p) {this.precoEnvio = p ;}
+    public String getMetodoEnvio() {return this.metodoEnvio;}
+    public void setMetodoEnvio(String metodoEnvio) {this.metodoEnvio = metodoEnvio;}  
+    public boolean getPossivelTrocar() { return this.propostaTrocar ;}
+    public void setPossivelTrocar (boolean b) { this.propostaTrocar = b ;}
     
     // e, c, tS
     @Override
@@ -43,13 +76,12 @@ public class AnuncioVenda extends Anuncio {
     public String toString() {
         return super.toString() + "AnuncioVenda{" + "tipoVenda=" + this.tipoVenda.toString() + '}';
     }
-    /*
-    @Override
-    public AnuncioCompra clone () {
-        return new AnuncioCompra(this.getTags().clone(), this.getCategoria().clone(), this.getAvaliacoes.clone(), this.getCodigo(), this.getTitulo(), this.getDataInser(), this.getDataExpir(), this.getPreco(), this.getDescricao(), this.getQuantidade(), this.getImagens().clone(), this.getnVisitas(), this.getEstadoProduto(), this.getEstadoAnuncio(), this.getAnunciante().clone(), this.respostas.clone()) ;
-    }
-    */
     
+    @Override
+    public AnuncioVenda clone () {
+        return new AnuncioVenda(this.getCodigo(), this.getTitulo(), this.getDataInser(), this.getDataExpir(), this.getPreco(), this.getDescricao(), this.getQuantidade(), this.getnVisitas(), this.isEstadoProduto(), this.getEstadoAnuncio(), this.getAnunciante().clone(), this.envioEstrangeiro, this.condicoesEnvio, this.precoEnvio, this.seguro, this.metodoEnvio, this.propostaTrocar, (this.tipoVenda.getClass().toString().equals("Leilao") ? ((Leilao)this.tipoVenda).clone() : ((VendaDirecta)this.tipoVenda).clone())) ;
+    }
+        
     // outros
     public void adicionarLicitacao (double valor) {
         
@@ -64,8 +96,5 @@ public class AnuncioVenda extends Anuncio {
     }
     
     // pré-condição: modo de venda é leilão
-    public long calculaTempoRestanteLeilao () {return ((Leilao)this.tipoVenda).calculaTempoRestante() ;}
-        
-    }
-    
-}
+    public long calculaTempoRestanteLeilao () {return ((Leilao)this.tipoVenda).calculaTempoRestante() ;}      
+}    

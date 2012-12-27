@@ -2,14 +2,15 @@ package camadaNegocio ;
 
 import java.util.Map;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.regex.* ;
 import java.util.StringTokenizer;
+import camadaDados.* ;
 
 public class UtilizadorRegistado extends Utilizador {
 
     // v. c.
-    private static double CLASSIFICACAO_MINIMA = 90 ;
+    public static double CLASSIFICACAO_MINIMA = 90 ;
     
     // v. i.
     private Map<String, UtilizadorRegistado> usersSeguidos;
@@ -18,12 +19,15 @@ public class UtilizadorRegistado extends Utilizador {
     private Map<Integer, Anuncio> anuncSeguidos;
     private Map<String, Categoria> categSeguidas;
     private Map<Integer, Transaccao> transaccoes;
-    private Map<Integer, Avaliacao> rating;
+    //private Map<Integer, Avaliacao> rating;
     private String username;
     private String password;
     private char estado;
     private String email;
     private String morada;
+    private String codPostal ;
+    private String localidade ;
+    private String pais ;
     private String infPessoal;
     private String imagem;    
     private String contacto;
@@ -31,24 +35,41 @@ public class UtilizadorRegistado extends Utilizador {
     private GregorianCalendar dataNasc;
     
     // construtor - DAO
-    public UtilizadorRegistado(String username, String password, char estado, String email, 
-     String morada, String infPessoal, String imagem, Map<Integer, Avaliacao> rating, String contacto, String nome, GregorianCalendar dn) {
+    public UtilizadorRegistado(int id, String username, String password, char estado, String email, 
+     String morada, String codPostal, String localidade, String pais, String infPessoal, String imagem, String contacto, String nome, GregorianCalendar dn) {
+        super(id) ;
+        this.usersSeguidos = new UserSeguidoDAO(username) ;
+        this.enviadas = new MsgEnviadaDAO(username) ;
+        this.recebidas = new MsgRecebidaDAO(username) ;
+        this.anuncSeguidos = new AnuncioSeguidoDAO(username) ;
+        this.categSeguidas = new CategoriaSeguidaDAO(username) ;
+        this.transaccoes = new TransaccaoDAO(username) ;
         this.username = username;
         this.password = password;
         this.estado = estado;
         this.email = email;
         this.morada = morada;
+        this.codPostal = codPostal ;
+        this.localidade = localidade ;
+        this.pais = pais ;
         this.infPessoal = infPessoal;
         this.imagem = imagem;
-        this.rating = rating;
+        //this.rating = rating;
         this.contacto = contacto;
         this.nome = nome;
-        this.dataNasc = dn;
-        // super
+        this.dataNasc = dn;        
     }
     
     public UtilizadorRegistado(String username){
+        
+        super();
         this.username = username ;
+        this.usersSeguidos = new UserSeguidoDAO(username) ;
+        this.enviadas = new MsgEnviadaDAO(username) ;
+        this.recebidas = new MsgRecebidaDAO(username) ;
+        this.anuncSeguidos = new AnuncioSeguidoDAO(username) ;
+        this.categSeguidas = new CategoriaSeguidaDAO(username) ;
+        this.transaccoes = new TransaccaoDAO(username) ;
     }
     
     // get e set
@@ -62,12 +83,18 @@ public class UtilizadorRegistado extends Utilizador {
     public void setEmail(String email) {this.email = email;}
     public String getMorada() {return morada;}
     public void setMorada(String morada) {this.morada = morada;}
+    public String getCodPostal () {return this.codPostal ;}
+    public void setCodPostal (String codPostal) {this.codPostal = codPostal ;}
+    public String getLocalidade () {return this.localidade ;}
+    public void setLocalidade (String localidade) {this.localidade = localidade ;}
+    public String getPais () {return this.pais ;}
+    public void setPais (String pais) {this.pais = pais ;}
     public String getInfPessoal() {return infPessoal;}
     public void setInfPessoal(String infPessoal) {this.infPessoal = infPessoal;}
     public String getImagem() {return imagem;}
     public void setImagem(String imagem) {this.imagem = imagem;}
-    public Map<Integer, Avaliacao> getRating() {return rating;}
-    public void setRating(Map<Integer, Avaliacao> rating) {this.rating = rating;}
+    //public Map<Integer, Avaliacao> getRating() {return rating;}
+    //public void setRating(Map<Integer, Avaliacao> rating) {this.rating = rating;}
     public String getContacto() {return contacto;}
     public void setContacto(String contacto) {this.contacto = contacto;}
     public String getNome() {return nome;}
@@ -111,25 +138,15 @@ public class UtilizadorRegistado extends Utilizador {
         + this.categSeguidas.toString() + ", transaccoes=" + this.transaccoes.toString() + ", username=" 
         + this.username + ", password=" + this.password + ", estado=" + this.estado + ", email=" + this.email 
         + ", morada=" + this.morada + ", infPessoal=" + this.infPessoal + ", imagem=" + this.imagem + ", rating=" 
-        + this.rating.toString() + ", contacto=" + this.contacto + ", nome=" + this.nome + ", dataNasc=" 
+        /*+ this.rating.toString()*/ + ", contacto=" + this.contacto + ", nome=" + this.nome + ", dataNasc=" 
         + this.dataNasc + super.toString() + '}';
     }
-   /*
+
     @Override
     public UtilizadorRegistado clone () {
         
-    } */
-    
-    // m. c.
-    public static boolean passwordValida (String pw) {
-        
-        return true;
-    }
-    
-    public static boolean emailValido (String email) {
-        
-        return true;
-    }
+        return new UtilizadorRegistado(this.getId(), this.username, this.password, this.estado, this.email, this.morada, this.codPostal, this.localidade, this.pais, this.infPessoal, this.imagem, this.contacto, this.nome, this.dataNasc) ;        
+    } 
     
     // gestao maps
     public Transaccao inserirTransaccao (Transaccao t) {return this.transaccoes.put(t.getId(), t.clone()) ;}      
@@ -160,7 +177,7 @@ public class UtilizadorRegistado extends Utilizador {
     public boolean temMsgRecs() {return !this.recebidas.isEmpty() ;}
     public boolean eNullMsgRecs () {return this.recebidas == null; }
     
-    public Anuncio inserirAnuncSeguido(Anuncio a) {return this.anuncSeguidos.put(a.getCodigo(), a.clone()) ;}
+    public Anuncio inserirAnuncSeguido(Anuncio a) {return this.anuncSeguidos.put(a.getCodigo(), (a.getClass().toString().equals("AnuncioVenda") ? ((AnuncioVenda)a).clone() : ((AnuncioCompra)a).clone())) ;}
     public Anuncio removerAnuncSeguido(int codAnunc) {return this.anuncSeguidos.remove(codAnunc) ;}
     public Anuncio encontrarAnuncSeguido(int codAnunc) {return this.anuncSeguidos.get(codAnunc) ;}
     public boolean existeAnuncSeguido(int codAnunc) {return this.anuncSeguidos.containsKey(codAnunc) ;}
@@ -174,14 +191,14 @@ public class UtilizadorRegistado extends Utilizador {
     public boolean temCategSeguidas() {return !this.categSeguidas.isEmpty() ;}
     public boolean eNullCategSeguidas () {return this.categSeguidas == null; }
     
-    public Avaliacao inserirAvaliacao(Avaliacao a) {return this.rating.put(a.getId(), a.clone()) ;}
+    /*public Avaliacao inserirAvaliacao(Avaliacao a) {return this.rating.put(a.getId(), a.clone()) ;}
     public Avaliacao removerAvaliacao(int a) {return this.rating.remove(a) ;}
     public Avaliacao encontrarAvaliacao(int a) {return this.rating.get(a) ;}
     public boolean existeAvaliacao(int a) {return this.rating.containsKey(a) ;}
     public boolean temAvaliacoes() {return !this.rating.isEmpty() ;}
-    public boolean eNullAvaliacoes () {return this.rating == null; }
+    public boolean eNullAvaliacoes () {return this.rating == null; } */
     
-    public double calcularRating() {
+    /* public double calcularRating() {
         
         double res = 0 ;
         int n = 0 ;
@@ -190,12 +207,12 @@ public class UtilizadorRegistado extends Utilizador {
             n++;
         }
         return res/(double)n ;
-    }
+    }*/
     
-    public boolean temRating() {
+    /* public boolean temRating() {
         
         return (this.rating != null) && (this.rating.isEmpty() == false) ;
-    }
+    }*/
     
     public void setMsgLida(int codMsg) {
         
@@ -206,16 +223,16 @@ public class UtilizadorRegistado extends Utilizador {
     
     public boolean estaMsgLida (int codMsg) { return this.recebidas.get(codMsg).getLida() ;}
     
-    public void reportarTransaccao(Avaliacao a, int codTransac) {
+    /* public void reportarTransaccao(Avaliacao a, int codTransac) {
         
         Transaccao t = this.transaccoes.get(codTransac) ;
         t.setAvaliacao(a.clone());
         this.transaccoes.put(codTransac, t) ;
-    }
+    }*/
     
     public boolean passwordCorresponde (String pw) {return this.password.equals(pw);}    
     
-    public boolean eRecomendado () {return this.calcularRating() >= CLASSIFICACAO_MINIMA ;}
+    /* public boolean eRecomendado () {return this.calcularRating() >= CLASSIFICACAO_MINIMA ;} */
     
     public UtilizadorRegistado compradorTransaccao (int codTransac) {return this.transaccoes.get(codTransac).getComprador() ;}
     
@@ -262,7 +279,7 @@ public class UtilizadorRegistado extends Utilizador {
         return res ;            
     }
     
-    public static boolean validaContacto (String contacto) {
+    /*public static boolean validaContacto (String contacto) {
         
         boolean res = true ;
         int i = 0 ;
@@ -272,5 +289,5 @@ public class UtilizadorRegistado extends Utilizador {
                 res = false ;            
         }
         return res && (contacto.length() == 9) ;            
-    }
+    }*/
 }

@@ -1,16 +1,16 @@
 package camadaDados;
 
-import camadaNegocio.Categoria ;
+import camadaNegocio.* ;
 import java.util.* ;
 import java.sql.* ;
 
-public class CategoriaAnuncioDAO implements Map<String, Categoria> {
+public class TransaccaoDAO implements Map<Integer, Transaccao> {
     
     // v. i.    
-    private int codAnunc ;
+    private String username ;
     
     // construtor    
-    public CategoriaAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
+    public TransaccaoDAO (String usernameArg) {this.username = usernameArg ;}
     
     // interface Map
     public void clear () {
@@ -23,6 +23,7 @@ public class CategoriaAnuncioDAO implements Map<String, Categoria> {
     
     public boolean containsKey(Object key) throws NullPointerException {
         try {
+            Integer chave = (Integer)key ;
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "SELECT";
             ResultSet rs = stm.executeQuery(sql);
@@ -32,12 +33,13 @@ public class CategoriaAnuncioDAO implements Map<String, Categoria> {
     }
     
     public boolean containsValue(Object value) {throw new NullPointerException("public boolean containsValue(Object value) not implemented!");}    
-    public Set<Map.Entry<String, Categoria>> entrySet() {throw new NullPointerException("entrySet() not implemented!");}    
+    public Set<Map.Entry<Integer, Transaccao>> entrySet() {throw new NullPointerException("entrySet() not implemented!");}    
     public boolean equals(Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
     
-    public Categoria get(Object key) {
+    public Transaccao get(Object key) {
         try {
-            Categoria al = null;
+            Integer chave = (int)key ;
+            Transaccao al = null;
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "SELECT";
             ResultSet rs = stm.executeQuery(sql);
@@ -60,11 +62,11 @@ public class CategoriaAnuncioDAO implements Map<String, Categoria> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Set<String> keySet() {throw new NullPointerException("Not implemented!");}
+    public Set<Integer> keySet() {throw new NullPointerException("Not implemented!");}
     
-    public Categoria put(String key, Categoria value) {
+    public Transaccao put(Integer key, Transaccao value) {
         try {
-            Categoria al = null;
+            Transaccao al = null;
             Statement stm = ConexaoBD.getConexao().createStatement();
             stm.executeUpdate("DELETE");
             String sql = "INSERT INTO";
@@ -76,12 +78,12 @@ public class CategoriaAnuncioDAO implements Map<String, Categoria> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public void putAll(Map<? extends String,? extends Categoria> t) {throw new NullPointerException("Not implemented!");}
+    public void putAll(Map<? extends Integer,? extends Transaccao> t) {throw new NullPointerException("Not implemented!");}
     
-    public Categoria remove(Object key) {
+    public Transaccao remove(Object key) {
         try {
-            String chave = (String)key ;
-            Categoria al = this.get(chave);
+            Integer chave = (Integer)key ;
+            Transaccao al = this.get(chave);
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "DELETE ";
             int i  = stm.executeUpdate(sql);
@@ -101,9 +103,9 @@ public class CategoriaAnuncioDAO implements Map<String, Categoria> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Collection<Categoria> values() {
+    public Collection<Transaccao> values() {
         try {
-            Collection<Categoria> col = new HashSet<Categoria>();
+            Collection<Transaccao> col = new HashSet<Transaccao>();
             Statement stm = ConexaoBD.getConexao().createStatement();
             ResultSet rs = stm.executeQuery("SELECT");
             //for (;rs.next();) {

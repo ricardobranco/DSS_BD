@@ -5,7 +5,7 @@ import java.util.* ;
 import java.sql.* ;
 
 public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
-    
+           
     // v. i.    
     private int codAnunc ;
     

@@ -50,14 +50,6 @@ public class Mensagem {
             return false;
         }
         final Mensagem other = (Mensagem) obj;
-        /*if(!this.emissor.equals(other.getEmissor()))
-            return false ;
-        if(!this.receptor.equals(other.getReceptor()))
-            return false ;
-        if(!this.dataEnvio.equals(other.getDataEnvio()))
-            return false ;
-        if(!this.assunto.equals(other.getAssunto()))
-            return false ;*/
         if(this.id != other.getId())
             return false;
         return true;
@@ -70,11 +62,8 @@ public class Mensagem {
         + this.corpo + ", lida=" + this.lida + '}';
     }
     
-    /* falta clone em UserRegistado
     @Override
     public Mensagem clone () {
         return new Mensagem(this.id, this.emissor.clone(), this.receptor.clone(), this.dataEnvio, this.assunto, this.corpo, this.lida) ;
     }
-    */ 
-
 }

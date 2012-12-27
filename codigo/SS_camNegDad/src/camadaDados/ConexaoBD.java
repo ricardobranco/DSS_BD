@@ -14,7 +14,7 @@ public class ConexaoBD {
     public static Connection conexao ;
     
     // m. c.
-    public static void iniciarConnexao () {
+    public static void iniciarConexao () {
         
         try {
             conexao = DriverManager.getConnection(url, user, pw) ;
@@ -22,4 +22,11 @@ public class ConexaoBD {
     }
     
     public static Connection getConexao () {return ConexaoBD.conexao ;}
+    
+    public static void terminarConexao () {
+        
+        try{
+            conexao.close();
+        } catch (SQLException e) {}        
+    }
 }

@@ -13,13 +13,8 @@ public class Tag {
     }
     
     // get and set
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getNome() {return nome;}
+    public void setNome(String nome) {this.nome = nome;}
     
     // e, c, tS
     @Override
@@ -45,6 +40,5 @@ public class Tag {
     @Override
     public Tag clone () {
         return new Tag(this.nome) ;
-    }
-    
+    }    
 }

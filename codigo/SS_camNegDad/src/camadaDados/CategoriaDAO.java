@@ -4,13 +4,10 @@ import camadaNegocio.Categoria ;
 import java.util.* ;
 import java.sql.* ;
 
-public class CategoriaAnuncioDAO implements Map<String, Categoria> {
-    
-    // v. i.    
-    private int codAnunc ;
-    
+public class CategoriaDAO implements Map<String, Categoria> {
+        
     // construtor    
-    public CategoriaAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
+    public CategoriaDAO () {}
     
     // interface Map
     public void clear () {

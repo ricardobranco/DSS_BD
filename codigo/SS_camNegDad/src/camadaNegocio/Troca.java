@@ -11,8 +11,8 @@ public class Troca extends Transaccao {
     private Anuncio anuncioComp ;
     
     // construtor
-    public Troca(Anuncio anuncioComp, Anuncio anuncio, UtilizadorRegistado vendedor, UtilizadorRegistado comprador, Avaliacao avaliacao, int id, GregorianCalendar data, double valor, String modoPagamento, String morada, char estado, int quantidade) {
-        super(anuncio, vendedor, comprador, avaliacao, id, data, valor, modoPagamento, morada, estado, quantidade) ;
+    public Troca(Anuncio anuncioComp, Anuncio anuncio, UtilizadorRegistado vendedor, UtilizadorRegistado comprador/*, Avaliacao avaliacao*/, int id, GregorianCalendar data, double valor, String modoPagamento, String moradaFact, String codPostalFact, String localidadeFact, String paisFact, char estado, int quantidade) {
+        super(anuncio, vendedor, comprador, /*avaliacao,*/ id, data, valor, modoPagamento, moradaFact, codPostalFact, localidadeFact, paisFact, estado, quantidade) ;
         this.anuncioComp = anuncioComp;
     }  
     
@@ -42,8 +42,7 @@ public class Troca extends Transaccao {
     }
     
     @Override
-    public Troca clone () {
-        
-        return new Troca(this.getAnuncio().clone(), this.getVendedor().clone(), this.getComprador.clone(), this.getAvaliacao().clone(), this.getId(), this.getData(), this.getValor(), this.getModoPagamento(), this.getMorada(), this.getEstado(), this.getQuantidade(), this.anuncioComp.clone()) ;
+    public Troca clone () {        
+        return new Troca(((AnuncioVenda)this.getAnuncio()).clone(), ((AnuncioVenda)this.anuncioComp).clone(), this.getVendedor().clone(), this.getComprador().clone(), /*this.getAvaliacao().clone(),*/ this.getId(), this.getData(), this.getValor(), this.getModoPagamento(), this.getMorada(), this.getCodPostalFact(), this.getLocalidadeFact(), this.getPaisFact(), this.getEstado(), this.getQuantidade()) ;
     }
 }

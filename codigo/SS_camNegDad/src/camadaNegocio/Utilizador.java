@@ -1,25 +1,28 @@
 package camadaNegocio ;
 
+import camadaDados.AnuncioVisitadoUtilizadorDAO;
 import java.util.Map;
 
 public class Utilizador {
 
     // v. i.    
     private Map<Integer, Anuncio> historicoAnunc;
+    private int id ;
     
     // construtor - DAO
-    public Utilizador() {
+    public Utilizador () {}
+    
+    public Utilizador(int id) { 
         
+        this.historicoAnunc = new AnuncioVisitadoUtilizadorDAO(id) ;
+        this.id = id ;        
     }
     
     // get and set
-    public Map<Integer, Anuncio> getHistoricoAnunc() {
-        return historicoAnunc;
-    }
-
-    public void setHistoricoAnunc(Map<Integer, Anuncio> historicoAnunc) {
-        this.historicoAnunc = historicoAnunc;
-    }
+    public Map<Integer, Anuncio> getHistoricoAnunc() {return historicoAnunc;}
+    public void setHistoricoAnunc(Map<Integer, Anuncio> historicoAnunc) {this.historicoAnunc = historicoAnunc;}
+    public int getId () {return this.id ;}
+    public void setId (int idArg) {this.id = idArg ;}
     
     // e, c, tS
     @Override
@@ -31,7 +34,7 @@ public class Utilizador {
             return false;
         }
         final Utilizador other = (Utilizador) obj;
-        if (!this.historicoAnunc.equals(other.getHistoricoAnunc())) {
+        if (this.id != other.getId()) {
             return false;
         }
         return true;
@@ -39,18 +42,16 @@ public class Utilizador {
 
     @Override
     public String toString() {
-        return "Utilizador{" + "historicoAnunc=" + this.historicoAnunc.toString() + '}';
+        return "Utilizador{" + "historicoAnunc=" + this.historicoAnunc.toString() + "id=" + this.id + '}';
     }
     
-/*      
     @Override
     public Utilizador clone () {
-        return new Utilizador() ;
+        return new Utilizador(this.id) ;
     }
-    */
     
     // gestão maps
-    public Anuncio inserirAnuncVisit(Anuncio a) {return this.historicoAnunc.put(a.getCodigo(), a.clone()) ;}
+    public Anuncio inserirAnuncVisit(Anuncio a) {return this.historicoAnunc.put(a.getCodigo(), (a.getClass().toString().equals("AnuncioVenda") ? ((AnuncioVenda)a).clone() : ((AnuncioCompra)a).clone())) ;}
     public Anuncio removerAnuncVisit(int codAnunc) {return this.historicoAnunc.remove(codAnunc) ;}
     public Anuncio encontrarAnuncVisit(int codAnunc) {return this.historicoAnunc.get(codAnunc) ;}
     public boolean existeAnuncVisit(int codAnunc) {return this.historicoAnunc.containsKey(codAnunc) ;}

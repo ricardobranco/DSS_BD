@@ -1,7 +1,7 @@
 package camadaNegocio ;
 
 import java.util.*;
-import camadaDados.ConexaoBD ;
+import camadaDados.* ;
 
 public class SaleSquared extends Observable implements SaleSquaredFacade {
 
@@ -14,11 +14,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     private Map<String, UtilizadorRegistado> users;
     private Map<Integer, Anuncio> anuncios;
     private Map<String, Categoria> categorias;
-    private Utilizador emSessao;
+    //private Utilizador emSessao;
     
     // construtor -- dao
     public SaleSquared () {
-        this.emSessao = new Utilizador() ;
+        
+        this.users = new UtilizadorRegistadoDAO() ;
+        this.anuncios = new AnuncioDAO() ;
+        this.categorias = new CategoriaDAO() ;
     }
     
     // get e set
@@ -28,8 +31,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public void setAnuncios(Map<Integer, Anuncio> anuncios) {this.anuncios = anuncios;}
     public Map<String, Categoria> getCategorias() {return categorias;}
     public void setCategorias(Map<String, Categoria> categorias) {this.categorias = categorias;}
-    public Utilizador getEmSessao() {return emSessao;}
-    public void setEmSessao(Utilizador emSessao) {this.emSessao = emSessao;}
+    //public Utilizador getEmSessao() {return emSessao;}
+    //public void setEmSessao(Utilizador emSessao) {this.emSessao = emSessao;}
     
     // e, c, tS
     @Override
@@ -50,16 +53,16 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         if (!this.categorias.equals(other.getCategorias())) {
             return false;
         }
-        if (!this.emSessao.equals(other.getEmSessao())) {
-            return false;
-        }
+        /*if (!this.emSessao.equals(other.getEmSessao())) {
+            return false; 
+        }*/
         return true;
     }
 
     @Override
     public String toString() {
         return "SaleSquared{" + "users=" + this.users.toString() + ", anuncios=" + this.anuncios.toString() 
-         + ", categorias=" + this.categorias.toString() + ", emSessao=" + this.emSessao.toString() + '}';
+         + ", categorias=" + this.categorias.toString() + /*", emSessao=" + this.emSessao.toString() +*/ '}';
     }
     /* -- clone dao 
     @Override
@@ -83,7 +86,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public boolean temUtilizadorRegs() {return !this.users.isEmpty() ;}
     public boolean eNullUtilizadorRegs () {return this.users == null; }
     
-    public void inserirAnuncio(Anuncio a) {this.anuncios.put(a.getCodigo(), a.clone()) ;}
+    public void inserirAnuncio(Anuncio a) {this.anuncios.put(a.getCodigo(), a) ;}
     public void removerAnuncio(int codAnunc) {this.anuncios.remove(codAnunc) ;}
     public Anuncio encontrarAnuncio(int codAnunc) {return this.anuncios.get(codAnunc) ;}
     public boolean existeAnuncio(int codAnunc) {return this.anuncios.containsKey(codAnunc) ;}
@@ -322,8 +325,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
             if(tCompra.getVendedor().getUsername().equals(vendedor) && tCompra.getAnuncio().equals(tVenda.getAnuncio()) && tCompra.getValor() == tVenda.getValor())
                 exitFlag = true ;
         }
-        tCompra.setEstado(Transaccao.COMP_AGUARDAR_RECEPCAO) ;
-        tVenda.setEstado(Transaccao.VEND_AGUARDAR_PAGAMENTO) ;
+        tCompra.setEstado(Transaccao.EU_AGUARDAR_RECEPCAO) ;
+        tVenda.setEstado(Transaccao.EU_AGUARDAR_PAGAMENTO) ;
         v.inserirTransaccao(tVenda.clone()) ;
         c.inserirTransaccao(tCompra.clone()) ;        
     }
@@ -340,17 +343,17 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                 exitFlag = true ;
         }
         if(tVenda.getValor() > 0) {
-            tVenda.setEstado(Troca.AGUARDAR_RECEPCAO) ;
-            tCompra.setEstado(Troca.AGUARDAR_RECEPCAO_PAGAMENTO) ;
+            tVenda.setEstado(Troca.EU_AGUARDAR_RECEPCAO) ;
+            tCompra.setEstado(Troca.EU_AGUARDAR_RECEPCAO_PAGAMENTO) ;
         }
         else {       
             if (tVenda.getValor() < 0) {
-                tCompra.setEstado(Troca.AGUARDAR_RECEPCAO) ;
-                tVenda.setEstado(Troca.AGUARDAR_RECEPCAO_PAGAMENTO) ;
+                tCompra.setEstado(Troca.EU_AGUARDAR_RECEPCAO) ;
+                tVenda.setEstado(Troca.EU_AGUARDAR_RECEPCAO_PAGAMENTO) ;
             }
             else {
-                tVenda.setEstado(Troca.AGUARDAR_RECEPCAO) ;
-                tCompra.setEstado(Troca.AGUARDAR_RECEPCAO) ;
+                tVenda.setEstado(Troca.EU_AGUARDAR_RECEPCAO) ;
+                tCompra.setEstado(Troca.EU_AGUARDAR_RECEPCAO) ;
             }
         }
         v.inserirTransaccao(tVenda.clone()) ;
@@ -385,32 +388,32 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;
         a.setDescricao(descricao);
-        this.anuncios.put(codAnuncio, a.clone()) ;
+        this.anuncios.put(codAnuncio, a) ;
     }    
     public void editarAnuncioQuantidade(int codAnuncio, int quantidade) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;
         a.setQuantidade(quantidade);
-        this.anuncios.put(codAnuncio, a.clone()) ;
+        this.anuncios.put(codAnuncio, a) ;
     }    
     public void editarAnuncioTitulo(int codAnuncio, String titulo) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;
         a.setTitulo(titulo);
-        this.anuncios.put(codAnuncio, a.clone()) ;
+        this.anuncios.put(codAnuncio, a) ;
     }    
     public void editarAnuncioImagens(int codAnuncio, Set<String> imagens) {this.anuncios.get(codAnuncio).editarImagens(imagens); }
     public void editarAnuncioEstado(int codAnuncio, char estado) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;
         a.setEstadoAnuncio(estado);
-        this.anuncios.put(codAnuncio, a.clone()) ;
+        this.anuncios.put(codAnuncio, a) ;
     }
     public void incAnuncioVisitas(int codAnuncio) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;        
         a.setnVisitas(a.getnVisitas()+1);
-        this.anuncios.put(codAnuncio, a.clone()) ;
+        this.anuncios.put(codAnuncio, a) ;
     }
     
     // novo username é válido e não existe
@@ -472,11 +475,41 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         this.anuncios.put(codAnunc, a) ;
     }
     
-    public boolean temUserRating (String username) {return this.users.get(username).temRating();}
+    // pré-condição: o utilizador existe
+    public boolean temUserRating (String username) {
+    
+        boolean exitFlag = false ;
+        UtilizadorRegistado u = this.users.get(username) ;
+        for(Iterator<Anuncio> it = this.anuncios.values().iterator(); it.hasNext() && !exitFlag; ) {
+            Anuncio a = it.next() ;
+            for(Iterator<Avaliacao> itAval = a.getAvaliacoes().values().iterator(); itAval.hasNext() && !exitFlag; )
+                if(itAval.next().getAvaliador().getUsername().equals(username))
+                    exitFlag = true ;
+        }
+        return exitFlag ;            
+    }
+    
     // pré-condição: existem ratings para o utilizador
-    public double calcularRegistadoRating(String username) {return this.users.get(username).calcularRating();}
+    // classificações de 0 a 100
+    public double calcularRegistadoRating(String username) {
+    
+        double res = 0;        
+        ArrayList<Double> amostra = new ArrayList<Double>() ;
+        UtilizadorRegistado u = this.users.get(username) ;
+        for(Iterator<Anuncio> it = this.anuncios.values().iterator(); it.hasNext(); ) {
+            Anuncio a = it.next() ;
+            for(Iterator<Avaliacao> itAval = a.getAvaliacoes().values().iterator(); itAval.hasNext(); ) {
+                Avaliacao aval = itAval.next() ;
+                if(itAval.next().getAvaliador().getUsername().equals(username))
+                    amostra.add(aval.getClassificacao()) ;
+            }
+        }
+        for(Double d : amostra)
+            res += d;
+        return res/amostra.size() ; 
+    }
     // pré-condição: existem ratings para o utilizador
-    public boolean eUserConfiavel (String username) {return this.users.get(username).eRecomendado() ;}
+    public boolean eUserConfiavel (String username) {return calcularRegistadoRating(username) >= UtilizadorRegistado.CLASSIFICACAO_MINIMA ;} 
     
     public Set<Anuncio> procurarAnuncTag(String nome) {
         
@@ -485,7 +518,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
             Anuncio a = itA.next() ;
             for(Iterator<Tag> itT = a.getTags().values().iterator(); itT.hasNext(); )
                 if(itT.next().getNome().equals(nome)) {
-                    res.add(a.clone()) ;
+                    res.add(a) ;
                     break ;
                 }                    
         }
@@ -498,7 +531,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
             Anuncio a = itA.next() ;
             for(Iterator<Categoria> itC = a.getCategorias().values().iterator(); itC.hasNext(); )
                 if(itC.next().getNome().equals(nome)) {
-                    res.add(a.clone()) ;
+                    res.add(a) ;
                     break ;
                 }                    
         }
@@ -521,14 +554,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                     case "l" : {exitFlag = exitFlag && a.getClass().toString().equals((String)valores[i]) ; break;}                     
                     case "rMaiorI" : {
                         UtilizadorRegistado u = a.getAnunciante();
-                        if(u.temRating()) 
-                            exitFlag = exitFlag && u.calcularRating()>=(Double)valores[i] ; break;}
+                        if(temUserRating(u.getUsername())) 
+                            exitFlag = exitFlag && calcularRegistadoRating(u.getUsername()) >=(Double)valores[i] ; break;}
                     case "e" : {exitFlag = exitFlag && a.isEstadoProduto()==(Boolean)valores[i] ; break ;} 
                     case "n" : {exitFlag = exitFlag && a.getnVisitas()>=(Integer)valores[i] ; break ;} 
                     default: {} 
                 }
                 if(exitFlag == true)
-                    res.add(a.clone()) ;
+                    res.add(a) ;
             }            
         }
         return res ;
@@ -536,7 +569,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     
     //pré-condição: classificação entre 0 e 100
     public void avaliarAnuncio(int codAnunc, Avaliacao avaliacao) {this.anuncios.get(codAnunc).inserirAvaliacao(avaliacao);}    
-    public void avaliarTransac(Avaliacao avalicao, String avaliadorArg, int codTransac) {
+    public void avaliarTransac(/*Avaliacao avaliacao,*/ String avaliadorArg, int codTransac) {
         
      UtilizadorRegistado avaliador = this.users.get(avaliadorArg), avaliado ;   
      Transaccao tAvaliador = avaliador.getTransaccoes().get(codTransac), tAvaliado = null ;    
@@ -553,8 +586,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                 exitFlag = false ;
         }
      tAvaliado.setEstado(Transaccao.OUTRO_REPORTAR) ;
-     tAvaliador.setAvaliacao(avaliacao.clone()) ;
-     tAvaliado.setAvaliacao(avaliacao.clone()) ;
+     /*tAvaliador.setAvaliacao(avaliacao.clone()) ;
+     tAvaliado.setAvaliacao(avaliacao.clone()) ;*/
      avaliado.inserirTransaccao(tAvaliado) ;
      avaliador.inserirTransaccao(tAvaliador) ;
     }
@@ -563,13 +596,13 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         
         SortedSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncNVis()) ;
         for(Anuncio a : this.anuncios.values())
-            res.add(a.clone()) ;
+            res.add(a) ;
         return res ;
     }  
     
     public boolean eValidoEmail (String email) {return UtilizadorRegistado.validaEmail(email);}
-    public boolean eValidaPassword (String pw) {return UtilizadorRegistado.passwordValida(pw);}
-    public boolean eValidoContacto (String contacto) {return UtilizadorRegistado.validaContacto(contacto) ;}
+    public boolean eValidaPassword (String pw) {return UtilizadorRegistado.validaPassword(pw);}
+    //public boolean eValidoContacto (String contacto) {return UtilizadorRegistado.validaContacto(contacto) ;}
     
     // pré-condição: username é válido
     public boolean eValidoLogin(String username, String pw) {return this.users.get(username).passwordCorresponde(pw) ;}
@@ -586,12 +619,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         for(Anuncio a : this.anuncios.values()) {
             boolean c = contemAlgumElem(categSeg, a.getCategorias().keySet()), us = u.existeUserSeguido(a.getAnunciante().getUsername()) ;
             if(c && us) {
-                res.add(a.clone()) ;
+                res.add(a) ;
                 causa.add(CATEG_E_USER) ;
             }
             else {
                 if (c || us) {
-                    catOuUser.add(a.clone()) ;
+                    catOuUser.add(a) ;
                     catOuUserChar.add(c == true ? CATEG : USER) ;
                 }
             }                
@@ -640,7 +673,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         for(Iterator<Anuncio> itA = anuncs.iterator(); itA.hasNext(); ) {
             Anuncio a = itA.next() ;
             if((a.getEstadoAnuncio() == Anuncio.ABERTO) && (a.getQuantidade() > 0) && (a.getClass().toString().equals("VendaDirecta")) && a.getAnunciante().getUsername().equals(comprador) && contemAlgumElem(a.getCategorias().keySet(), catSegVend))
-                res.add(a.clone()) ;
+                res.add(a) ;
         }
         return res ;
     }
@@ -677,4 +710,10 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     }
     
     public void iniciarConexao () { ConexaoBD.iniciarConexao() ;}
+    public void terminarConexao () {ConexaoBD.terminarConexao() ;}
+    
+    public int registaIdMsg () {return Registo.registaIdMsg() ;}
+    public int registaIdTransac () {return Registo.registaIdTransac() ;}
+    public int registaIdAnuncio () {return Registo.registaIdAnuncio() ;}
+    public int registaIdAvaliacao () {return Registo.registaIdAvaliacao() ;}
 }

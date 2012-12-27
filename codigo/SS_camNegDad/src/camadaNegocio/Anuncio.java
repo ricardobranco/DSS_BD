@@ -1,11 +1,11 @@
 package camadaNegocio ;
 
 import java.util.GregorianCalendar;
-//import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Comparator;
 import java.util.HashMap;
+import camadaDados.* ;
 
 public abstract class Anuncio {
 
@@ -24,24 +24,24 @@ public abstract class Anuncio {
     private Map<String, Tag> tags;
     private Map<String, Categoria> categorias;
     private Map<Integer, Avaliacao> avaliacoes;
+    private Set<String> imagens;
     private int codigo;
     private String titulo;
     private GregorianCalendar dataInser;
     private GregorianCalendar dataExpir;
     private double preco;
     private String descricao;
-    private int quantidade;
-    private Set<String> imagens;
+    private int quantidade;    
     private int nVisitas;
     private boolean estadoProduto;
     private char estadoAnuncio;
     private UtilizadorRegistado anunciante ;
     
     // construtor
-    public Anuncio(Map<String,Tag> tags, Map<String, Categoria> categorias, Map<Integer, Avaliacao> avaliacoes, int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, Set<String> imagens, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
-        this.tags = tags;
-        this.categorias = categorias;
-        this.avaliacoes = avaliacoes;
+    public Anuncio(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
+        this.tags = new TagAnuncioDAO(codigo);
+        this.categorias = new CategoriaAnuncioDAO(codigo);
+        this.avaliacoes = new AvaliacaoAnuncioDAO(codigo);
         this.codigo = codigo;
         this.titulo = titulo;
         this.dataInser = dataInser;
@@ -49,7 +49,7 @@ public abstract class Anuncio {
         this.preco = preco;
         this.descricao = descricao;
         this.quantidade = quantidade;
-        this.imagens = imagens;
+        this.imagens = new ImagemAnuncioDAO(codigo);
         this.nVisitas = nVisitas;
         this.estadoProduto = estadoProduto;
         this.estadoAnuncio = estadoAnuncio;
@@ -58,6 +58,10 @@ public abstract class Anuncio {
 
     public Anuncio(int codigo) {
         this.codigo = codigo;
+        this.tags = new TagAnuncioDAO(codigo);
+        this.categorias = new CategoriaAnuncioDAO(codigo);
+        this.avaliacoes = new AvaliacaoAnuncioDAO(codigo);
+        this.imagens = new ImagemAnuncioDAO(codigo);
     }
     
     // get e set
@@ -117,11 +121,7 @@ public abstract class Anuncio {
          + ", imagens=" + this.imagens.toString() + ", nVisitas=" + this.nVisitas + ", estadoProduto=" 
          + this.estadoProduto + ", estadoAnuncio=" + this.estadoAnuncio + ", anunciante=" + this.anunciante.toString() + '}';
     }
-    /*
-     * @Override
-     * Anuncio clone ()
-     */
-    
+            
     // gestão maps e set
     public Tag inserirTag(Tag t) {return this.tags.put(t.getNome(), t.clone()) ;}
     public Tag removerTag(String tag) {return this.tags.remove(tag) ;}

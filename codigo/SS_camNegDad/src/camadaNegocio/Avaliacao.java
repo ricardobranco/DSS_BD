@@ -21,45 +21,16 @@ public class Avaliacao {
     }
 
     // get e set
-     public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public UtilizadorRegistado getAvaliador() {
-        return avaliador;
-    }
-
-    public void setAvaliador(UtilizadorRegistado avaliador) {
-        this.avaliador = avaliador;
-    }
-
-    public GregorianCalendar getData() {
-        return data;
-    }
-
-    public void setData(GregorianCalendar data) {
-        this.data = data;
-    }
-
-    public double getClassificacao() {
-        return classificacao;
-    }
-
-    public void setClassificacao(double classificacao) {
-        this.classificacao = classificacao;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}    
+    public UtilizadorRegistado getAvaliador() {return avaliador;}
+    public void setAvaliador(UtilizadorRegistado avaliador) {this.avaliador = avaliador;}
+    public GregorianCalendar getData() {return data;}
+    public void setData(GregorianCalendar data) {this.data = data;}
+    public double getClassificacao() {return classificacao;}
+    public void setClassificacao(double classificacao) {this.classificacao = classificacao;}
+    public String getComentario() {return comentario;}
+    public void setComentario(String comentario) {this.comentario = comentario;}
     
     // e, c, tS
     @Override
@@ -82,11 +53,9 @@ public class Avaliacao {
         return "Avaliacao{" + "id=" + this.id + "avaliador=" + this.avaliador.toString() + ", data=" 
         + this.data.toString() + ", classificacao=" + this.classificacao + ", comentario=" + this.comentario + '}';
     }
-    /* dao
+    
     @Override
     public Avaliacao clone () {
         return new Avaliacao(this.id, this.avaliador.clone(), this.data, this.classificacao, this.comentario) ;
-    }
-    */
-    
+    }    
 }

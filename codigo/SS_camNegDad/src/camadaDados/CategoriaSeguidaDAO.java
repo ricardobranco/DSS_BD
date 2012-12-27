@@ -4,13 +4,13 @@ import camadaNegocio.Categoria ;
 import java.util.* ;
 import java.sql.* ;
 
-public class CategoriaAnuncioDAO implements Map<String, Categoria> {
+public class CategoriaSeguidaDAO implements Map<String, Categoria> {
     
     // v. i.    
-    private int codAnunc ;
+    private String username ;
     
     // construtor    
-    public CategoriaAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
+    public CategoriaSeguidaDAO (String usernameArg) {this.username = usernameArg ;}
     
     // interface Map
     public void clear () {
