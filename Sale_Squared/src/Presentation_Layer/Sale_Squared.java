@@ -24,6 +24,7 @@ public class Sale_Squared extends JFrame {
 
 	private final JPanel panel = new JPanel();
 	private final JPanel panel_1 = new JPanel();
+	private final JScrollPane scrollPane = new JScrollPane();
 	
 
 	/**
@@ -74,7 +75,7 @@ public class Sale_Squared extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 685, 574);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		
 		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

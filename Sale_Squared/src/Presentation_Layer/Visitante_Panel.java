@@ -24,6 +24,12 @@ public class Visitante_Panel extends JPanel {
 	public Visitante_Panel(final Sale_Squared root) {
 		
 		JButton btnRegistar = new JButton("Registar");
+		btnRegistar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				root.setBody(new Registo(root), "Registo");
+				
+			}
+		});
 		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
