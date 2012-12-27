@@ -156,7 +156,7 @@ public class Envio_Pagamento extends JPanel {
 		chckbxNewCheckBox_3.setSelected(true);
 		chckbxNewCheckBox_3.setEnabled(false);
 		
-		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Troca");
+		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Cheque");
 		chckbxNewCheckBox_4.setSelected(true);
 		chckbxNewCheckBox_4.setEnabled(false);
 		

@@ -16,7 +16,7 @@ public class Tabbed_Resultados extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Resultados() {
+	public Tabbed_Resultados(final Sale_Squared root) {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -38,15 +38,17 @@ public class Tabbed_Resultados extends JPanel {
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Todos", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Resultados_Panel(),"Todos");
+		panel.add(new Resultados_Panel(root),"Todos");
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Leil›es", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
+		panel_1.add(new Resultados_Panel(root),"Leil›es");
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Comprar J‡", null, panel_2, null);
 		panel_2.setLayout(new CardLayout(0, 0));
+		panel_2.add(new Resultados_Panel(root),"Comprar");
 		setLayout(groupLayout);
 
 	}

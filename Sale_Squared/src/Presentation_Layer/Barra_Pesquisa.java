@@ -22,7 +22,7 @@ public class Barra_Pesquisa extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Barra_Pesquisa() {
+	public Barra_Pesquisa(final Sale_Squared root) {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -58,6 +58,7 @@ public class Barra_Pesquisa extends JPanel {
 		JButton btnPesquisa = new JButton("Pesquisa");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				root.setBody(new Pesquisa_Resultado(root), "Resultados");
 			}
 		});
 		

@@ -65,7 +65,7 @@ public class Header extends JPanel {
 		);
 		panel.setLayout(new CardLayout(0, 0));
 		pesquisa.setLayout(new CardLayout(0, 0));
-		JPanel pesquisa_bar = new Barra_Pesquisa();
+		JPanel pesquisa_bar = new Barra_Pesquisa(root);
 		if(Sale_Squared.REGISTADO){
 			Registado_Panel rp = new Registado_Panel(root);
 			panel.add(rp,"Registado Panel");

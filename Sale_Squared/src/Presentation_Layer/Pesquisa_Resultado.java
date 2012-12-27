@@ -16,7 +16,7 @@ public class Pesquisa_Resultado extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Pesquisa_Resultado() {
+	public Pesquisa_Resultado(final Sale_Squared root) {
 		
 		JPanel panel = new JPanel();
 		
@@ -26,9 +26,9 @@ public class Pesquisa_Resultado extends JPanel {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -36,15 +36,18 @@ public class Pesquisa_Resultado extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-						.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+						.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1343, Short.MAX_VALUE)
+						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Tabbed_Resultados(),"Resultados");
+		panel_1.add(new Tabbed_Resultados(root),"Resultados");
+		panel.add(new Pesquisa_Ferramentas(), "Ferramentas");
 		setLayout(groupLayout);
 
 	}
+	
+	
 
 }
