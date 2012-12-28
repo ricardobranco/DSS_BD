@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
 
 public class Sale_Squared extends JFrame {
 
@@ -35,8 +36,8 @@ public class Sale_Squared extends JFrame {
 			public void run() {
 				try {
 					final Sale_Squared frame = new Sale_Squared();
-					if(isMac())
-						enableOSXFullscreen(frame);
+					if(isMac()){
+						enableOSXFullscreen(frame);}
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,8 +73,9 @@ public class Sale_Squared extends JFrame {
 	 * Create the frame.
 	 */
 	public Sale_Squared() {
+		setTitle("Sale Squared - Home");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 685, 574);
+		setBounds(100, 100, 1020, 574);
 		
 		
 		
@@ -88,6 +90,7 @@ public class Sale_Squared extends JFrame {
 						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE))
 					.addContainerGap())
 		);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -117,6 +120,7 @@ public class Sale_Squared extends JFrame {
 	public void setBody(JPanel jp , String nome){
 		this.panel_1.removeAll();
 		this.panel_1.add(jp, nome);
+		
 		this.panel_1.updateUI();
 		this.panel_1.validate();
 		}
