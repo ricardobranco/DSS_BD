@@ -12,6 +12,11 @@ public class UtilizadorRegistado extends Utilizador {
     // v. c.
     public static double CLASSIFICACAO_MINIMA = 90 ;
     
+    public static final char NORMAL = 0 ;
+    public static final char BANIDO = 1 ;
+    public static final char PROIBIDO_ANUNC = 2 ; 
+    public static final char REPORTADO = 3 ;
+    
     // v. i.
     private Map<String, UtilizadorRegistado> usersSeguidos;
     private Map<Integer, Mensagem> enviadas;

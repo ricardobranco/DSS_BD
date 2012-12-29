@@ -6,6 +6,20 @@ import camadaNegocio.* ;
 
 public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
     
+    // v. c.
+    public static final String MENSAGEM_T = "Mensagem m" ;
+    
+    public static final int ID = 1 ;
+    public static final int ASSUNTO = 2 ;
+    public static final int CORPO = 3 ;
+    public static final int DATA_ENVIO = 4 ;
+    public static final int LIDA = 5 ;
+    public static final int EMISSOR = 6 ;
+    public static final int RECEPTOR = 7 ;
+    
+    public static final String SIM = "S" ;
+    public static final String NAO = "N" ;
+    
     // v. i.    
     private String username ;
     
@@ -13,107 +27,126 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
     public MsgEnviadaDAO (String usernameArg) {this.username = usernameArg ;}
     
     // interface Map
-    public void clear () {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            //stm.executeUpdate("DELETE FROM TAlunos");
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
+    public void clear () { throw new NullPointerException("Msg_Env_clear não está implementado!");}        
     
-    public boolean containsKey(Object key) throws NullPointerException {
+    public boolean containsKey(Object key) {
+        
         try {
             Integer chave = (Integer)key ;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            return rs.next();
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.emissor = ? AND m.id = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);  
+            stm.setString(1, this.username) ; stm.setInt(2, chave) ;
+            ResultSet rs = stm.executeQuery();
+            return rs.next() ;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean containsValue(Object value) {throw new NullPointerException("public boolean containsValue(Object value) not implemented!");}    
-    public Set<Map.Entry<Integer, Mensagem>> entrySet() {throw new NullPointerException("entrySet() not implemented!");}    
-    public boolean equals(Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
+    public boolean containsValue(Object value) {throw new NullPointerException("Msg_Env_containsValue não está implementado!");}    
+    public Set<Map.Entry<Integer, Mensagem>> entrySet() {throw new NullPointerException("Msg_Env_entrySet não está implementado!");}    
+    public boolean equals(Object o) {throw new NullPointerException("Msg_Env_equals não está implementado!");}
     
     public Mensagem get(Object key) {
         try {
             Integer chave = (Integer)key ;
-            Mensagem al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            if (rs.next()) 
-                ;
-                //al = new Aluno(rs.getString(2),rs.getString(1),rs.getInt(3),rs.getInt(4));
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Mensagem res = null;
+            String sql = "SELECT * FROM " + MENSAGEM_T + " WHERE m.emissor = ? AND m.id = ? " ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setString(1, this.username) ; stm.setInt(2, chave) ;
+            ResultSet rs = stm.executeQuery();
+            if (rs.next())  {
+                boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false) ;
+                GregorianCalendar dataEnvio = new GregorianCalendar() ;
+                rs.getTimestamp(DATA_ENVIO, dataEnvio) ;
+                UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
+                res = new Mensagem(rs.getInt(ID), u.get(rs.getString(EMISSOR)), u.get(rs.getString(RECEPTOR)), dataEnvio, rs.getString(ASSUNTO), rs.getString(CORPO), lida) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public int hashCode() {return ConexaoBD.getConexao().hashCode();}
     
     public boolean isEmpty() {
+        
         try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.emissor = ? " ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setString(1, this.username) ;
+            ResultSet rs = stm.executeQuery();
             return !rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Set<Integer> keySet() {throw new NullPointerException("Not implemented!");}
+    public Set<Integer> keySet() {
+        
+        try {
+            Set<Integer> res = new TreeSet<Integer>() ;
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.emissor = ? " ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setString(1, this.username) ;
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res.add(rs.getInt(1)) ;
+            return res ;
+        } catch(Exception e) {throw new NullPointerException(e.getMessage());}
+    }
     
     public Mensagem put(Integer key, Mensagem value) {
         
         try {
-            Mensagem al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Mensagem res = null;
+            String sql = "INSERT INTO " + MENSAGEM_T + " VALUES (?, ?, ?, ?, ?, ?, ?)" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql) ;
+            String estado = (value.getLida() ? SIM : NAO) ;
+            Timestamp dataEnvio = new Timestamp(value.getDataEnvio().getTimeInMillis()) ;
+            stm.setInt(ID, value.getId()) ;
+            stm.setString(ASSUNTO, value.getAssunto()) ;
+            stm.setString(CORPO, value.getCorpo()) ;
+            stm.setString(EMISSOR, value.getEmissor().getUsername()) ;
+            stm.setString(RECEPTOR, value.getReceptor().getUsername()) ;
+            stm.setString(LIDA, estado) ;
+            stm.setTimestamp(DATA_ENVIO, dataEnvio) ;
+            stm.execute() ;
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public void putAll(Map<? extends Integer,? extends Mensagem> t) {throw new NullPointerException("Not implemented!");}
-        
-    public Mensagem remove(Object key) {
-        try {
-            Integer chave = (Integer)key ;
-            Mensagem al = this.get(chave);
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "DELETE ";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
+    public void putAll(Map<? extends Integer,? extends Mensagem> t) {throw new NullPointerException("Msg_Env_putAll não implementado!");}
     
+    public Mensagem remove(Object key) { throw new NullPointerException("Msg_Env_remove não implementado!") ;}
+ 
     public int size() {
+        
         try {
             int i = 0;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            for (;rs.next();i++);
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.emissor = ? " ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setString(1, this.username) ;
+            ResultSet rs = stm.executeQuery();
+            for (; rs.next(); i++)
+                ;
             return i;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public Collection<Mensagem> values() {
         try {
-            Collection<Mensagem> col = new HashSet<Mensagem>();
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            //for (;rs.next();) {
-              //  col.add(new Aluno(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
-            //}
-            return col;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Collection<Mensagem> res = new ArrayList<Mensagem>();
+            String sql = "SELECT * FROM " + MENSAGEM_T + " WHERE m.emissor = ? " ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setString(1, this.username) ;
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
+                Mensagem m = null ;
+                boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false) ;
+                GregorianCalendar dataEnvio = new GregorianCalendar() ;
+                rs.getTimestamp(DATA_ENVIO, dataEnvio) ;
+                UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
+                m = new Mensagem(rs.getInt(ID), u.get(rs.getString(EMISSOR)), u.get(rs.getString(RECEPTOR)), dataEnvio, rs.getString(ASSUNTO), rs.getString(CORPO), lida) ;
+                res.add(m) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }    
 }    

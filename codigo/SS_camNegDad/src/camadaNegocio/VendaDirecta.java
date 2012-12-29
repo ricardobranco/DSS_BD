@@ -24,14 +24,14 @@ public class VendaDirecta extends ModoVenda {
             return false;
         }
         final VendaDirecta other = (VendaDirecta) obj;
-        /* if (!super.equals(other)) {
-            return false; */
+        if (!super.equals(other)) 
+            return false; 
         return true;
     }
     
     @Override
     public String toString() {
-        return "VendaDirecta{" + "nPropostas=" + this.nPropostas + '}';
+        return "VendaDirecta{" + "nPropostas=" + this.nPropostas + super.toString() + '}';
     }
     
     @Override

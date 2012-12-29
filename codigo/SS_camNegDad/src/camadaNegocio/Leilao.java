@@ -39,16 +39,23 @@ public class Leilao extends ModoVenda {
             return false;
         }
         final Leilao other = (Leilao) obj;
-        /* if (!super.equals(other)) {
-            return false;
-        }*/
+        if(!super.equals(obj))
+            return false ;
+        /* if(this.precoActual != other.getPrecoActual())
+            return false ;
+        if(this.precoBase != other.getPrecoBase())
+            return false ;
+        if(this.nLicitacoes != other.getnLicitacoes())
+            return false ;
+        if(!this.dataFim.equals(other.getDataFim()))
+            return false ; */
         return true;
     }
 
     @Override
     public String toString() {
         return "Leilao{" + "precoBase=" + this.precoBase + ", dataFim=" + this.dataFim.toString() 
-         + ", nLicitacoes=" + this.nLicitacoes + "precoActual=" + this.precoActual + '}';
+         + ", nLicitacoes=" + this.nLicitacoes + "precoActual=" + this.precoActual + super.toString() + '}';
     }
     
     @Override

@@ -113,6 +113,8 @@ public interface SaleSquaredFacade {
     public int registaIdTransac () ;
     public int registaIdAnuncio () ;
     public int registaIdAvaliacao () ;
+    public int registaIdUtilizador () ;
+    public int registaIdModoVenda () ;
     
     public boolean eValidoLogin(String username, String pw) ;
     
@@ -130,5 +132,5 @@ public interface SaleSquaredFacade {
     public SortedSet<Tag> topTags () ;
     
     public void iniciarConexao () ;
-    public void terminarConexao () ;
+    public void terminarConexao () ;    
 }

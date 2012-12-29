@@ -14,7 +14,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     private Map<String, UtilizadorRegistado> users;
     private Map<Integer, Anuncio> anuncios;
     private Map<String, Categoria> categorias;
-    //private Utilizador emSessao;
+    private int emSessao;
     
     // construtor -- dao
     public SaleSquared () {
@@ -31,8 +31,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public void setAnuncios(Map<Integer, Anuncio> anuncios) {this.anuncios = anuncios;}
     public Map<String, Categoria> getCategorias() {return categorias;}
     public void setCategorias(Map<String, Categoria> categorias) {this.categorias = categorias;}
-    //public Utilizador getEmSessao() {return emSessao;}
-    //public void setEmSessao(Utilizador emSessao) {this.emSessao = emSessao;}
+    public int getEmSessao() {return emSessao;}
+    public void setEmSessao(int emSessao) {this.emSessao = emSessao;}
     
     // e, c, tS
     @Override
@@ -709,11 +709,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         return res ;
     }
     
-    public void iniciarConexao () { ConexaoBD.iniciarConexao() ;}
+    public void iniciarConexao () { ConexaoBD.iniciarConexao(); }    
+    
     public void terminarConexao () {ConexaoBD.terminarConexao() ;}
     
     public int registaIdMsg () {return Registo.registaIdMsg() ;}
     public int registaIdTransac () {return Registo.registaIdTransac() ;}
     public int registaIdAnuncio () {return Registo.registaIdAnuncio() ;}
     public int registaIdAvaliacao () {return Registo.registaIdAvaliacao() ;}
+    public int registaIdUtilizador () {return Registo.registaIdUtilizador() ;}
+    public int registaIdModoVenda () {return Registo.registaIdModoVenda() ;}
 }
