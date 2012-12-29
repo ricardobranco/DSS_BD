@@ -1,22 +1,26 @@
 package Presentation_Layer;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
-public class Tabela_imagens extends JPanel {
+public class Tabela_Imagens extends JPanel {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable table;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	public Tabela_imagens() {
+	@SuppressWarnings("serial")
+	public Tabela_Imagens() {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -35,11 +39,41 @@ public class Tabela_imagens extends JPanel {
 					.addContainerGap())
 		);
 		
-		table = new JTable();
+		DefaultTableModel dm = new DefaultTableModel(){
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] {
+				Object.class, String.class, Object.class
+			};
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};
+	    String cancelar = "Eliminar";
+		dm.setDataVector(new Object[][] { 
+	    	{ "button 1", "foo",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar },
+	        { "button 2", "bar",cancelar } }, new Object[] { "Imagem", "Nome","" });
+
+	    JTable table = new JTable(dm);
+	    table.getColumn("").setCellRenderer(new ButtonRenderer());
+	    table.getColumn("").setCellEditor(
+	        new ButtonEditor(new JCheckBox(),table));
+	    
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
-		
 
 	}
-
 }

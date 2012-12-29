@@ -47,6 +47,7 @@ public class Inserir_Negocio extends JPanel {
 					.addContainerGap())
 		);
 		panel.setLayout(new CardLayout(0, 0));
+		panel.add(new Inserir_1(),"inserir1");
 		setLayout(groupLayout);
 
 	}

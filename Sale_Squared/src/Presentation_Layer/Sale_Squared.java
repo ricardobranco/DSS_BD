@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 
 public class Sale_Squared extends JFrame {
 
@@ -36,6 +37,8 @@ public class Sale_Squared extends JFrame {
 			public void run() {
 				try {
 					final Sale_Squared frame = new Sale_Squared();
+					UIManager.setLookAndFeel(
+				            UIManager.getSystemLookAndFeelClassName());
 					if(isMac()){
 						enableOSXFullscreen(frame);}
 					frame.setVisible(true);

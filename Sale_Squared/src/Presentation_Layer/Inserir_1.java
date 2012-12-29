@@ -10,6 +10,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import java.awt.CardLayout;
 
 public class Inserir_1 extends JPanel {
 
@@ -106,6 +107,8 @@ public class Inserir_1 extends JPanel {
 		
 		JLabel lblImagens = new JLabel("Imagens");
 		lblImagens.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		
+		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -179,7 +182,8 @@ public class Inserir_1 extends JPanel {
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addComponent(textField)
 												.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-												.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
+												.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 466, GroupLayout.PREFERRED_SIZE))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(lblSepararPor)
 											.addPreferredGap(ComponentPlacement.RELATED)
@@ -249,9 +253,14 @@ public class Inserir_1 extends JPanel {
 					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 235, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(lblImagens)
-					.addContainerGap(44, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		setLayout(groupLayout);
+		panel.setLayout(new CardLayout(0, 0));
+		panel.add(new Tabela_Imagens(),"imagens");
 
+		setLayout(groupLayout);
+		
 	}
 }
