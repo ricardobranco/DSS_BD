@@ -93,7 +93,7 @@ public class AnuncioVisitadoUtilizadorDAO implements Map<Integer, Anuncio> {
         
         try {
             Anuncio res = null;
-            String sql = "INSERT INTO " + ANUNCIO_V_T + "VALUES (?, ?)";
+            String sql = "INSERT INTO " + ANUNCIO_V_T + " VALUES (?, ?)";
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
             stm.setInt(UTILIZADOR, this.userId) ;
             stm.setInt(ANUNCIO, key) ;

@@ -42,7 +42,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "nome=" + this.nome + '}';
+        return "Categoria{" + "nome=" + this.nome + (this.categoriaPai != null ? this.categoriaPai.toString() : "") + '}';
     }
     
     @Override

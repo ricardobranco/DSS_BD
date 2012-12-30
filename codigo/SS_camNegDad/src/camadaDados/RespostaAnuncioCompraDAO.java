@@ -9,8 +9,8 @@ public class RespostaAnuncioCompraDAO implements Map<Integer, Anuncio> {
     // v. c.
     public static final String RESPOSTA_A_T = "RespostaAnuncio ra" ;
     
-    public static final int ANUNCIO = 1 ;
-    public static final int RESPOSTA = 2 ;
+    public static final int ANUNCIO = 2 ;
+    public static final int RESPOSTA = 1 ;
     
     // v. i.    
     private int codAnunc ;
@@ -93,7 +93,7 @@ public class RespostaAnuncioCompraDAO implements Map<Integer, Anuncio> {
         
         try {
             Anuncio res = null;
-            String sql = "INSERT INTO " + RESPOSTA_A_T + "VALUES (?, ?)";
+            String sql = "INSERT INTO " + RESPOSTA_A_T + " VALUES (?, ?)";
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
             stm.setInt(ANUNCIO, this.codAnunc) ;
             stm.setInt(RESPOSTA, key) ;

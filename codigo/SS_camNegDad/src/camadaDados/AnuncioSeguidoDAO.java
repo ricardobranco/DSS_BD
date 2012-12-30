@@ -93,7 +93,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
         
         try {
             Anuncio res = null;
-            String sql = "INSERT INTO " + ANUNCIO_S_T + "VALUES (?, ?)";
+            String sql = "INSERT INTO " + ANUNCIO_S_T + " VALUES (?, ?)";
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
             stm.setString(USERNAME, this.username) ;
             stm.setInt(ANUNCIO, value.getCodigo()) ;

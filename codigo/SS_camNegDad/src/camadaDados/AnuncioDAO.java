@@ -80,6 +80,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "SELECT * FROM " + ANUNCIO_T + " WHERE a.id = " + chave ;
             ResultSet rs = stm.executeQuery(sql);
+            //int b = rs.getMetaData().getColumnCount() ;
             if (rs.next()) {
                 GregorianCalendar dataInser = new GregorianCalendar(), dataExp = new GregorianCalendar() ;
                 boolean estadoProduto = (rs.getString(ESTADO_PROD).equals(NOVO) ? true : false) ;
@@ -87,25 +88,33 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                 UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
                 rs.getTimestamp(DATA_INS, dataInser) ;
                 rs.getTimestamp(DATA_EXP, dataExp) ;
-                if(rs.getString(TIPO_A).equals(VENDA)) {                    
+                if(rs.getString(TIPO_A).equals(VENDA)) {   
+                    Statement stmV = ConexaoBD.getConexao().createStatement();
                     String sqlV = "SELECT * FROM " + ANUNCIO_V_T + ", " + MODO_VENDA_T + " WHERE av.id = " + chave + " AND av.modoVenda = mv.id" ;
-                    ResultSet rsV = stm.executeQuery(sqlV) ;
-                    rsV.next() ;                        
+                    ResultSet rsV = stmV.executeQuery(sqlV) ;
+                    rsV.next() ; 
+                    //int b = rsV.getMetaData().getColumnCount(); 
                     if(rsV.getString(MODO_V + TIPO_M_V).equals(LEILAO)) {
+                        //int b = rsV.getMetaData().getColumnCount(); 
+                        Statement stmVL = ConexaoBD.getConexao().createStatement();
                         String sqlVL = "SELECT * FROM " + LEILAO_T + " WHERE l.id = " + rsV.getInt(MODO_V + ID_M_V) ;
-                        ResultSet rsVL = stm.executeQuery(sqlVL) ;
+                        ResultSet rsVL = stmVL.executeQuery(sqlVL) ;
                         rsVL.next() ;
                         GregorianCalendar dataFim = new GregorianCalendar() ;
                         rsVL.getTimestamp(DATA_FIM, dataFim) ;
-                        mv = new Leilao(rsVL.getDouble(PRECO_BASE), dataFim, rsVL.getInt(N_LICITACOES), rsVL.getDouble(PRECO_BASE)) ;
+                        mv = new Leilao(rsVL.getInt(ID_L), rsVL.getDouble(PRECO_BASE), dataFim, rsVL.getInt(N_LICITACOES), rsVL.getDouble(PRECO_ACTUAL)) ;
                     }
                     else {
+                        Statement stmVVD = ConexaoBD.getConexao().createStatement();
                         String sqlVVD = "SELECT * FROM " + VENDA_DIRECTA_T + " WHERE vd.id = " + rsV.getInt(MODO_V + ID_M_V) ;
-                        ResultSet rsVVD = stm.executeQuery(sqlVVD) ;
+                        ResultSet rsVVD = stmVVD.executeQuery(sqlVVD) ;
                         rsVVD.next() ;
-                        mv = new VendaDirecta(rsVVD.getInt(N_PROPOSTAS)) ;                        
+                        mv = new VendaDirecta(rsV.getInt(MODO_V + ID_M_V), rsVVD.getInt(N_PROPOSTAS)) ;                        
                     }                    
-                    boolean envioEstrangeiro = (rsV.getString(ENVIO_E).equals(SIM) ? true : false), propostaTrocar = (rsV.getString(PROPOSTA_T).equals(SIM) ? true : false) ;                                        
+                    //ResultSetMetaData rsmd = rsV.getMetaData() ;
+                    //int a = rsmd.getColumnCount();
+                    boolean envioEstrangeiro = (rsV.getString(ENVIO_E).equals(SIM) ? true : false) ; 
+                    boolean propostaTrocar = (rsV.getString(PROPOSTA_T).equals(SIM) ? true : false) ;                                        
                     res = new AnuncioVenda(chave, rs.getString(TITULO), dataInser, dataExp, rs.getDouble(PRECO), rs.getString(DESCRICAO), rs.getInt(QUANTIDADE), rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio, u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro, rsV.getString(COND_E), rsV.getDouble(PRECO_E), rsV.getDouble(SEGURO), rsV.getString(METODO_E), propostaTrocar, mv) ;
                 }
                 else {
@@ -279,23 +288,26 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                 UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
                 rs.getTimestamp(DATA_INS, dataInser) ;
                 rs.getTimestamp(DATA_EXP, dataExp) ;
-                if(rs.getString(TIPO_A).equals(VENDA)) {                    
+                if(rs.getString(TIPO_A).equals(VENDA)) {  
+                    Statement stmV = ConexaoBD.getConexao().createStatement();
                     String sqlV = "SELECT * FROM " + ANUNCIO_V_T + ", " + MODO_VENDA_T + " WHERE av.id = " + chave + " AND av.modoVenda = mv.id" ;
-                    ResultSet rsV = stm.executeQuery(sqlV) ;
+                    ResultSet rsV = stmV.executeQuery(sqlV) ;
                     rsV.next() ;                        
                     if(rsV.getString(MODO_V + TIPO_M_V).equals(LEILAO)) {
+                        Statement stmVL = ConexaoBD.getConexao().createStatement();
                         String sqlVL = "SELECT * FROM " + LEILAO_T + " WHERE l.id = " + rsV.getInt(MODO_V + ID_M_V) ;
-                        ResultSet rsVL = stm.executeQuery(sqlVL) ;
+                        ResultSet rsVL = stmVL.executeQuery(sqlVL) ;
                         rsVL.next() ;
                         GregorianCalendar dataFim = new GregorianCalendar() ;
                         rsVL.getTimestamp(DATA_FIM, dataFim) ;
-                        mv = new Leilao(rsVL.getDouble(PRECO_BASE), dataFim, rsVL.getInt(N_LICITACOES), rsVL.getDouble(PRECO_BASE)) ;
+                        mv = new Leilao(rsV.getInt(MODO_V + ID_M_V), rsVL.getDouble(PRECO_BASE), dataFim, rsVL.getInt(N_LICITACOES), rsVL.getDouble(PRECO_BASE)) ;
                     }
                     else {
+                        Statement stmVVD = ConexaoBD.getConexao().createStatement();
                         String sqlVVD = "SELECT * FROM " + VENDA_DIRECTA_T + " WHERE vd.id = " + rsV.getInt(MODO_V + ID_M_V) ;
-                        ResultSet rsVVD = stm.executeQuery(sqlVVD) ;
+                        ResultSet rsVVD = stmVVD.executeQuery(sqlVVD) ;
                         rsVVD.next() ;
-                        mv = new VendaDirecta(rsVVD.getInt(N_PROPOSTAS)) ;                        
+                        mv = new VendaDirecta(rsV.getInt(MODO_V + ID_M_V), rsVVD.getInt(N_PROPOSTAS)) ;                        
                     }                    
                     boolean envioEstrangeiro = (rsV.getString(ENVIO_E).equals(SIM) ? true : false), propostaTrocar = (rsV.getString(PROPOSTA_T).equals(SIM) ? true : false) ;                                        
                     a = new AnuncioVenda(chave, rs.getString(TITULO), dataInser, dataExp, rs.getDouble(PRECO), rs.getString(DESCRICAO), rs.getInt(QUANTIDADE), rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio, u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro, rsV.getString(COND_E), rsV.getDouble(PRECO_E), rsV.getDouble(SEGURO), rsV.getString(METODO_E), propostaTrocar, mv) ;

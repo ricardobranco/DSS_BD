@@ -12,7 +12,8 @@ public class Leilao extends ModoVenda {
     private double precoActual ;
     
     // construtores
-    public Leilao (double precoB, GregorianCalendar dataF, int nLicit, double precoActual) {
+    public Leilao (int id, double precoB, GregorianCalendar dataF, int nLicit, double precoActual) {
+        super(id) ;
         this.precoBase = precoB ;
         this.dataFim = dataF ;
         this.nLicitacoes = nLicit ;
@@ -60,7 +61,7 @@ public class Leilao extends ModoVenda {
     
     @Override
     public Leilao clone () {
-        return new Leilao(this.precoBase, this.dataFim, this.nLicitacoes, this.precoActual) ;
+        return new Leilao(this.getId(), this.precoBase, this.dataFim, this.nLicitacoes, this.precoActual) ;
     }
     
     // outros métodos

@@ -27,6 +27,20 @@ public class Registo {
         } catch (SQLException e) {throw new NullPointerException(e.getMessage());}
     }
     
+    public static int registaIdImagem () {
+    
+        try {            
+            Statement stm = ConexaoBD.getConexao().createStatement();
+            String sql = "SELECT idImagem FROM " + REGISTO_T ;
+            ResultSet rs = stm.executeQuery(sql);
+            rs.next() ;
+            int res = rs.getInt(1) ;
+            String sqlU = "UPDATE " + REGISTO_T + " SET s.idImagem = s.idImagem + 1" ;
+            stm.executeUpdate(sqlU) ;
+            return res ;
+        } catch (SQLException e) {throw new NullPointerException(e.getMessage());}
+    }
+    
     public static int registaIdTransac () {
     
         try {            

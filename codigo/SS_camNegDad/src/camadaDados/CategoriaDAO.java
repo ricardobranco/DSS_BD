@@ -46,11 +46,11 @@ public class CategoriaDAO implements Map<String, Categoria> {
             String chave = (String)key ;
             Categoria res = null;
             Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT * FROM " + CATEGORIA_T + " WHERE cat.nome = '" + chave + "'";
-            ResultSet rs = stm.executeQuery(sql);
-            if (rs.next()) {
-                res = getAux(rs.getString(NOME), stm) ;
-            }
+            //String sql = "SELECT * FROM " + CATEGORIA_T + " WHERE cat.nome = '" + chave + "'";
+            //ResultSet rs = stm.executeQuery(sql);
+            //if (rs.next()) {
+            res = getAux(chave, stm) ;
+            //}
             return res ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
@@ -60,11 +60,15 @@ public class CategoriaDAO implements Map<String, Categoria> {
         try {
             String sql = "SELECT * FROM " + CATEGORIA_T + " WHERE cat.nome = '" + chave + "'";
             ResultSet rs = stm.executeQuery(sql) ;
-            String nome = rs.getString(NOME), pai = rs.getString(PAI) ;
-            if(pai != null)
-                return new Categoria(nome, getAux(pai, stm)) ;
+            if(rs.next()) {
+                String nome = rs.getString(NOME), pai = rs.getString(PAI) ;
+                if(pai != null)
+                    return new Categoria(nome, getAux(pai, stm)) ;
+                else
+                    return new Categoria(nome, null) ;
+            }
             else
-                return new Categoria(nome, null) ;
+                return null ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
@@ -138,7 +142,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
             Statement stm = ConexaoBD.getConexao().createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM " + CATEGORIA_T);
             while(rs.next()) {
-                Categoria c = getAux(rs.getString(NOME), stm) ;
+                Categoria c = this.get(rs.getString(NOME)) ;
                 res.add(c) ;
             }
             return res;

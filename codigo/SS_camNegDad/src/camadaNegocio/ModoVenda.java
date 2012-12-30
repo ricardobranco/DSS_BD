@@ -8,6 +8,8 @@ public abstract class ModoVenda {
     
     // v. i.
     private int id ;
+
+    public ModoVenda(int id) {this.id = id;}    
     
     // get e set
     public int getId () {return this.id ;}

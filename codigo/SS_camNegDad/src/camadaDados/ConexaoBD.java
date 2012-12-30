@@ -14,7 +14,7 @@ public class ConexaoBD {
     public static final String url = "jdbc:oracle:thin:@" + ip + ":" + porta + ":" + sid ;
     public static Connection conexao ;
     
-    public static final String pathImagem = "." ;
+    public static final String pathImagem = ".\\imagens" ;
     
     // m. c.
     public static void iniciarConexao () {

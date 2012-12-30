@@ -115,6 +115,7 @@ public interface SaleSquaredFacade {
     public int registaIdAvaliacao () ;
     public int registaIdUtilizador () ;
     public int registaIdModoVenda () ;
+    public int registaIdImagem () ;
     
     public boolean eValidoLogin(String username, String pw) ;
     

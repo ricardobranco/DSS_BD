@@ -76,7 +76,8 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
                     String sqlT = "SELECT * FROM " + TROCA_T + " WHERE tro.id = ?";
                     PreparedStatement stmT = ConexaoBD.getConexao().prepareStatement(sqlT);
                     stmT.setInt(1, chave) ;
-                    ResultSet rsT = stm.executeQuery();
+                    ResultSet rsT = stmT.executeQuery();
+                    rsT.next() ;
                     res = new Troca(a.get(rsT.getInt(ANUNCIO_T)), a.get(rs.getInt(ANUNCIO)), u.get(rs.getString(VENDEDOR)), u.get(rs.getString(COMPRADOR)), chave, data, rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO), rs.getString(MORADA_FACT), rs.getString(COD_POSTAL_FACT), rs.getString(LOCALIDADE_FACT), rs.getString(PAIS_FACT), (char)rs.getInt(ESTADO), rs.getInt(QUANTIDADE)) ;
                 }
                 else
@@ -191,7 +192,8 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
                     String sqlT = "SELECT * FROM " + TROCA_T + " WHERE tro.id = ?";
                     PreparedStatement stmT = ConexaoBD.getConexao().prepareStatement(sqlT);
                     stmT.setInt(1, chave) ;
-                    ResultSet rsT = stm.executeQuery();
+                    ResultSet rsT = stmT.executeQuery();
+                    rsT.next() ;
                     t = new Troca(a.get(rsT.getInt(ANUNCIO_T)), a.get(rs.getInt(ANUNCIO)), u.get(rs.getString(VENDEDOR)), u.get(rs.getString(COMPRADOR)), chave, data, rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO), rs.getString(MORADA_FACT), rs.getString(COD_POSTAL_FACT), rs.getString(LOCALIDADE_FACT), rs.getString(PAIS_FACT), (char)rs.getInt(ESTADO), rs.getInt(QUANTIDADE)) ;
                 }
                 else

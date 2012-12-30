@@ -71,7 +71,19 @@ public class ModoPagamentoDAO implements Set<String> {
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Iterator<String> iterator () { throw new NullPointerException("Modo_P_iterator não está implementado!");}
+    public Iterator<String> iterator () { 
+        
+        try {        
+            TreeSet<String> res = new TreeSet<String>() ;
+            String sql = "SELECT * FROM " + MODO_P_T + " WHERE mp.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res.add(rs.getString(MODO_PAGAMENTO)) ;
+            return res.iterator() ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
     
     public boolean remove (Object key) { 
         
