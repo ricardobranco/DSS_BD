@@ -14,7 +14,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     private Map<String, UtilizadorRegistado> users;
     private Map<Integer, Anuncio> anuncios;
     private Map<String, Categoria> categorias;
-    private int emSessao;
+    private Utilizador emSessao;
     
     // construtor -- dao
     public SaleSquared () {
@@ -31,8 +31,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public void setAnuncios(Map<Integer, Anuncio> anuncios) {this.anuncios = anuncios;}
     public Map<String, Categoria> getCategorias() {return categorias;}
     public void setCategorias(Map<String, Categoria> categorias) {this.categorias = categorias;}
-    public int getEmSessao() {return emSessao;}
-    public void setEmSessao(int emSessao) {this.emSessao = emSessao;}
+    public Utilizador getEmSessao() {return emSessao;}
+    public void setEmSessao(Utilizador emSessao) {this.emSessao = emSessao;}
     
     // e, c, tS
     @Override
@@ -145,7 +145,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     // pré-condição: mensagem recebida
     public boolean estaLida(String user, int codMsg) {return this.users.get(user).estaMsgLida(codMsg) ;}
            
-    public void limparHistAnunc(String user) {this.users.get(user).limparAnuncVisits() ;}
+    public void limparHistAnunc() {this.emSessao.limparAnuncVisits() ;}
     
     public Set<UtilizadorRegistado> procurarUserNome(String user) {
         
@@ -402,7 +402,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         a.setTitulo(titulo);
         this.anuncios.put(codAnuncio, a) ;
     }    
-    public void editarAnuncioImagens(int codAnuncio, Set<String> imagens) {this.anuncios.get(codAnuncio).editarImagens(imagens); }
+    public void editarAnuncioImagens(int codAnuncio, Set<Imagem> imagens) {this.anuncios.get(codAnuncio).editarImagens(imagens); }
     public void editarAnuncioEstado(int codAnuncio, char estado) {
         
         Anuncio a = this.anuncios.get(codAnuncio) ;

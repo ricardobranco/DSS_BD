@@ -5,6 +5,12 @@ import java.sql.* ;
 
 public class ModoPagamentoDAO implements Set<String> {
 
+    // v. c.
+    public static final String MODO_P_T = "ModoPagamento mp" ;
+    
+    public static final int ANUNCIO = 1 ;
+    public static final int MODO_PAGAMENTO = 2 ;
+    
     // v. i.
     private int codAnunc ;
     
@@ -14,110 +20,93 @@ public class ModoPagamentoDAO implements Set<String> {
     // interface Set
     public boolean add(String s) {
         
-         try {
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+         try {            
+            boolean res = true ;
+            String sql = "INSERT INTO " + MODO_P_T + " VALUES (?, ?)";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(ANUNCIO, this.codAnunc) ; stm.setString(MODO_PAGAMENTO, s) ;
+            stm.execute();            
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean addAll(Collection<? extends String> c) {
-        
-        try {
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
+    public boolean addAll(Collection<? extends String> c) { throw new NullPointerException("Modo_P_addAll não está implementado!");}         
     
-    public void clear () {
+    public void clear () { 
         
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            //stm.executeUpdate("DELETE FROM TAlunos");
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        try {            
+            String sql = "DELETE FROM " + MODO_P_T + " WHERE mp.anuncio = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
     public boolean contains(Object o) {
         
         try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
+            String chave = (String)o ;
+            String sql = "SELECT * FROM " + MODO_P_T + " WHERE mp.anuncio = ? AND mp.modoPagamento = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
             return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean containsAll(Collection<?> c) {
-        
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
+    public boolean containsAll(Collection<?> c) { throw new NullPointerException("Modo_P_containsAll não está implementado!");}        
     
-    public boolean equals (Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
+    public boolean equals (Object o) {throw new NullPointerException("Modo_P_equals não está implementado!");}
     
     public int hashCode() {return ConexaoBD.getConexao().hashCode();}
     
     public boolean isEmpty() {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            return !rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-    
-    public Iterator<String> iterator () { throw new NullPointerException("equals(Object o) not implemented!");}
-    
-    public boolean remove (Object key) {
         
-        try {
-            String chave = (String)key ;
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "DELETE ";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        try {            
+            String sql = "SELECT * FROM " + MODO_P_T + " WHERE mp.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            return !rs.next();
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean removeAll (Collection<?> c) { throw new NullPointerException("removeAll not implemented!");}
+    public Iterator<String> iterator () { throw new NullPointerException("Modo_P_iterator não está implementado!");}
     
-    public boolean retainAll (Collection<?> c) { throw new NullPointerException("retainAll not implemented!");}
+    public boolean remove (Object key) { 
+        
+        try {  
+            boolean res = false ;
+            String chave = (String)key ;
+            String sql = "DELETE FROM " + MODO_P_T + " WHERE mp.anuncio = ? AND mp.modoPagamento = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.setString(2, chave) ;
+            stm.execute();   
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
+    
+    public boolean removeAll (Collection<?> c) { throw new NullPointerException("Modo_P_removeAll não está implementado!");}
+    
+    public boolean retainAll (Collection<?> c) { throw new NullPointerException("Modo_P_retainAll não está implementado!");}
         
     public int size() {
     
         try {
             int i = 0;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            for (;rs.next();i++);
+            String sql = "SELECT * FROM " + MODO_P_T + " WHERE mp.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            for (; rs.next(); i++)
+                ;
             return i;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Object[] toArray () { throw new NullPointerException("toArray not implemented!");}   
+    public Object[] toArray () { throw new NullPointerException("Modo_P_toArray não está implementado!");}
     
-    public <String> String[] toArray(String[] a) { throw new NullPointerException("toArray not implemented!");}       
+    public <String> String[] toArray(String[] a) {throw new NullPointerException("Modo_P_toArray não está implementado!");}       
 }

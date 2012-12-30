@@ -100,4 +100,14 @@ public class Registo {
             return res ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }    
+    
+    /*public static void apagarHistoricoAnuncVis (int idUser) { 
+        
+        try {            
+            String sql = "DELETE FROM " + AnuncioVisitadoUtilizadorDAO.ANUNCIO_V_T + " WHERE anv.utilizador = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, idUser) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }*/   
 }

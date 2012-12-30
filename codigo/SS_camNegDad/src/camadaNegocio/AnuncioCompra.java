@@ -10,11 +10,11 @@ public class AnuncioCompra extends Anuncio {
     
     
     // v. i.
-    private Map<Integer, AnuncioVenda> respostas;
+    private Map<Integer, Anuncio> respostas;
     
     
     // construtor
-    public AnuncioCompra(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
+    public AnuncioCompra(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, int estadoAnuncio, UtilizadorRegistado anunciante) {
         super(codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;        
         this.respostas = new RespostaAnuncioCompraDAO(codigo) ;
         }
@@ -25,8 +25,8 @@ public class AnuncioCompra extends Anuncio {
     }
     
     // get e set
-    public Map<Integer, AnuncioVenda> getRespostas() {return respostas;}
-    public void setRespostas(Map<Integer, AnuncioVenda> respostas) {this.respostas = respostas ;}
+    public Map<Integer, Anuncio> getRespostas() {return respostas;}
+    public void setRespostas(Map<Integer, Anuncio> respostas) {this.respostas = respostas ;}
     
     // e, c, tS
     @Override
@@ -56,9 +56,9 @@ public class AnuncioCompra extends Anuncio {
    
     
     // gestão map
-    public AnuncioVenda inserirResposta(AnuncioVenda a) {return this.respostas.put(a.getCodigo(), a.clone()) ;}
-    public AnuncioVenda removerResposta(int codAnunc) {return this.respostas.remove(codAnunc) ;}
-    public AnuncioVenda encontrarResposta(int codAnunc) {return this.respostas.get(codAnunc) ;}
+    public Anuncio inserirResposta(Anuncio a) {return this.respostas.put(a.getCodigo(), a) ;}
+    public Anuncio removerResposta(int codAnunc) {return this.respostas.remove(codAnunc) ;}
+    public Anuncio encontrarResposta(int codAnunc) {return this.respostas.get(codAnunc) ;}
     public boolean existeResposta(int codAnunc) {return this.respostas.containsKey(codAnunc) ;}
     public boolean temRespostas() {return !this.respostas.isEmpty() ;}
     public boolean eNullRespostas () {return this.respostas == null; }

@@ -20,7 +20,7 @@ public class AnuncioVenda extends Anuncio {
     private boolean propostaTrocar; 
     
     // construtor
-    public AnuncioVenda(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante, boolean envioEstrangeiro, String condicoesEnvio, double precoEnvio, double seguro, String metodoEnvio, boolean possivelTrocar, ModoVenda modoV) {
+    public AnuncioVenda(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, int estadoAnuncio, UtilizadorRegistado anunciante, boolean envioEstrangeiro, String condicoesEnvio, double precoEnvio, double seguro, String metodoEnvio, boolean possivelTrocar, ModoVenda modoV) {
         super(codigo, titulo, dataInser, dataExpir, preco, descricao, quantidade, nVisitas, estadoProduto, estadoAnuncio, anunciante) ;
         this.tipoVenda = modoV ;
         this.modosPagamento = new ModoPagamentoDAO(codigo) ;

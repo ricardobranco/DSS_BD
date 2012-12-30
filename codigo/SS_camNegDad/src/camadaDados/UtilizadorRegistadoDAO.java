@@ -24,11 +24,12 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
     public static final int CONTACTO = 12 ;
     public static final int NOME = 13 ;
     public static final int DATA_NASC = 14 ;
+    public static final int NOME_IMAGEM = 15 ;
     
-    public static final String NORMAL = "N" ;
+    /*public static final String NORMAL = "N" ;
     public static final String BANIDO = "B" ;
     public static final String PROIBIDO_ANUNC = "P" ; 
-    public static final String REPORTADO = "R" ;
+    public static final String REPORTADO = "R" ;*/
     
     // construtor    
     public UtilizadorRegistadoDAO () {}
@@ -61,10 +62,10 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             stm.setString(1, chave) ;
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                char estado = (rs.getString(ESTADO).equals(NORMAL) ? UtilizadorRegistado.NORMAL : (rs.getString(ESTADO).equals(BANIDO) ? UtilizadorRegistado.BANIDO : (rs.getString(ESTADO).equals(REPORTADO) ? UtilizadorRegistado.REPORTADO : UtilizadorRegistado.PROIBIDO_ANUNC))) ;
+                int estado = rs.getInt(ESTADO) ; // rs.getString(ESTADO).equals(NORMAL) ? UtilizadorRegistado.NORMAL : (rs.getString(ESTADO).equals(BANIDO) ? UtilizadorRegistado.BANIDO : (rs.getString(ESTADO).equals(REPORTADO) ? UtilizadorRegistado.REPORTADO : UtilizadorRegistado.PROIBIDO_ANUNC))) ;
                 GregorianCalendar dataNasc = new GregorianCalendar() ;
                 rs.getTimestamp(DATA_NASC, dataNasc) ;
-                String pathImg = receberImagem(rs) ;
+                Imagem pathImg = receberImagem(rs) ;                
                 res = new UtilizadorRegistado(rs.getInt(ID), rs.getString(USERNAME), rs.getString(PASSWORD), estado, rs.getString(EMAIL), rs.getString(MORADA), rs.getString(COD_POSTAL), rs.getString(LOCALIDADE), rs.getString(PAIS), rs.getString(INFORMACAO_P), pathImg, rs.getString(CONTACTO), rs.getString(NOME), dataNasc) ;
             }                
             return res;
@@ -72,12 +73,12 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    private String receberImagem (ResultSet rs) {
+    private Imagem receberImagem (ResultSet rs) {
         
         try {
             if (rs.getBlob(IMAGEM) == null)
-                return "" ;            
-            String res = ConexaoBD.pathImagem + "\\user" + rs.getInt(ID) ;
+                return new Imagem("", "") ;            
+            String res = ConexaoBD.pathImagem + "\\" + rs.getString(NOME_IMAGEM) ;
             File f = new File(res) ;
             if(f.exists())
                 f.delete() ;
@@ -86,7 +87,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             byte bytes[] = new byte[(int)b.length()] ;
             FileOutputStream fos = new FileOutputStream(f) ;
             fos.write(bytes) ;
-            return res ;
+            return new Imagem(rs.getString(NOME_IMAGEM), res) ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
@@ -117,15 +118,20 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         
         try {
             UtilizadorRegistado res = null ;
-            String sql = "INSERT INTO " + U_R_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
-            File f = new File(value.getImagem()) ;            
+            boolean existe = this.containsKey(key) ;
+            String sql;
+            if(existe)
+                sql = "UPDATE " + U_R_T + " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.localidade = ?, ur.pais = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ? WHERE ur.username = '" + key + "'" ;
+            else
+                sql = "INSERT INTO " + U_R_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+            File f = new File(value.getImagem().getPath()) ;            
             Timestamp dataNasc = new Timestamp(value.getDataNasc().getTimeInMillis()) ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql) ;
-            String estado = (value.getEstado() == UtilizadorRegistado.NORMAL ? NORMAL : (value.getEstado() == UtilizadorRegistado.BANIDO ? BANIDO : (value.getEstado() == UtilizadorRegistado.REPORTADO ? REPORTADO : PROIBIDO_ANUNC))) ;
+            int estado = value.getEstado() ; // == UtilizadorRegistado.NORMAL ? NORMAL : (value.getEstado() == UtilizadorRegistado.BANIDO ? BANIDO : (value.getEstado() == UtilizadorRegistado.REPORTADO ? REPORTADO : PROIBIDO_ANUNC))) ;
             stm.setInt(ID, value.getId()) ;
             stm.setString(USERNAME, value.getUsername()) ;
             stm.setString(PASSWORD, value.getPassword()) ;
-            stm.setString(ESTADO, estado) ;
+            stm.setInt(ESTADO, estado) ;
             stm.setString(EMAIL, value.getEmail()) ;
             stm.setString(MORADA, value.getMorada()) ;
             stm.setString(COD_POSTAL, value.getCodPostal()) ;
@@ -134,10 +140,13 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             stm.setString(INFORMACAO_P, value.getInfPessoal()) ;
             if(f.exists()) {
                 FileInputStream fis = new FileInputStream(f) ; 
-                stm.setBlob(IMAGEM, fis) ;            
+                stm.setBlob(IMAGEM, fis) ;
+                stm.setString(NOME_IMAGEM, value.getImagem().getNome()) ;
             }
-            else
+            else {
                 stm.setBlob(IMAGEM, (Blob)null) ; 
+                stm.setString(NOME_IMAGEM, "") ;
+            }
             stm.setString(CONTACTO, value.getContacto()) ;
             stm.setString(NOME, value.getNome()) ;
             stm.setTimestamp(DATA_NASC, dataNasc) ;
@@ -169,10 +178,10 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             ResultSet rs = stm.executeQuery("SELECT * FROM " + U_R_T);
             while(rs.next()) {
                 UtilizadorRegistado u = null ;
-                char estado = (rs.getString(ESTADO).equals(NORMAL) ? UtilizadorRegistado.NORMAL : (rs.getString(ESTADO).equals(BANIDO) ? UtilizadorRegistado.BANIDO : (rs.getString(ESTADO).equals(REPORTADO) ? UtilizadorRegistado.REPORTADO : UtilizadorRegistado.PROIBIDO_ANUNC))) ;
+                int estado = rs.getInt(ESTADO) ; //rs.getString(ESTADO).equals(NORMAL) ? UtilizadorRegistado.NORMAL : (rs.getString(ESTADO).equals(BANIDO) ? UtilizadorRegistado.BANIDO : (rs.getString(ESTADO).equals(REPORTADO) ? UtilizadorRegistado.REPORTADO : UtilizadorRegistado.PROIBIDO_ANUNC))) ;
                 GregorianCalendar dataNasc = new GregorianCalendar() ;
                 rs.getTimestamp(DATA_NASC, dataNasc) ;
-                String pathImg = receberImagem(rs) ;
+                Imagem pathImg = receberImagem(rs) ;
                 u = new UtilizadorRegistado(rs.getInt(ID), rs.getString(USERNAME), rs.getString(PASSWORD), estado, rs.getString(EMAIL), rs.getString(MORADA), rs.getString(COD_POSTAL), rs.getString(LOCALIDADE), rs.getString(PAIS), rs.getString(INFORMACAO_P), pathImg, rs.getString(CONTACTO), rs.getString(NOME), dataNasc) ;
                 res.add(u) ;
             }

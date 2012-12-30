@@ -22,9 +22,9 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
     public static final String NOVO = "N" ;
     public static final String USADO = "U" ;
     
-    public static final String ABERTO = "A" ;
+    /*public static final String ABERTO = "A" ;
     public static final String BLOQUEADO = "B" ;
-    public static final String ENCERRADO = "E" ;
+    public static final String ENCERRADO = "E" ;*/
     
     public static final String SIM = "S" ;
     public static final String NAO = "N" ;
@@ -83,7 +83,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             if (rs.next()) {
                 GregorianCalendar dataInser = new GregorianCalendar(), dataExp = new GregorianCalendar() ;
                 boolean estadoProduto = (rs.getString(ESTADO_PROD).equals(NOVO) ? true : false) ;
-                char estadoAnuncio = (rs.getString(ESTADO_ANUNC).equals(ABERTO) ? Anuncio.ABERTO : (rs.getString(ESTADO_ANUNC).equals(BLOQUEADO) ? Anuncio.BLOQUEADO : Anuncio.ENCERRADO)) ;
+                int estadoAnuncio = rs.getInt(ESTADO_ANUNC) ;//(rs.getString(ESTADO_ANUNC).equals(ABERTO) ? Anuncio.ABERTO : (rs.getString(ESTADO_ANUNC).equals(BLOQUEADO) ? Anuncio.BLOQUEADO : Anuncio.ENCERRADO)) ;
                 UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
                 rs.getTimestamp(DATA_INS, dataInser) ;
                 rs.getTimestamp(DATA_EXP, dataExp) ;
@@ -145,11 +145,18 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
     public Anuncio put(Integer key, Anuncio value) {
         
         Anuncio res = null ;
-        try {            
-            //res = this.get(key) ;    
+        try { 
+            boolean existe ;
+            String sqlA ;
+            if((existe = this.containsKey(key)) == true) {
+                sqlA = "UPDATE " + ANUNCIO_T + " SET a.id = ?, a.titulo = ?, a.dataInsercao = ?, a.dataExp = ?, a.preco = ?, a.descricao = ?, a.quantidade = ?, a.nVisitas = ?, a.estadoProduto = ?, a.estadoAnuncio = ?, a.anunciante = ?, a.tipo = ? WHERE a.id = " + key ;
+            }
+            else {
+                sqlA = "INSERT INTO " + ANUNCIO_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+            }
             Timestamp tsDI = new Timestamp(value.getDataInser().getTimeInMillis()), tsDE = new Timestamp(value.getDataExpir().getTimeInMillis()) ;
-            String estadoProduto = (value.isEstadoProduto() ? NOVO : USADO), estadoAnuncio = (value.getEstadoAnuncio() == Anuncio.ABERTO ? ABERTO : (value.getEstadoAnuncio() == Anuncio.BLOQUEADO ? BLOQUEADO : ENCERRADO)) ;
-            PreparedStatement stmA = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + ANUNCIO_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            String estadoProduto = (value.isEstadoProduto() ? NOVO : USADO) ; //estadoAnuncio = (value.getEstadoAnuncio() == Anuncio.ABERTO ? ABERTO : (value.getEstadoAnuncio() == Anuncio.BLOQUEADO ? BLOQUEADO : ENCERRADO)) ;
+            PreparedStatement stmA = ConexaoBD.getConexao().prepareStatement(sqlA);
             stmA.setInt(ID, value.getCodigo()) ;
             stmA.setString(TITULO, value.getTitulo()) ;
             stmA.setTimestamp(DATA_INS, tsDI) ;
@@ -159,17 +166,27 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             stmA.setInt(QUANTIDADE, value.getQuantidade()) ;
             stmA.setInt(N_VISITAS, value.getnVisitas()) ;
             stmA.setString(ESTADO_PROD, estadoProduto) ;
-            stmA.setString(ESTADO_ANUNC, estadoAnuncio) ;
+            stmA.setInt(ESTADO_ANUNC, value.getEstadoAnuncio()) ;
             stmA.setString(ANUNCIANTE, value.getAnunciante().getUsername()) ;
-            if(value.getClass().toString().equals("AnuncioVenda")) {
+            if(value.getClass().getName().equals(AnuncioVenda.class.getName())) {
                 AnuncioVenda av = (AnuncioVenda)value ;
                 stmA.setString(TIPO_A, VENDA) ;
-                PreparedStatement stmMV = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + MODO_VENDA_T + " VALUES (?, ?)");
-                if(av.getTipoVenda().getClass().toString().equals("Leilao")) {
+                String sqlMV ;
+                if(existe)
+                    sqlMV = "UPDATE " + MODO_VENDA_T + " SET mv.id = ?, mv.tipo = ? WHERE mv.id = " + av.getTipoVenda().getId() ;
+                else
+                    sqlMV = "INSERT INTO " + MODO_VENDA_T + " VALUES (?, ?)" ;
+                PreparedStatement stmMV = ConexaoBD.getConexao().prepareStatement(sqlMV);
+                if(av.getTipoVenda().getClass().getName().equals(Leilao.class.getName())) {
                     Leilao l = (Leilao)av.getTipoVenda() ;                    
                     stmMV.setInt(ID_M_V, l.getId()) ;
                     stmMV.setString(TIPO_M_V, LEILAO);
-                    PreparedStatement stmL = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + LEILAO_T + " VALUES (?, ?, ?, ?, ?)");
+                    String sqlL ;
+                    if(existe)
+                        sqlL = "UPDATE " + LEILAO_T + " SET l.id = ?, l.precoBase = ?, l.precoActual = ?, l.nLicitacoes = ?, l.dataFim = ? WHERE l.id = " + l.getId() ;
+                    else
+                        sqlL = "INSERT INTO " + LEILAO_T + " VALUES (?, ?, ?, ?, ?)" ;
+                    PreparedStatement stmL = ConexaoBD.getConexao().prepareStatement(sqlL);
                     Timestamp tsDF = new Timestamp(l.getDataFim().getTimeInMillis()) ;
                     stmL.setInt(ID_L, l.getId()) ;
                     stmL.setDouble(PRECO_BASE, l.getPrecoBase()) ;
@@ -183,13 +200,23 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                     VendaDirecta v = (VendaDirecta)av.getTipoVenda() ;
                     stmMV.setInt(ID_M_V, v.getId()) ;
                     stmMV.setString(TIPO_M_V, VENDA_DIRECTA);
-                    PreparedStatement stmVD = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + VENDA_DIRECTA_T + " VALUES (?, ?)");
+                    String sqlVD ;
+                    if(existe)
+                        sqlVD = "UPDATE " + VENDA_DIRECTA_T + " SET vd.id = ?, vd.nPropostas = ? WHERE vd.id = " + v.getId() ;
+                    else
+                        sqlVD = "INSERT INTO " + VENDA_DIRECTA_T + " VALUES (?, ?)" ;
+                    PreparedStatement stmVD = ConexaoBD.getConexao().prepareStatement(sqlVD);
                     stmVD.setInt(ID_V_D, v.getId()) ;
                     stmVD.setInt(N_PROPOSTAS, v.getnPropostas()) ;
                     stmMV.execute() ;
                     stmVD.execute() ;
                 }
-                PreparedStatement stmAV = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + ANUNCIO_V_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                String sqlAV ;
+                if(existe)
+                    sqlAV = "UPDATE " + ANUNCIO_V_T + " SET av.id = ?, av.envioEstrangeiro = ?, av.condicoesEnvio = ?, av.precoEnvio = ?, av.seguro = ?, av.metodoEnvio = ?, av.propostaTrocar = ?, av.modoVenda = ? WHERE av.id = " + key ;
+                else
+                    sqlAV = "INSERT INTO " + ANUNCIO_V_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
+                PreparedStatement stmAV = ConexaoBD.getConexao().prepareStatement(sqlAV);
                 String envioEstrangeiro = (av.isEnvioEstrangeiro() ? SIM : NAO), propostaTrocar = (av.getPossivelTrocar() ? SIM : NAO) ;
                 stmAV.setInt(ID_V, av.getCodigo()) ;
                 stmAV.setString(ENVIO_E, envioEstrangeiro);
@@ -205,7 +232,12 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             else {
                 AnuncioCompra ac = (AnuncioCompra)value ;
                 stmA.setString(TIPO_A, COMPRA) ;
-                PreparedStatement stmAC = ConexaoBD.getConexao().prepareStatement("INSERT INTO " + ANUNCIO_C_T + " VALUES (?)");
+                String sqlAC ;
+                if(existe)
+                    sqlAC = "UPDATE " + ANUNCIO_C_T + " SET ac.id = ? WHERE ac.id = " + key ;
+                else 
+                    sqlAC = "INSERT INTO " + ANUNCIO_C_T + " VALUES (?)" ;
+                PreparedStatement stmAC = ConexaoBD.getConexao().prepareStatement(sqlAC);
                 stmAC.setInt(ID_C, ac.getCodigo()) ;
                 stmA.execute() ;
                 stmAC.execute() ;
@@ -243,7 +275,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                 int chave = rs.getInt(ID) ;
                 GregorianCalendar dataInser = new GregorianCalendar(), dataExp = new GregorianCalendar() ;
                 boolean estadoProduto = (rs.getString(ESTADO_PROD).equals(NOVO) ? true : false) ;
-                char estadoAnuncio = (rs.getString(ESTADO_ANUNC).equals(ABERTO) ? Anuncio.ABERTO : (rs.getString(ESTADO_ANUNC).equals(BLOQUEADO) ? Anuncio.BLOQUEADO : Anuncio.ENCERRADO)) ;
+                int estadoAnuncio = rs.getInt(ESTADO_ANUNC) ; //(rs.getString(ESTADO_ANUNC).equals(ABERTO) ? Anuncio.ABERTO : (rs.getString(ESTADO_ANUNC).equals(BLOQUEADO) ? Anuncio.BLOQUEADO : Anuncio.ENCERRADO)) ;
                 UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
                 rs.getTimestamp(DATA_INS, dataInser) ;
                 rs.getTimestamp(DATA_EXP, dataExp) ;

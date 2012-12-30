@@ -57,7 +57,7 @@ public interface SaleSquaredFacade {
     public void marcarMsgComoLida(String user, int codMsg);
     public boolean estaLida(String user, int codMsg) ;
 
-    public void limparHistAnunc(String user);
+    public void limparHistAnunc();
 
     public Set<UtilizadorRegistado> procurarUserNome(String user);
     public Set<UtilizadorRegistado> procurarUserMail(String email);
@@ -78,7 +78,7 @@ public interface SaleSquaredFacade {
     public void editarAnuncioDescricao(int codAnuncio, String descricao);
     public void editarAnuncioQuantidade(int codAnuncio, int quantidade);
     public void editarAnuncioTitulo(int codAnuncio, String titulo);
-    public void editarAnuncioImagens(int codAnuncio, Set<String> imagens);
+    public void editarAnuncioImagens(int codAnuncio, Set<Imagem> imagens);
     public void editarAnuncioEstado(int codAnuncio, char estado) ;
     public void incAnuncioVisitas(int codAnuncio);    
     

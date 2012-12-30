@@ -6,6 +6,12 @@ import java.sql.* ;
 
 public class TagAnuncioDAO implements Map<String, Tag> {
     
+    // v. c.
+    public static final String TAG_T = "TagAnuncio tg" ;
+    
+    public static final int ANUNCIO = 1 ;
+    public static final int TAG = 2 ;
+    
     // v. i.    
     private int codAnunc ;
     
@@ -13,102 +19,128 @@ public class TagAnuncioDAO implements Map<String, Tag> {
     public TagAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
     
     // interface Map
-    public void clear () {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            //stm.executeUpdate("DELETE FROM TAlunos");
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    public void clear () { 
+        
+        try {            
+            String sql = "DELETE FROM " + TAG_T + " WHERE tg.anuncio = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
-    public boolean containsKey(Object key) throws NullPointerException {
+    public boolean containsKey(Object key) {
+        
         try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
+            String chave = (String)key ;
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ? AND tg.tag = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
             return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean containsValue(Object value) {throw new NullPointerException("public boolean containsValue(Object value) not implemented!");}    
-    public Set<Map.Entry<String, Tag>> entrySet() {throw new NullPointerException("entrySet() not implemented!");}    
-    public boolean equals(Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
-    public Set<String> keySet() {throw new NullPointerException("Not implemented!");}
-    public void putAll(Map<? extends String,? extends Tag> t) {throw new NullPointerException("Not implemented!");}
+    public boolean containsValue(Object value) {throw new NullPointerException("Tag_Anuncio_containsValue não está implementado!");}    
+    public Set<Map.Entry<String, Tag>> entrySet() {throw new NullPointerException("Tag_Anuncio_entrySet não está implementado!");}    
+    public boolean equals(Object o) {throw new NullPointerException("Tag_Anuncio_equals não está implementado!");}
     
     public Tag get(Object key) {
+        
         try {
-            Tag al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            if (rs.next()) 
-                ;
-                //al = new Aluno(rs.getString(2),rs.getString(1),rs.getInt(3),rs.getInt(4));
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Tag res = null ;
+            String chave = (String)key ;
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ? AND tg.tag = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()) {                                
+                res = new Tag(rs.getString(TAG)) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public int hashCode() {return ConexaoBD.getConexao().hashCode();}
     
     public boolean isEmpty() {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
+        
+        try {            
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
             return !rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+    
+    public Set<String> keySet() {
+        
+        try {            
+            Set<String> res = new TreeSet<String>() ;
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res.add(rs.getString(TAG)) ;
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public Tag put(String key, Tag value) {
-        try {
-            Tag al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        
+        try {            
+            Tag res = null ;
+            String sql = "INSERT INTO " + TAG_T + " VALUES (?, ?)";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(ANUNCIO, this.codAnunc) ; stm.setString(TAG, key) ;
+            stm.execute();            
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Tag remove(Object key) {
-        try {
+    public void putAll(Map<? extends String,? extends Tag> t) {throw new NullPointerException("Tag_putAll não está implementado!");} 
+    
+    public Tag remove (Object key) { 
+        
+        try {            
+            Tag res = null ;
             String chave = (String)key ;
-            Tag al = this.get(chave);
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "DELETE ";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            String sql = "DELETE FROM " + TAG_T + " WHERE tg.anuncio = ? AND tg.tag = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.setString(2, chave) ;
+            stm.execute();  
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
     public int size() {
-        try {
-            int i = 0;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            for (;rs.next();i++);
-            return i;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        
+        try {            
+            int res = 0 ;
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res++ ;
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public Collection<Tag> values() {
-        try {
-            Collection<Tag> col = new HashSet<Tag>();
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            //for (;rs.next();) {
-              //  col.add(new Aluno(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
-            //}
-            return col;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        
+        try {            
+            Collection<Tag> res = new ArrayList<Tag>() ;
+            String sql = "SELECT * FROM " + TAG_T + " WHERE tg.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res.add(new Tag(rs.getString(TAG))) ;
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }    
 }

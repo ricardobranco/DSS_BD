@@ -1,123 +1,169 @@
 package camadaDados ;
 
+import java.io.* ;
 import java.util.* ;
 import java.sql.* ;
+import camadaNegocio.Imagem ;
 
-public class ImagemAnuncioDAO implements Set<String> {
+public class ImagemAnuncioDAO implements Map<String, Imagem> {
 
+    // v. c.
+    public static final String IMAGEM_T = "ImagemAnuncio img" ;
+    
+    public static final int ANUNCIO = 1 ;
+    public static final int IMAGEM = 2 ;
+    public static final int NOME  = 3 ;
+    
     // v. i.
     private int codAnunc ;
     
     // construtor
     public ImagemAnuncioDAO (int codAnuncArg) {this.codAnunc = codAnuncArg ;}
     
-    // interface Set
-    public boolean add(String s) {
+    // interface Map
+    public void clear () { 
         
-         try {
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        try {            
+            String sql = "DELETE FROM " + IMAGEM_T + " WHERE img.anuncio = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
-    public boolean addAll(Collection<? extends String> c) {
+    public boolean containsKey(Object key) {
         
         try {
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-    
-    public void clear () {
-        
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            //stm.executeUpdate("DELETE FROM TAlunos");
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-    
-    public boolean contains(Object o) {
-        
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
+            String chave = (String)key ;
+            String sql = "SELECT nome FROM " + IMAGEM_T + " WHERE img.anuncio = ? AND img.nome = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
             return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsValue(Object value) {throw new NullPointerException("Imagem_Anuncio_containsValue não está implementado!");}    
+    public Set<Map.Entry<String, Imagem>> entrySet() {throw new NullPointerException("Imagem_Anuncio_entrySet não está implementado!");}    
+    public boolean equals(Object o) {throw new NullPointerException("Imagem_Anuncio_equals não está implementado!");}
+    
+    public Imagem get(Object key) {
         
         try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Imagem res = null;
+            String chave = (String)key ;
+            String sql = "SELECT * FROM " + IMAGEM_T + " WHERE img.anuncio = ? AND img.nome = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();    
+            if (rs.next()) {
+                Blob b = rs.getBlob(IMAGEM) ;
+                File f = new File(ConexaoBD.pathImagem + "\\" + rs.getString(NOME)) ;
+                if(f.exists())
+                    f.delete() ;
+                f.createNewFile();
+                FileOutputStream fos = new FileOutputStream(f) ;
+                fos.write(b.getBytes(1, (int)b.length())) ;
+                res = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem + "\\" + rs.getString(NOME)) ;                
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
-    
-    public boolean equals (Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
     
     public int hashCode() {return ConexaoBD.getConexao().hashCode();}
     
     public boolean isEmpty() {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
+        
+         try {
+            String sql = "SELECT nome FROM " + IMAGEM_T + " WHERE img.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            ResultSet rs = stm.executeQuery();  
             return !rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Iterator<String> iterator () { throw new NullPointerException("equals(Object o) not implemented!");}
+    public Set<String> keySet() {
     
-    public boolean remove (Object key) {
+        try {
+            Set<String> res = new TreeSet<String>() ;
+            String sql = "SELECT nome FROM " + IMAGEM_T + " WHERE img.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next())
+                res.add(rs.getString(1)) ;
+            return res ;
+        } catch(Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
+    
+    public Imagem put(String key, Imagem value) {
         
         try {
-            String chave = (String)key ;
-            boolean al = true;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "DELETE ";
-            int i  = stm.executeUpdate(sql);
-            return al;
+            Imagem res = null;
+            String sql = "INSERT INTO " + IMAGEM_T + " VALUES (?, ?, ?)";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(ANUNCIO, this.codAnunc) ;
+            stm.setString(NOME, key) ;
+            FileInputStream fis = new FileInputStream(value.getPath()) ;
+            stm.setBlob(IMAGEM, fis) ;
+            stm.execute();
+            return res ;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public boolean removeAll (Collection<?> c) { throw new NullPointerException("removeAll not implemented!");}
+    public void putAll(Map<? extends String,? extends Imagem> t) {throw new NullPointerException("Imagem_Anuncio_putAll não está implementado!");}
     
-    public boolean retainAll (Collection<?> c) { throw new NullPointerException("retainAll not implemented!");}
+    public Imagem remove (Object key) { 
         
-    public int size() {
+        try {            
+            String chave = (String)key ;
+            Imagem res = null ;
+            String sql = "DELETE FROM " + IMAGEM_T + " WHERE img.anuncio = ? AND img.nome = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            stm.setString(2, chave) ;
+            stm.execute();           
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
     
+    public int size() {
+        
         try {
             int i = 0;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            for (;rs.next();i++);
+            String sql = "SELECT nome FROM " + IMAGEM_T + " WHERE img.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            ResultSet rs = stm.executeQuery();
+            for (; rs.next(); i++)
+                ;
             return i;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Object[] toArray () { throw new NullPointerException("toArray not implemented!");}   
-    
-    public <String> String[] toArray(String[] a) { throw new NullPointerException("toArray not implemented!");}       
+    public Collection<Imagem> values() {
+        
+        try {
+            Collection<Imagem> res = new ArrayList<Imagem>();
+            String sql = "SELECT * FROM " + IMAGEM_T + " WHERE img.anuncio = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, this.codAnunc) ;
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
+                Imagem i = null ;
+                Blob b = rs.getBlob(IMAGEM) ;
+                File f = new File(ConexaoBD.pathImagem + "\\" + rs.getString(NOME)) ;
+                if(f.exists())
+                    f.delete() ;
+                f.createNewFile();
+                FileOutputStream fos = new FileOutputStream(f) ;
+                fos.write(b.getBytes(1, (int)b.length())) ;
+                i = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem + "\\" + rs.getString(NOME)) ; 
+                res.add(i) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }     
 }

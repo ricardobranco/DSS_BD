@@ -6,6 +6,12 @@ import camadaNegocio.* ;
 
 public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 
+    // v. c.
+    public static final String USER_S_T = "UserSeguido us" ;
+    
+    public static final int SEGUIDOR = 1 ;
+    public static final int SEGUIDO = 2 ;
+    
     // v. i.    
     private String username ;
     
@@ -13,106 +19,132 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
     public UserSeguidoDAO (String usernameArg) {this.username = usernameArg ;}
     
     // interface Map
-    public void clear () {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            //stm.executeUpdate("DELETE FROM TAlunos");
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    public void clear () { 
+        
+        try {            
+            String sql = "DELETE FROM " + USER_S_T + " WHERE us.seguidor = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
     public boolean containsKey(Object key) throws NullPointerException {
-        try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-    
-    public boolean containsValue(Object value) {throw new NullPointerException("public boolean containsValue(Object value) not implemented!");}    
-    public Set<Map.Entry<String, UtilizadorRegistado>> entrySet() {throw new NullPointerException("entrySet() not implemented!");}    
-    public boolean equals(Object o) {throw new NullPointerException("equals(Object o) not implemented!");}
-    
-    public UtilizadorRegistado get(Object key) {
+        
         try {
             String chave = (String)key ;
-            UtilizadorRegistado al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "SELECT";
-            ResultSet rs = stm.executeQuery(sql);
-            if (rs.next()) 
-                ;
-                //al = new Aluno(rs.getString(2),rs.getString(1),rs.getInt(3),rs.getInt(4));
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            String sql = "SELECT * FROM " + USER_S_T + " WHERE us.seguidor = ? AND us.seguido = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
+            return rs.next();
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+    
+    public boolean containsValue(Object value) {throw new NullPointerException("User_Seguido_containsValue não está implementado!");}    
+    public Set<Map.Entry<String, UtilizadorRegistado>> entrySet() {throw new NullPointerException("User_Seguido_entrySet não está implementado!");}    
+    public boolean equals(Object o) {throw new NullPointerException("User_Seguido_equals não está implementado!");}
+    
+    public UtilizadorRegistado get(Object key) {
+        
+        try {
+            UtilizadorRegistado res = null ;
+            String chave = (String)key ;
+            String sql = "SELECT * FROM " + USER_S_T + " WHERE us.seguidor = ? AND us.seguido = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; stm.setString(2, chave) ;
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
+                res = u.get(rs.getString(SEGUIDO)) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public int hashCode() {return ConexaoBD.getConexao().hashCode();}
     
     public boolean isEmpty() {
+        
         try {
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
+            String sql = "SELECT * FROM " + USER_S_T + " WHERE us.seguidor = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; 
+            ResultSet rs = stm.executeQuery();
             return !rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public Set<String> keySet() {throw new NullPointerException("Not implemented!");}
+    public Set<String> keySet() {
+        
+        try {
+            Set<String> res = new TreeSet<String>() ;
+            String sql = "SELECT seguido FROM " + USER_S_T + " WHERE us.seguidor = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+                res.add(rs.getString(1)) ;
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
     
     public UtilizadorRegistado put(String key, UtilizadorRegistado value) {
         
         try {
-            UtilizadorRegistado al = null;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            stm.executeUpdate("DELETE");
-            String sql = "INSERT INTO";
-            //sql += value.getNotaT()+","+value.getNotaP()+")";
-            int i  = stm.executeUpdate(sql);
-            //return new Aluno(value.getNumero(),value.getNome(),value.getNotaT(),value.getNotaP());
-            return al ;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            UtilizadorRegistado res = null;
+            String sql = "INSERT INTO " + USER_S_T + " VALUES (?, ?)";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(SEGUIDOR, this.username) ; 
+            stm.setString(SEGUIDO, key) ; 
+            stm.execute();
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
-    public void putAll(Map<? extends String,? extends UtilizadorRegistado> t) {throw new NullPointerException("Not implemented!");}
+    public void putAll(Map<? extends String,? extends UtilizadorRegistado> t) {throw new NullPointerException("User_Seguido_putAll não está implementado!");}
         
-    public UtilizadorRegistado remove(Object key) {
-        try {
+    public UtilizadorRegistado remove (Object key) { 
+        
+        try {            
             String chave = (String)key ;
-            UtilizadorRegistado al = this.get(chave);
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            String sql = "DELETE ";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            UtilizadorRegistado res = null ;
+            String sql = "DELETE FROM " + USER_S_T + " WHERE us.seguidor = ? AND us.seguido = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ;
+            stm.setString(2, chave) ;
+            stm.execute();      
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
     }
     
     public int size() {
-        try {
+        
+        try {            
             int i = 0;
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            for (;rs.next();i++);
+            String sql = "SELECT seguido FROM " + USER_S_T + " WHERE us.seguidor = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; 
+            ResultSet rs = stm.executeQuery();
+            for (; rs.next(); i++)
+                ;
             return i;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public Collection<UtilizadorRegistado> values() {
+        
         try {
-            Collection<UtilizadorRegistado> col = new HashSet<UtilizadorRegistado>();
-            Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT");
-            //for (;rs.next();) {
-              //  col.add(new Aluno(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
-            //}
-            return col;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+            Collection<UtilizadorRegistado> res = new ArrayList<UtilizadorRegistado>();
+            String sql = "SELECT * FROM " + USER_S_T + " WHERE us.seguidor = ?";
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ; 
+            ResultSet rs = stm.executeQuery();
+            UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO() ;
+            while(rs.next()) {
+                res.add(u.get(rs.getString(SEGUIDO))) ;
+            }
+            return res;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }    
 }    

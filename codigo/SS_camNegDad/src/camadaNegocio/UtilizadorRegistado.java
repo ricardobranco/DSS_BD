@@ -27,21 +27,21 @@ public class UtilizadorRegistado extends Utilizador {
     //private Map<Integer, Avaliacao> rating;
     private String username;
     private String password;
-    private char estado;
+    private int estado;
     private String email;
     private String morada;
     private String codPostal ;
     private String localidade ;
     private String pais ;
     private String infPessoal;
-    private String imagem;    
+    private Imagem imagem;    
     private String contacto;
     private String nome;
     private GregorianCalendar dataNasc;
     
     // construtor - DAO
-    public UtilizadorRegistado(int id, String username, String password, char estado, String email, 
-     String morada, String codPostal, String localidade, String pais, String infPessoal, String imagem, String contacto, String nome, GregorianCalendar dn) {
+    public UtilizadorRegistado(int id, String username, String password, int estado, String email, 
+     String morada, String codPostal, String localidade, String pais, String infPessoal, Imagem imagem, String contacto, String nome, GregorianCalendar dn) {
         super(id) ;
         this.usersSeguidos = new UserSeguidoDAO(username) ;
         this.enviadas = new MsgEnviadaDAO(username) ;
@@ -82,8 +82,8 @@ public class UtilizadorRegistado extends Utilizador {
     public void setUsername(String username) {this.username = username;}
     public String getPassword() {return password;}
     public void setPassword(String password) {this.password = password;}
-    public char getEstado() {return estado;}
-    public void setEstado(char estado) {this.estado = estado;}
+    public int getEstado() {return estado;}
+    public void setEstado(int estado) {this.estado = estado;}
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
     public String getMorada() {return morada;}
@@ -96,8 +96,8 @@ public class UtilizadorRegistado extends Utilizador {
     public void setPais (String pais) {this.pais = pais ;}
     public String getInfPessoal() {return infPessoal;}
     public void setInfPessoal(String infPessoal) {this.infPessoal = infPessoal;}
-    public String getImagem() {return imagem;}
-    public void setImagem(String imagem) {this.imagem = imagem;}
+    public Imagem getImagem() {return imagem;}
+    public void setImagem(Imagem imagem) {this.imagem = imagem;}
     //public Map<Integer, Avaliacao> getRating() {return rating;}
     //public void setRating(Map<Integer, Avaliacao> rating) {this.rating = rating;}
     public String getContacto() {return contacto;}

@@ -16,9 +16,13 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     public static final int LIDA = 5 ;
     public static final int EMISSOR = 6 ;
     public static final int RECEPTOR = 7 ;
+    public static final int PERTENCE = 8 ;
     
     public static final String SIM = "S" ;
     public static final String NAO = "N" ;
+    
+    public static final int PERTENCE_E = 0 ;
+    public static final int PERTENCE_R = 1 ;
     
     // v. i.    
     private String username ;
@@ -27,15 +31,24 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     public MsgRecebidaDAO (String usernameArg) {this.username = usernameArg ;}
     
     // interface Map
-    public void clear () { throw new NullPointerException("Msg_Rec_clear não está implementado!");}        
+    public void clear () { 
+        
+        try {            
+            String sql = "DELETE FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.pertence = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, this.username) ;
+            stm.setInt(2, PERTENCE_R) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
     
     public boolean containsKey(Object key) {
         
         try {
             Integer chave = (Integer)key ;
-            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.id = ?" ;
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.id = ?" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);  
-            stm.setString(1, this.username) ; stm.setInt(2, chave) ;
+            stm.setInt(1, chave) ;
             ResultSet rs = stm.executeQuery();
             return rs.next() ;
         }
@@ -70,9 +83,10 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     public boolean isEmpty() {
         
         try {
-            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? " ;
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.pertence = ?" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
             stm.setString(1, this.username) ;
+            stm.setInt(2, PERTENCE_R) ;
             ResultSet rs = stm.executeQuery();
             return !rs.next();
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -82,9 +96,10 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
         
         try {
             Set<Integer> res = new TreeSet<Integer>() ;
-            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? " ;
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.pertence = ?" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
             stm.setString(1, this.username) ;
+            stm.setInt(2, PERTENCE_R) ;
             ResultSet rs = stm.executeQuery();
             while(rs.next())
                 res.add(rs.getInt(1)) ;
@@ -94,9 +109,14 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     
     public Mensagem put(Integer key, Mensagem value) {
         
-        try {
-            Mensagem res = null;
-            String sql = "INSERT INTO " + MENSAGEM_T + " VALUES (?, ?, ?, ?, ?, ?, ?)" ;
+        try {            
+            Mensagem res = null;            
+            boolean existe = this.containsKey(key) ;
+            String sql ;
+            if(existe)
+                sql = "UPDATE " + MENSAGEM_T + " SET m.id = ?, m.assunto = ?, m.corpo = ?, m.dataEnvio = ?, m.lida = ?, m.emissor = ?, m.receptor = ?, m.pertence = ? WHERE m.id = " + key ;
+            else
+                sql = "INSERT INTO " + MENSAGEM_T + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql) ;
             String estado = (value.getLida() ? SIM : NAO) ;
             Timestamp dataEnvio = new Timestamp(value.getDataEnvio().getTimeInMillis()) ;
@@ -107,6 +127,7 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
             stm.setString(RECEPTOR, value.getReceptor().getUsername()) ;
             stm.setString(LIDA, estado) ;
             stm.setTimestamp(DATA_ENVIO, dataEnvio) ;
+            stm.setInt(PERTENCE, PERTENCE_R) ;
             stm.execute() ;
             return res ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
@@ -114,15 +135,27 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     
     public void putAll(Map<? extends Integer,? extends Mensagem> t) {throw new NullPointerException("Msg_Rec_putAll não implementado!");}
     
-    public Mensagem remove(Object key) { throw new NullPointerException("Msg_Rec_remove não implementado!") ;}
+    public Mensagem remove(Object key) { 
+        
+        try {     
+            Mensagem res = null ;
+            Integer chave = (Integer)key ;
+            String sql = "DELETE FROM " + MENSAGEM_T + " WHERE m.id = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
+            stm.setInt(1, chave) ;
+            stm.execute();   
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
  
     public int size() {
         
         try {
             int i = 0;
-            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? " ;
+            String sql = "SELECT id FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.pertence = ?" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
             stm.setString(1, this.username) ;
+            stm.setInt(2, PERTENCE_R) ;
             ResultSet rs = stm.executeQuery();
             for (; rs.next(); i++)
                 ;
@@ -133,9 +166,10 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
     public Collection<Mensagem> values() {
         try {
             Collection<Mensagem> res = new ArrayList<Mensagem>();
-            String sql = "SELECT * FROM " + MENSAGEM_T + " WHERE m.receptor = ? " ;
+            String sql = "SELECT * FROM " + MENSAGEM_T + " WHERE m.receptor = ? AND m.pertence = ?" ;
             PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);            
             stm.setString(1, this.username) ;
+            stm.setInt(2, PERTENCE_R) ;
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
                 Mensagem m = null ;

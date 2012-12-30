@@ -24,7 +24,7 @@ public abstract class Anuncio {
     private Map<String, Tag> tags;
     private Map<String, Categoria> categorias;
     private Map<Integer, Avaliacao> avaliacoes;
-    private Set<String> imagens;
+    private Map<String, Imagem> imagens;
     private int codigo;
     private String titulo;
     private GregorianCalendar dataInser;
@@ -34,11 +34,11 @@ public abstract class Anuncio {
     private int quantidade;    
     private int nVisitas;
     private boolean estadoProduto;
-    private char estadoAnuncio;
+    private int estadoAnuncio;
     private UtilizadorRegistado anunciante ;
     
     // construtor
-    public Anuncio(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, char estadoAnuncio, UtilizadorRegistado anunciante) {
+    public Anuncio(int codigo, String titulo, GregorianCalendar dataInser, GregorianCalendar dataExpir, double preco, String descricao, int quantidade, int nVisitas, boolean estadoProduto, int estadoAnuncio, UtilizadorRegistado anunciante) {
         this.tags = new TagAnuncioDAO(codigo);
         this.categorias = new CategoriaAnuncioDAO(codigo);
         this.avaliacoes = new AvaliacaoAnuncioDAO(codigo);
@@ -85,14 +85,14 @@ public abstract class Anuncio {
     public void setDescricao(String descricao) {this.descricao = descricao;}
     public int getQuantidade() {return quantidade;}
     public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
-    public Set<String> getImagens() {return imagens;}
-    public void setImagens(Set<String> imagens) {this.imagens = imagens;}
+    public Map<String, Imagem> getImagens() {return imagens;}
+    public void setImagens(Map<String, Imagem> imagens) {this.imagens = imagens;}
     public int getnVisitas() {return nVisitas;}
     public void setnVisitas(int nVisitas) {this.nVisitas = nVisitas;}
     public boolean isEstadoProduto() {return estadoProduto;}
     public void setEstadoProduto(boolean estadoProduto) {this.estadoProduto = estadoProduto;}
-    public char getEstadoAnuncio() {return estadoAnuncio;}
-    public void setEstadoAnuncio(char estadoAnuncio) {this.estadoAnuncio = estadoAnuncio;}
+    public int getEstadoAnuncio() {return estadoAnuncio;}
+    public void setEstadoAnuncio(int estadoAnuncio) {this.estadoAnuncio = estadoAnuncio;}
     public UtilizadorRegistado getAnunciante() {return anunciante;}
     public void setAnunciante(UtilizadorRegistado anunciante) {this.anunciante = anunciante;}
     
@@ -144,9 +144,9 @@ public abstract class Anuncio {
     public boolean temAvaliacoes() {return !this.avaliacoes.isEmpty() ;}
     public boolean eNullAvaliacoes () {return this.avaliacoes == null; }
     
-    public boolean inserirImagem(String imagem) {return this.imagens.add(imagem) ;}
-    public boolean removerImagem(String imagem) {return this.imagens.remove(imagem) ;}    
-    public boolean existeImagem(String imagem) {return this.imagens.contains(imagem) ;}
+    public Imagem inserirImagem(Imagem imagem) {return this.imagens.put(imagem.getNome(), imagem) ;}
+    public Imagem removerImagem(String imagem) {return this.imagens.remove(imagem) ;}    
+    public boolean existeImagem(String imagem) {return this.imagens.containsKey(imagem) ;}
     public boolean temImagens() {return !this.imagens.isEmpty() ;}     
     public boolean eNullImagens () {return this.imagens == null; }
     
@@ -164,11 +164,11 @@ public abstract class Anuncio {
             this.categorias.put(c, new Categoria(c)) ;        
     }
     
-    public void editarImagens(Set<String> imagensArg) {
+    public void editarImagens(Set<Imagem> imagensArg) {
         
         this.imagens.clear() ;
-        for(String i : imagensArg)
-            this.imagens.add(i) ;        
+        for(Imagem i : imagensArg)
+            this.imagens.put(i.getNome(), i) ;        
     }    
 }
 

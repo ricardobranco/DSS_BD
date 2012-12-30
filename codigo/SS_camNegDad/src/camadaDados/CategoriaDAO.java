@@ -16,17 +16,24 @@ public class CategoriaDAO implements Map<String, Categoria> {
     public CategoriaDAO () {}
     
     // interface Map
-    public void clear () { throw new NullPointerException("Categoria_clear não implementado!");}    
+    public void clear () { 
+        
+        try {            
+            Statement stm = ConexaoBD.getConexao().createStatement();
+            String sql = "DELETE FROM " + CATEGORIA_T ;
+            stm.execute(sql);            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
     
     public boolean containsKey(Object key) {
+        
         try {
             String chave = (String)key ;
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "SELECT nome FROM " + CATEGORIA_T + " WHERE cat.nome = '" + chave + "'" ;
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
     
     public boolean containsValue(Object value) {throw new NullPointerException("Categoria_containsValue não está implementado!");}    
@@ -99,7 +106,18 @@ public class CategoriaDAO implements Map<String, Categoria> {
     
     public void putAll(Map<? extends String,? extends Categoria> t) {throw new NullPointerException("Categoria_putALL não está implementado");}
     
-    public Categoria remove(Object key) { throw new NullPointerException("Categoria_remove não está implementado");}        
+    public Categoria remove(Object key) { 
+        
+        try {      
+            Categoria res = null ;
+            String chave = (String)key ;
+            String sql = "DELETE FROM " + CATEGORIA_T + " WHERE cat.nome = ?" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setString(1, chave) ;            
+            stm.execute();        
+            return res ;
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
     
     public int size() {
         try {
