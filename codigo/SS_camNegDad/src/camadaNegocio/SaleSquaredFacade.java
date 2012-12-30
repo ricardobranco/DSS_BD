@@ -133,4 +133,6 @@ public interface SaleSquaredFacade {
     
     public void iniciarConexao () ;
     public void terminarConexao () ;    
+    
+    public void registaUtilizador() ;
 }

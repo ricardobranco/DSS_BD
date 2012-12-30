@@ -719,4 +719,11 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
     public int registaIdAvaliacao () {return Registo.registaIdAvaliacao() ;}
     public int registaIdUtilizador () {return Registo.registaIdUtilizador() ;}
     public int registaIdModoVenda () {return Registo.registaIdModoVenda() ;}
+    
+    public void registaUtilizador () {
+        
+        int a = this.registaIdUtilizador() ;
+        this.emSessao = new Utilizador(a) ;
+        Registo.inserirUtilizador(emSessao) ;
+    }
 }

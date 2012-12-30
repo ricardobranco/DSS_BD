@@ -1,6 +1,7 @@
 package camadaDados;
 
 import java.sql.* ;
+import camadaNegocio.* ;
 
 public class Registo {
     
@@ -74,15 +75,17 @@ public class Registo {
             Statement stm = ConexaoBD.getConexao().createStatement();            
             String sql = "SELECT idUtilizador FROM " + REGISTO_T ;
             ResultSet rs = stm.executeQuery(sql);
-            rs.next() ;
-            int res = rs.getInt(1) ;
-            String sqlU = "UPDATE " + REGISTO_T + " SET s.idUtilizador = s.idUtilizador + 1" ;
-            String sqlUser = "INSERT INTO " + UTILIZADOR_T + " VALUES (?, ?)" ;
+            int res = -1 ;
+            if(rs.next()) {
+                res = rs.getInt(1) ;
+                String sqlU = "UPDATE " + REGISTO_T + " SET s.idUtilizador = s.idUtilizador + 1" ;
+            /*String sqlUser = "INSERT INTO " + UTILIZADOR_T + " VALUES (?, ?)" ;
             PreparedStatement ps = ConexaoBD.getConexao().prepareStatement(sqlUser) ;            
             ps.setInt(1, res) ;
-            ps.setString(2, USER) ;
-            stm.executeUpdate(sqlU) ;
             ps.execute() ;
+            ps.setString(2, USER) ;*/
+                stm.executeUpdate(sqlU) ;            
+            }
             return res ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
@@ -100,6 +103,17 @@ public class Registo {
             return res ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }    
+    
+    public static void inserirUtilizador (Utilizador u) { 
+        
+        try {            
+            String sql = "INSERT INTO " + UTILIZADOR_T + " VALUES (?, ?)" ;
+            PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+            stm.setInt(1, u.getId()) ;
+            stm.setString(2, USER) ;
+            stm.execute();            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
+    }
     
     /*public static void apagarHistoricoAnuncVis (int idUser) { 
         

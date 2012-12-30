@@ -86,6 +86,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             Blob b = rs.getBlob(IMAGEM) ;
             byte bytes[] = new byte[(int)b.length()] ;
             FileOutputStream fos = new FileOutputStream(f) ;
+            b.getBinaryStream().read(bytes) ;
             fos.write(bytes) ;
             return new Imagem(rs.getString(NOME_IMAGEM), res) ;
         } catch (Exception e) {throw new NullPointerException(e.getMessage());}        
@@ -140,6 +141,10 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             stm.setString(INFORMACAO_P, value.getInfPessoal()) ;
             if(f.exists()) {
                 FileInputStream fis = new FileInputStream(f) ; 
+                /*byte b[] = new byte[fis.available()] ;
+                fis.read(b);
+                Blob bl = ConexaoBD.getConexao().createBlob() ;
+                bl.setBytes(1, b);*/
                 stm.setBlob(IMAGEM, fis) ;
                 stm.setString(NOME_IMAGEM, value.getImagem().getNome()) ;
             }
