@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,16 +21,20 @@ class ButtonEditor extends DefaultCellEditor {
 	  private String label;
 
 	  private boolean isPushed;
-	  JTable table;
-
-	  public ButtonEditor(JCheckBox checkBox, JTable table) {
+	  
+	  public ButtonEditor(JCheckBox checkBox, final JTable table) {
 	    super(checkBox);
-	    this.table=table;
 	    button = new JButton();
 	    button.setOpaque(true);
 	    button.addActionListener(new ActionListener() {
 	      public void actionPerformed(ActionEvent e) {
-	        fireEditingStopped();
+	    	  DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+		      int row = table.getSelectedRow();
+		      int size = table.getRowCount();
+	    	  dtm.removeRow(row);//fireEditingStopped();
+	    	  if(row+1<size)
+	    		  table.setRowSelectionInterval(row, row);
+	    	  
 	      }
 	    });
 	  }
@@ -53,8 +56,6 @@ class ButtonEditor extends DefaultCellEditor {
 
 	  public Object getCellEditorValue() {
 	    if (isPushed) {
-	      DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-	      dtm.removeRow(table.getSelectedRow());
 	      }
 	    isPushed = false;
 	    return new String(label);
@@ -66,6 +67,6 @@ class ButtonEditor extends DefaultCellEditor {
 	  }
 
 	  protected void fireEditingStopped() {
-	    super.fireEditingStopped();
+	    //super.fireEditingStopped();
 	  }
 	}

@@ -11,6 +11,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import java.awt.CardLayout;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Inserir_1 extends JPanel {
 
@@ -25,6 +28,8 @@ public class Inserir_1 extends JPanel {
 	 * Create the panel.
 	 */
 	public Inserir_1() {
+		
+		final Tabela_Imagens imagens = new Tabela_Imagens();
 		
 		JLabel lblNewLabel = new JLabel("1 - Defini\u00E7\u00F5es");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
@@ -105,10 +110,18 @@ public class Inserir_1 extends JPanel {
 		JLabel label = new JLabel(";");
 		label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		JLabel lblImagens = new JLabel("Imagens");
+		JLabel lblImagens = new JLabel("Fotos");
 		lblImagens.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
 		JPanel panel = new JPanel();
+		
+		final JButton btnAdicionarFoto = new JButton("Adicionar Foto");
+		btnAdicionarFoto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				imagens.adiciona();
+				btnAdicionarFoto.setEnabled(!imagens.isFull());
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -118,7 +131,7 @@ public class Inserir_1 extends JPanel {
 							.addContainerGap()
 							.addComponent(lblNewLabel))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(64)
+							.addGap(160)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(lblNewLabel_2)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -183,7 +196,9 @@ public class Inserir_1 extends JPanel {
 												.addComponent(textField)
 												.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
 												.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
-												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 466, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+													.addComponent(btnAdicionarFoto)
+													.addComponent(panel, GroupLayout.PREFERRED_SIZE, 466, GroupLayout.PREFERRED_SIZE)))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(lblSepararPor)
 											.addPreferredGap(ComponentPlacement.RELATED)
@@ -255,10 +270,12 @@ public class Inserir_1 extends JPanel {
 					.addComponent(lblImagens)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAdicionarFoto)
+					.addContainerGap(47, Short.MAX_VALUE))
 		);
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Tabela_Imagens(),"imagens");
+		panel.add(imagens,"imagens");
 
 		setLayout(groupLayout);
 		

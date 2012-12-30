@@ -1,11 +1,17 @@
 package Presentation_Layer;
 
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTable;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Tabela_Imagens extends JPanel {
@@ -14,6 +20,8 @@ public class Tabela_Imagens extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private final JTable table;
 	
 
 	/**
@@ -55,25 +63,63 @@ public class Tabela_Imagens extends JPanel {
 				return columnEditables[column];
 			}
 		};
-	    String cancelar = "Eliminar";
-		dm.setDataVector(new Object[][] { 
-	    	{ "button 1", "foo",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar },
-	        { "button 2", "bar",cancelar } }, new Object[] { "Imagem", "Nome","" });
+	 
+		dm.setDataVector(new Object[][] {}, new Object[] { "Foto", "Nome","" });
 
-	    JTable table = new JTable(dm);
+	    table = new JTable(dm);
+	    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+	    table.getColumn("Foto").setCellRenderer(new ImageCellRender());
 	    table.getColumn("").setCellRenderer(new ButtonRenderer());
 	    table.getColumn("").setCellEditor(
 	        new ButtonEditor(new JCheckBox(),table));
-	    
+	    table.setCellSelectionEnabled(false);
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
 
 	}
+	
+	public void adiciona(){
+		DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("").getAbsoluteFile());
+		int fcOption = fileChooser.showOpenDialog(this);
+		
+        if (fcOption == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            String path = f.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        ThumbnailIcon ti = new ThumbnailIcon(img, table.getColumn("Foto").getWidth());
+        Object[] row = {ti,"exito","cancelar"};
+        dtm.addRow(row);
+		updateRowHeights();
+		}
+		
+	}
+	public boolean isFull(){
+		if(table.getRowCount() < 9)
+			return false;
+		return true;
+	}
+	
+	private void updateRowHeights()
+	{
+	    try
+	    {
+	        for (int row = 0; row < table.getRowCount(); row++)
+	        {
+	            int rowHeight = table.getRowHeight();
+
+	            for (int column = 0; column < table.getColumnCount(); column++)
+	            {
+	                Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+	                rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+	            }
+
+	            table.setRowHeight(row, rowHeight);
+	        }
+	    }
+	    catch(ClassCastException e) {}
+	}
 }
+
