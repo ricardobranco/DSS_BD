@@ -23,7 +23,7 @@ public class Inserir_Negocio extends JPanel {
 	 * Create the panel.
 	 */
 	
-	int i = 1;
+	int i = 0;
 	JPanel[] inserir = new JPanel[3];
 	
 	
@@ -32,19 +32,43 @@ public class Inserir_Negocio extends JPanel {
 		
 		inserir[0] = new Inserir_1();
 		inserir[1] = new Inserir_2();
+		inserir[2] = new Inserir_3();
 		
 		JLabel lblNewLabel = new JLabel("Inserir Neg\u00F3cio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		
 		final JPanel panel = new JPanel();
 		
-		JButton btnSeguinte = new JButton("Seguinte");
+		final JButton btnSeguinte = new JButton("Seguinte");
+		final JButton btnVoltar = new JButton("Voltar");
 		btnSeguinte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
-				panel.add(inserir[i++],"inserir");
+				i++;
+				panel.add(inserir[i],"inserir");
 				panel.updateUI();
 				panel.validate();
+				if(i==2) 
+					btnSeguinte.setVisible(false);
+				btnVoltar.setVisible(true);
+				
+			}
+		});
+		
+		
+		btnVoltar.setVisible(false);
+
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				i--;
+				panel.add(inserir[i],"inserir");
+				panel.updateUI();
+				panel.validate();
+				if(i==0) 
+					btnVoltar.setVisible(false);
+				btnSeguinte.setVisible(true);
+				
 				
 			}
 		});
@@ -52,18 +76,19 @@ public class Inserir_Negocio extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(45)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(btnVoltar)
+									.addPreferredGap(ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+									.addComponent(btnSeguinte))
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))))
 					.addGap(26))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(1304, Short.MAX_VALUE)
-					.addComponent(btnSeguinte)
-					.addGap(28))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -71,10 +96,12 @@ public class Inserir_Negocio extends JPanel {
 					.addContainerGap()
 					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnSeguinte)
-					.addGap(9))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSeguinte)
+						.addComponent(btnVoltar))
+					.addGap(6))
 		);
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(inserir[0],"Inserir 1");

@@ -28,7 +28,7 @@ public class Registo_1 extends JPanel {
 	 */
 	public Registo_1() {
 		
-		JLabel lblNewLabel = new JLabel("1 - Dados B\u00E1sicos");
+		JLabel lblNewLabel = new JLabel("1 - Dados B‡sicos");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		
 		JLabel lblNewLabel_1 = new JLabel("Username");
