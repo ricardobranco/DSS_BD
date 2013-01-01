@@ -32,6 +32,11 @@ public class Registado_Panel extends JPanel {
 		JButton btnNewButton_1 = new JButton("Mensagens");
 		
 		JButton btnNewButton_2 = new JButton("Perfil");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				root.setBody(new Perfil(), "perfil");
+			}
+		});
 		
 		JButton btnNewButton_3 = new JButton("Vender");
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -39,12 +44,16 @@ public class Registado_Panel extends JPanel {
 				root.setBody(new Inserir_Negocio(),"Novo neg—cio");
 			}
 		});
+		
+		JButton btnContaPessoal = new JButton("Conta Pessoal");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(38, Short.MAX_VALUE)
+					.addContainerGap(99, Short.MAX_VALUE)
 					.addComponent(btnNewButton_3)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnContaPessoal)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton_2)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -60,8 +69,9 @@ public class Registado_Panel extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
 						.addComponent(btnNewButton_1)
-						.addComponent(btnNewButton_3)
-						.addComponent(btnNewButton_2))
+						.addComponent(btnNewButton_2)
+						.addComponent(btnContaPessoal)
+						.addComponent(btnNewButton_3))
 					.addContainerGap(265, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);

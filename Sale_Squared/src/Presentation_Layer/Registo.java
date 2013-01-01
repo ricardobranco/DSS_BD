@@ -73,12 +73,12 @@ public class Registo extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(101)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnNewButton_1)
-									.addGap(405)
+									.addPreferredGap(ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
 									.addComponent(btnNewButton)
-									.addGap(0, 0, Short.MAX_VALUE))
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))))
+									.addGap(20)))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -86,13 +86,13 @@ public class Registo extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 654, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 781, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(btnNewButton_1))
-					.addContainerGap(39, Short.MAX_VALUE))
+						.addComponent(btnNewButton_1)
+						.addComponent(btnNewButton))
+					.addGap(18))
 		);
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(registo_1_2,"1 e 2");

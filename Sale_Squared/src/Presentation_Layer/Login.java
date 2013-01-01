@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JDialog {
 
@@ -67,6 +69,13 @@ public class Login extends JDialog {
 		lblAindaNoPossui.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		
 		JLabel lblRegistese = new JLabel("Registe-se!");
+		lblRegistese.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				root.setBody(new Registo(root), "Registo");
+				dispose();
+			}
+		});
 		lblRegistese.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		Mouse_S2.mouseINOUT(lblRegistese);
 		JButton btnEntrar = new JButton("Entrar");

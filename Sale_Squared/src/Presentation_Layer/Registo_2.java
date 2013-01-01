@@ -1,14 +1,26 @@
 package Presentation_Layer;
 
-import javax.swing.JPanel;
+import java.awt.Font;
+import java.awt.Image;
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Registo_2 extends JPanel {
 
@@ -22,13 +34,15 @@ public class Registo_2 extends JPanel {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
+	private boolean avatar_s2;
+
 
 	/**
 	 * Create the panel.
 	 */
 	public Registo_2() {
 		
+		avatar_s2 = true;
 		JLabel lblNewLabel = new JLabel("2 - Dados Pessoais");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		
@@ -76,18 +90,41 @@ public class Registo_2 extends JPanel {
 		JLabel lblNewLabel_8 = new JLabel("Data de Nascimento");
 		lblNewLabel_8.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		com.toedter.calendar.JDateChooser dateChooser = new com.toedter.calendar.JDateChooser();
+		dateChooser.setDateFormatString("dd/MM/yyyy");
+		dateChooser.setDate(new Date());
+		GregorianCalendar gc = new GregorianCalendar();
+		Calendar max = Calendar.getInstance();  
+		max.set(Calendar.YEAR,gc.get(GregorianCalendar.YEAR));  
+		max.set(Calendar.MONTH,gc.get(GregorianCalendar.MONTH));  
+		max.set(Calendar.DATE,gc.get(GregorianCalendar.DATE)); 
+
+		dateChooser.setMaxSelectableDate(max.getTime());  
 		
-		JLabel lblNewLabel_9 = new JLabel("-");
+		JLabel lblImagemDePerfil = new JLabel("Imagem de perfil");
+		lblImagemDePerfil.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		final JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Registo_2.class.getResource("/Imagens/avatar.jpg")));
+		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				label.setIcon(new ImageIcon(Registo_2.class.getResource("/Imagens/avatar.jpg")));
+				avatar_s2 = true;
+				btnApagar.setVisible(!avatar_s2);
+			}
+		});
 		
-		JLabel lblNewLabel_10 = new JLabel("-");
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		JButton btnProcurar = new JButton("Procurar");
+		btnProcurar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				procura(label);
+				btnApagar.setVisible(!avatar_s2);
+				
+			}
+		});
+		btnApagar.setVisible(!avatar_s2);
+		btnApagar.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -105,9 +142,11 @@ public class Registo_2 extends JPanel {
 								.addComponent(lblNewLabel_3)
 								.addComponent(lblNewLabel_6)
 								.addComponent(lblNewLabel_7)
-								.addComponent(lblNewLabel_8))
+								.addComponent(lblNewLabel_8)
+								.addComponent(lblImagemDePerfil))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(label)
 								.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addGroup(groupLayout.createSequentialGroup()
@@ -120,17 +159,12 @@ public class Registo_2 extends JPanel {
 									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
 									.addComponent(textField_1, Alignment.TRAILING)
 									.addComponent(textField_4))
+								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnProcurar)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNewLabel_9)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNewLabel_10)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(262, Short.MAX_VALUE))
+									.addComponent(btnApagar)))))
+					.addContainerGap(36, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -164,16 +198,40 @@ public class Registo_2 extends JPanel {
 						.addComponent(lblNewLabel_7)
 						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_8)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_9)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_10)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(195, Short.MAX_VALUE))
+						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblImagemDePerfil)
+						.addComponent(label))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnProcurar)
+						.addComponent(btnApagar, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 
+	}
+	
+	public void procura(final JLabel label){
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("").getAbsoluteFile());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Imagens", "jpg", "png");
+		    fileChooser.setFileFilter(filter);
+		int fcOption = fileChooser.showOpenDialog(this);
+		
+		
+        if (fcOption == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            String path = f.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        Avatar avatar = new Avatar(img);
+        label.setIcon(avatar);
+        avatar_s2 = false;}
+		
 	}
 }

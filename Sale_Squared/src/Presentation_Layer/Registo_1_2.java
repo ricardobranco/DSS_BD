@@ -35,10 +35,10 @@ public class Registo_1_2 extends JPanel {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(40, Short.MAX_VALUE))
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+					.addGap(6))
 		);
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));

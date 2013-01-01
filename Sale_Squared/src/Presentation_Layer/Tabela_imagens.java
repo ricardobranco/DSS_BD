@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class Tabela_Imagens extends JPanel {
@@ -22,14 +23,12 @@ public class Tabela_Imagens extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private final JTable table;
-	
 
 	/**
 	 * Create the panel.
 	 */
 	@SuppressWarnings("serial")
 	public Tabela_Imagens() {
-		
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -82,7 +81,11 @@ public class Tabela_Imagens extends JPanel {
 		DefaultTableModel dtm = (DefaultTableModel) table.getModel();
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File("").getAbsoluteFile());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Imagens", "jpg", "png");
+		    fileChooser.setFileFilter(filter);
 		int fcOption = fileChooser.showOpenDialog(this);
+		
 		
         if (fcOption == JFileChooser.APPROVE_OPTION) {
             File f = fileChooser.getSelectedFile();

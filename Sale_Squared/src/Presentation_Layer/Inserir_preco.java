@@ -4,6 +4,9 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -15,8 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Presentation_Layer.com.toedter.calendar.JDateChooser;
-
 
 
 public class Inserir_preco extends JPanel {
@@ -25,7 +26,6 @@ public class Inserir_preco extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JDateChooser calendario;
 	private JTextField textField;
 	private JTextField textField_1;
 	/**
@@ -35,7 +35,6 @@ public class Inserir_preco extends JPanel {
 		
 		final JPanel panel_2 = new JPanel();
 		final JPanel panel_3 = new JPanel();
-		calendario = new JDateChooser();
 		final JCheckBox chckbxLeilo = new JCheckBox("Leil›es");
 		chckbxLeilo.setSelected(true);
 		chckbxLeilo.addActionListener(new ActionListener() {
@@ -60,16 +59,24 @@ public class Inserir_preco extends JPanel {
 		JLabel lblDurao = new JLabel("Validade");
 		lblDurao.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		JPanel panel = new JPanel();
-		
 		JLabel lblData = new JLabel("Data");
 		lblData.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
 		JPanel panel_1 = new JPanel();
 		
-		
+		com.toedter.calendar.JDateChooser dateChooser = new com.toedter.calendar.JDateChooser();
+		dateChooser.setDate(new Date());
+		GregorianCalendar gc = new GregorianCalendar();
+		Calendar min = Calendar.getInstance();  
+		min.set(Calendar.YEAR,gc.get(GregorianCalendar.YEAR));  
+		min.set(Calendar.MONTH,gc.get(GregorianCalendar.MONTH));  
+		min.set(Calendar.DATE,gc.get(GregorianCalendar.DATE)); 
+
+		dateChooser.setMinSelectableDate(min.getTime());  
+
 		
 		GroupLayout groupLayout = new GroupLayout(this);
+		dateChooser.setDateFormatString("dd/MM/yyyy");
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -83,13 +90,13 @@ public class Inserir_preco extends JPanel {
 								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblData)
-									.addGap(18)
-									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(193, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap(208, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(29)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+						.addComponent(panel_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
 						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(145))
 		);
@@ -103,20 +110,17 @@ public class Inserir_preco extends JPanel {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxNewCheckBox)
-							.addGap(34)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(18)
-									.addComponent(lblDurao)
-									.addGap(18)
-									.addComponent(lblData))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(50)
-									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))))
+							.addComponent(chckbxNewCheckBox))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(143)
 							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(52)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblDurao)
+							.addGap(18)
+							.addComponent(lblData))
+						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(13, Short.MAX_VALUE))
@@ -193,8 +197,6 @@ public class Inserir_preco extends JPanel {
 		);
 		panel_2.setLayout(gl_panel_2);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel.setLayout(new CardLayout(0, 0));
-		panel.add(calendario,"Calendario");
 		panel_1.add(new Horas(),"horas");
 		setLayout(groupLayout);
 
