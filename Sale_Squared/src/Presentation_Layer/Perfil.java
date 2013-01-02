@@ -83,6 +83,7 @@ public class Perfil extends JPanel {
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Reputação", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
+		panel.add(new Perfil_Reputacao(),"perfil_rep");
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Negócios", null, panel_1, null);

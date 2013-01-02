@@ -2,6 +2,8 @@ package Presentation_Layer;
 
 import java.awt.Component;
 
+import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -14,9 +16,10 @@ public class ImageCellRender extends DefaultTableCellRenderer {
 	@Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        if (value instanceof ThumbnailIcon) {
-            setIcon((ThumbnailIcon) value);
+        if (value instanceof Icon) {
+            setIcon((Icon) value);
         }
+        this.setHorizontalAlignment(JLabel.CENTER);
         return this;
     }
 }
