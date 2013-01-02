@@ -1,16 +1,18 @@
 package Presentation_Layer;
 
-import javax.swing.JDialog;
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JCheckBox;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.jdesktop.swingx.JXHyperlink;
 
 public class Registo_Final extends JPanel {
 
@@ -29,17 +31,15 @@ public class Registo_Final extends JPanel {
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Ao assinar esta op\u00E7\u00E3o confirma que leu e concorda com as nossas");
 		
-		JLabel lblNewLabel_1 = new JLabel("Condi\u00E7\u00F5es de Servi\u00E7o");
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JDialog frame = new Terms(root);
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+		JXHyperlink hprlnkCondiesDeServio = new JXHyperlink();
+		hprlnkCondiesDeServio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Terms terms = new Terms(root);
+				terms.setVisible(true);
 			}
 		});
-		Mouse_S2.mouseINOUT(lblNewLabel_1);
-		lblNewLabel_1.setForeground(new Color(0, 102, 204));
+		hprlnkCondiesDeServio.setForeground(new Color(0, 102, 204));
+		hprlnkCondiesDeServio.setText("Condi\u00E7\u00F5es de Servi\u00E7o");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -51,9 +51,9 @@ public class Registo_Final extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(39)
 							.addComponent(chckbxNewCheckBox)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNewLabel_1)))
-					.addContainerGap(133, Short.MAX_VALUE))
+							.addGap(6)
+							.addComponent(hprlnkCondiesDeServio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -63,11 +63,10 @@ public class Registo_Final extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chckbxNewCheckBox)
-						.addComponent(lblNewLabel_1))
-					.addContainerGap(246, Short.MAX_VALUE))
+						.addComponent(hprlnkCondiesDeServio, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 
 	}
-
 }

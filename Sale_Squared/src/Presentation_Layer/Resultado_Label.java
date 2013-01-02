@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.jdesktop.swingx.JXHyperlink;
 
 public class Resultado_Label extends JPanel {
 
@@ -132,48 +132,52 @@ public class Resultado_Label extends JPanel {
 		);
 		panel_3.setLayout(gl_panel_3);
 		
-		JLabel lblNewLabel_1 = new JLabel("Autor123");
-		Mouse_S2.mouseINOUT(lblNewLabel_1);
+		JXHyperlink hprlnkAutor = new JXHyperlink();
+		hprlnkAutor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				root.setBody(new Perfil(root),"Perfil");
+			}
+		});
+		hprlnkAutor.setForeground(new Color(0, 0, 0));
+		hprlnkAutor.setText("autor123");
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel_1)
-					.addContainerGap(86, Short.MAX_VALUE))
+					.addComponent(hprlnkAutor, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(lblNewLabel_1)
+					.addComponent(hprlnkAutor, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		JLabel lblNewLabel = new JLabel("Titulo do Neg\u00F3cio");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				root.setBody(new Anuncio(root),"Anuncio");
+		
+		JXHyperlink hprlnkTituloDoNegcio = new JXHyperlink();
+		hprlnkTituloDoNegcio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				root.setBody(new Anuncio(root),"anuncio");
 			}
 		});
-		
-		Mouse_S2.mouseINOUT(lblNewLabel);
-		lblNewLabel.setForeground(new Color(0, 102, 204));
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		hprlnkTituloDoNegcio.setForeground(new Color(0, 102, 204));
+		hprlnkTituloDoNegcio.setText("Titulo do Neg\u00F3cio");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(hprlnkTituloDoNegcio, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(362, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(lblNewLabel))
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addContainerGap(8, Short.MAX_VALUE)
+					.addComponent(hprlnkTituloDoNegcio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		

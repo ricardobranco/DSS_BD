@@ -1,25 +1,19 @@
 package Presentation_Layer;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import org.jdesktop.swingx.JXButton;
+import org.jdesktop.swingx.JXHyperlink;
+import org.jdesktop.swingx.JXLabel;
+import org.jdesktop.swingx.JXLoginPane;
 
 public class Login extends JDialog {
 
@@ -27,9 +21,6 @@ public class Login extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -51,103 +42,78 @@ public class Login extends JDialog {
 			}
 		});
 		setResizable(false);
-		setBounds(100, 100, 273, 224);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setBounds(100, 100, 397, 294);
 		
-		JLabel lblUser = new JLabel("Nome de utilizador");
+		JXLoginPane loginPane = new JXLoginPane();
+		loginPane.setBannerText("Entrar");
+		JXLabel lblNoPossuiConta = new JXLabel();
+		lblNoPossuiConta.setText("N‹o possui conta?");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Password");
-		
-		passwordField = new JPasswordField();
-		
-		JLabel lblAindaNoPossui = new JLabel("Ainda n\u00E3o possui conta?");
-		lblAindaNoPossui.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-		
-		JLabel lblRegistese = new JLabel("Registe-se!");
-		lblRegistese.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				root.setBody(new Registo(root), "Registo");
+		JXHyperlink hprlnkRegistese = new JXHyperlink();
+		hprlnkRegistese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				root.setBody(new Registo(root),"Registo");
+				root.setEnabled(true);
 				dispose();
+				
+				
+				
+				
 			}
 		});
-		lblRegistese.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		Mouse_S2.mouseINOUT(lblRegistese);
-		JButton btnEntrar = new JButton("Entrar");
+		hprlnkRegistese.setText("Registe-se!");
+		
+		JXButton btnEntrar = new JXButton();
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sale_Squared.REGISTADO = true; //TESTE
-				root.setEnabled(true);
+				Sale_Squared.REGISTADO=true;
 				root.reloadHeader();
 				root.setBody(new Home(root), "Home");
-				dispose();
-			}
-		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				root.setEnabled(true);
 				dispose();
 			}
 		});
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(102)
-					.addComponent(lblNewLabel)
-					.addContainerGap(102, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-					.addContainerGap(74, Short.MAX_VALUE)
-					.addComponent(lblUser)
-					.addGap(69))
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-					.addContainerGap(24, Short.MAX_VALUE)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCancelar))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblAindaNoPossui)
+		btnEntrar.setText("Entrar");
+		
+		JXButton btnCancelar = new JXButton();
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				root.setEnabled(true);
+				dispose();
+			}
+		});
+		btnCancelar.setText("Cancelar");
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(loginPane, GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(117, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRegistese, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
-					.addGap(20))
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNoPossuiConta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(hprlnkRegistese, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(86))
 		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblUser)
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(loginPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAindaNoPossui)
-						.addComponent(lblRegistese))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNoPossuiConta, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(hprlnkRegistese, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnEntrar)
-						.addComponent(btnCancelar))
-					.addContainerGap(49, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(14, Short.MAX_VALUE))
 		);
-		contentPanel.setLayout(gl_contentPanel);
+		getContentPane().setLayout(groupLayout);
 	}
 }

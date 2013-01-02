@@ -1,6 +1,5 @@
 package Presentation_Layer;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.jdesktop.swingx.JXHyperlink;
+import java.awt.Color;
 
 public class Produto_Base extends JPanel {
 
@@ -41,11 +43,6 @@ public class Produto_Base extends JPanel {
 			}
 		});
 		button.setIcon(new ImageIcon(Produto_Base.class.getResource("/Imagens/Sem_Imagem.png")));
-		
-		JLabel lblNewLabel = new JLabel(titulo);
-		Mouse_S2.mouseINOUT(lblNewLabel);
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		lblNewLabel.setForeground(new Color(0, 102, 204));
 		JLabel lblMin = new JLabel("50");
 		
 		
@@ -65,19 +62,24 @@ public class Produto_Base extends JPanel {
 		
 		JLabel label_1 = new JLabel(tempRest);
 		label_1.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 13));
+		
+		JXHyperlink hprlnkNegcio = new JXHyperlink();
+		hprlnkNegcio.setForeground(new Color(0, 102, 204));
+		hprlnkNegcio.setText(titulo);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(button)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblMin, Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label_1)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(hprlnkNegcio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(label_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
-							.addComponent(label))
-						.addComponent(lblMin))
+							.addComponent(label)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -85,9 +87,9 @@ public class Produto_Base extends JPanel {
 				.addComponent(button, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblMin, GroupLayout.PREFERRED_SIZE, 9, Short.MAX_VALUE)
+					.addComponent(hprlnkNegcio, GroupLayout.PREFERRED_SIZE, 13, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(lblMin, GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
