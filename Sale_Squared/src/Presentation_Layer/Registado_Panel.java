@@ -34,7 +34,7 @@ public class Registado_Panel extends JPanel {
 		JButton btnNewButton_2 = new JButton("Perfil");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Perfil(), "perfil");
+				root.setBody(new Perfil(root), "perfil");
 			}
 		});
 		
@@ -46,6 +46,11 @@ public class Registado_Panel extends JPanel {
 		});
 		
 		JButton btnContaPessoal = new JButton("Conta Pessoal");
+		btnContaPessoal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				root.setBody(new Conta_Pessoal(root), "Conta Pessoal");
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)

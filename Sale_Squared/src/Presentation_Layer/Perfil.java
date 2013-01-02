@@ -22,7 +22,7 @@ public class Perfil extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Perfil() {
+	public Perfil(final Sale_Squared root) {
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Perfil.class.getResource("/Imagens/avatar.jpg")));
@@ -88,6 +88,7 @@ public class Perfil extends JPanel {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Neg—cios", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
+		panel_1.add(new Pesquisa_Resultado(root),"Neg—cios");
 		setLayout(groupLayout);
 
 	}

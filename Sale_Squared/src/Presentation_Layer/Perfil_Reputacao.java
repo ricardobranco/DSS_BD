@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.CardLayout;
+import javax.swing.JTabbedPane;
 
 public class Perfil_Reputacao extends JPanel {
 
@@ -75,7 +76,7 @@ public class Perfil_Reputacao extends JPanel {
 		);
 		panel.setLayout(gl_panel);
 		
-		JPanel panel_1 = new JPanel();
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -83,8 +84,8 @@ public class Perfil_Reputacao extends JPanel {
 					.addGap(23)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-					.addGap(27))
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -92,14 +93,29 @@ public class Perfil_Reputacao extends JPanel {
 					.addGap(22)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(65))))
 		);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Todos", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Tabela_Reputacao(),"tabela_rep");
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Vendedor", null, panel_2, null);
+		panel_2.setLayout(new CardLayout(0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Comprador", null, panel_3, null);
+		panel_3.setLayout(new CardLayout(0, 0));
+		
+		panel_1.add(new Tabela_Reputacao(),"todos");
+		panel_2.add(new Tabela_Reputacao(),"vendedor");
+		panel_3.add(new Tabela_Reputacao(),"comprador");
+		
 		setLayout(groupLayout);
 
 	}
