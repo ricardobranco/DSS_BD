@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
+import Presentation_Layer.Header.Header;
+import Presentation_Layer.Home.Home;
+
 public class Sale_Squared extends JFrame {
 
 	/**
