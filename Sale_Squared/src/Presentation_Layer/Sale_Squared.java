@@ -108,8 +108,8 @@ public class Sale_Squared extends JFrame {
 		scrollPane.setViewportView(panel_1);
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Header(this),"Header");
-		panel_1.add(new Home(this),"Home");
+		reloadHeader();
+		setBody(new Home(this), "Home");
 		getContentPane().setLayout(groupLayout);
 		
 	}
