@@ -71,7 +71,7 @@ public class Anuncio extends JPanel {
 		panel_2.add(new Tabbed_Sugestoes(root),"Mais sugestoes");
 		
 		panel_3.setLayout(new CardLayout(0, 0));
-		panel_3.add(new Imagem_Main(),"Imagem");
+		panel_3.add(new Imagem_Panel(),"Imagem");
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel_1.add(new Tabbed_Anuncio(),"Info");
 		panel.setLayout(new CardLayout(0, 0));
