@@ -26,7 +26,7 @@ public class Registado_Panel extends JPanel {
 	 * Create the panel.
 	 */
 	public Registado_Panel(final Sale_Squared root) {
-		
+
 		JButton btnNewButton = new JButton("Sair");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -35,23 +35,23 @@ public class Registado_Panel extends JPanel {
 				root.setBody(new Home(root), "Home");
 			}
 		});
-		
+
 		JButton btnNewButton_1 = new JButton("Mensagens");
-		
+
 		JButton btnNewButton_2 = new JButton("Perfil");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				root.setBody(new Perfil(root), "perfil");
 			}
 		});
-		
+
 		JButton btnNewButton_3 = new JButton("Vender");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setBody(new Inserir_Negocio(),"Novo neg—cio");
+				root.setBody(new Inserir_Negocio(), "Novo neg—cio");
 			}
 		});
-		
+
 		JButton btnContaPessoal = new JButton("Conta Pessoal");
 		btnContaPessoal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -59,33 +59,35 @@ public class Registado_Panel extends JPanel {
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(99, Short.MAX_VALUE)
-					.addComponent(btnNewButton_3)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnContaPessoal)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton_2)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton_1)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(btnNewButton_1)
-						.addComponent(btnNewButton_2)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
+				Alignment.TRAILING).addGroup(
+				groupLayout.createSequentialGroup()
+						.addContainerGap(99, Short.MAX_VALUE)
+						.addComponent(btnNewButton_3)
+						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(btnContaPessoal)
-						.addComponent(btnNewButton_3))
-					.addContainerGap(265, Short.MAX_VALUE))
-		);
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnNewButton_2)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btnNewButton_1)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnNewButton).addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(
+						groupLayout
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(
+										groupLayout
+												.createParallelGroup(
+														Alignment.BASELINE)
+												.addComponent(btnNewButton)
+												.addComponent(btnNewButton_1)
+												.addComponent(btnNewButton_2)
+												.addComponent(btnContaPessoal)
+												.addComponent(btnNewButton_3))
+								.addContainerGap(265, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 
 	}

@@ -22,38 +22,38 @@ public class Tabbed_Anuncio extends JPanel {
 	 * Create the panel.
 	 */
 	public Tabbed_Anuncio() {
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE,
+								438, Short.MAX_VALUE).addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE,
+								319, Short.MAX_VALUE).addContainerGap()));
+
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Descrição", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Descricao(),"Descrição");
-		
+		panel.add(new Descricao(), "Descrição");
+
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Imagens", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Imagem_Panel(),"Imagens");
-		
+		panel_1.add(new Imagem_Panel(), "Imagens");
+
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Envio e Pagamento", null, panel_2, null);
 		panel_2.setLayout(new CardLayout(0, 0));
-		panel_2.add(new Envio_Pagamento(),"Envio e Pagamento");
+		panel_2.add(new Envio_Pagamento(), "Envio e Pagamento");
 		setLayout(groupLayout);
 
 	}

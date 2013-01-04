@@ -26,13 +26,18 @@ public class Registo_Final extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	JCheckBox chckbxNewCheckBox;
+	
 	public Registo_Final(final Sale_Squared root) {
-		
-		JLabel lblNewLabel = new JLabel("4 - Condi\u00E7\u00F5es de Servi\u00E7o");
+
+		JLabel lblNewLabel = new JLabel(
+				"4 - Condições de Serviço");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Ao assinar esta op\u00E7\u00E3o confirma que leu e concorda com as nossas");
-		
+
+		 chckbxNewCheckBox = new JCheckBox(
+				"Ao assinar esta opção confirma que leu e concorda com as nossas");
+
 		JXHyperlink hprlnkCondiesDeServio = new JXHyperlink();
 		hprlnkCondiesDeServio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -41,34 +46,61 @@ public class Registo_Final extends JPanel {
 			}
 		});
 		hprlnkCondiesDeServio.setForeground(new Color(0, 102, 204));
-		hprlnkCondiesDeServio.setText("Condi\u00E7\u00F5es de Servi\u00E7o");
+		hprlnkCondiesDeServio.setText("Condições de Serviço");
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(39)
-							.addComponent(chckbxNewCheckBox)
-							.addGap(6)
-							.addComponent(hprlnkCondiesDeServio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(50, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chckbxNewCheckBox)
-						.addComponent(hprlnkCondiesDeServio, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(19, Short.MAX_VALUE))
-		);
+		groupLayout
+				.setHorizontalGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(
+																				lblNewLabel))
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addGap(39)
+																		.addComponent(
+																				chckbxNewCheckBox)
+																		.addGap(6)
+																		.addComponent(
+																				hprlnkCondiesDeServio,
+																				GroupLayout.PREFERRED_SIZE,
+																				GroupLayout.DEFAULT_SIZE,
+																				GroupLayout.PREFERRED_SIZE)))
+										.addContainerGap(50, Short.MAX_VALUE)));
+		groupLayout
+				.setVerticalGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(lblNewLabel)
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																chckbxNewCheckBox)
+														.addComponent(
+																hprlnkCondiesDeServio,
+																GroupLayout.PREFERRED_SIZE,
+																18,
+																GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(19, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 
 	}
+	public boolean termosaceites(){return chckbxNewCheckBox.isSelected();}
 }

@@ -24,42 +24,46 @@ public class Visitante_Panel extends JPanel {
 	 * Create the panel.
 	 */
 	public Visitante_Panel(final Sale_Squared root) {
-		
+
 		JButton btnRegistar = new JButton("Registar");
 		btnRegistar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				root.setBody(new Registo(root), "Registo");
-				
+
 			}
 		});
-		
+
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog frame =new Login(root);
+				JDialog frame = new Login(root);
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(btnEntrar)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnRegistar)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnRegistar)
-						.addComponent(btnEntrar))
-					.addContainerGap(265, Short.MAX_VALUE))
-		);
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				Alignment.TRAILING,
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap(GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE).addComponent(btnEntrar)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnRegistar).addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(
+						groupLayout
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(
+										groupLayout
+												.createParallelGroup(
+														Alignment.BASELINE)
+												.addComponent(btnRegistar)
+												.addComponent(btnEntrar))
+								.addContainerGap(265, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 
 	}
