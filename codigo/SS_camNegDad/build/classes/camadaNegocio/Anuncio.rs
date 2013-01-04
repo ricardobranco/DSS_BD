@@ -1,5 +1,0 @@
-camadaNegocio.ComparadorAnuncioTag
-camadaNegocio.ComparadorAnuncTroca
-camadaNegocio.ComparadorAnuncNVis
-camadaNegocio.Anuncio
-camadaNegocio.ComparadorUltimosAnunc
