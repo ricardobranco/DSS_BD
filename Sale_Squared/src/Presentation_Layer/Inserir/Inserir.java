@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -11,6 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioCompra;
+import Business_Layer.AnuncioVenda;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Componentes.Mensagem_Erro;
 
 public class Inserir extends JPanel {
 
@@ -23,16 +30,21 @@ public class Inserir extends JPanel {
 	 * Create the panel.
 	 */
 
-	int i = 0;
+	private int step = 1;
+	private Anuncio a;
+	
 	JPanel[] inserir = new JPanel[3];
 
-	public Inserir() {
+	public Inserir(final Sale_Squared root) {
 
-		inserir[0] = new Inserir_1();
+		int codigo = root.getSistema().registaIdAnuncio();
+		a = new AnuncioVenda(codigo);
+		inserir[0] = new Inserir_1(codigo);
 		inserir[1] = new Inserir_2();
 		inserir[2] = new Inserir_3();
-
-		JLabel lblNewLabel = new JLabel("Inserir Neg\u00F3cio");
+		
+		
+		JLabel lblNewLabel = new JLabel("Inserir Negócio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 
 		final JPanel panel = new JPanel();
@@ -41,6 +53,35 @@ public class Inserir extends JPanel {
 		final JButton btnVoltar = new JButton("Voltar");
 		btnSeguinte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					switch (step) {
+					case 1:
+						Inserir_1 i1 = (Inserir_1) inserir[0];
+						a.setTitulo(i1.getTitulo());
+						a.setCategorias(i1.getCategorias());
+						a.setDataInser(new GregorianCalendar());
+						
+						
+						
+						
+						break;
+					}
+					
+					
+				} catch (Exception e2) {
+					Mensagem_Erro frame = new Mensagem_Erro(root, e2
+							.getMessage());
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+				
+				}
+				
+				
+				
+				
+				
+				
 				panel.removeAll();
 				i++;
 				panel.add(inserir[i], "inserir");

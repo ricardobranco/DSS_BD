@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.swing.GroupLayout;
@@ -19,6 +20,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
 import Business_Layer.Categoria;
+import Business_Layer.Imagem;
 import Business_Layer.Tag;
 import Presentation_Layer.Tabelas.Tabela_Imagens;
 import javax.swing.JRadioButton;
@@ -36,14 +38,16 @@ public class Inserir_1 extends JPanel {
 	private JRadioButton rdbtnNovo;
 	private JRadioButton rdbtnUsado;
 	private Inserir_Categorias categorias;
+	private Inserir_preco preco;
+	final Tabela_Imagens imagens;
 	/**
 	 * Create the panel.
 	 */
-	public Inserir_1() {
+	public Inserir_1(int codigo) {
 
-		final Tabela_Imagens imagens = new Tabela_Imagens();
+		imagens = new Tabela_Imagens(codigo);
 		categorias = new Inserir_Categorias();
-
+		preco = new Inserir_preco();
 		JLabel lblNewLabel = new JLabel("1 - Definiç\u00F5es");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
@@ -180,7 +184,7 @@ public class Inserir_1 extends JPanel {
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(imagens, "imagens");
 		panel_1.add(categorias, "Categorias");
-		panel_2.add(new Inserir_preco(), "Def_Preçoo");
+		panel_2.add(preco, "Def_Preçoo");
 
 		setLayout(groupLayout);
 
@@ -212,11 +216,19 @@ public class Inserir_1 extends JPanel {
 		return res;
 		}
 	
-	public List<Categoria> getCategorias(){
-		List<Categoria> res = categorias.getCategorias();
+	public Map<String,Categoria> getCategorias(){
+		Map<String,Categoria> res = categorias.getCategorias();
 		if(res.isEmpty())
-			res.add(new Categoria("Outros"));
+			res.put("Outros",new Categoria("Outros"));
 		return res;
+	}
+	
+	public Inserir_preco precopanel(){
+		return preco;
+	}
+	
+	public List<Imagem> getImagens(){
+		return imagens.getImagens();
 	}
 	
 	

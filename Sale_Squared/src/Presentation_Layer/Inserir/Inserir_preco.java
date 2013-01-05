@@ -294,12 +294,17 @@ public class Inserir_preco extends JPanel {
 		try {
 			res= new Float(spreco).floatValue();
 			} catch (Exception e) {
-			throw new Exception("Insira um preço inicial");
+			throw new Exception("Insira um preço");
 		}
 		if(res<=0)
-			throw new Exception("Insira um preço inical");
+			throw new Exception("Insira um preço");
 		return res;
 	}
+	
+	public float getInc(){
+		String sinc = (String) incpreco.getModel().getElementAt(incpreco.getSelectedIndex());
+		return new Float(sinc).floatValue();
+		}
 	
 	
 	

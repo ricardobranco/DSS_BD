@@ -725,11 +725,11 @@ public class Inserir_Categorias extends JPanel {
 
 	}
 	
-	public List<Categoria> getCategorias(){
-		List<Categoria> res = new ArrayList<>();
+	public Map<String,Categoria> getCategorias(){
+		Map<String,Categoria> res = new HashMap<>();
 		for( JCheckBox jcb : categorias.keySet()){
 			if(jcb.isSelected());
-			res.add(categorias.get(jcb));
+			res.put(jcb.getText(),categorias.get(jcb));
 		}
 		
 		return res;
