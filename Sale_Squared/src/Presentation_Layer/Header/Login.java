@@ -15,6 +15,8 @@ import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXLoginPane;
 
+import Business_Layer.SaleSquared;
+import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Home.Home;
 import Presentation_Layer.Registo.Registo;
@@ -47,10 +49,10 @@ public class Login extends JDialog {
 		setResizable(false);
 		setBounds(100, 100, 397, 294);
 
-		JXLoginPane loginPane = new JXLoginPane();
+		final JXLoginPane loginPane = new JXLoginPane();
 		loginPane.setBannerText("Entrar");
 		JXLabel lblNoPossuiConta = new JXLabel();
-		lblNoPossuiConta.setText("N�o possui conta?");
+		lblNoPossuiConta.setText("Não possui conta?");
 
 		JXHyperlink hprlnkRegistese = new JXHyperlink();
 		hprlnkRegistese.addActionListener(new ActionListener() {
@@ -66,20 +68,36 @@ public class Login extends JDialog {
 		JXButton btnEntrar = new JXButton();
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SaleSquared sistema = root.getSistema();
+				String username = loginPane.getUserName();
+				String password = new String(loginPane.getPassword());
+				
+				if (!sistema.existeUtilizadorReg(username) || !sistema.eValidoLogin(username, password))
+					loginPane.setErrorMessage("Não existe nenhum utilizador com esse login e com essa password");
+				
+				else {
+				
+				UtilizadorRegistado utilizador = sistema.encontrarUtilizadorReg(username);
+				sistema.setEmSessao(utilizador);
 				Sale_Squared.REGISTADO = true;
 				root.reloadHeader();
 				root.setBody(new Home(root), "Home");
 				root.setEnabled(true);
 				dispose();
+				}
 			}
-		});
+			});
+		
 		btnEntrar.setText("Entrar");
 
 		JXButton btnCancelar = new JXButton();
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setEnabled(true);
-				dispose();
+				
+					
+					root.setEnabled(true);
+					dispose();
+				
 			}
 		});
 		btnCancelar.setText("Cancelar");

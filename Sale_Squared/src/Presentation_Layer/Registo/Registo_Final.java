@@ -26,16 +26,15 @@ public class Registo_Final extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	
+
 	JCheckBox chckbxNewCheckBox;
-	
+
 	public Registo_Final(final Sale_Squared root) {
 
-		JLabel lblNewLabel = new JLabel(
-				"4 - Condições de Serviço");
+		JLabel lblNewLabel = new JLabel("4 - Condições de Serviço");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
-		 chckbxNewCheckBox = new JCheckBox(
+		chckbxNewCheckBox = new JCheckBox(
 				"Ao assinar esta opção confirma que leu e concorda com as nossas");
 
 		JXHyperlink hprlnkCondiesDeServio = new JXHyperlink();
@@ -102,5 +101,9 @@ public class Registo_Final extends JPanel {
 		setLayout(groupLayout);
 
 	}
-	public boolean termosaceites(){return chckbxNewCheckBox.isSelected();}
+
+	public void termosaceites() throws Exception {
+		if (!chckbxNewCheckBox.isSelected())
+			throw new Exception("Tem que aceitar as Condições de Serviço");
+		}
 }
