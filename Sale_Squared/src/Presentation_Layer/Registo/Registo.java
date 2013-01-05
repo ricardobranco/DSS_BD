@@ -16,12 +16,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Business_Layer.Categoria;
 import Business_Layer.Imagem;
-import Business_Layer.Mensagem;
 import Business_Layer.SaleSquared;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Mensagem_Erro;
-import Presentation_Layer.Header.Header;
 import Presentation_Layer.Home.Home;
 
 public class Registo extends JPanel {
@@ -31,50 +29,30 @@ public class Registo extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int step;
+	
 
 	/**
 	 * Create the panel.
 	 */
 
 	public Registo(final Sale_Squared root) {
-		step = 1;
-		final JPanel registo_1_2 = new Registo_1_2(root);
-		final JPanel registo_3_Final = new Registo_3_Final(root);
-
+	
+		
+		final Registo_1 r1 = new Registo_1(root);
+		final Registo_2 r2 = new Registo_2();
+		final Registo_3 r3 = new Registo_3();
+		final Registo_4 r4 = new Registo_4();
+		final Registo_Final rf = new Registo_Final(root);
+		
 		JLabel lblNewLabel = new JLabel("Registo");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-
-		final JPanel panel = new JPanel();
-		final JButton btnNewButton_1 = new JButton("Voltar");
-		final JButton btnNewButton = new JButton("Seguinte");
-
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNewButton.setText("Seguinte");
-				panel.removeAll();
-				panel.add(registo_1_2, "1_2");
-				panel.updateUI();
-				panel.validate();
-				btnNewButton_1.setVisible(false);
-				step--;
-
-			}
-		});
-
+		final JButton btnNewButton = new JButton("Concluir");
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					UtilizadorRegistado ur = null;
-					switch (step) {
-					case 1:
-						Registo_1_2 r12 = (Registo_1_2) registo_1_2;
-						Registo_1 r1 = (Registo_1) r12
-								.get(Registo_1_2.DADOSBASE);
-						Registo_2 r2 = (Registo_2) r12
-								.get(Registo_1_2.DADOSPESSOAIS);
-
+						
 						int id = root.getSistema().getEmSessao().getId();
 						String username = r1.getUser(root);
 						String password = r1.getPassword(root);
@@ -87,27 +65,18 @@ public class Registo extends JPanel {
 						String localidade = r2.getLocalidade();
 						String contacto = r2.getContacto() + "";
 
-						String infPessoal = ""; // Provisório
+						String infPessoal = r4.getInfo();
+						if(infPessoal==null)
+							infPessoal = "";
+						
 						Imagem imagem = new Imagem("Avatar" + id, r2
 								.getAvatar());
 						GregorianCalendar dn = r2.getDataNascimento();
 
-						ur = new UtilizadorRegistado(id, username, password,
+						UtilizadorRegistado ur = new UtilizadorRegistado(id, username, password,
 								estado, email, morada, codPostal, localidade,
 								pais, infPessoal, imagem, contacto, nome, dn);
-						btnNewButton.setText("Concluir");
-						panel.removeAll();
-						panel.add(registo_3_Final, "3 e Fim");
-						panel.updateUI();
-						panel.validate();
-						btnNewButton_1.setVisible(true);
-						step++;
-						break;
-					case 2:
-						Registo_3_Final r3f = (Registo_3_Final) registo_3_Final;
-						Registo_3 r3 = (Registo_3) r3f
-								.get(Registo_3_Final.CATEGORIAS);
-						Registo_Final rf = (Registo_Final) r3f.get(Registo_3_Final.TERMS);
+						
 						rf.termosaceites();
 						
 						SaleSquared sistema = root.getSistema();
@@ -119,91 +88,82 @@ public class Registo extends JPanel {
 						
 						sistema.setEmSessao(ur);
 						Sale_Squared.REGISTADO = true;
-						root.setBody(new Home(root), ur.getUsername());
 						root.reloadHeader();
-						
-					}
-
-					
-
-				} catch (Exception e) {
+						root.setBody(new Home(root), ur.getUsername());
+						}
+				
+				catch (Exception e) {
+					e.printStackTrace();
 					new Mensagem_Erro(root, e.getMessage()).setVisible(true);
 				}
 
 			}
 		});
+		
+		JPanel panel = new JPanel();
+		
+		JPanel panel_1 = new JPanel();
+		
+		JPanel panel_2 = new JPanel();
+		
+		JPanel panel_3 = new JPanel();
+		
+		JPanel panel_4 = new JPanel();
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblNewLabel,
-																				GroupLayout.PREFERRED_SIZE,
-																				87,
-																				GroupLayout.PREFERRED_SIZE))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addGap(101)
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								panel,
-																								GroupLayout.DEFAULT_SIZE,
-																								620,
-																								Short.MAX_VALUE)
-																						.addGroup(
-																								groupLayout
-																										.createSequentialGroup()
-																										.addComponent(
-																												btnNewButton_1)
-																										.addPreferredGap(
-																												ComponentPlacement.RELATED,
-																												421,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												btnNewButton)
-																										.addGap(20)))))
-										.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(
-						groupLayout
-								.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(lblNewLabel)
-								.addPreferredGap(ComponentPlacement.RELATED,
-										GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-								.addComponent(panel,
-										GroupLayout.PREFERRED_SIZE, 781,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(
-										groupLayout
-												.createParallelGroup(
-														Alignment.BASELINE)
-												.addComponent(btnNewButton_1)
-												.addComponent(btnNewButton))
-								.addGap(18)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel)
+							.addGap(19))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(98)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+								.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+								.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+								.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap(503, Short.MAX_VALUE)
+							.addComponent(btnNewButton)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnNewButton)
+					.addGap(59))
+		);
+		panel_4.setLayout(new CardLayout(0, 0));
+		panel_3.setLayout(new CardLayout(0, 0));
+		panel_2.setLayout(new CardLayout(0, 0));
+		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(registo_1_2, "1 e 2");
+		
+		panel.add(r1,"r1");
+		panel_1.add(r2,"r2");
+		panel_2.add(r3,"r3");
+		panel_3.add(r4,"r3");
+		panel_4.add(rf,"rf");
+		
 		setLayout(groupLayout);
-		btnNewButton_1.setVisible(false);
 
 	}
 }

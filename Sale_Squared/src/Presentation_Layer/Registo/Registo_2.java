@@ -23,6 +23,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Presentation_Layer.Componentes.Avatar;
+import javax.swing.JSeparator;
 
 public class Registo_2 extends JPanel {
 
@@ -194,237 +195,99 @@ public class Registo_2 extends JPanel {
 		});
 		btnApagar.setVisible(!avatar_s2);
 		btnApagar.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		
+		JSeparator separator = new JSeparator();
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblNewLabel))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addGap(37)
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								lblNewLabel_4)
-																						.addComponent(
-																								lblNewLabel_2)
-																						.addComponent(
-																								lblNewLabel_1)
-																						.addComponent(
-																								lblNewLabel_3)
-																						.addComponent(
-																								lblNewLabel_6)
-																						.addComponent(
-																								lblNewLabel_7)
-																						.addComponent(
-																								lblNewLabel_8)
-																						.addComponent(
-																								lblImagemDePerfil))
-																		.addGap(18)
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								avatar)
-																						.addComponent(
-																								contacto,
-																								GroupLayout.PREFERRED_SIZE,
-																								106,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addGroup(
-																								groupLayout
-																										.createParallelGroup(
-																												Alignment.LEADING,
-																												false)
-																										.addGroup(
-																												groupLayout
-																														.createSequentialGroup()
-																														.addComponent(
-																																codPostal1,
-																																GroupLayout.PREFERRED_SIZE,
-																																77,
-																																GroupLayout.PREFERRED_SIZE)
-																														.addPreferredGap(
-																																ComponentPlacement.RELATED)
-																														.addComponent(
-																																lblNewLabel_5)
-																														.addPreferredGap(
-																																ComponentPlacement.RELATED)
-																														.addComponent(
-																																codPostal2,
-																																GroupLayout.PREFERRED_SIZE,
-																																46,
-																																GroupLayout.PREFERRED_SIZE))
-																										.addComponent(
-																												paises,
-																												GroupLayout.PREFERRED_SIZE,
-																												175,
-																												GroupLayout.PREFERRED_SIZE)
-																										.addComponent(
-																												nome,
-																												GroupLayout.DEFAULT_SIZE,
-																												371,
-																												Short.MAX_VALUE)
-																										.addComponent(
-																												morada,
-																												Alignment.TRAILING)
-																										.addComponent(
-																												localidade))
-																						.addComponent(
-																								datanascimento,
-																								GroupLayout.PREFERRED_SIZE,
-																								182,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addGroup(
-																								groupLayout
-																										.createSequentialGroup()
-																										.addComponent(
-																												btnProcurar)
-																										.addPreferredGap(
-																												ComponentPlacement.RELATED)
-																										.addComponent(
-																												btnApagar)))))
-										.addContainerGap(36, Short.MAX_VALUE)));
-		groupLayout
-				.setVerticalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(lblNewLabel)
-										.addGap(33)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_1)
-														.addComponent(
-																nome,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(22)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_2)
-														.addComponent(
-																paises,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_3)
-														.addComponent(
-																morada,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_4)
-														.addComponent(
-																codPostal1,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblNewLabel_5)
-														.addComponent(
-																codPostal2,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_6)
-														.addComponent(
-																localidade,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_7)
-														.addComponent(
-																contacto,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																lblNewLabel_8)
-														.addComponent(
-																datanascimento,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(29)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblImagemDePerfil)
-														.addComponent(avatar))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																btnProcurar)
-														.addComponent(
-																btnApagar,
-																GroupLayout.PREFERRED_SIZE,
-																28,
-																GroupLayout.PREFERRED_SIZE))
-										.addContainerGap(35, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(37)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_4)
+								.addComponent(lblNewLabel_2)
+								.addComponent(lblNewLabel_1)
+								.addComponent(lblNewLabel_3)
+								.addComponent(lblNewLabel_6)
+								.addComponent(lblNewLabel_7)
+								.addComponent(lblNewLabel_8)
+								.addComponent(lblImagemDePerfil))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(avatar)
+								.addComponent(contacto, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(codPostal1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(lblNewLabel_5)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(codPostal2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+									.addComponent(paises, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+									.addComponent(nome, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+									.addComponent(morada, Alignment.TRAILING)
+									.addComponent(localidade))
+								.addComponent(datanascimento, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnProcurar)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnApagar))))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addGap(33)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(nome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_2)
+						.addComponent(paises, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_3)
+						.addComponent(morada, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_4)
+						.addComponent(codPostal1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_5)
+						.addComponent(codPostal2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_6)
+						.addComponent(localidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_7)
+						.addComponent(contacto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_8)
+						.addComponent(datanascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblImagemDePerfil)
+						.addComponent(avatar))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnProcurar)
+						.addComponent(btnApagar, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		setLayout(groupLayout);
 
 	}
@@ -433,7 +296,7 @@ public class Registo_2 extends JPanel {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File("").getAbsoluteFile());
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens",
-				"jpg", "png");
+				"jpg", "png","gif");
 		fileChooser.setFileFilter(filter);
 		int fcOption = fileChooser.showOpenDialog(this);
 

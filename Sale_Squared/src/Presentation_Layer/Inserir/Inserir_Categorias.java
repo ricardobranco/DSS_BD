@@ -1,6 +1,10 @@
 package Presentation_Layer.Inserir;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -8,6 +12,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Business_Layer.Categoria;
 
 public class Inserir_Categorias extends JPanel {
 
@@ -19,101 +25,178 @@ public class Inserir_Categorias extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	private Map<JCheckBox, Categoria> categorias;
+
 	public Inserir_Categorias() {
 
-		JCheckBox checkBox = new JCheckBox("Auto");
-
-		JCheckBox checkBox_1 = new JCheckBox("Moda");
-
-		JCheckBox checkBox_2 = new JCheckBox("Acess\u00F3rios");
-
-		JCheckBox checkBox_3 = new JCheckBox("Vestu\u00E1rio");
-
-		JCheckBox checkBox_4 = new JCheckBox("Ve\u00EDculos");
-
-		JCheckBox checkBox_5 = new JCheckBox("Pe\u00E7as Auto");
-
-		JCheckBox checkBox_6 = new JCheckBox("Sa\u00FAde");
-
-		JCheckBox checkBox_7 = new JCheckBox("Cosm\u00E9ticos");
-
-		JCheckBox checkBox_8 = new JCheckBox("Casa e Jardim");
-
-		JCheckBox checkBox_9 = new JCheckBox("Artigos de Jardim");
-
-		JCheckBox checkBox_10 = new JCheckBox("Animais");
-
-		JCheckBox checkBox_11 = new JCheckBox("Im\u00F3veis");
-
-		JCheckBox checkBox_12 = new JCheckBox("M\u00F3veis");
-
-		JCheckBox checkBox_13 = new JCheckBox("Coleccion\u00E1veis e Arte");
-
-		JCheckBox checkBox_14 = new JCheckBox("Moeda e Notas");
-
-		JCheckBox checkBox_15 = new JCheckBox("Selos");
-
-		JCheckBox checkBox_16 = new JCheckBox("Medalhas");
-
-		JCheckBox checkBox_17 = new JCheckBox("Antiguidades");
-
-		JCheckBox checkBox_18 = new JCheckBox("Arte");
-
-		JCheckBox checkBox_19 = new JCheckBox("Tecnologia e Electr\u00F3nica");
-
-		JCheckBox checkBox_20 = new JCheckBox("Consolas");
-
-		JCheckBox checkBox_21 = new JCheckBox("\u00C1udio, TV e V\u00EDdeo");
-
-		JCheckBox checkBox_22 = new JCheckBox("Fotografia");
-
-		JCheckBox checkBox_23 = new JCheckBox("Telem\u00F3veis e Telefones");
-
+		this.categorias = new HashMap<>();
 		JLabel label = new JLabel("Categoria");
 		label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Livros e Revistas");
+		// Auto
+		JCheckBox cbauto = new JCheckBox("Auto");
+		JCheckBox cbpecas = new JCheckBox("Peças Auto");
+		JCheckBox cbveiculos = new JCheckBox("Veículos");
 
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Revistas");
+		Categoria cauto = new Categoria("Auto");
+		Categoria cpecas = new Categoria("Peças Auto", cauto);
+		Categoria cveiculos = new Categoria("Veículos", cauto);
 
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Manuais Escolares");
+		categorias.put(cbauto, cauto);
+		categorias.put(cbpecas, cpecas);
+		categorias.put(cbveiculos, cveiculos);
 
-		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Literatura Infantil");
+		// Moda
+		JCheckBox cbmoda = new JCheckBox("Moda");
+		JCheckBox cbacessorios = new JCheckBox("Acessórios");
+		JCheckBox cbvestuario = new JCheckBox("Vestuário");
 
-		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Literatura");
+		Categoria cmoda = new Categoria("Moda");
+		Categoria cacessorios = new Categoria("Acessórios", cmoda);
+		Categoria cvestuario = new Categoria("Vestuário", cmoda);
 
-		JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Banda Desenhada");
+		categorias.put(cbmoda, cmoda);
+		categorias.put(cbvestuario, cvestuario);
+		categorias.put(cbacessorios, cacessorios);
 
-		JCheckBox chckbxNewCheckBox_6 = new JCheckBox("Plantas e Flores");
+		// Saúde
+		JCheckBox cbsaude = new JCheckBox("Saúde");
+		JCheckBox cbcosmeticos = new JCheckBox("Cosméticos");
+		JCheckBox cbhigiene = new JCheckBox("Higiene");
 
-		JCheckBox chckbxHigiene = new JCheckBox("Higiene");
+		Categoria csaude = new Categoria("Saúde");
+		Categoria ccosmeticos = new Categoria("Cosméticos", csaude);
+		Categoria chigiene = new Categoria("Higiene",csaude);
+		
+		categorias.put(cbsaude, csaude);
+		categorias.put(cbcosmeticos, ccosmeticos);
+		categorias.put(cbhigiene, chigiene)
+;
+		// Casa e Jardim
+		JCheckBox cbcasajardim = new JCheckBox("Casa e Jardim");
+		JCheckBox cbartjardim = new JCheckBox("Artigos de Jardim");
+		JCheckBox cbanimais = new JCheckBox("Animais");
+		JCheckBox cbimoveis = new JCheckBox("Imóveis");
+		JCheckBox cbmoveis = new JCheckBox("Mobiliário");
+		JCheckBox cbplantas = new JCheckBox("Plantas e Flores");
 
-		JCheckBox chckbxNewCheckBox_7 = new JCheckBox("Inform\u00E1tica");
+		Categoria ccasajardim = new Categoria("Casa e Jardim");
+		Categoria cartjardim = new Categoria("Artigos de Jardim", ccasajardim);
+		Categoria canimais = new Categoria("Animais", ccasajardim);
+		Categoria cimoveis = new Categoria("Imóveis", ccasajardim);
+		Categoria cmoveis = new Categoria("Mobiliário", ccasajardim);
+		Categoria cplantas = new Categoria("Plantas e Flores",ccasajardim);
+		
+		categorias.put(cbcasajardim, ccasajardim);
+		categorias.put(cbartjardim, cartjardim);
+		categorias.put(cbanimais, canimais);
+		categorias.put(cbimoveis, cimoveis);
+		categorias.put(cbmoveis, cmoveis);
+		categorias.put(cbplantas, cplantas);
+		
+				
+		// Colecionáveis e Arte
 
-		JCheckBox chckbxGadgets = new JCheckBox("Gadgets");
+		JCheckBox cbcolecarte = new JCheckBox("Coleccionáveis e Arte");
+		JCheckBox cbmoedas = new JCheckBox("Moeda e Notas");
+		JCheckBox cbselos = new JCheckBox("Selos");
+		JCheckBox cbmedalhas = new JCheckBox("Medalhas");
+		JCheckBox cbantiguidade = new JCheckBox("Antiguidades");
+		JCheckBox cbarte = new JCheckBox("Arte");
 
-		JCheckBox chckbxNewCheckBox_8 = new JCheckBox("Circuitos");
+		Categoria ccolarte = new Categoria("Coleccionáveis e Arte");
+		Categoria cmoedas = new Categoria("Moedas e Notas", ccolarte);
+		Categoria cselos = new Categoria("Selos", ccolarte);
+		Categoria cmedalhas = new Categoria("Medalhas", ccolarte);
+		Categoria cantiguidade = new Categoria("Antiguidades", ccolarte);
+		Categoria carte = new Categoria("Arte", ccolarte);
 
-		JCheckBox chckbxNewCheckBox_9 = new JCheckBox(
-				"Desporto e Entretenimento");
+		categorias.put(cbcolecarte, ccolarte);
+		categorias.put(cbmoedas, cmoedas);
+		categorias.put(cbselos, cselos);
+		categorias.put(cbmedalhas, cmedalhas);
+		categorias.put(cbantiguidade, cantiguidade);
+		categorias.put(cbarte, carte);
 
-		JCheckBox chckbxNewCheckBox_10 = new JCheckBox("Brinquedos");
+		// Tecnologia e Electrónica
 
-		JCheckBox chckbxNewCheckBox_11 = new JCheckBox(
-				"Fitness e Muscula\u00E7\u00E3o");
+		JCheckBox cbtecelec = new JCheckBox("Tecnologia e Electrónica");
+		JCheckBox cbconsolas = new JCheckBox("Consolas");
+		JCheckBox cbaudio = new JCheckBox("Áudio, TV e Vídeo");
+		JCheckBox cbfoto = new JCheckBox("Fotografia");
+		JCheckBox cbtelm = new JCheckBox("Telemóveis e Telefones");
+		JCheckBox cbinfo = new JCheckBox("Informática");
+		JCheckBox cbgad = new JCheckBox("Gadgets");
+		JCheckBox cbcirc = new JCheckBox("Circuitos");
 
-		JCheckBox chckbxNewCheckBox_12 = new JCheckBox("Filmes e Cinema");
+		Categoria ctecelec = new Categoria("Tecnologia e Electrónica");
+		Categoria cconsolas = new Categoria("Consolas", ctecelec);
+		Categoria caudio = new Categoria("Áudio, Tv e Vídeo", ctecelec);
+		Categoria cfoto = new Categoria("Fotografia", ctecelec);
+		Categoria ctelme = new Categoria("Telemóveis e Telefones", ctecelec);
+		Categoria cinfo = new Categoria("Informática",ctecelec);
+		Categoria cgad = new Categoria("Gadgets",ctecelec);
+		Categoria ccirc = new Categoria("Circuitos",ctecelec);
+		
+		categorias.put(cbtecelec, ctecelec);
+		categorias.put(cbconsolas, cconsolas);
+		categorias.put(cbaudio, caudio);
+		categorias.put(cbfoto, cfoto);
+		categorias.put(cbtelm, ctelme);
+		categorias.put(cbinfo, cinfo);
+		categorias.put(cbgad, cgad);
+		categorias.put(cbcirc, ccirc);
 
-		JCheckBox chckbxNewCheckBox_13 = new JCheckBox("M\u00FAsica");
+		// Livros e Revistas
 
-		JCheckBox chckbxNewCheckBox_14 = new JCheckBox("Ca\u00E7a e Pesca");
+		JCheckBox cblivrevistas = new JCheckBox("Livros e Revistas");
+		JCheckBox cbrevistas = new JCheckBox("Revistas");
+		JCheckBox cbmanuais = new JCheckBox("Manuais Escolares");
+		JCheckBox cblitinf = new JCheckBox("Literatura Infantil");
+		JCheckBox cblit = new JCheckBox("Literatura");
+		JCheckBox cbbd = new JCheckBox("Banda Desenhada");
 
-		JCheckBox chckbxNewCheckBox_15 = new JCheckBox("Campismo");
+		Categoria clivrosrevistas = new Categoria("Livros e Revistas");
+		Categoria crevistas = new Categoria("Revistas", clivrosrevistas);
+		Categoria cmanuais = new Categoria("Manuais Escolares", clivrosrevistas);
+		Categoria clitinf = new Categoria("Literatura Infantil",
+				clivrosrevistas);
+		Categoria clit = new Categoria("Literatura", clivrosrevistas);
+		Categoria cbd = new Categoria("Banda Desenhada", clivrosrevistas);
 
-		JCheckBox chckbxNewCheckBox_16 = new JCheckBox("Futebol");
+		categorias.put(cblivrevistas, clivrosrevistas);
+		categorias.put(cbrevistas, crevistas);
+		categorias.put(cbmanuais, cmanuais);
+		categorias.put(cblitinf, clitinf);
+		categorias.put(cblit, clit);
+		categorias.put(cbbd, cbd);
 
-		JCheckBox chckbxNewCheckBox_17 = new JCheckBox("Nata\u00E7\u00E3o");
-		GroupLayout groupLayout = new GroupLayout(this);
+		// Desporto e Entretenimento
+
+		JCheckBox cbdespentre = new JCheckBox("Desporto e Entretenimento");
+		JCheckBox cbbrinquedos = new JCheckBox("Brinquedos");
+		JCheckBox cbfitness = new JCheckBox("Fitness e Musculação");
+		JCheckBox cbfilmes = new JCheckBox("Filmes e Cinema");
+		JCheckBox cbmusica = new JCheckBox("Música");
+		JCheckBox cbcaca = new JCheckBox("Caça e Pesca");
+		JCheckBox cbcampismo = new JCheckBox("Campismo");
+		JCheckBox cbfutebol = new JCheckBox("Futebol");
+		JCheckBox cbnatacao = new JCheckBox("Natação");
+
+		Categoria cdespentre = new Categoria("Desporto e Entretenimento");
+		Categoria cbrinquedos = new Categoria("Brinquedos",cdespentre);
+		Categoria cfitness = new Categoria("Fitness e Musculação",cdespentre);
+		Categoria cfilmes = new Categoria("Filmes e Cinema",cdespentre);
+		Categoria cmusica = new Categoria("Música",cdespentre);
+		Categoria ccaca = new Categoria("Caça e Pesca",cdespentre);
+		Categoria ccampismo = new Categoria("Campismo",cdespentre);
+		Categoria cfutebol = new Categoria("Futebol",cdespentre);
+		Categoria cnatacao = new Categoria("Natação",cdespentre);
+		
+		
+		
+		
+				GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
 				.setHorizontalGroup(groupLayout
 						.createParallelGroup(Alignment.LEADING)
@@ -133,12 +216,12 @@ public class Inserir_Categorias extends JPanel {
 																						.createParallelGroup(
 																								Alignment.LEADING)
 																						.addComponent(
-																								checkBox,
+																								cbauto,
 																								GroupLayout.PREFERRED_SIZE,
 																								62,
 																								GroupLayout.PREFERRED_SIZE)
 																						.addComponent(
-																								chckbxNewCheckBox)
+																								cblivrevistas)
 																						.addGroup(
 																								groupLayout
 																										.createSequentialGroup()
@@ -148,12 +231,12 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																checkBox_4,
+																																cbveiculos,
 																																GroupLayout.PREFERRED_SIZE,
 																																85,
 																																GroupLayout.PREFERRED_SIZE)
 																														.addComponent(
-																																checkBox_5,
+																																cbpecas,
 																																GroupLayout.PREFERRED_SIZE,
 																																101,
 																																GroupLayout.PREFERRED_SIZE)))
@@ -166,15 +249,15 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																chckbxNewCheckBox_2)
+																																cbmanuais)
 																														.addComponent(
-																																chckbxNewCheckBox_1)
+																																cbrevistas)
 																														.addComponent(
-																																chckbxNewCheckBox_3)
+																																cblitinf)
 																														.addComponent(
-																																chckbxNewCheckBox_4)
+																																cblit)
 																														.addComponent(
-																																chckbxNewCheckBox_5))))
+																																cbbd))))
 																		.addGap(18)
 																		.addGroup(
 																				groupLayout
@@ -189,24 +272,24 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																checkBox_9,
+																																cbartjardim,
 																																GroupLayout.PREFERRED_SIZE,
 																																141,
 																																GroupLayout.PREFERRED_SIZE)
 																														.addComponent(
-																																checkBox_11,
+																																cbimoveis,
 																																GroupLayout.PREFERRED_SIZE,
 																																81,
 																																GroupLayout.PREFERRED_SIZE)
 																														.addComponent(
-																																checkBox_12,
+																																cbmoveis,
 																																GroupLayout.PREFERRED_SIZE,
 																																76,
 																																GroupLayout.PREFERRED_SIZE)
 																														.addComponent(
-																																chckbxNewCheckBox_6)))
+																																cbplantas)))
 																						.addComponent(
-																								checkBox_6,
+																								cbsaude,
 																								GroupLayout.PREFERRED_SIZE,
 																								70,
 																								GroupLayout.PREFERRED_SIZE)
@@ -219,14 +302,14 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																chckbxHigiene)
+																																cbhigiene)
 																														.addComponent(
-																																checkBox_7,
+																																cbcosmeticos,
 																																GroupLayout.PREFERRED_SIZE,
 																																106,
 																																GroupLayout.PREFERRED_SIZE)))
 																						.addComponent(
-																								checkBox_8,
+																								cbcasajardim,
 																								GroupLayout.PREFERRED_SIZE,
 																								117,
 																								GroupLayout.PREFERRED_SIZE)
@@ -235,7 +318,7 @@ public class Inserir_Categorias extends JPanel {
 																										.createSequentialGroup()
 																										.addGap(29)
 																										.addComponent(
-																												checkBox_10,
+																												cbanimais,
 																												GroupLayout.PREFERRED_SIZE,
 																												83,
 																												GroupLayout.PREFERRED_SIZE)))
@@ -253,7 +336,7 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																checkBox_13,
+																																cbcolecarte,
 																																GroupLayout.PREFERRED_SIZE,
 																																167,
 																																GroupLayout.PREFERRED_SIZE)
@@ -266,27 +349,27 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.LEADING)
 																																						.addComponent(
-																																								checkBox_14,
+																																								cbmoedas,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								125,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_15,
+																																								cbselos,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								65,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_16,
+																																								cbmedalhas,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								91,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_17,
+																																								cbantiguidade,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								115,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_18,
+																																								cbarte,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								58,
 																																								GroupLayout.PREFERRED_SIZE)))
@@ -299,12 +382,12 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.LEADING)
 																																						.addComponent(
-																																								checkBox_2,
+																																								cbacessorios,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								101,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_3,
+																																								cbvestuario,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								91,
 																																								GroupLayout.PREFERRED_SIZE))))
@@ -314,7 +397,7 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																chckbxNewCheckBox_9)
+																																cbdespentre)
 																														.addGroup(
 																																groupLayout
 																																		.createSequentialGroup()
@@ -324,28 +407,28 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.LEADING)
 																																						.addComponent(
-																																								chckbxNewCheckBox_11)
+																																								cbfitness)
 																																						.addComponent(
-																																								chckbxNewCheckBox_10)
+																																								cbbrinquedos)
 																																						.addComponent(
-																																								chckbxNewCheckBox_12)
+																																								cbfilmes)
 																																						.addComponent(
-																																								chckbxNewCheckBox_13)
+																																								cbmusica)
 																																						.addComponent(
-																																								chckbxNewCheckBox_14)
+																																								cbcaca)
 																																						.addComponent(
-																																								chckbxNewCheckBox_15)
+																																								cbcampismo)
 																																						.addComponent(
-																																								chckbxNewCheckBox_16)
+																																								cbfutebol)
 																																						.addComponent(
-																																								chckbxNewCheckBox_17))))
+																																								cbnatacao))))
 																										.addGap(18)
 																										.addGroup(
 																												groupLayout
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																checkBox_19,
+																																cbtecelec,
 																																GroupLayout.PREFERRED_SIZE,
 																																185,
 																																GroupLayout.PREFERRED_SIZE)
@@ -358,33 +441,33 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.LEADING)
 																																						.addComponent(
-																																								checkBox_21,
+																																								cbaudio,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								143,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								chckbxNewCheckBox_7)
+																																								cbinfo)
 																																						.addComponent(
-																																								checkBox_22,
+																																								cbfoto,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								96,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								checkBox_23,
+																																								cbtelm,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								179,
 																																								GroupLayout.PREFERRED_SIZE)
 																																						.addComponent(
-																																								chckbxGadgets)
+																																								cbgad)
 																																						.addComponent(
-																																								chckbxNewCheckBox_8)
+																																								cbcirc)
 																																						.addComponent(
-																																								checkBox_20,
+																																								cbconsolas,
 																																								GroupLayout.PREFERRED_SIZE,
 																																								90,
 																																								GroupLayout.PREFERRED_SIZE)))))
 																						.addComponent(
-																								checkBox_1,
+																								cbmoda,
 																								GroupLayout.PREFERRED_SIZE,
 																								66,
 																								GroupLayout.PREFERRED_SIZE)))
@@ -424,13 +507,13 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.BASELINE)
 																														.addComponent(
-																																checkBox_13)
+																																cbcolecarte)
 																														.addComponent(
-																																chckbxNewCheckBox_9)
+																																cbdespentre)
 																														.addComponent(
-																																checkBox_19)
+																																cbtecelec)
 																														.addComponent(
-																																checkBox_8))
+																																cbcasajardim))
 																										.addGroup(
 																												groupLayout
 																														.createParallelGroup(
@@ -444,18 +527,18 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.BASELINE)
 																																						.addComponent(
-																																								checkBox_15)
+																																								cbselos)
 																																						.addComponent(
-																																								chckbxNewCheckBox_10)
+																																								cbbrinquedos)
 																																						.addComponent(
-																																								checkBox_21)))
+																																								cbaudio)))
 																														.addGroup(
 																																groupLayout
 																																		.createSequentialGroup()
 																																		.addPreferredGap(
 																																				ComponentPlacement.RELATED)
 																																		.addComponent(
-																																				checkBox_10)))
+																																				cbanimais)))
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addGroup(
@@ -463,29 +546,29 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																checkBox_9)
+																																cbartjardim)
 																														.addGroup(
 																																groupLayout
 																																		.createParallelGroup(
 																																				Alignment.BASELINE)
 																																		.addComponent(
-																																				checkBox_14)
+																																				cbmoedas)
 																																		.addComponent(
-																																				chckbxNewCheckBox_11)
+																																				cbfitness)
 																																		.addComponent(
-																																				checkBox_20))))
+																																				cbconsolas))))
 																						.addGroup(
 																								groupLayout
 																										.createSequentialGroup()
 																										.addComponent(
-																												checkBox)
+																												cbauto)
 																										.addGap(6)
 																										.addComponent(
-																												checkBox_5)
+																												cbpecas)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												checkBox_4)))
+																												cbveiculos)))
 																		.addGap(6)
 																		.addGroup(
 																				groupLayout
@@ -495,23 +578,23 @@ public class Inserir_Categorias extends JPanel {
 																								groupLayout
 																										.createSequentialGroup()
 																										.addComponent(
-																												chckbxNewCheckBox_12)
+																												cbfilmes)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_13)
+																												cbmusica)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_14)
+																												cbcaca)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_15)
+																												cbcampismo)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_16))
+																												cbfutebol))
 																						.addGroup(
 																								groupLayout
 																										.createSequentialGroup()
@@ -520,11 +603,11 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																chckbxNewCheckBox)
+																																cblivrevistas)
 																														.addComponent(
-																																checkBox_11)
+																																cbimoveis)
 																														.addComponent(
-																																checkBox_16))
+																																cbmedalhas))
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addGroup(
@@ -540,9 +623,9 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.TRAILING)
 																																						.addComponent(
-																																								checkBox_17)
+																																								cbantiguidade)
 																																						.addComponent(
-																																								checkBox_12))
+																																								cbmoveis))
 																																		.addPreferredGap(
 																																				ComponentPlacement.RELATED,
 																																				GroupLayout.DEFAULT_SIZE,
@@ -552,19 +635,19 @@ public class Inserir_Categorias extends JPanel {
 																																						.createParallelGroup(
 																																								Alignment.LEADING)
 																																						.addComponent(
-																																								chckbxNewCheckBox_6)
+																																								cbplantas)
 																																						.addComponent(
-																																								checkBox_18))
+																																								cbarte))
 																																		.addGap(6))
 																														.addGroup(
 																																groupLayout
 																																		.createSequentialGroup()
 																																		.addComponent(
-																																				chckbxNewCheckBox_1)
+																																				cbrevistas)
 																																		.addPreferredGap(
 																																				ComponentPlacement.RELATED)
 																																		.addComponent(
-																																				chckbxNewCheckBox_2)
+																																				cbmanuais)
 																																		.addPreferredGap(
 																																				ComponentPlacement.RELATED)))
 																										.addGroup(
@@ -576,9 +659,9 @@ public class Inserir_Categorias extends JPanel {
 																																		.createParallelGroup(
 																																				Alignment.BASELINE)
 																																		.addComponent(
-																																				chckbxNewCheckBox_3)
+																																				cblitinf)
 																																		.addComponent(
-																																				checkBox_6,
+																																				cbsaude,
 																																				GroupLayout.PREFERRED_SIZE,
 																																				17,
 																																				GroupLayout.PREFERRED_SIZE))
@@ -588,7 +671,7 @@ public class Inserir_Categorias extends JPanel {
 																																		.addPreferredGap(
 																																				ComponentPlacement.RELATED)
 																																		.addComponent(
-																																				checkBox_1)))
+																																				cbmoda)))
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addGroup(
@@ -596,52 +679,61 @@ public class Inserir_Categorias extends JPanel {
 																														.createParallelGroup(
 																																Alignment.LEADING)
 																														.addComponent(
-																																chckbxNewCheckBox_4)
+																																cblit)
 																														.addComponent(
-																																checkBox_7)))
+																																cbcosmeticos)))
 																						.addGroup(
 																								groupLayout
 																										.createSequentialGroup()
 																										.addComponent(
-																												checkBox_22)
+																												cbfoto)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_7)
+																												cbinfo)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												checkBox_23)
+																												cbtelm)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxGadgets)
+																												cbgad)
 																										.addPreferredGap(
 																												ComponentPlacement.RELATED)
 																										.addComponent(
-																												chckbxNewCheckBox_8))))
+																												cbcirc))))
 														.addGroup(
 																groupLayout
 																		.createSequentialGroup()
 																		.addGap(231)
 																		.addComponent(
-																				checkBox_3)))
+																				cbvestuario)))
 										.addPreferredGap(
 												ComponentPlacement.RELATED)
 										.addGroup(
 												groupLayout
 														.createParallelGroup(
 																Alignment.LEADING)
+														.addComponent(cbhigiene)
 														.addComponent(
-																chckbxHigiene)
-														.addComponent(
-																checkBox_2)
-														.addComponent(
-																chckbxNewCheckBox_5)
-														.addComponent(
-																chckbxNewCheckBox_17))
+																cbacessorios)
+														.addComponent(cbbd)
+														.addComponent(cbnatacao))
 										.addGap(17)));
 		setLayout(groupLayout);
 
 	}
+	
+	public List<Categoria> getCategorias(){
+		List<Categoria> res = new ArrayList<>();
+		for( JCheckBox jcb : categorias.keySet()){
+			if(jcb.isSelected());
+			res.add(categorias.get(jcb));
+		}
+		
+		return res;
+		}
+	
+	
 }

@@ -69,11 +69,11 @@ public class Registo_3 extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNewLabel))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(105)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(chckbxNewCheckBox_1)
@@ -92,7 +92,7 @@ public class Registo_3 extends JPanel {
 								.addComponent(chckbxDesportoEEntretenimento)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 438, Short.MAX_VALUE)))
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 645, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -114,9 +114,9 @@ public class Registo_3 extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chckbxNewCheckBox_2)
 						.addComponent(chckbxDesportoEEntretenimento))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(123))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(134, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 

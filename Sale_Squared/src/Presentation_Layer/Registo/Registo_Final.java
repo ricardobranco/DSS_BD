@@ -31,7 +31,7 @@ public class Registo_Final extends JPanel {
 
 	public Registo_Final(final Sale_Squared root) {
 
-		JLabel lblNewLabel = new JLabel("4 - Condições de Serviço");
+		JLabel lblNewLabel = new JLabel("5 - Condições de serviço");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
 		chckbxNewCheckBox = new JCheckBox(
@@ -104,6 +104,6 @@ public class Registo_Final extends JPanel {
 
 	public void termosaceites() throws Exception {
 		if (!chckbxNewCheckBox.isSelected())
-			throw new Exception("Tem que aceitar as Condições de Serviço");
+			throw new Exception("Tem que aceitar as Condições de serviço");
 		}
 }

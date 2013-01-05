@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Inserir_Negocio extends JPanel {
+public class Inserir extends JPanel {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class Inserir_Negocio extends JPanel {
 	int i = 0;
 	JPanel[] inserir = new JPanel[3];
 
-	public Inserir_Negocio() {
+	public Inserir() {
 
 		inserir[0] = new Inserir_1();
 		inserir[1] = new Inserir_2();

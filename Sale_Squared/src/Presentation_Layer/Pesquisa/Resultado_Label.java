@@ -15,8 +15,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
+import Anuncio.Anuncio;
 import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Negocio.Anuncio;
 import Presentation_Layer.Perfil.Perfil;
 
 public class Resultado_Label extends JPanel {
