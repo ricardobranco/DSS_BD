@@ -1054,4 +1054,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	
 	public void logout(){
 		this.emSessao = new Utilizador(this.registaIdUtilizador());}
+        
+        public SortedSet<Anuncio> anuncioOrdPreco() {
+            
+            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncPreco()) ;
+            for(Anuncio a : this.anuncios.values())
+                res.add(a) ;
+            return res ;
+        }
 }

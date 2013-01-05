@@ -10,7 +10,7 @@ import java.util.SortedSet;
 public interface SaleSquaredFacade {
 
 	// public void login(String uName);
-	// public void logout();
+	public void logout() ;
 
 	// public void adicUserReg(UtilizadorRegistado user);
 
@@ -195,6 +195,8 @@ public interface SaleSquaredFacade {
 	public Collection<Anuncio> anunciosSeguidos(String username);
 
 	public SortedSet<Tag> topTags();
+        
+        public SortedSet<Anuncio> anuncioOrdPreco() ;
 
 	public void iniciarConexao();
 
