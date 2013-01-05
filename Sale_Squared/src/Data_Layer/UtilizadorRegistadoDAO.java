@@ -1,6 +1,6 @@
 package Data_Layer;
 
-import java.awt.Image;
+//import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 
 import Business_Layer.Imagem;
 import Business_Layer.UtilizadorRegistado;
@@ -25,6 +25,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 
 	// v. c.
 	public static final String U_R_T = "UtilizadorRegistado ur";
+        public static final String C_P_T = "CodigoPostal cp";
+        public static final String LOC_T = "Localidade loc";
+        public static final String PAIS_T = "Pais p" ;
 
 	public static final int ID = 1;
 	public static final int USERNAME = 2;
@@ -32,15 +35,16 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 	public static final int ESTADO = 4;
 	public static final int EMAIL = 5;
 	public static final int MORADA = 6;
-	public static final int COD_POSTAL = 7;
-	public static final int LOCALIDADE = 8;
-	public static final int PAIS = 9;
-	public static final int INFORMACAO_P = 10;
-	public static final int IMAGEM = 11;
-	public static final int CONTACTO = 12;
-	public static final int NOME = 13;
-	public static final int DATA_NASC = 14;
-	public static final int NOME_IMAGEM = 15;
+	public static final int COD_POSTAL = 7;	
+	public static final int INFORMACAO_P = 8;
+	public static final int IMAGEM = 9;
+	public static final int CONTACTO = 10;
+	public static final int NOME = 11;
+	public static final int DATA_NASC = 12;
+	public static final int NOME_IMAGEM = 13;
+        
+        public static final int LOCALIDADE = 0;
+	public static final int PAIS = 1;
 
 	/*
 	 * public static final String NORMAL = "N" ; public static final String
@@ -66,11 +70,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 					+ " WHERE ur.username = '" + chave + "'";
 			ResultSet rs = stm.executeQuery(sql);
 			return rs.next();
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw new NullPointerException(e.getMessage());
-					}
+		} catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
 	public boolean containsValue(Object value) {
@@ -85,6 +85,8 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 	public boolean equals(Object o) {
 		throw new NullPointerException("U_R_equals não está implementado");
 	}
+        
+        
 
 	public UtilizadorRegistado get(Object key) {
 		try {
@@ -96,26 +98,18 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			stm.setString(1, chave);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
-				int estado = rs.getInt(ESTADO); // rs.getString(ESTADO).equals(NORMAL)
-												// ? UtilizadorRegistado.NORMAL
-												// :
-												// (rs.getString(ESTADO).equals(BANIDO)
-												// ? UtilizadorRegistado.BANIDO
-												// :
-												// (rs.getString(ESTADO).equals(REPORTADO)
-												// ?
-												// UtilizadorRegistado.REPORTADO
-												// :
-												// UtilizadorRegistado.PROIBIDO_ANUNC)))
-												// ;
+				int estado = rs.getInt(ESTADO); 
 				GregorianCalendar dataNasc = new GregorianCalendar();
 				rs.getTimestamp(DATA_NASC, dataNasc);
 				Imagem pathImg = receberImagem(rs);
+                                String locPais[] = {"", ""} ;
+                                if(rs.getString(COD_POSTAL) != null) 
+                                    locPais = Registo.determinarMorada(rs.getString(COD_POSTAL)) ;
 				res = new UtilizadorRegistado(rs.getInt(ID),
 						rs.getString(USERNAME), rs.getString(PASSWORD), estado,
 						rs.getString(EMAIL), rs.getString(MORADA),
-						rs.getString(COD_POSTAL), rs.getString(LOCALIDADE),
-						rs.getString(PAIS), rs.getString(INFORMACAO_P),
+						rs.getString(COD_POSTAL), locPais[LOCALIDADE],
+						locPais[PAIS], rs.getString(INFORMACAO_P),
 						pathImg, rs.getString(CONTACTO), rs.getString(NOME),
 						dataNasc);
 			}
@@ -173,7 +167,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
-	}
+	}    
 
 	public UtilizadorRegistado put(String key, UtilizadorRegistado value) {
 
@@ -184,23 +178,19 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			if (existe)
 				sql = "UPDATE "
 						+ U_R_T
-						+ " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.localidade = ?, ur.pais = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ? WHERE ur.username = '"
+						+ " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ? WHERE ur.username = '"
 						+ key + "'";
 			else
 				sql = "INSERT INTO "
 						+ U_R_T
-						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			File f = new File(value.getImagem().getPath());
 			Timestamp dataNasc = new Timestamp(value.getDataNasc()
 					.getTimeInMillis());
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
-			int estado = value.getEstado(); // == UtilizadorRegistado.NORMAL ?
-											// NORMAL : (value.getEstado() ==
-											// UtilizadorRegistado.BANIDO ?
-											// BANIDO : (value.getEstado() ==
-											// UtilizadorRegistado.REPORTADO ?
-											// REPORTADO : PROIBIDO_ANUNC))) ;
+			int estado = value.getEstado(); 
+                        Registo.validarMorada(value.getCodPostal(), value.getLocalidade(), value.getPais()) ;
 			stm.setInt(ID, value.getId());
 			stm.setString(USERNAME, value.getUsername());
 			stm.setString(PASSWORD, value.getPassword());
@@ -208,8 +198,6 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			stm.setString(EMAIL, value.getEmail());
 			stm.setString(MORADA, value.getMorada());
 			stm.setString(COD_POSTAL, value.getCodPostal());
-			stm.setString(LOCALIDADE, value.getLocalidade());
-			stm.setString(PAIS, value.getPais());
 			stm.setString(INFORMACAO_P, value.getInfPessoal());
 			if (f.exists()) {
 				FileInputStream fis = new FileInputStream(f);
@@ -261,26 +249,18 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			ResultSet rs = stm.executeQuery("SELECT * FROM " + U_R_T);
 			while (rs.next()) {
 				UtilizadorRegistado u = null;
-				int estado = rs.getInt(ESTADO); // rs.getString(ESTADO).equals(NORMAL)
-												// ? UtilizadorRegistado.NORMAL
-												// :
-												// (rs.getString(ESTADO).equals(BANIDO)
-												// ? UtilizadorRegistado.BANIDO
-												// :
-												// (rs.getString(ESTADO).equals(REPORTADO)
-												// ?
-												// UtilizadorRegistado.REPORTADO
-												// :
-												// UtilizadorRegistado.PROIBIDO_ANUNC)))
-												// ;
+				int estado = rs.getInt(ESTADO); 
 				GregorianCalendar dataNasc = new GregorianCalendar();
 				rs.getTimestamp(DATA_NASC, dataNasc);
 				Imagem pathImg = receberImagem(rs);
+                                String locPais[] = {"", ""} ;
+                                if(rs.getString(COD_POSTAL) != null) 
+                                    locPais = Registo.determinarMorada(rs.getString(COD_POSTAL)) ;
 				u = new UtilizadorRegistado(rs.getInt(ID),
 						rs.getString(USERNAME), rs.getString(PASSWORD), estado,
 						rs.getString(EMAIL), rs.getString(MORADA),
-						rs.getString(COD_POSTAL), rs.getString(LOCALIDADE),
-						rs.getString(PAIS), rs.getString(INFORMACAO_P),
+						rs.getString(COD_POSTAL), locPais[LOCALIDADE],
+						locPais[PAIS], rs.getString(INFORMACAO_P),
 						pathImg, rs.getString(CONTACTO), rs.getString(NOME),
 						dataNasc);
 				res.add(u);

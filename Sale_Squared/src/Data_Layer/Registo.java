@@ -12,9 +12,15 @@ public class Registo {
 	// v. c.
 	public static final String REGISTO_T = "Sistema s";
 	public static final String UTILIZADOR_T = "Utilizador u";
+        public static final String C_P_T = "CodigoPostal cp";
+        public static final String LOC_T = "Localidade loc";
+        public static final String PAIS_T = "Pais p" ;
 
 	public static final String USER = "U";
 	public static final String REGISTADO = "R";
+        
+        public static final int LOCALIDADE = 0;
+	public static final int PAIS = 1;
 
 	// m. c.
 	public static int registaIdMsg() {
@@ -157,6 +163,111 @@ public class Registo {
 			throw new NullPointerException(e.getMessage());
 		}
 	}
+        
+        public static void inserirPais(String pais) {
+            
+           try {
+                String sql = "INSERT INTO " + PAIS_T + " VALUES (?)" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);                
+                stm.setString(1, pais) ;
+                stm.execute();                
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static boolean existePais(String pais) {
+            
+           try {
+                String sql = "SELECT * FROM " + PAIS_T + " WHERE p.nome = ?" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+                stm.setString(1, pais) ;
+                ResultSet rs = stm.executeQuery();
+                return rs.next();
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static boolean existeLocalidade(String localidade) {
+            
+           try {
+                String sql = "SELECT * FROM " + LOC_T + " WHERE loc.localidade = ?" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+                stm.setString(1, localidade) ;
+                ResultSet rs = stm.executeQuery();
+                return rs.next();
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static void inserirLocalidade(String localidade, String pais) {
+            
+           try {
+                String sql = "INSERT INTO " + LOC_T + " VALUES (?,?)" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+                stm.setString(1, localidade) ;
+                stm.setString(2, pais) ;
+                stm.execute();                
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static boolean existeCodPostal(String codPostal) {
+            
+           try {
+                String sql = "SELECT * FROM " + C_P_T + " WHERE cp.codPostal = ?" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+                stm.setString(1, codPostal) ;
+                ResultSet rs = stm.executeQuery();
+                return rs.next();
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static void inserirCodPostal(String localidade, String codPostal) {
+            
+           try {
+                String sql = "INSERT INTO " + C_P_T + " VALUES (?,?)" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
+                stm.setString(1, codPostal) ;
+                stm.setString(2, localidade) ;
+                stm.execute();                
+           } catch (Exception e) {
+                throw new NullPointerException(e.getMessage());
+		}
+        }
+        
+        public static String[] determinarMorada (String codPostal) {
+            
+            try {
+                String res[] = new String[2] ;
+                String sql = "SELECT loc.localidade, loc.pais FROM " + C_P_T + ", " + LOC_T + " WHERE cp.codPostal = ? AND cp.localidade = loc.localidade" ;
+                PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql) ;
+                stm.setString(1, codPostal) ;
+                ResultSet rs = stm.executeQuery() ;
+                if(rs.next()) {
+                    res[LOCALIDADE] = rs.getString(1) ;
+                    res[PAIS] = rs.getString(2) ;
+                }
+                return res ;
+            } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        }
+        
+        public static void validarMorada (String codPostal, String localidade, String pais) {
+            
+            try {
+                if(existePais(pais) == false)
+                    inserirPais(pais) ;
+                if(existeLocalidade(localidade) == false)
+                    inserirLocalidade(localidade, pais) ;
+                if(existeCodPostal(codPostal) == false)
+                    inserirCodPostal(localidade, codPostal) ;                
+            } catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        }
 
 	/*
 	 * public static void apagarHistoricoAnuncVis (int idUser) {

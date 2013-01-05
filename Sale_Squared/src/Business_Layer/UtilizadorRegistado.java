@@ -459,12 +459,12 @@ public class UtilizadorRegistado extends Utilizador {
 	public void setMsgLida(int codMsg) {
 
 		Mensagem m = this.recebidas.get(codMsg);
-		m.setLida(true);
+		m.setEstado(Mensagem.LIDA);
 		this.recebidas.put(codMsg, m);
 	}
 
 	public boolean estaMsgLida(int codMsg) {
-		return this.recebidas.get(codMsg).getLida();
+		return this.recebidas.get(codMsg).getEstado() == Mensagem.LIDA;
 	}
 
 	/*
@@ -516,15 +516,17 @@ public class UtilizadorRegistado extends Utilizador {
 			return false;
 	}
 
-	// pw válida ssse tiver letras, digitos, '_' ou '.'
+	// pw válida ssse tiver letras, digitos, '_' ou '.' e tiver 6 caracteres de tamanho
 	public static boolean validaPassword(String pw) {
 
 		boolean res = true;
 		int i = 0;
+                if(pw.length() < 6)
+                    return false ;
 		for (; i < pw.length() && res; i++) {
 			char c = pw.charAt(i);
-			if (!Character.isDigit(c) || !Character.isLetter(c) || (c != '_')
-					|| (c != '.'))
+			if (!(Character.isDigit(c) || Character.isLetter(c) || (c == '_')
+					|| (c == '.')))
 				res = false;
 		}
 		return res;

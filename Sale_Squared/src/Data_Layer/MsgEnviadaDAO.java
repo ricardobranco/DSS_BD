@@ -21,13 +21,13 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 	public static final int ASSUNTO = 2;
 	public static final int CORPO = 3;
 	public static final int DATA_ENVIO = 4;
-	public static final int LIDA = 5;
+	public static final int ESTADO = 5;
 	public static final int EMISSOR = 6;
 	public static final int RECEPTOR = 7;
 	public static final int PERTENCE = 8;
 
-	public static final String SIM = "S";
-	public static final String NAO = "N";
+	/*public static final String SIM = "S";
+	public static final String NAO = "N";*/
 
 	public static final int PERTENCE_E = 0;
 	public static final int PERTENCE_R = 1;
@@ -101,13 +101,13 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setInt(2, chave);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
-				boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false);
+				//boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false);
 				GregorianCalendar dataEnvio = new GregorianCalendar();
 				rs.getTimestamp(DATA_ENVIO, dataEnvio);
 				UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO();
 				res = new Mensagem(rs.getInt(ID), u.get(rs.getString(EMISSOR)),
 						u.get(rs.getString(RECEPTOR)), dataEnvio,
-						rs.getString(ASSUNTO), rs.getString(CORPO), lida);
+						rs.getString(ASSUNTO), rs.getString(CORPO), rs.getInt(ESTADO));
 			}
 			return res;
 		} catch (Exception e) {
@@ -170,7 +170,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
-			String estado = (value.getLida() ? SIM : NAO);
+			//String estado = (value.getLida() ? SIM : NAO);
 			Timestamp dataEnvio = new Timestamp(value.getDataEnvio()
 					.getTimeInMillis());
 			stm.setInt(ID, value.getId());
@@ -178,7 +178,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setString(CORPO, value.getCorpo());
 			stm.setString(EMISSOR, value.getEmissor().getUsername());
 			stm.setString(RECEPTOR, value.getReceptor().getUsername());
-			stm.setString(LIDA, estado);
+			stm.setInt(ESTADO, value.getEstado());
 			stm.setTimestamp(DATA_ENVIO, dataEnvio);
 			stm.setInt(PERTENCE, PERTENCE_E);
 			stm.execute();
@@ -240,13 +240,13 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				Mensagem m = null;
-				boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false);
+				//boolean lida = (rs.getString(LIDA).equals(SIM) ? true : false);
 				GregorianCalendar dataEnvio = new GregorianCalendar();
 				rs.getTimestamp(DATA_ENVIO, dataEnvio);
 				UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO();
 				m = new Mensagem(rs.getInt(ID), u.get(rs.getString(EMISSOR)),
 						u.get(rs.getString(RECEPTOR)), dataEnvio,
-						rs.getString(ASSUNTO), rs.getString(CORPO), lida);
+						rs.getString(ASSUNTO), rs.getString(CORPO), rs.getInt(ESTADO));
 				res.add(m);
 			}
 			return res;

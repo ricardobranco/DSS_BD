@@ -766,6 +766,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			exitFlag = true;
 			for (int i = 0; i < campos.length && exitFlag; i++) {
 				switch (campos[i]) {
+                                case "tit": { exitFlag = exitFlag && a.getTitulo().contains((String)valores[i]) ; break;}    
 				case "pMenorI": {
 					exitFlag = exitFlag && a.getPreco() <= (Double) valores[i];
 					break;
@@ -787,7 +788,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 				}
 				case "l": {
 					exitFlag = exitFlag
-							&& a.getClass().toString()
+							&& a.getClass().getName()
 									.equals((String) valores[i]);
 					break;
 				}
@@ -934,7 +935,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			Anuncio a = itA.next();
 			if ((a.getEstadoAnuncio() == Anuncio.ABERTO)
 					&& (a.getQuantidade() > 0)
-					&& (a.getClass().toString().equals("VendaDirecta"))
+					&& (a.getClass().getName().equals(VendaDirecta.class.getName()))
 					&& a.getAnunciante().getUsername().equals(comprador)
 					&& contemAlgumElem(a.getCategorias().keySet(), catSegVend))
 				res = true;
@@ -962,7 +963,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			Anuncio a = itA.next();
 			if ((a.getEstadoAnuncio() == Anuncio.ABERTO)
 					&& (a.getQuantidade() > 0)
-					&& (a.getClass().toString().equals("VendaDirecta"))
+					&& (a.getClass().getName().equals(VendaDirecta.class.getName()))
 					&& a.getAnunciante().getUsername().equals(comprador)
 					&& contemAlgumElem(a.getCategorias().keySet(), catSegVend))
 				res.add(a);

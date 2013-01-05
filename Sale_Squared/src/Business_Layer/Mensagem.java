@@ -4,6 +4,11 @@ import java.util.GregorianCalendar;
 
 public class Mensagem {
 
+        // v. c.
+        public static final int NAO_LIDA = 0 ;
+        public static final int LIDA = 1 ;
+        public static final int ELIMINADA = 2 ;
+    
 	// v. i.
 	private int id;
 	private UtilizadorRegistado emissor;
@@ -11,19 +16,19 @@ public class Mensagem {
 	private GregorianCalendar dataEnvio;
 	private String assunto;
 	private String corpo;
-	private boolean lida;
+	private int estado;
 
 	// construtor
 	public Mensagem(int id, UtilizadorRegistado emissor,
 			UtilizadorRegistado receptor, GregorianCalendar dataEnvio,
-			String assunto, String corpo, boolean lida) {
+			String assunto, String corpo, int estado) {
 		this.id = id;
 		this.emissor = emissor;
 		this.receptor = receptor;
 		this.dataEnvio = dataEnvio;
 		this.assunto = assunto;
 		this.corpo = corpo;
-		this.lida = lida;
+		this.estado = estado;
 	}
 
 	// get e set
@@ -75,12 +80,12 @@ public class Mensagem {
 		this.corpo = corpo;
 	}
 
-	public boolean getLida() {
-		return lida;
+	public int getEstado() {
+		return estado;
 	}
 
-	public void setLida(boolean lida) {
-		this.lida = lida;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 	// c, e, tS
@@ -104,13 +109,13 @@ public class Mensagem {
 				+ this.emissor.toString() + ", receptor="
 				+ this.receptor.toString() + ", dataEnvio="
 				+ this.dataEnvio.toString() + ", assunto=" + this.assunto
-				+ ", corpo=" + this.corpo + ", lida=" + this.lida + '}';
+				+ ", corpo=" + this.corpo + ", estado=" + this.estado + '}';
 	}
 
 	@Override
 	public Mensagem clone() {
 		return new Mensagem(this.id, this.emissor.clone(),
 				this.receptor.clone(), this.dataEnvio, this.assunto,
-				this.corpo, this.lida);
+				this.corpo, this.estado);
 	}
 }

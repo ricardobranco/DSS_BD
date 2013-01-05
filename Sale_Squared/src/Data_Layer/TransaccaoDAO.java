@@ -25,21 +25,24 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 	public static final int MODO_PAGAMENTO = 4;
 	public static final int MORADA_FACT = 5;
 	public static final int COD_POSTAL_FACT = 6;
-	public static final int LOCALIDADE_FACT = 7;
-	public static final int PAIS_FACT = 8;
-	public static final int ESTADO = 9;
-	public static final int QUANTIDADE = 10;
-	public static final int ANUNCIO = 11;
-	public static final int COMPRADOR = 12;
-	public static final int VENDEDOR = 13;
-	public static final int TIPO = 14;
-	public static final int PERTENCE = 15;
+	//public static final int LOCALIDADE_FACT = 7;
+	//public static final int PAIS_FACT = 8;
+	public static final int ESTADO = 7;
+	public static final int QUANTIDADE = 8;
+	public static final int ANUNCIO = 9;
+	public static final int COMPRADOR = 10;
+	public static final int VENDEDOR = 11;
+	public static final int TIPO = 12;
+	public static final int PERTENCE = 13;
 
 	public static final String TRANSACCAO = "A";
 	public static final String TROCA = "O";
 
 	public static final int PERTENCE_V = 0;
 	public static final int PERTENCE_C = 1;
+        
+        public static final int LOCALIDADE = 0;
+	public static final int PAIS = 1;
 
 	// v. i.
 	private String username;
@@ -101,6 +104,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 				String tipo = rs.getString(TIPO);
 				GregorianCalendar data = new GregorianCalendar();
 				rs.getTimestamp(DATA, data);
+                                String locPais[] = Registo.determinarMorada(rs.getString(COD_POSTAL_FACT)) ;
 				if (tipo.equals(TROCA)) {
 					String sqlT = "SELECT * FROM " + TROCA_T
 							+ " WHERE tro.id = ?";
@@ -108,15 +112,15 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							.prepareStatement(sqlT);
 					stmT.setInt(1, chave);
 					ResultSet rsT = stmT.executeQuery();
-					rsT.next();
+					rsT.next();                                        
 					res = new Troca(a.get(rsT.getInt(ANUNCIO_T)), a.get(rs
 							.getInt(ANUNCIO)), u.get(rs.getString(VENDEDOR)),
 							u.get(rs.getString(COMPRADOR)), chave, data,
 							rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO),
 							rs.getString(MORADA_FACT),
 							rs.getString(COD_POSTAL_FACT),
-							rs.getString(LOCALIDADE_FACT),
-							rs.getString(PAIS_FACT), (char) rs.getInt(ESTADO),
+							locPais[LOCALIDADE],
+							locPais[PAIS], (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
 				} else
 					res = new Transaccao(a.get(rs.getInt(ANUNCIO)), u.get(rs
@@ -125,8 +129,8 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO),
 							rs.getString(MORADA_FACT),
 							rs.getString(COD_POSTAL_FACT),
-							rs.getString(LOCALIDADE_FACT),
-							rs.getString(PAIS_FACT), (char) rs.getInt(ESTADO),
+							locPais[LOCALIDADE],
+							locPais[PAIS], (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
 			}
 			return res;
@@ -195,6 +199,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			Timestamp t = new Timestamp(value.getData().getTimeInMillis());
+                        Registo.validarMorada(value.getCodPostalFact(), value.getLocalidadeFact(), value.getPaisFact()) ;
 			int pertence = (this.username.equals(value.getVendedor()
 					.getUsername()) ? PERTENCE_V : PERTENCE_C);
 			stm.setInt(ID, key);
@@ -202,9 +207,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			stm.setDouble(VALOR, value.getValor());
 			stm.setString(MODO_PAGAMENTO, value.getModoPagamento());
 			stm.setString(MORADA_FACT, value.getMorada());
-			stm.setString(COD_POSTAL_FACT, value.getCodPostalFact());
-			stm.setString(LOCALIDADE_FACT, value.getLocalidadeFact());
-			stm.setString(PAIS_FACT, value.getPaisFact());
+			stm.setString(COD_POSTAL_FACT, value.getCodPostalFact());			
 			stm.setInt(ESTADO, value.getEstado());
 			stm.setInt(QUANTIDADE, value.getQuantidade());
 			stm.setInt(ANUNCIO, value.getAnuncio().getCodigo());
@@ -291,6 +294,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 				GregorianCalendar data = new GregorianCalendar();
 				int chave = rs.getInt(ID);
 				rs.getTimestamp(DATA, data);
+                                String locPais[] = Registo.determinarMorada(rs.getString(COD_POSTAL_FACT)) ;
 				if (tipo.equals(TROCA)) {
 					String sqlT = "SELECT * FROM " + TROCA_T
 							+ " WHERE tro.id = ?";
@@ -305,8 +309,9 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO),
 							rs.getString(MORADA_FACT),
 							rs.getString(COD_POSTAL_FACT),
-							rs.getString(LOCALIDADE_FACT),
-							rs.getString(PAIS_FACT), (char) rs.getInt(ESTADO),
+							locPais[LOCALIDADE],
+							locPais[PAIS], 
+                                                        (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
 				} else
 					t = new Transaccao(a.get(rs.getInt(ANUNCIO)), u.get(rs
@@ -315,8 +320,8 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							rs.getDouble(VALOR), rs.getString(MODO_PAGAMENTO),
 							rs.getString(MORADA_FACT),
 							rs.getString(COD_POSTAL_FACT),
-							rs.getString(LOCALIDADE_FACT),
-							rs.getString(PAIS_FACT), (char) rs.getInt(ESTADO),
+							locPais[LOCALIDADE],
+							locPais[PAIS], (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
 				res.add(t);
 			}
