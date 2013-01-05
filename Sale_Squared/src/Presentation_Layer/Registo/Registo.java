@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,11 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Business_Layer.Categoria;
 import Business_Layer.Imagem;
 import Business_Layer.Mensagem;
+import Business_Layer.SaleSquared;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Mensagem_Erro;
+import Presentation_Layer.Header.Header;
+import Presentation_Layer.Home.Home;
 
 public class Registo extends JPanel {
 
@@ -52,6 +57,7 @@ public class Registo extends JPanel {
 				panel.updateUI();
 				panel.validate();
 				btnNewButton_1.setVisible(false);
+				step--;
 
 			}
 		});
@@ -60,7 +66,7 @@ public class Registo extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					UtilizadorRegistado ur;
+					UtilizadorRegistado ur = null;
 					switch (step) {
 					case 1:
 						Registo_1_2 r12 = (Registo_1_2) registo_1_2;
@@ -71,7 +77,7 @@ public class Registo extends JPanel {
 
 						int id = root.getSistema().getEmSessao().getId();
 						String username = r1.getUser(root);
-						String password = r1.getPassword();
+						String password = r1.getPassword(root);
 						String email = r1.getEmail(root);
 						char estado = UtilizadorRegistado.NORMAL;
 						String nome = r2.getNome();
@@ -80,26 +86,45 @@ public class Registo extends JPanel {
 						String codPostal = r2.getCodigoPostal();
 						String localidade = r2.getLocalidade();
 						String contacto = r2.getContacto() + "";
-						
+
 						String infPessoal = ""; // Provisório
 						Imagem imagem = new Imagem("Avatar" + id, r2
 								.getAvatar());
 						GregorianCalendar dn = r2.getDataNascimento();
 
-						ur = new UtilizadorRegistado(id,
-								username, password, estado, email, morada,
-								codPostal, localidade, pais, infPessoal,
-								imagem, contacto, nome, dn);
+						ur = new UtilizadorRegistado(id, username, password,
+								estado, email, morada, codPostal, localidade,
+								pais, infPessoal, imagem, contacto, nome, dn);
+						btnNewButton.setText("Concluir");
+						panel.removeAll();
+						panel.add(registo_3_Final, "3 e Fim");
+						panel.updateUI();
+						panel.validate();
+						btnNewButton_1.setVisible(true);
+						step++;
 						break;
-
+					case 2:
+						Registo_3_Final r3f = (Registo_3_Final) registo_3_Final;
+						Registo_3 r3 = (Registo_3) r3f
+								.get(Registo_3_Final.CATEGORIAS);
+						Registo_Final rf = (Registo_Final) r3f.get(Registo_3_Final.TERMS);
+						rf.termosaceites();
+						
+						SaleSquared sistema = root.getSistema();
+						sistema.inserirUtilizadorReg(ur);
+						
+						Map<String,Categoria> categorias = r3.getCategorias();
+						for(Categoria c : categorias.values())
+							ur.inserirCategSeguida(c);
+						
+						sistema.setEmSessao(ur);
+						Sale_Squared.REGISTADO = true;
+						root.setBody(new Home(root), ur.getUsername());
+						root.reloadHeader();
+						
 					}
 
-					btnNewButton.setText("Concluir");
-					panel.removeAll();
-					panel.add(registo_3_Final, "3 e Fim");
-					panel.updateUI();
-					panel.validate();
-					btnNewButton_1.setVisible(true);
+					
 
 				} catch (Exception e) {
 					new Mensagem_Erro(root, e.getMessage()).setVisible(true);

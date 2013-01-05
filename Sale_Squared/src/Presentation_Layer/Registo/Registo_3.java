@@ -2,7 +2,9 @@ package Presentation_Layer.Registo;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -118,6 +120,16 @@ public class Registo_3 extends JPanel {
 		);
 		setLayout(groupLayout);
 
+	}
+	
+	
+	public Map<String,Categoria> getCategorias(){
+		Map<String,Categoria> res = new  HashMap<>();
+		for(JCheckBox jcb : categorias){
+			Categoria c = new Categoria(jcb.getText());
+			res.put(c.getNome(),c);
+		}
+		return res;
 	}
 	
 	

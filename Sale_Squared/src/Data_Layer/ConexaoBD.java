@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConexaoBD {
 
 	// v. c.
-	public static final String ip = "172.21.47.127";
+	public static final String ip = "172.21.46.80";
 	public static final String porta = "1521";
 	public static final String sid = "psfdc";
 	public static final String user = "pedro";

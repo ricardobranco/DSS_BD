@@ -1,6 +1,8 @@
 package Presentation_Layer.Registo;
 
 import java.awt.CardLayout;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,12 +17,29 @@ public class Registo_3_Final extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int CATEGORIAS = 3;
+	public static final int TERMS = 4;
+	
+	
+	private Map<Integer,JPanel> jpanels;
+
 
 	/**
 	 * Create the panel.
 	 */
 	public Registo_3_Final(final Sale_Squared root) {
 
+		
+		
+		jpanels = new HashMap<>();
+		Registo_3 r3 = new Registo_3();
+		Registo_Final rf = new Registo_Final(root);
+		
+		jpanels.put(new Integer(CATEGORIAS),r3);
+		jpanels.put(new Integer(TERMS),rf);
+		
+		
+		
 		JPanel panel = new JPanel();
 
 		JPanel panel_1 = new JPanel();
@@ -63,10 +82,17 @@ public class Registo_3_Final extends JPanel {
 								Short.MAX_VALUE)));
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Registo_3(), "Favoritos");
-		panel_1.add(new Registo_Final(root), "Final");
+		panel.add(jpanels.get(new Integer(CATEGORIAS)), "Favoritos");
+		panel_1.add(jpanels.get(new Integer(TERMS)), "Final");
 		setLayout(groupLayout);
 
 	}
+
+
+	public JPanel get(int key) {
+		return jpanels.get(key);
+	}
+	
+	
 
 }

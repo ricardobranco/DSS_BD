@@ -130,8 +130,10 @@ public class Registo_1 extends JPanel {
 		email1.setColumns(10);
 		
 		pass2 = new JPasswordField();
+		pass2.setToolTipText("Min. 6 caracteres");
 		
 		pass1 = new JPasswordField();
+		pass1.setToolTipText("Min. 6 caracteres");
 			
 		
 		username = new JTextField();
@@ -203,7 +205,7 @@ public class Registo_1 extends JPanel {
 			label.setIcon(INVALIDO);
 			throw new Exception("Insira um username");
 		}
-		else if(susername.length()>8){
+		else if(susername.length()>15){
 			label.setIcon(INVALIDO);
 			throw new Exception("O username tem que ter no max. 8 caracteres");}
 		else
@@ -213,15 +215,20 @@ public class Registo_1 extends JPanel {
 			
 	}
 	
-	public String getPassword() throws Exception{
+	public String getPassword(final Sale_Squared root) throws Exception{
 		if(!coincidePassword())
 			throw new Exception("As passwords não são iguais");
-		else{
+		
 			String pass = new String(pass1.getPassword());
+			
+			if(!root.getSistema().eValidaPassword(pass)){
+				System.out.println(root.getSistema().eValidaPassword("password"));
+				throw new Exception("Insira uma Password válida");}
+			
 			if(pass.isEmpty())
 				throw new Exception("Insira uma password");
 			return pass;
-			}
+			
 		}
 	
 	public String getEmail(final Sale_Squared root) throws Exception{
