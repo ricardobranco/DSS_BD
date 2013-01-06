@@ -47,4 +47,10 @@ public class Descricao extends JPanel {
 		setLayout(groupLayout);
 
 	}
+        
+        public void setDescricao(String descricao){
+            
+        }
 }
+
+
