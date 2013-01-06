@@ -6,7 +6,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Imagem_Panel extends JPanel {
+public class Imagem_Grid extends JPanel {
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class Imagem_Panel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Imagem_Panel() {
+	public Imagem_Grid() {
 
 		JPanel panel = new JPanel();
 

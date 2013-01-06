@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 
 import Presentation_Layer.Anuncio.Descricao;
 import Presentation_Layer.Anuncio.Envio_Pagamento;
-import Presentation_Layer.Anuncio.Imagem_Panel;
+import Presentation_Layer.Anuncio.Imagem_Grid;
 
 public class Tabbed_Anuncio extends JPanel {
 
@@ -48,7 +48,7 @@ public class Tabbed_Anuncio extends JPanel {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Imagens", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Imagem_Panel(), "Imagens");
+		panel_1.add(new Imagem_Grid(), "Imagens");
 
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Envio e Pagamento", null, panel_2, null);

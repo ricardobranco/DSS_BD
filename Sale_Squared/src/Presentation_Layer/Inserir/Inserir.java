@@ -62,7 +62,6 @@ public class Inserir extends JPanel {
 						a.setDescricao(i1.getDescricao());
 						a.setEstadoProduto(i1.getEstado());
 						a.setImagens(i1.getImagens());
-						double preco = 0;
 						int quantidade;
 						ModoVenda mv;
 						Inserir_preco ip = i1.precopanel();
@@ -70,19 +69,20 @@ public class Inserir extends JPanel {
 						if (ip.eLeilao()) {
 							double precoB = ip.getLicMin();
 							GregorianCalendar dataF = ip.validade();
-							int nlic = 0;
+							double inc = ip.getInc();
 							double precoActual = precoB;
 							quantidade = 1;
-							mv = new Leilao(id, precoB, dataF, nlic,
-									precoActual);
+							mv = new Leilao(id, precoB, dataF, 0, precoActual,
+									inc);
+
 						} else {
-							preco = ip.getPreco();
+							double preco = ip.getPreco();
 							quantidade = ip.getQuantidade();
-							mv = new VendaDirecta(id, 0);
+							mv = new VendaDirecta(id, 0, preco);
+
 						}
 
 						a.setTipoVenda(mv);
-						a.setPreco(preco);
 						a.setQuantidade(quantidade);
 						a.setnVisitas(0);
 						GregorianCalendar expira = ip.validade();
@@ -120,8 +120,9 @@ public class Inserir extends JPanel {
 								.getSistema()
 								.encontrarUtilizadorReg(Sale_Squared.UTILIZADOR));
 						root.getSistema().inserirAnuncio(a);
-						root.setBody(new Presentation_Layer.Anuncio.Anuncio_Main(
-								root, a), a.getTitulo());
+						root.setBody(
+								new Presentation_Layer.Anuncio.Anuncio_Main(
+										root, a), a.getTitulo());
 
 						break;
 
