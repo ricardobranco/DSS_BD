@@ -14,13 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Business_Layer.Categoria;
-import Business_Layer.Imagem;
-import Business_Layer.SaleSquared;
-import Business_Layer.UtilizadorRegistado;
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.Mensagem_Erro;
-import Presentation_Layer.Home.Home;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.Mensagem_Erro;
+import presentation_Layer.Home.Home;
+
+import business_Layer.Categoria;
+import business_Layer.Imagem;
+import business_Layer.SaleSquared;
+import business_Layer.UtilizadorRegistado;
+
 
 public class Registo extends JPanel {
 

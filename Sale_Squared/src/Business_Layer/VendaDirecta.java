@@ -1,4 +1,4 @@
-package Business_Layer;
+package business_Layer;
 
 public class VendaDirecta extends ModoVenda {
 

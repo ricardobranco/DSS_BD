@@ -12,8 +12,9 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
-import Presentation_Layer.Componentes.ImageCellRender;
-import Presentation_Layer.Perfil.Perfil;
+import presentation_Layer.Componentes.ImageCellRender;
+import presentation_Layer.Perfil.Perfil;
+
 
 public class Tabela_Reputacao extends JPanel {
 
@@ -95,12 +96,12 @@ public class Tabela_Reputacao extends JPanel {
 			}
 		};
 
-		dm.setDataVector(new Object[][] {}, new Object[] { "Reputação",
-				"Comentário", "Negócio", "De", "Data" });
+		dm.setDataVector(new Object[][] {}, new Object[] { "ReputaÔøΩÔøΩo",
+				"ComentÔøΩrio", "NegÔøΩcio", "De", "Data" });
 
 		table = new JTable(dm);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumn("Reputação").setCellRenderer(new ImageCellRender());
+		table.getColumn("ReputaÔøΩÔøΩo").setCellRenderer(new ImageCellRender());
 		table.setCellSelectionEnabled(false);
 		scrollPane.setViewportView(table);
 		// teste

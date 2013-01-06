@@ -13,12 +13,13 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.swingx.JXTable;
 
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.CWCheckBoxRenderer;
+import presentation_Layer.Componentes.CheckBoxCellEditor;
+import presentation_Layer.Componentes.HyperLinkEditor;
+import presentation_Layer.Componentes.HyperLinkRenderer;
+
 import Anuncio.Anuncio;
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.CWCheckBoxRenderer;
-import Presentation_Layer.Componentes.CheckBoxCellEditor;
-import Presentation_Layer.Componentes.HyperLinkEditor;
-import Presentation_Layer.Componentes.HyperLinkRenderer;
 
 public class Tabela_Vendas extends JPanel {
 

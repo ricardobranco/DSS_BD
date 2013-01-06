@@ -4,27 +4,26 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
-import Business_Layer.Categoria;
-import Business_Layer.Imagem;
-import Business_Layer.Tag;
 import Presentation_Layer.Tabelas.Tabela_Imagens;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
+import business_Layer.Categoria;
+import business_Layer.Imagem;
+import business_Layer.Tag;
 
 public class Inserir_1 extends JPanel {
 
@@ -138,8 +137,8 @@ public class Inserir_1 extends JPanel {
 								.addComponent(panel_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_3, Alignment.LEADING)
 								.addComponent(lblImagens, Alignment.LEADING)
-								.addComponent(panel_2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 772, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEstado, Alignment.LEADING))))
+								.addComponent(lblEstado, Alignment.LEADING)
+								.addComponent(panel_2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 772, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -176,8 +175,8 @@ public class Inserir_1 extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnAdicionarFoto)
 					.addGap(18)
-					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(new CardLayout(0, 0));
 		panel_1.setLayout(new CardLayout(0, 0));
@@ -203,14 +202,14 @@ public class Inserir_1 extends JPanel {
 		return rdbtnNovo.isSelected();
 	}
 	
-	public List<Tag> getTags(){
-		List<Tag> res = new ArrayList<>();
+	public Map<String,Tag> getTags(){
+		Map<String,Tag> res = new HashMap<>();
 		String stags = tags.getText();
 		
 		StringTokenizer st =  new StringTokenizer(stags, ";");
 		while(st.hasMoreTokens()){
 			Tag t = new Tag(st.nextToken());
-			res.add(t);
+			res.put(t.getNome(),t);
 		}
 		
 		return res;
@@ -227,7 +226,7 @@ public class Inserir_1 extends JPanel {
 		return preco;
 	}
 	
-	public List<Imagem> getImagens(){
+	public Map<String,Imagem> getImagens(){
 		return imagens.getImagens();
 	}
 	

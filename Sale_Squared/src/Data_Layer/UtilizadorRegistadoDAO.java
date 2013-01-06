@@ -1,4 +1,4 @@
-package Data_Layer;
+package data_Layer;
 
 //import java.awt.Image;
 import java.io.File;
@@ -16,10 +16,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import business_Layer.Imagem;
+import business_Layer.UtilizadorRegistado;
+
 //import javax.swing.ImageIcon;
 
-import Business_Layer.Imagem;
-import Business_Layer.UtilizadorRegistado;
 
 public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> {
 

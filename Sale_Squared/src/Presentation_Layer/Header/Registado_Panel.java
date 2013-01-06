@@ -9,11 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.ContaPessoal.Conta_Pessoal;
-import Presentation_Layer.Home.Home;
-import Presentation_Layer.Inserir.Inserir;
-import Presentation_Layer.Perfil.Perfil;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.ContaPessoal.Conta_Pessoal;
+import presentation_Layer.Home.Home;
+import presentation_Layer.Inserir.Inserir;
+import presentation_Layer.Perfil.Perfil;
+
 
 public class Registado_Panel extends JPanel {
 
@@ -45,10 +46,10 @@ public class Registado_Panel extends JPanel {
 			}
 		});
 
-		JButton btnNewButton_3 = new JButton("Vender");
+		JButton btnNewButton_3 = new JButton("Anunciar");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setBody(new Inserir(), "Novo neg�cio");
+				root.setBody(new Inserir(root), "Novo negócio");
 			}
 		});
 

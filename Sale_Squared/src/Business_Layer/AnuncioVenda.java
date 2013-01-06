@@ -1,16 +1,17 @@
-package Business_Layer;
+package business_Layer;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import Data_Layer.ModoPagamentoDAO;
+import data_Layer.ModoPagamentoDAO;
+
 
 public class AnuncioVenda extends Anuncio {
 
 	// v. c.
 	public static String[] MODOS_PAGAMENTO = { "PayPal",
 			"Transferência Bancária", "Dinheiro", "Envio à cobranca",
-			"Descrição" };
+			"Descrição","Cheque" };
 
 	// v. i.
 	private ModoVenda tipoVenda;

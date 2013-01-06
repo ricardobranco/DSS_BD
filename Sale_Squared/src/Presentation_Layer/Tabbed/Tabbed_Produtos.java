@@ -7,8 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.Produtos_Coluna;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.Produtos_Coluna;
+
 
 public class Tabbed_Produtos extends JPanel {
 

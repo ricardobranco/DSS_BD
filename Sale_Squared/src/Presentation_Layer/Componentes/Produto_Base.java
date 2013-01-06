@@ -15,8 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
+import presentation_Layer.Sale_Squared;
+
 import Anuncio.Anuncio;
-import Presentation_Layer.Sale_Squared;
 
 public class Produto_Base extends JPanel {
 

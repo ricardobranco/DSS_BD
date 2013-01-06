@@ -22,8 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Presentation_Layer.Componentes.Avatar;
 import javax.swing.JSeparator;
+
+import presentation_Layer.Componentes.Avatar;
 
 public class Registo_2 extends JPanel {
 

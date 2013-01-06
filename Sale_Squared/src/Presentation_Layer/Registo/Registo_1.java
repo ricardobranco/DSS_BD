@@ -18,9 +18,11 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Business_Layer.SaleSquared;
-import Business_Layer.UtilizadorRegistado;
-import Presentation_Layer.Sale_Squared;
+import presentation_Layer.Sale_Squared;
+
+import business_Layer.SaleSquared;
+import business_Layer.UtilizadorRegistado;
+
 
 public class Registo_1 extends JPanel {
 

@@ -11,7 +11,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
-import Presentation_Layer.Tabelas.Tabela_Reputacao;
+import presentation_Layer.Tabelas.Tabela_Reputacao;
+
 
 public class Perfil_Reputacao extends JPanel {
 
@@ -27,7 +28,7 @@ public class Perfil_Reputacao extends JPanel {
 
 		JPanel panel = new JPanel();
 
-		JLabel lblReputao = new JLabel("Reputação");
+		JLabel lblReputao = new JLabel("ReputaÔøΩÔøΩo");
 		lblReputao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblReputao.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 

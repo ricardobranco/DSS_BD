@@ -7,8 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.Produtos_Coluna;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.Produtos_Coluna;
+
 
 public class Tabbed_Sugestoes extends JPanel {
 
@@ -46,7 +47,7 @@ public class Tabbed_Sugestoes extends JPanel {
 		panel.add(new Produtos_Coluna(root), "Do vendedor");
 
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Veja tambŽm", null, panel_1, null);
+		tabbedPane.addTab("Veja tambï¿½m", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel_1.add(new Produtos_Coluna(root), "Veja tambem");
 		setLayout(groupLayout);

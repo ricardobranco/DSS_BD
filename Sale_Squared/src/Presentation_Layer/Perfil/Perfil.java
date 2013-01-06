@@ -12,8 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Pesquisa.Pesquisa_Resultado;
+
 
 public class Perfil extends JPanel {
 
@@ -127,14 +128,14 @@ public class Perfil extends JPanel {
 										.addGap(12)));
 
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("Reputa‹o", null, panel, null);
+		tabbedPane.addTab("Reputaï¿½ï¿½o", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(new Perfil_Reputacao(), "perfil_rep");
 
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Neg—cios", null, panel_1, null);
+		tabbedPane.addTab("Negï¿½cios", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Pesquisa_Resultado(root), "Neg—cios");
+		panel_1.add(new Pesquisa_Resultado(root), "Negï¿½cios");
 		setLayout(groupLayout);
 
 	}

@@ -13,7 +13,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
-import Presentation_Layer.Sale_Squared;
+import presentation_Layer.Sale_Squared;
+
 
 public class Conta_Pessoal extends JPanel {
 

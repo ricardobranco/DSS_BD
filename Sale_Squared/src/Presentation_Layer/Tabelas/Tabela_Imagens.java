@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,11 +21,13 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import Business_Layer.Imagem;
-import Presentation_Layer.Componentes.ButtonEditor;
-import Presentation_Layer.Componentes.ButtonRenderer;
-import Presentation_Layer.Componentes.ImageCellRender;
-import Presentation_Layer.Componentes.ThumbnailIcon;
+import presentation_Layer.Componentes.ButtonEditor;
+import presentation_Layer.Componentes.ButtonRenderer;
+import presentation_Layer.Componentes.ImageCellRender;
+import presentation_Layer.Componentes.ThumbnailIcon;
+
+import business_Layer.Imagem;
+
 
 public class Tabela_Imagens extends JPanel {
 
@@ -33,7 +37,7 @@ public class Tabela_Imagens extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final JTable table;
-	private List<Imagem> imagens;
+	private Map<String,Imagem> imagens;
 	private int codigo;
 	private int img;
 	/**
@@ -43,7 +47,7 @@ public class Tabela_Imagens extends JPanel {
 	public Tabela_Imagens(int codigo) {
 		this.img = 0;
 		this.codigo = codigo;
-		imagens = new ArrayList<>();
+		imagens = new HashMap<>();
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
@@ -122,7 +126,10 @@ public class Tabela_Imagens extends JPanel {
 			Image img = icon.getImage();
 			ThumbnailIcon ti = new ThumbnailIcon(img, table.getColumn("Foto")
 					.getWidth());
-			imagens.add(new Imagem("IMG"+codigo+img,path));
+			
+			String nome = "IMG"+codigo+img;
+			Imagem imagem = new Imagem(nome,path);
+			imagens.put(nome,imagem);
 			this.img++;
 			Object[] row = { ti, "cancelar" };
 			dtm.addRow(row);
@@ -131,7 +138,7 @@ public class Tabela_Imagens extends JPanel {
 
 	}
 
-	public List<Imagem> getImagens(){
+	public Map<String,Imagem> getImagens(){
 		return imagens;
 	}
 	public boolean isFull() {

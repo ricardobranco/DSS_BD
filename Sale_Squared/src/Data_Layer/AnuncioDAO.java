@@ -1,4 +1,4 @@
-package Data_Layer;
+package data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,12 +11,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import Business_Layer.Anuncio;
-import Business_Layer.AnuncioCompra;
-import Business_Layer.AnuncioVenda;
-import Business_Layer.Leilao;
-import Business_Layer.ModoVenda;
-import Business_Layer.VendaDirecta;
+import business_Layer.Anuncio;
+import business_Layer.AnuncioCompra;
+import business_Layer.AnuncioVenda;
+import business_Layer.Leilao;
+import business_Layer.ModoVenda;
+import business_Layer.VendaDirecta;
+
 
 public class AnuncioDAO implements Map<Integer, Anuncio> {
 
