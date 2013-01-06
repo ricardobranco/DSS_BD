@@ -14,7 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
-import presentation_Layer.Sale_Squared;
+import Presentation_Layer.Sale_Squared;
 
 
 public class Registo_Final extends JPanel {

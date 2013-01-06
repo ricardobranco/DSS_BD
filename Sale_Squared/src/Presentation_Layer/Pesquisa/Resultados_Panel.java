@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
+import Presentation_Layer.Sale_Squared;
 
 
 public class Resultados_Panel extends JPanel {

@@ -7,9 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Tabbed.Tabbed_Outros;
-import presentation_Layer.Tabbed.Tabbed_Produtos;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Tabbed.Tabbed_Outros;
+import Presentation_Layer.Tabbed.Tabbed_Produtos;
 
 
 public class Home extends JPanel {

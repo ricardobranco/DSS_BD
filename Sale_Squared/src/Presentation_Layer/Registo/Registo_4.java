@@ -1,14 +1,15 @@
 package Presentation_Layer.Registo;
 
-import javax.swing.JPanel;
+import java.awt.Font;
+
 import javax.swing.GroupLayout;
-import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JSeparator;
+import javax.swing.UIManager;
 
 public class Registo_4 extends JPanel {
 

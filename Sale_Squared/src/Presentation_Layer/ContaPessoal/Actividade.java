@@ -9,9 +9,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXTaskPane;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Tabelas.Tabela_Vendas;
-import presentation_Layer.Tabelas.Tabela_licitacao;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Tabelas.Tabela_Vendas;
+import Presentation_Layer.Tabelas.Tabela_licitacao;
 
 
 public class Actividade extends JPanel {

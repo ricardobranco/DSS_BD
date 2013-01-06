@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.ContaPessoal.Conta_Pessoal;
-import presentation_Layer.Home.Home;
-import presentation_Layer.Inserir.Inserir;
-import presentation_Layer.Perfil.Perfil;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.ContaPessoal.Conta_Pessoal;
+import Presentation_Layer.Home.Home;
+import Presentation_Layer.Inserir.Inserir;
+import Presentation_Layer.Perfil.Perfil;
 
 
 public class Registado_Panel extends JPanel {
@@ -32,6 +32,7 @@ public class Registado_Panel extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Sale_Squared.REGISTADO = false;
+				Sale_Squared.UTILIZADOR = null;
 				root.reloadHeader();
 				root.setBody(new Home(root), "Home");
 			}

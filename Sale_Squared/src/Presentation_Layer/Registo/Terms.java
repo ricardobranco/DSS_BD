@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import presentation_Layer.Sale_Squared;
+import Presentation_Layer.Sale_Squared;
 
 
 public class Terms extends JDialog {

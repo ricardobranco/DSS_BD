@@ -11,7 +11,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
-import presentation_Layer.Tabelas.Tabela_Reputacao;
+import Presentation_Layer.Tabelas.Tabela_Reputacao;
 
 
 public class Perfil_Reputacao extends JPanel {

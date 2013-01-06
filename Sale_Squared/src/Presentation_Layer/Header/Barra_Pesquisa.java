@@ -13,8 +13,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXSearchField;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
 
 
 public class Barra_Pesquisa extends JPanel {

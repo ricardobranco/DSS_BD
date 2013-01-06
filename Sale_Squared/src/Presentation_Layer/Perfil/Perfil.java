@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
 
 
 public class Perfil extends JPanel {

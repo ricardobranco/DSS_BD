@@ -28,7 +28,7 @@ public class Inserir_Envio extends JPanel {
 	private JCheckBox estrangeiro;
 	private JRadioButton vendedor;
 	private JRadioButton comprador;
-	private JComboBox envio;
+	private JComboBox<String> envio;
 
 	/**
 	 * Create the panel.
@@ -41,11 +41,11 @@ public class Inserir_Envio extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("M\u00E9todo de Envio");
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		envio = new JComboBox();
-		envio.setModel(new DefaultComboBoxModel(new String[] {
+		envio = new JComboBox<String>();
+		envio.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"Correio Normal", "Correio Registado",
-				"Correio Registado + Seguro", "Entrega em M\u00E3o",
-				"Correio Verde", "Correio Azul", "Ver Descri\u00E7\u00E3o" }));
+				"Correio Registado + Seguro", "Entrega em Mão",
+				"Correio Verde", "Correio Azul", "Ver Descrição" }));
 
 		comprador = new JRadioButton("Comprador paga custos de envio");
 		comprador.addActionListener(new ActionListener() {
@@ -209,7 +209,10 @@ public class Inserir_Envio extends JPanel {
 
 	}
 
-	public String envio() {
+	
+        public boolean envioEstrangeiro(){return estrangeiro.isSelected();}
+        
+        public String envio() {
 		return (String) envio.getModel().getElementAt(envio.getSelectedIndex());
 	}
 

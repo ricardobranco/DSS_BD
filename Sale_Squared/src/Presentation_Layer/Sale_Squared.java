@@ -27,7 +27,8 @@ public class Sale_Squared extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public static boolean REGISTADO = false;
-	public static final String OS = System.getProperty("os.name").toLowerCase();
+	public static String UTILIZADOR = null; 
+        public static final String OS = System.getProperty("os.name").toLowerCase();
 
 	private final JPanel panel = new JPanel();
 	private final JPanel panel_1 = new JPanel();

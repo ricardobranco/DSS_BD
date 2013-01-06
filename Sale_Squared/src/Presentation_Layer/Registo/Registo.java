@@ -14,10 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Componentes.Mensagem_Erro;
-import presentation_Layer.Home.Home;
-
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Componentes.Mensagem_Erro;
+import Presentation_Layer.Home.Home;
 import business_Layer.Categoria;
 import business_Layer.Imagem;
 import business_Layer.SaleSquared;

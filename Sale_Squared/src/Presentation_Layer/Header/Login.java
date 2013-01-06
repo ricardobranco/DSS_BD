@@ -15,10 +15,9 @@ import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXLoginPane;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Home.Home;
-import presentation_Layer.Registo.Registo;
-
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Home.Home;
+import Presentation_Layer.Registo.Registo;
 import business_Layer.SaleSquared;
 import business_Layer.UtilizadorRegistado;
 
@@ -81,9 +80,10 @@ public class Login extends JDialog {
 				
 				UtilizadorRegistado utilizador = sistema.encontrarUtilizadorReg(username);
 				sistema.setEmSessao(utilizador);
+				Sale_Squared.UTILIZADOR = username;
 				Sale_Squared.REGISTADO = true;
 				root.reloadHeader();
-				root.setBody(new Home(root), "Home");
+				root.setBody(new Home(root), username);
 				root.setEnabled(true);
 				dispose();
 				}

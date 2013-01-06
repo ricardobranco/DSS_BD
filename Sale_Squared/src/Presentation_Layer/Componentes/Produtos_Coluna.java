@@ -7,7 +7,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
+import Presentation_Layer.Sale_Squared;
 
 
 public class Produtos_Coluna extends JPanel {

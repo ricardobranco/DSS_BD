@@ -16,31 +16,30 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Mensagem_Erro;
 import business_Layer.AnuncioVenda;
+import business_Layer.Leilao;
+import business_Layer.ModoVenda;
+import business_Layer.VendaDirecta;
 
 public class Inserir extends JPanel {
 
 	/**
-	 * 
-	 */
+     *
+     */
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Create the panel.
 	 */
-
 	private int step = 1;
 	private AnuncioVenda a;
 	final JPanel panel;
-
 	JPanel[] inserir = new JPanel[3];
 
 	public Inserir(final Sale_Squared root) {
 
-		int codigo = root.getSistema().registaIdAnuncio();
+		final int codigo = root.getSistema().registaIdAnuncio();
 		a = new AnuncioVenda(codigo);
 		inserir[0] = new Inserir_1(codigo);
 		inserir[1] = new Inserir_2();
-		inserir[2] = new Inserir_3();
 
 		JLabel lblNewLabel = new JLabel("Inserir Negócio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
@@ -60,11 +59,40 @@ public class Inserir extends JPanel {
 						a.setCategorias(i1.getCategorias());
 						a.setTags(i1.getTags());
 						a.setDataInser(new GregorianCalendar());
+						a.setDescricao(i1.getDescricao());
 						a.setEstadoProduto(i1.getEstado());
 						a.setImagens(i1.getImagens());
-						// TRATAR SE E LEILAO E/OU COMPRA DIRECTA
+						double preco = 0;
+						int quantidade;
+						ModoVenda mv;
+						Inserir_preco ip = i1.precopanel();
+						int id = codigo;
+						if (ip.eLeilao()) {
+							double precoB = ip.getLicMin();
+							GregorianCalendar dataF = ip.validade();
+							int nlic = 0;
+							double precoActual = precoB;
+							quantidade = 1;
+							mv = new Leilao(id, precoB, dataF, nlic,
+									precoActual);
+						} else {
+							preco = ip.getPreco();
+							quantidade = ip.getQuantidade();
+							mv = new VendaDirecta(id, 0);
+						}
+
+						a.setTipoVenda(mv);
+						a.setPreco(preco);
+						a.setQuantidade(quantidade);
+						a.setnVisitas(0);
+						GregorianCalendar expira = ip.validade();
+						a.setDataExpir(expira);
+						a.setPossivelTrocar(ip.trocas());
+
 						btnVoltar.setVisible(true);
 						setBody(inserir[2], step);
+						btnSeguinte.setText("Conluir");
+
 						step++;
 						break;
 					case 2:
@@ -74,23 +102,29 @@ public class Inserir extends JPanel {
 
 						// Envio
 						if (envio.pagaComprador()) {
-
+							double portes = envio.getPortes();
+							double seguro = envio.getSeguro();
+							a.setPrecoEnvio(portes);
+							a.setSeguro(seguro);
+						} else {
+							a.setPrecoEnvio(0);
+							a.setSeguro(0);
 						}
+						a.setEnvioEstrangeiro(envio.envioEstrangeiro());
 
 						// Pagamento
 						a.setModosPagamento(pagamento.getModosPagamento());
-						setBody(inserir[2], step);
-						btnSeguinte.setText("Conluir");
-						step++;
-						break;
-					case 3:
-						Inserir_3 i3 = (Inserir_3) inserir[2];
-						boolean troca = i3.trocas();
-						boolean contacto = i3.contacto();
-						a.setPossivelTrocar(troca);
+
+						a.setEstadoAnuncio(AnuncioVenda.ABERTO);
+						a.setAnunciante(root
+								.getSistema()
+								.encontrarUtilizadorReg(Sale_Squared.UTILIZADOR));
 						root.getSistema().inserirAnuncio(a);
 						root.setBody(new Presentation_Layer.Anuncio.Anuncio(
 								root, a), a.getTitulo());
+
+						break;
+
 					}
 
 				} catch (Exception e2) {
@@ -106,19 +140,10 @@ public class Inserir extends JPanel {
 
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switch (step) {
-				case 2:
-					
-					btnVoltar.setEnabled(false);
-					setBody(inserir[0], step);
-					break;
-				case 3:
-					step--;
-					btnSeguinte.setText("Seguinte");
-					setBody(inserir[1], step);
-					
-					}
-				
+				btnVoltar.setEnabled(false);
+				step--;
+				setBody(inserir[0], step);
+				btnSeguinte.setText("Seguinte");
 
 			}
 		});
@@ -197,5 +222,4 @@ public class Inserir extends JPanel {
 		panel.updateUI();
 		panel.validate();
 	}
-
 }
