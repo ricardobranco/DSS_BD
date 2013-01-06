@@ -15,7 +15,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import business_Layer.Categoria;
 
-
 public class Inserir_Categorias extends JPanel {
 
 	/**
@@ -26,11 +25,14 @@ public class Inserir_Categorias extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	private Map<JCheckBox, Categoria> categorias;
+
+	private Map<String, Categoria> categorias;
+	private List<JCheckBox> jcbs;
 
 	public Inserir_Categorias() {
 
 		this.categorias = new HashMap<>();
+		this.jcbs = new ArrayList<>();
 		JLabel label = new JLabel("Categoria");
 		label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
@@ -39,40 +41,51 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cbpecas = new JCheckBox("Peças Auto");
 		JCheckBox cbveiculos = new JCheckBox("Veículos");
 
+		this.jcbs.add(cbveiculos);
+		this.jcbs.add(cbpecas);
+		this.jcbs.add(cbauto);
+
 		Categoria cauto = new Categoria("Auto");
 		Categoria cpecas = new Categoria("Peças Auto", cauto);
 		Categoria cveiculos = new Categoria("Veículos", cauto);
 
-		categorias.put(cbauto, cauto);
-		categorias.put(cbpecas, cpecas);
-		categorias.put(cbveiculos, cveiculos);
+		categorias.put(cbauto.getText(), cauto);
+		categorias.put(cbpecas.getText(), cpecas);
+		categorias.put(cbveiculos.getText(), cveiculos);
 
 		// Moda
 		JCheckBox cbmoda = new JCheckBox("Moda");
 		JCheckBox cbacessorios = new JCheckBox("Acessórios");
 		JCheckBox cbvestuario = new JCheckBox("Vestuário");
 
+		this.jcbs.add(cbvestuario);
+		this.jcbs.add(cbacessorios);
+		this.jcbs.add(cbmoda);
+
 		Categoria cmoda = new Categoria("Moda");
 		Categoria cacessorios = new Categoria("Acessórios", cmoda);
 		Categoria cvestuario = new Categoria("Vestuário", cmoda);
 
-		categorias.put(cbmoda, cmoda);
-		categorias.put(cbvestuario, cvestuario);
-		categorias.put(cbacessorios, cacessorios);
+		categorias.put(cbmoda.getText(), cmoda);
+		categorias.put(cbvestuario.getText(), cvestuario);
+		categorias.put(cbacessorios.getText(), cacessorios);
 
 		// Saúde
 		JCheckBox cbsaude = new JCheckBox("Saúde");
 		JCheckBox cbcosmeticos = new JCheckBox("Cosméticos");
 		JCheckBox cbhigiene = new JCheckBox("Higiene");
 
+		this.jcbs.add(cbhigiene);
+		this.jcbs.add(cbcosmeticos);
+		this.jcbs.add(cbsaude);
+
 		Categoria csaude = new Categoria("Saúde");
 		Categoria ccosmeticos = new Categoria("Cosméticos", csaude);
-		Categoria chigiene = new Categoria("Higiene",csaude);
-		
-		categorias.put(cbsaude, csaude);
-		categorias.put(cbcosmeticos, ccosmeticos);
-		categorias.put(cbhigiene, chigiene)
-;
+		Categoria chigiene = new Categoria("Higiene", csaude);
+
+		categorias.put(cbsaude.getText(), csaude);
+		categorias.put(cbcosmeticos.getText(), ccosmeticos);
+		categorias.put(cbhigiene.getText(), chigiene);
 		// Casa e Jardim
 		JCheckBox cbcasajardim = new JCheckBox("Casa e Jardim");
 		JCheckBox cbartjardim = new JCheckBox("Artigos de Jardim");
@@ -81,21 +94,27 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cbmoveis = new JCheckBox("Mobiliário");
 		JCheckBox cbplantas = new JCheckBox("Plantas e Flores");
 
+		this.jcbs.add(cbmoveis);
+		this.jcbs.add(cbimoveis);
+		this.jcbs.add(cbcasajardim);
+		this.jcbs.add(cbartjardim);
+		this.jcbs.add(cbanimais);
+		this.jcbs.add(cbplantas);
+
 		Categoria ccasajardim = new Categoria("Casa e Jardim");
 		Categoria cartjardim = new Categoria("Artigos de Jardim", ccasajardim);
 		Categoria canimais = new Categoria("Animais", ccasajardim);
 		Categoria cimoveis = new Categoria("Imóveis", ccasajardim);
 		Categoria cmoveis = new Categoria("Mobiliário", ccasajardim);
-		Categoria cplantas = new Categoria("Plantas e Flores",ccasajardim);
-		
-		categorias.put(cbcasajardim, ccasajardim);
-		categorias.put(cbartjardim, cartjardim);
-		categorias.put(cbanimais, canimais);
-		categorias.put(cbimoveis, cimoveis);
-		categorias.put(cbmoveis, cmoveis);
-		categorias.put(cbplantas, cplantas);
-		
-				
+		Categoria cplantas = new Categoria("Plantas e Flores", ccasajardim);
+
+		categorias.put(cbcasajardim.getText(), ccasajardim);
+		categorias.put(cbartjardim.getText(), cartjardim);
+		categorias.put(cbanimais.getText(), canimais);
+		categorias.put(cbimoveis.getText(), cimoveis);
+		categorias.put(cbmoveis.getText(), cmoveis);
+		categorias.put(cbplantas.getText(), cplantas);
+
 		// Colecionáveis e Arte
 
 		JCheckBox cbcolecarte = new JCheckBox("Coleccionáveis e Arte");
@@ -105,6 +124,13 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cbantiguidade = new JCheckBox("Antiguidades");
 		JCheckBox cbarte = new JCheckBox("Arte");
 
+		this.jcbs.add(cbcolecarte);
+		this.jcbs.add(cbmedalhas);
+		this.jcbs.add(cbmoedas);
+		this.jcbs.add(cbselos);
+		this.jcbs.add(cbantiguidade);
+		this.jcbs.add(cbarte);
+
 		Categoria ccolarte = new Categoria("Coleccionáveis e Arte");
 		Categoria cmoedas = new Categoria("Moedas e Notas", ccolarte);
 		Categoria cselos = new Categoria("Selos", ccolarte);
@@ -112,12 +138,12 @@ public class Inserir_Categorias extends JPanel {
 		Categoria cantiguidade = new Categoria("Antiguidades", ccolarte);
 		Categoria carte = new Categoria("Arte", ccolarte);
 
-		categorias.put(cbcolecarte, ccolarte);
-		categorias.put(cbmoedas, cmoedas);
-		categorias.put(cbselos, cselos);
-		categorias.put(cbmedalhas, cmedalhas);
-		categorias.put(cbantiguidade, cantiguidade);
-		categorias.put(cbarte, carte);
+		categorias.put(cbcolecarte.getText(), ccolarte);
+		categorias.put(cbmoedas.getText(), cmoedas);
+		categorias.put(cbselos.getText(), cselos);
+		categorias.put(cbmedalhas.getText(), cmedalhas);
+		categorias.put(cbantiguidade.getText(), cantiguidade);
+		categorias.put(cbarte.getText(), carte);
 
 		// Tecnologia e Electrónica
 
@@ -130,23 +156,32 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cbgad = new JCheckBox("Gadgets");
 		JCheckBox cbcirc = new JCheckBox("Circuitos");
 
+		this.jcbs.add(cbtecelec);
+		this.jcbs.add(cbconsolas);
+		this.jcbs.add(cbaudio);
+		this.jcbs.add(cbfoto);
+		this.jcbs.add(cbtelm);
+		this.jcbs.add(cbinfo);
+		this.jcbs.add(cbgad);
+		this.jcbs.add(cbcirc);
+
 		Categoria ctecelec = new Categoria("Tecnologia e Electrónica");
 		Categoria cconsolas = new Categoria("Consolas", ctecelec);
 		Categoria caudio = new Categoria("Áudio, Tv e Vídeo", ctecelec);
 		Categoria cfoto = new Categoria("Fotografia", ctecelec);
 		Categoria ctelme = new Categoria("Telemóveis e Telefones", ctecelec);
-		Categoria cinfo = new Categoria("Informática",ctecelec);
-		Categoria cgad = new Categoria("Gadgets",ctecelec);
-		Categoria ccirc = new Categoria("Circuitos",ctecelec);
-		
-		categorias.put(cbtecelec, ctecelec);
-		categorias.put(cbconsolas, cconsolas);
-		categorias.put(cbaudio, caudio);
-		categorias.put(cbfoto, cfoto);
-		categorias.put(cbtelm, ctelme);
-		categorias.put(cbinfo, cinfo);
-		categorias.put(cbgad, cgad);
-		categorias.put(cbcirc, ccirc);
+		Categoria cinfo = new Categoria("Informática", ctecelec);
+		Categoria cgad = new Categoria("Gadgets", ctecelec);
+		Categoria ccirc = new Categoria("Circuitos", ctecelec);
+
+		categorias.put(cbtecelec.getText(), ctecelec);
+		categorias.put(cbconsolas.getText(), cconsolas);
+		categorias.put(cbaudio.getText(), caudio);
+		categorias.put(cbfoto.getText(), cfoto);
+		categorias.put(cbtelm.getText(), ctelme);
+		categorias.put(cbinfo.getText(), cinfo);
+		categorias.put(cbgad.getText(), cgad);
+		categorias.put(cbcirc.getText(), ccirc);
 
 		// Livros e Revistas
 
@@ -157,6 +192,12 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cblit = new JCheckBox("Literatura");
 		JCheckBox cbbd = new JCheckBox("Banda Desenhada");
 
+		this.jcbs.add(cblivrevistas);
+		this.jcbs.add(cbrevistas);
+		this.jcbs.add(cblitinf);
+		this.jcbs.add(cblit);
+		this.jcbs.add(cbbd);
+
 		Categoria clivrosrevistas = new Categoria("Livros e Revistas");
 		Categoria crevistas = new Categoria("Revistas", clivrosrevistas);
 		Categoria cmanuais = new Categoria("Manuais Escolares", clivrosrevistas);
@@ -165,12 +206,12 @@ public class Inserir_Categorias extends JPanel {
 		Categoria clit = new Categoria("Literatura", clivrosrevistas);
 		Categoria cbd = new Categoria("Banda Desenhada", clivrosrevistas);
 
-		categorias.put(cblivrevistas, clivrosrevistas);
-		categorias.put(cbrevistas, crevistas);
-		categorias.put(cbmanuais, cmanuais);
-		categorias.put(cblitinf, clitinf);
-		categorias.put(cblit, clit);
-		categorias.put(cbbd, cbd);
+		categorias.put(cblivrevistas.getText(), clivrosrevistas);
+		categorias.put(cbrevistas.getText(), crevistas);
+		categorias.put(cbmanuais.getText(), cmanuais);
+		categorias.put(cblitinf.getText(), clitinf);
+		categorias.put(cblit.getText(), clit);
+		categorias.put(cbbd.getText(), cbd);
 
 		// Desporto e Entretenimento
 
@@ -184,20 +225,37 @@ public class Inserir_Categorias extends JPanel {
 		JCheckBox cbfutebol = new JCheckBox("Futebol");
 		JCheckBox cbnatacao = new JCheckBox("Natação");
 
+		this.jcbs.add(cbdespentre);
+		this.jcbs.add(cbbrinquedos);
+		this.jcbs.add(cbfitness);
+		this.jcbs.add(cbfilmes);
+		this.jcbs.add(cbmusica);
+		this.jcbs.add(cbcaca);
+		this.jcbs.add(cbcampismo);
+		this.jcbs.add(cbfutebol);
+		this.jcbs.add(cbnatacao);
+
 		Categoria cdespentre = new Categoria("Desporto e Entretenimento");
-		Categoria cbrinquedos = new Categoria("Brinquedos",cdespentre);
-		Categoria cfitness = new Categoria("Fitness e Musculação",cdespentre);
-		Categoria cfilmes = new Categoria("Filmes e Cinema",cdespentre);
-		Categoria cmusica = new Categoria("Música",cdespentre);
-		Categoria ccaca = new Categoria("Caça e Pesca",cdespentre);
-		Categoria ccampismo = new Categoria("Campismo",cdespentre);
-		Categoria cfutebol = new Categoria("Futebol",cdespentre);
-		Categoria cnatacao = new Categoria("Natação",cdespentre);
-		
-		
-		
-		
-				GroupLayout groupLayout = new GroupLayout(this);
+		Categoria cbrinquedos = new Categoria("Brinquedos", cdespentre);
+		Categoria cfitness = new Categoria("Fitness e Musculação", cdespentre);
+		Categoria cfilmes = new Categoria("Filmes e Cinema", cdespentre);
+		Categoria cmusica = new Categoria("Música", cdespentre);
+		Categoria ccaca = new Categoria("Caça e Pesca", cdespentre);
+		Categoria ccampismo = new Categoria("Campismo", cdespentre);
+		Categoria cfutebol = new Categoria("Futebol", cdespentre);
+		Categoria cnatacao = new Categoria("Natação", cdespentre);
+
+		categorias.put(cbdespentre.getText(), cdespentre);
+		categorias.put(cbbrinquedos.getText(), cbrinquedos);
+		categorias.put(cbfitness.getText(), cfitness);
+		categorias.put(cbfilmes.getText(), cfilmes);
+		categorias.put(cbmusica.getText(), cmusica);
+		categorias.put(cbcaca.getText(), ccaca);
+		categorias.put(cbcampismo.getText(), ccampismo);
+		categorias.put(cbfutebol.getText(), cfutebol);
+		categorias.put(cbnatacao.getText(), cnatacao);
+
+		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
 				.setHorizontalGroup(groupLayout
 						.createParallelGroup(Alignment.LEADING)
@@ -725,16 +783,15 @@ public class Inserir_Categorias extends JPanel {
 		setLayout(groupLayout);
 
 	}
-	
-	public Map<String,Categoria> getCategorias(){
-		Map<String,Categoria> res = new HashMap<>();
-		for( JCheckBox jcb : categorias.keySet()){
-			if(jcb.isSelected());
-			res.put(jcb.getText(),categorias.get(jcb));
+
+	public Map<String, Categoria> getCategorias() {
+		Map<String, Categoria> res = new HashMap<>();
+		for (JCheckBox jcb : jcbs) {
+			if (jcb.isSelected())
+				res.put(jcb.getText(), categorias.get(jcb));
 		}
-		
+
 		return res;
-		}
-	
-	
+	}
+
 }

@@ -5,9 +5,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -21,11 +19,10 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import presentation_Layer.Componentes.ButtonEditor;
-import presentation_Layer.Componentes.ButtonRenderer;
-import presentation_Layer.Componentes.ImageCellRender;
-import presentation_Layer.Componentes.ThumbnailIcon;
-
+import Presentation_Layer.Componentes.ButtonEditor;
+import Presentation_Layer.Componentes.ButtonRenderer;
+import Presentation_Layer.Componentes.ImageCellRender;
+import Presentation_Layer.Componentes.ThumbnailIcon;
 import business_Layer.Imagem;
 
 

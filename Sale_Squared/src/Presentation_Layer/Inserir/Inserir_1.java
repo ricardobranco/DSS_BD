@@ -38,6 +38,7 @@ public class Inserir_1 extends JPanel {
 	private JRadioButton rdbtnUsado;
 	private Inserir_Categorias categorias;
 	private Inserir_preco preco;
+	private JTextArea descricao;
 	final Tabela_Imagens imagens;
 	/**
 	 * Create the panel.
@@ -68,7 +69,7 @@ public class Inserir_1 extends JPanel {
 		JLabel lblNewLabel_3 = new JLabel("Descrição");
 		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		JTextArea descricao = new JTextArea();
+		descricao = new JTextArea();
 		descricao.setLineWrap(true);
 		descricao.setBorder(UIManager.getBorder("TextField.border"));
 
@@ -228,6 +229,13 @@ public class Inserir_1 extends JPanel {
 	
 	public Map<String,Imagem> getImagens(){
 		return imagens.getImagens();
+	}
+	
+	public String getDescricao()throws Exception{
+		String sdescricao = descricao.getText();
+		if(sdescricao.isEmpty())
+			throw new Exception("Insira uma descrição");
+		return sdescricao;
 	}
 	
 	

@@ -18,8 +18,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-
+import Presentation_Layer.Sale_Squared;
 import business_Layer.SaleSquared;
 import business_Layer.UtilizadorRegistado;
 

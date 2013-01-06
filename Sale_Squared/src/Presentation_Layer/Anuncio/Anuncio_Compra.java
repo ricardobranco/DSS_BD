@@ -26,7 +26,7 @@ public class Anuncio_Compra extends JPanel {
 	 */
 	public Anuncio_Compra() {
 
-		JLabel lblNewLabel = new JLabel("In\u00EDcio:");
+		JLabel lblNewLabel = new JLabel("Início:");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		JLabel lblNewLabel_1 = new JLabel("24/12/2012 - 06:30");
@@ -42,7 +42,7 @@ public class Anuncio_Compra extends JPanel {
 
 		JLabel lblNewLabel_5 = new JLabel("10 Unidades");
 
-		JLabel lblNewLabel_6 = new JLabel("Pre\u00E7o:");
+		JLabel lblNewLabel_6 = new JLabel("Preço:");
 		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		JLabel lblNewLabel_7 = new JLabel("\u20AC 200,00");
@@ -50,7 +50,7 @@ public class Anuncio_Compra extends JPanel {
 
 		JButton btnNewButton = new JButton("Comprar");
 
-		JLabel lblNewLabel_8 = new JLabel("Licita\u00E7\u00E3o m\u00E1xima:");
+		JLabel lblNewLabel_8 = new JLabel("Licitação m\u00E1xima:");
 		lblNewLabel_8.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		JLabel lblNewLabel_9 = new JLabel("\u20AC");
@@ -65,7 +65,7 @@ public class Anuncio_Compra extends JPanel {
 				"(Tem que licitar \u20AC 24,00 para cima)");
 		lblNewLabel_10.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
-		JLabel lblNewLabel_11 = new JLabel("Licita\u00E7\u00E3o actual:");
+		JLabel lblNewLabel_11 = new JLabel("Licitação actual:");
 		lblNewLabel_11.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		JLabel lblNewLabel_12 = new JLabel("\u20AC 23,50");
@@ -73,16 +73,16 @@ public class Anuncio_Compra extends JPanel {
 
 		JSeparator separator = new JSeparator();
 
-		JLabel lblLocalizo = new JLabel("Localiz\u00E3o:");
+		JLabel lblLocalizo = new JLabel("Localizão:");
 		lblLocalizo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		JLabel lblNewLabel_13 = new JLabel("4705-652, Braga, Portugal");
 
 		JLabel lblNewLabel_14 = new JLabel(
-				"(Envio para o estrangeiro: N\u00E3o)");
+				"(Envio para o estrangeiro: Não)");
 		lblNewLabel_14.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 
-		final JButton btnNewButton_2 = new JButton("Seguir Neg\u00F3cio");
+		final JButton btnNewButton_2 = new JButton("Seguir Negócio");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (btnNewButton_2.getText().equals("Seguir Negócio"))

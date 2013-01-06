@@ -10,8 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import presentation_Layer.Sale_Squared;
-import presentation_Layer.Registo.Registo;
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Registo.Registo;
 
 
 public class Visitante_Panel extends JPanel {

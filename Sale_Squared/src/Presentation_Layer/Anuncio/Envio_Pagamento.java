@@ -2,7 +2,6 @@ package Presentation_Layer.Anuncio;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Set;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

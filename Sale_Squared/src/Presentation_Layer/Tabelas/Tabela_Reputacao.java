@@ -12,8 +12,8 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
-import presentation_Layer.Componentes.ImageCellRender;
-import presentation_Layer.Perfil.Perfil;
+import Presentation_Layer.Componentes.ImageCellRender;
+import Presentation_Layer.Perfil.Perfil;
 
 
 public class Tabela_Reputacao extends JPanel {
