@@ -4,6 +4,17 @@ CREATE SEQUENCE seq_ModoVenda;
 CREATE SEQUENCE seq_Anuncio;
 CREATE SEQUENCE seq_Mensagem;
 CREATE SEQUENCE seq_Utilizador;
+CREATE TABLE CodigoPostal (
+  codPostal  varchar2(15) NOT NULL, 
+  localidade varchar2(30) NOT NULL, 
+  PRIMARY KEY (codPostal));
+CREATE TABLE Localidade (
+  localidade varchar2(30) NOT NULL, 
+  pais       varchar2(30) NOT NULL, 
+  PRIMARY KEY (localidade));
+CREATE TABLE Pais (
+  nome varchar2(30) NOT NULL, 
+  PRIMARY KEY (nome));
 CREATE TABLE Sistema (
   idUtilizador number(10) NOT NULL, 
   idMensagem   number(10) NOT NULL, 
@@ -27,21 +38,19 @@ CREATE TABLE ModoPagamento (
   PRIMARY KEY (anuncio, 
   modoPagamento));
 CREATE TABLE Transaccao (
-  id             number(10) NOT NULL, 
-  data           date NOT NULL, 
-  valor          number NOT NULL, 
-  modoPagamento  varchar2(30) NOT NULL, 
-  moradaFact     varchar2(50) NOT NULL, 
-  codPostalFact  varchar2(10) NOT NULL, 
-  localidadeFact varchar2(30) NOT NULL, 
-  paisFact       varchar2(30) NOT NULL, 
-  estado         number(10) NOT NULL, 
-  quantidade     number(10) NOT NULL, 
-  anuncio        number(10) NOT NULL, 
-  comprador      varchar2(30) NOT NULL, 
-  vendedor       varchar2(30) NOT NULL, 
-  tipo           varchar2(1) NOT NULL, 
-  pertence       number(10) NOT NULL, 
+  id            number(10) NOT NULL, 
+  data          date NOT NULL, 
+  valor         number NOT NULL, 
+  modoPagamento varchar2(30) NOT NULL, 
+  moradaFact    varchar2(50) NOT NULL, 
+  codPostalFact varchar2(15) NOT NULL, 
+  estado        number(10) NOT NULL, 
+  quantidade    number(10) NOT NULL, 
+  anuncio       number(10) NOT NULL, 
+  comprador     varchar2(30) NOT NULL, 
+  vendedor      varchar2(30) NOT NULL, 
+  tipo          varchar2(1) NOT NULL, 
+  pertence      number(10) NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE Avaliacao (
   id            number(10) NOT NULL, 
@@ -134,7 +143,7 @@ CREATE TABLE Mensagem (
   assunto   varchar2(100), 
   corpo     varchar2(2000), 
   dataEnvio date NOT NULL, 
-  lida      varchar2(1) NOT NULL, 
+  estado    number(10) NOT NULL, 
   emissor   varchar2(30) NOT NULL, 
   receptor  varchar2(30) NOT NULL, 
   pertence  number(10) NOT NULL, 
@@ -142,13 +151,11 @@ CREATE TABLE Mensagem (
 CREATE TABLE UtilizadorRegistado (
   id         number(10) NOT NULL UNIQUE, 
   username   varchar2(30) NOT NULL, 
-  password   varchar2(30) NOT NULL, 
+  password   varchar2(50) NOT NULL, 
   estado     number(10) NOT NULL, 
   email      varchar2(30) NOT NULL UNIQUE, 
   morada     varchar2(50), 
-  codPostal  varchar2(10), 
-  localidade varchar2(30), 
-  pais       varchar2(30), 
+  codPostal  varchar2(15), 
   infPessoal varchar2(1000), 
   imagem     blob, 
   contacto   varchar2(20), 
@@ -164,6 +171,10 @@ CREATE TABLE Categoria (
   nome varchar2(30) NOT NULL, 
   pai  varchar2(30), 
   PRIMARY KEY (nome));
+ALTER TABLE Localidade ADD CONSTRAINT FKLocalidade739048 FOREIGN KEY (pais) REFERENCES Pais (nome);
+ALTER TABLE CodigoPostal ADD CONSTRAINT FKCodigoPost605162 FOREIGN KEY (localidade) REFERENCES Localidade (localidade);
+ALTER TABLE Transaccao ADD CONSTRAINT FKTransaccao14864 FOREIGN KEY (codPostalFact) REFERENCES CodigoPostal (codPostal);
+ALTER TABLE UtilizadorRegistado ADD CONSTRAINT FKUtilizador727750 FOREIGN KEY (codPostal) REFERENCES CodigoPostal (codPostal);
 ALTER TABLE Categoria ADD CONSTRAINT FKCategoria814671 FOREIGN KEY (pai) REFERENCES Categoria (nome);
 ALTER TABLE UtilizadorRegistado ADD CONSTRAINT FKUtilizador781670 FOREIGN KEY (id) REFERENCES Utilizador (id);
 ALTER TABLE Mensagem ADD CONSTRAINT FKMensagem119900 FOREIGN KEY (emissor) REFERENCES UtilizadorRegistado (username);
@@ -196,6 +207,14 @@ ALTER TABLE Troca ADD CONSTRAINT FKTroca94310 FOREIGN KEY (anuncio) REFERENCES A
 ALTER TABLE AnuncioSeguido ADD CONSTRAINT FKAnuncioSeg481781 FOREIGN KEY (username) REFERENCES UtilizadorRegistado (username);
 ALTER TABLE AnuncioSeguido ADD CONSTRAINT FKAnuncioSeg416539 FOREIGN KEY (anuncio) REFERENCES Anuncio (id);
 ALTER TABLE AnuncioVenda ADD CONSTRAINT FKAnuncioVen283560 FOREIGN KEY (modoVenda) REFERENCES ModoVenda (id);
+CREATE INDEX CodigoPostal_codPostal 
+  ON CodigoPostal (codPostal);
+CREATE INDEX CodigoPostal_localidade 
+  ON CodigoPostal (localidade);
+CREATE INDEX Localidade_localidade 
+  ON Localidade (localidade);
+CREATE INDEX Localidade_pais 
+  ON Localidade (pais);
 CREATE INDEX AnuncioSeguido_username 
   ON AnuncioSeguido (username);
 CREATE INDEX Transaccao_id 
@@ -264,5 +283,4 @@ CREATE INDEX UtilizadorRegistado_username
   ON UtilizadorRegistado (username);
 CREATE INDEX Categoria_nome 
   ON Categoria (nome);
-INSERT INTO Sistema VALUES (1, 1, 1, 1, 1, 1, 1) ;
-
+INSERT INTO Sistema VALUES (1, 1, 1, 1, 1, 1) ;
