@@ -13,10 +13,10 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
+import Business_Layer.SaleSquared;
+import Business_Layer.Utilizador;
 import Presentation_Layer.Header.Header;
 import Presentation_Layer.Home.Home;
-import business_Layer.SaleSquared;
-import business_Layer.Utilizador;
 
 
 public class Sale_Squared extends JFrame {

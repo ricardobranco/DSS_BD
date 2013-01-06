@@ -19,11 +19,11 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import Business_Layer.Imagem;
 import Presentation_Layer.Componentes.ButtonEditor;
 import Presentation_Layer.Componentes.ButtonRenderer;
 import Presentation_Layer.Componentes.ImageCellRender;
 import Presentation_Layer.Componentes.ThumbnailIcon;
-import business_Layer.Imagem;
 
 
 public class Tabela_Imagens extends JPanel {

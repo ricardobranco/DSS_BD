@@ -1,4 +1,4 @@
-package business_Layer;
+package Business_Layer;
 
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -6,12 +6,13 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import data_Layer.AnuncioSeguidoDAO;
-import data_Layer.CategoriaSeguidaDAO;
-import data_Layer.MsgEnviadaDAO;
-import data_Layer.MsgRecebidaDAO;
-import data_Layer.TransaccaoDAO;
-import data_Layer.UserSeguidoDAO;
+import Data_Layer.AnuncioSeguidoDAO;
+import Data_Layer.CategoriaSeguidaDAO;
+import Data_Layer.MsgEnviadaDAO;
+import Data_Layer.MsgRecebidaDAO;
+import Data_Layer.TransaccaoDAO;
+import Data_Layer.UserSeguidoDAO;
+
 
 
 public class UtilizadorRegistado extends Utilizador {

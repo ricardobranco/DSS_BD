@@ -1,11 +1,11 @@
-package data_Layer;
+package Data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import business_Layer.Utilizador;
+import Business_Layer.Utilizador;
 
 
 public class Registo {

@@ -1,4 +1,4 @@
-package data_Layer;
+package Data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import business_Layer.Mensagem;
+import Business_Layer.Mensagem;
 
 
 public class MsgEnviadaDAO implements Map<Integer, Mensagem> {

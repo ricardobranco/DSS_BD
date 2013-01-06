@@ -13,12 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Business_Layer.AnuncioVenda;
+import Business_Layer.Leilao;
+import Business_Layer.ModoVenda;
+import Business_Layer.VendaDirecta;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Mensagem_Erro;
-import business_Layer.AnuncioVenda;
-import business_Layer.Leilao;
-import business_Layer.ModoVenda;
-import business_Layer.VendaDirecta;
 
 public class Inserir extends JPanel {
 

@@ -20,10 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
+import Business_Layer.Categoria;
+import Business_Layer.Imagem;
+import Business_Layer.Tag;
 import Presentation_Layer.Tabelas.Tabela_Imagens;
-import business_Layer.Categoria;
-import business_Layer.Imagem;
-import business_Layer.Tag;
 
 public class Inserir_1 extends JPanel {
 

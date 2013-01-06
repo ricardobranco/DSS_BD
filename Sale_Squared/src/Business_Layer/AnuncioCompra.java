@@ -1,9 +1,10 @@
-package business_Layer;
+package Business_Layer;
 
 import java.util.GregorianCalendar;
 import java.util.Map;
 
-import data_Layer.RespostaAnuncioCompraDAO;
+import Data_Layer.RespostaAnuncioCompraDAO;
+
 
 
 public class AnuncioCompra extends Anuncio {

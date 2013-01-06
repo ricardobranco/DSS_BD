@@ -22,7 +22,7 @@ public class Envio_Pagamento extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Envio_Pagamento(business_Layer.AnuncioVenda anuncio) {
+	public Envio_Pagamento(Business_Layer.AnuncioVenda anuncio) {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

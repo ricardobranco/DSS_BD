@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import business_Layer.Categoria;
+import Business_Layer.Categoria;
 
 
 public class Registo_3 extends JPanel {

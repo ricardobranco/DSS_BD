@@ -15,11 +15,11 @@ import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXLoginPane;
 
+import Business_Layer.SaleSquared;
+import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Home.Home;
 import Presentation_Layer.Registo.Registo;
-import business_Layer.SaleSquared;
-import business_Layer.UtilizadorRegistado;
 
 
 public class Login extends JDialog {

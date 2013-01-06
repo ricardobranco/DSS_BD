@@ -1,8 +1,9 @@
-package business_Layer;
+package Business_Layer;
 
 import java.util.Map;
 
-import data_Layer.AnuncioVisitadoUtilizadorDAO;
+import Data_Layer.AnuncioVisitadoUtilizadorDAO;
+
 
 
 public class Utilizador {

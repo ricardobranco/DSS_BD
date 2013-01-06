@@ -1,9 +1,10 @@
-package business_Layer;
+package Business_Layer;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import data_Layer.ModoPagamentoDAO;
+import Data_Layer.ModoPagamentoDAO;
+
 
 
 public class AnuncioVenda extends Anuncio {

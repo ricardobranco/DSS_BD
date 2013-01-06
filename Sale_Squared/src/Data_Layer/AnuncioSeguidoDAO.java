@@ -1,4 +1,4 @@
-package data_Layer;
+package Data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import business_Layer.Anuncio;
+import Business_Layer.Anuncio;
 
 
 public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {

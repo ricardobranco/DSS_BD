@@ -1,4 +1,4 @@
-package business_Layer;
+package Business_Layer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,11 +12,12 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import data_Layer.AnuncioDAO;
-import data_Layer.CategoriaDAO;
-import data_Layer.ConexaoBD;
-import data_Layer.Registo;
-import data_Layer.UtilizadorRegistadoDAO;
+import Data_Layer.AnuncioDAO;
+import Data_Layer.CategoriaDAO;
+import Data_Layer.ConexaoBD;
+import Data_Layer.Registo;
+import Data_Layer.UtilizadorRegistadoDAO;
+
 
 
 public class SaleSquared extends Observable implements SaleSquaredFacade {

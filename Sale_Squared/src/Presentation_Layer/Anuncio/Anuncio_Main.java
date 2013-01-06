@@ -25,9 +25,9 @@ public class Anuncio_Main extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private business_Layer.Anuncio anuncio;
+	private Business_Layer.Anuncio anuncio;
 	
-	public Anuncio_Main(final Sale_Squared root, business_Layer.Anuncio anuncio) {
+	public Anuncio_Main(final Sale_Squared root, Business_Layer.Anuncio anuncio) {
 
 		this.anuncio = anuncio;
 		JLabel lblNewLabel = new JLabel("Titulo do Negócio");

@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import business_Layer.Imagem;
+import Business_Layer.Imagem;
 
 public class Imagem_Label extends JPanel {
 

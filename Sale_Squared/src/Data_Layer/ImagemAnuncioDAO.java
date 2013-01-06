@@ -1,4 +1,4 @@
-package data_Layer;
+package Data_Layer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import business_Layer.Imagem;
+import Business_Layer.Imagem;
 
 
 public class ImagemAnuncioDAO implements Map<String, Imagem> {

@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import business_Layer.Categoria;
+import Business_Layer.Categoria;
 
 public class Inserir_Categorias extends JPanel {
 
