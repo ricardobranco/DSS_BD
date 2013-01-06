@@ -1,4 +1,4 @@
-package Business_Layer;
+package business_Layer;
 
 public abstract class ModoVenda {
 

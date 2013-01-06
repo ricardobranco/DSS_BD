@@ -7,8 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Pesquisa.Resultados_Panel;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Pesquisa.Resultados_Panel;
+
 
 public class Tabbed_Resultados extends JPanel {
 
@@ -45,12 +46,12 @@ public class Tabbed_Resultados extends JPanel {
 		panel.add(new Resultados_Panel(root), "Todos");
 
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Leil›es", null, panel_1, null);
+		tabbedPane.addTab("Leilï¿½es", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Resultados_Panel(root), "Leil›es");
+		panel_1.add(new Resultados_Panel(root), "Leilï¿½es");
 
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Comprar J‡", null, panel_2, null);
+		tabbedPane.addTab("Comprar Jï¿½", null, panel_2, null);
 		panel_2.setLayout(new CardLayout(0, 0));
 		panel_2.add(new Resultados_Panel(root), "Comprar");
 		setLayout(groupLayout);

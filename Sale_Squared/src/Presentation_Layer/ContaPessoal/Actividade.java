@@ -9,9 +9,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXTaskPane;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Tabelas.Tabela_Vendas;
-import Presentation_Layer.Tabelas.Tabela_licitacao;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Tabelas.Tabela_Vendas;
+import presentation_Layer.Tabelas.Tabela_licitacao;
+
 
 public class Actividade extends JPanel {
 
@@ -27,7 +28,7 @@ public class Actividade extends JPanel {
 
 		JXTaskPane taskPane = new JXTaskPane();
 		taskPane.setCollapsed(true);
-		taskPane.setTitle("Licitações");
+		taskPane.setTitle("LicitaÔøΩÔøΩes");
 
 		JXTaskPane taskPane_1 = new JXTaskPane();
 		taskPane_1.setCollapsed(true);
@@ -39,7 +40,7 @@ public class Actividade extends JPanel {
 
 		JXTaskPane taskPane_3 = new JXTaskPane();
 		taskPane_3.setCollapsed(true);
-		taskPane_3.setTitle("Negócios Seguidos");
+		taskPane_3.setTitle("NegÔøΩcios Seguidos");
 
 		JXTaskPane taskPane_4 = new JXTaskPane();
 		taskPane_4.setCollapsed(true);
@@ -98,7 +99,7 @@ public class Actividade extends JPanel {
 		taskPane_4.getContentPane().setLayout(new CardLayout(0, 0));
 		taskPane_3.getContentPane().setLayout(new CardLayout(0, 0));
 		taskPane.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane.getContentPane().add(new Tabela_licitacao(root), "licitações");
+		taskPane.getContentPane().add(new Tabela_licitacao(root), "licitaÔøΩÔøΩes");
 		taskPane_1.getContentPane().add(new Tabela_Vendas(root), "vendas");
 
 		setLayout(groupLayout);

@@ -1,25 +1,22 @@
 package Presentation_Layer.Componentes;
 
-import java.awt.EventQueue;
-
-import javax.swing.JDialog;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import org.jdesktop.swingx.JXErrorPane;
-import org.jdesktop.swingx.JXRootPane;
-import org.jdesktop.swingx.JXLabel;
-import javax.swing.SwingConstants;
 import java.awt.Color;
-import org.jdesktop.swingx.JXButton;
-
-import Presentation_Layer.Sale_Squared;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JDialog;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+
+import org.jdesktop.swingx.JXButton;
+import org.jdesktop.swingx.JXLabel;
+
+import Presentation_Layer.Sale_Squared;
 
 public class Mensagem_Erro extends JDialog {
 

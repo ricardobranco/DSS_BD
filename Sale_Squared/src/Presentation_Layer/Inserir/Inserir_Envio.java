@@ -23,8 +23,12 @@ public class Inserir_Envio extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField portes;
+	private JTextField seguro;
+	private JCheckBox estrangeiro;
+	private JRadioButton vendedor;
+	private JRadioButton comprador;
+	private JComboBox envio;
 
 	/**
 	 * Create the panel.
@@ -37,34 +41,32 @@ public class Inserir_Envio extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("M\u00E9todo de Envio");
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {
+		envio = new JComboBox();
+		envio.setModel(new DefaultComboBoxModel(new String[] {
 				"Correio Normal", "Correio Registado",
 				"Correio Registado + Seguro", "Entrega em M\u00E3o",
 				"Correio Verde", "Correio Azul", "Ver Descri\u00E7\u00E3o" }));
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton(
-				"Comprador paga custos de envio");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		comprador = new JRadioButton("Comprador paga custos de envio");
+		comprador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setVisible(true);
 
 			}
 		});
-		rdbtnNewRadioButton.setSelected(true);
-		buttonGroup.add(rdbtnNewRadioButton);
+		comprador.setSelected(true);
+		buttonGroup.add(comprador);
 
-		final JRadioButton rdbtnVendedorPagaCustos = new JRadioButton(
-				"Vendedor paga custos de envio");
-		rdbtnVendedorPagaCustos.addActionListener(new ActionListener() {
+		vendedor = new JRadioButton("Vendedor paga custos de envio");
+		vendedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.setVisible(false);
 
 			}
 		});
-		buttonGroup.add(rdbtnVendedorPagaCustos);
+		buttonGroup.add(vendedor);
 
-		JCheckBox chckbxEnvioParaO = new JCheckBox("Envio para o estrangeiro");
+		estrangeiro = new JCheckBox("Envio para o estrangeiro");
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
@@ -86,8 +88,7 @@ public class Inserir_Envio extends JPanel {
 												groupLayout
 														.createParallelGroup(
 																Alignment.LEADING)
-														.addComponent(
-																rdbtnNewRadioButton)
+														.addComponent(comprador)
 														.addGroup(
 																groupLayout
 																		.createSequentialGroup()
@@ -96,12 +97,11 @@ public class Inserir_Envio extends JPanel {
 																		.addPreferredGap(
 																				ComponentPlacement.RELATED)
 																		.addComponent(
-																				comboBox,
+																				envio,
 																				GroupLayout.PREFERRED_SIZE,
 																				168,
 																				GroupLayout.PREFERRED_SIZE))
-														.addComponent(
-																rdbtnVendedorPagaCustos)
+														.addComponent(vendedor)
 														.addGroup(
 																groupLayout
 																		.createSequentialGroup()
@@ -112,7 +112,7 @@ public class Inserir_Envio extends JPanel {
 																				GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE))
 														.addComponent(
-																chckbxEnvioParaO))
+																estrangeiro))
 										.addGap(36)));
 		groupLayout
 				.setVerticalGroup(groupLayout
@@ -132,13 +132,13 @@ public class Inserir_Envio extends JPanel {
 														.addComponent(
 																lblNewLabel_1)
 														.addComponent(
-																comboBox,
+																envio,
 																GroupLayout.PREFERRED_SIZE,
 																GroupLayout.DEFAULT_SIZE,
 																GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(
 												ComponentPlacement.UNRELATED)
-										.addComponent(rdbtnNewRadioButton)
+										.addComponent(comprador)
 										.addPreferredGap(
 												ComponentPlacement.RELATED)
 										.addComponent(panel,
@@ -147,11 +147,10 @@ public class Inserir_Envio extends JPanel {
 												GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(
 												ComponentPlacement.RELATED)
-										.addComponent(rdbtnVendedorPagaCustos)
+										.addComponent(vendedor)
 										.addPreferredGap(
 												ComponentPlacement.RELATED)
-										.addComponent(chckbxEnvioParaO)
-										.addGap(32)));
+										.addComponent(estrangeiro).addGap(32)));
 
 		JLabel lblPortes = new JLabel("Portes");
 		lblPortes.setFont(new Font("Lucida Grande", Font.BOLD, 13));
@@ -159,11 +158,11 @@ public class Inserir_Envio extends JPanel {
 		JLabel lblSeguro = new JLabel("Seguro");
 		lblSeguro.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		textField = new JTextField();
-		textField.setColumns(10);
+		portes = new JTextField();
+		portes.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		seguro = new JTextField();
+		seguro.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
 				Alignment.LEADING).addGroup(
@@ -176,8 +175,8 @@ public class Inserir_Envio extends JPanel {
 						.addGap(18)
 						.addGroup(
 								gl_panel.createParallelGroup(Alignment.LEADING,
-										false).addComponent(textField_1)
-										.addComponent(textField))
+										false).addComponent(seguro)
+										.addComponent(portes))
 						.addContainerGap(81, GroupLayout.PREFERRED_SIZE)));
 		gl_panel.setVerticalGroup(gl_panel
 				.createParallelGroup(Alignment.LEADING)
@@ -189,7 +188,7 @@ public class Inserir_Envio extends JPanel {
 												Alignment.BASELINE)
 												.addComponent(lblPortes)
 												.addComponent(
-														textField,
+														portes,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE))
@@ -199,7 +198,7 @@ public class Inserir_Envio extends JPanel {
 												Alignment.BASELINE)
 												.addComponent(lblSeguro)
 												.addComponent(
-														textField_1,
+														seguro,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE))
@@ -209,4 +208,49 @@ public class Inserir_Envio extends JPanel {
 		setLayout(groupLayout);
 
 	}
+
+	public String envio() {
+		return (String) envio.getModel().getElementAt(envio.getSelectedIndex());
+	}
+
+	public double getPortes() throws Exception {
+		String sportes = portes.getText();
+		if (sportes.isEmpty())
+			return 0;
+
+		double res;
+		try {
+			res = new Double(sportes).doubleValue();
+
+		} catch (Exception e) {
+			throw new Exception("Insira um preço de envio válido");
+		}
+		if (res < 0)
+			throw new Exception(
+					"O preço de envio tem que ser igual ou maior que 0");
+		return res;
+	}
+
+	public double getSeguro() throws Exception {
+		String sseguro = seguro.getText();
+		if (sseguro.isEmpty())
+			return 0;
+		double res;
+		try {
+			res = new Double(sseguro).doubleValue();
+
+		} catch (Exception e) {
+			throw new Exception("Insira um seguro válido");
+		}
+		if (res < 0)
+			throw new Exception(
+					"O custo do deguro tem que ser igual ou maior que 0");
+		return res;
+
+	}
+	
+	public boolean pagaComprador(){
+		return comprador.isSelected();
+	}
+
 }

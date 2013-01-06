@@ -1,4 +1,4 @@
-package Presentation_Layer.Negocio;
+package Presentation_Layer.Anuncio;
 
 import java.awt.Toolkit;
 

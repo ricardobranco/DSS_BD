@@ -13,12 +13,13 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.swingx.JXTable;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.CWCheckBoxRenderer;
-import Presentation_Layer.Componentes.CheckBoxCellEditor;
-import Presentation_Layer.Componentes.HyperLinkEditor;
-import Presentation_Layer.Componentes.HyperLinkRenderer;
-import Presentation_Layer.Negocio.Anuncio;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.CWCheckBoxRenderer;
+import presentation_Layer.Componentes.CheckBoxCellEditor;
+import presentation_Layer.Componentes.HyperLinkEditor;
+import presentation_Layer.Componentes.HyperLinkRenderer;
+
+import Anuncio.Anuncio;
 
 public class Tabela_Vendas extends JPanel {
 
@@ -69,9 +70,9 @@ public class Tabela_Vendas extends JPanel {
 			}
 		};
 
-		dm.setDataVector(new Object[][] {}, new Object[] { "Data Início",
-				"Data de Fim", "Negócio", "Preço", "Estado", "Leilão",
-				"Comprar Já" });
+		dm.setDataVector(new Object[][] {}, new Object[] { "Data InÔøΩcio",
+				"Data de Fim", "NegÔøΩcio", "PreÔøΩo", "Estado", "LeilÔøΩo",
+				"Comprar JÔøΩ" });
 		ActionListener abre = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				root.setBody(new Anuncio(root), "Anuncio");
@@ -81,17 +82,17 @@ public class Tabela_Vendas extends JPanel {
 		JXTable table = new JXTable(dm);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setCellSelectionEnabled(false);
-		table.getColumn("Negócio").setCellRenderer(new HyperLinkRenderer());
-		table.getColumn("Negócio").setCellEditor(
+		table.getColumn("NegÔøΩcio").setCellRenderer(new HyperLinkRenderer());
+		table.getColumn("NegÔøΩcio").setCellEditor(
 				new HyperLinkEditor(new JCheckBox(), abre));
-		table.getColumn("Leilão").setCellEditor(new CheckBoxCellEditor());
-		table.getColumn("Comprar Já").setCellEditor(new CheckBoxCellEditor());
-		table.getColumn("Leilão").setCellRenderer(new CWCheckBoxRenderer());
-		table.getColumn("Comprar Já").setCellRenderer(new CWCheckBoxRenderer());
+		table.getColumn("LeilÔøΩo").setCellEditor(new CheckBoxCellEditor());
+		table.getColumn("Comprar JÔøΩ").setCellEditor(new CheckBoxCellEditor());
+		table.getColumn("LeilÔøΩo").setCellRenderer(new CWCheckBoxRenderer());
+		table.getColumn("Comprar JÔøΩ").setCellRenderer(new CWCheckBoxRenderer());
 
 		scrollPane.setViewportView(table);
 		// teste
-		Object[] row1 = { "3/1/2013", "13/1/2013", "Negócio 1", "€ 15",
+		Object[] row1 = { "3/1/2013", "13/1/2013", "NegÔøΩcio 1", "ÔøΩ 15",
 				"Aberto", true, false };
 
 		dm.addRow(row1);

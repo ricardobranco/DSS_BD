@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -12,7 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Inserir_Negocio extends JPanel {
+import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Componentes.Mensagem_Erro;
+import business_Layer.AnuncioVenda;
+
+public class Inserir extends JPanel {
 
 	/**
 	 * 
@@ -23,33 +28,77 @@ public class Inserir_Negocio extends JPanel {
 	 * Create the panel.
 	 */
 
-	int i = 0;
+	private int step = 1;
+	private AnuncioVenda a;
+	final JPanel panel;
+
 	JPanel[] inserir = new JPanel[3];
 
-	public Inserir_Negocio() {
+	public Inserir(final Sale_Squared root) {
 
-		inserir[0] = new Inserir_1();
+		int codigo = root.getSistema().registaIdAnuncio();
+		a = new AnuncioVenda(codigo);
+		inserir[0] = new Inserir_1(codigo);
 		inserir[1] = new Inserir_2();
 		inserir[2] = new Inserir_3();
 
-		JLabel lblNewLabel = new JLabel("Inserir Neg\u00F3cio");
+		JLabel lblNewLabel = new JLabel("Inserir Negócio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 
-		final JPanel panel = new JPanel();
+		panel = new JPanel();
 
 		final JButton btnSeguinte = new JButton("Seguinte");
 		final JButton btnVoltar = new JButton("Voltar");
 		btnSeguinte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel.removeAll();
-				i++;
-				panel.add(inserir[i], "inserir");
-				panel.updateUI();
-				panel.validate();
-				if (i == 2)
-					btnSeguinte.setVisible(false);
-				btnVoltar.setVisible(true);
+				try {
 
+					switch (step) {
+					case 1:
+						Inserir_1 i1 = (Inserir_1) inserir[0];
+						a.setTitulo(i1.getTitulo());
+						a.setCategorias(i1.getCategorias());
+						a.setTags(i1.getTags());
+						a.setDataInser(new GregorianCalendar());
+						a.setEstadoProduto(i1.getEstado());
+						a.setImagens(i1.getImagens());
+						// TRATAR SE E LEILAO E/OU COMPRA DIRECTA
+						btnVoltar.setVisible(true);
+						setBody(inserir[2], step);
+						step++;
+						break;
+					case 2:
+						Inserir_2 i2 = (Inserir_2) inserir[1];
+						Inserir_Envio envio = i2.getEnvio();
+						Inserir_Pagamento pagamento = i2.getPagamentos();
+
+						// Envio
+						if (envio.pagaComprador()) {
+
+						}
+
+						// Pagamento
+						a.setModosPagamento(pagamento.getModosPagamento());
+						setBody(inserir[2], step);
+						btnSeguinte.setText("Conluir");
+						step++;
+						break;
+					case 3:
+						Inserir_3 i3 = (Inserir_3) inserir[2];
+						boolean troca = i3.trocas();
+						boolean contacto = i3.contacto();
+						a.setPossivelTrocar(troca);
+						root.getSistema().inserirAnuncio(a);
+						root.setBody(new Presentation_Layer.Anuncio.Anuncio(
+								root, a), a.getTitulo());
+					}
+
+				} catch (Exception e2) {
+					Mensagem_Erro frame = new Mensagem_Erro(root, e2
+							.getMessage());
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+				}
 			}
 		});
 
@@ -57,14 +106,19 @@ public class Inserir_Negocio extends JPanel {
 
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel.removeAll();
-				i--;
-				panel.add(inserir[i], "inserir");
-				panel.updateUI();
-				panel.validate();
-				if (i == 0)
-					btnVoltar.setVisible(false);
-				btnSeguinte.setVisible(true);
+				switch (step) {
+				case 2:
+					
+					btnVoltar.setEnabled(false);
+					setBody(inserir[0], step);
+					break;
+				case 3:
+					step--;
+					btnSeguinte.setText("Seguinte");
+					setBody(inserir[1], step);
+					
+					}
+				
 
 			}
 		});
@@ -136,4 +190,12 @@ public class Inserir_Negocio extends JPanel {
 		setLayout(groupLayout);
 
 	}
+
+	private void setBody(JPanel jp, int step) {
+		panel.removeAll();
+		panel.add(jp, "" + step);
+		panel.updateUI();
+		panel.validate();
+	}
+
 }

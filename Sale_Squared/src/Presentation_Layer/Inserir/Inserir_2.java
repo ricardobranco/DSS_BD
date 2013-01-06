@@ -13,12 +13,14 @@ public class Inserir_2 extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private Inserir_Envio envio;
+	private Inserir_Pagamento pagamento;
 	/**
 	 * Create the panel.
 	 */
 	public Inserir_2() {
-
+		envio =  new Inserir_Envio();
+		pagamento = new Inserir_Pagamento();
 		JPanel panel = new JPanel();
 
 		JPanel panel_1 = new JPanel();
@@ -55,9 +57,19 @@ public class Inserir_2 extends JPanel {
 								Short.MAX_VALUE)));
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Inserir_Envio(), "Envio");
-		panel_1.add(new Inserir_Pagamento(), "Pagamento");
+		panel.add(envio, "Envio");
+		panel_1.add(pagamento, "Pagamento");
 		setLayout(groupLayout);
 
 	}
+	
+	public Inserir_Envio getEnvio(){
+		return envio;
+	}
+	public Inserir_Pagamento getPagamentos(){
+		return pagamento;
+	}
+	
+	
+
 }

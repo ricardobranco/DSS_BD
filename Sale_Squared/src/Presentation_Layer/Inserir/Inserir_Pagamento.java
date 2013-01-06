@@ -1,6 +1,10 @@
 package Presentation_Layer.Inserir;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,23 +23,28 @@ public class Inserir_Pagamento extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+
+	private List<JCheckBox> metodos;
+
 	public Inserir_Pagamento() {
+
+		metodos = new ArrayList<>();
 
 		JLabel lblNewLabel = new JLabel("3 - Pagamento");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
 		JCheckBox chckbxPaypal = new JCheckBox("PayPal");
-
+		metodos.add(chckbxPaypal);
 		JCheckBox chckbxTransfernciaBancria = new JCheckBox(
-				"Transfer\u00EAncia Banc\u00E1ria");
-
+				"Transferência Bancária");
+		metodos.add(chckbxTransfernciaBancria);
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Dinheiro");
-
-		JCheckBox chckbxEnvio = new JCheckBox("Envio \u00E0 Cobran\u00E7a");
-
+		metodos.add(chckbxNewCheckBox);
+		JCheckBox chckbxEnvio = new JCheckBox("Envio à cobranca");
+		metodos.add(chckbxEnvio);
 		JCheckBox chckbxCheque = new JCheckBox("Cheque");
-
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Descri\u00E7\u00E3o");
+		metodos.add(chckbxCheque);
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Descrição");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
 				.setHorizontalGroup(groupLayout
@@ -122,6 +131,18 @@ public class Inserir_Pagamento extends JPanel {
 																chckbxNewCheckBox_1))
 										.addContainerGap(20, Short.MAX_VALUE)));
 		setLayout(groupLayout);
+
+	}
+
+	public Set<String> getModosPagamento() throws Exception {
+		Set<String> res = new HashSet<>();
+		for (JCheckBox jcb : metodos) {
+			if (jcb.isSelected())
+				res.add(jcb.getText());
+		}
+		if (res.isEmpty())
+			throw new Exception("Insira pelo menos um método de pagamento");
+		return res;
 
 	}
 

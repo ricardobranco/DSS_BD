@@ -5,6 +5,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,10 +21,13 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import Presentation_Layer.Componentes.ButtonEditor;
-import Presentation_Layer.Componentes.ButtonRenderer;
-import Presentation_Layer.Componentes.ImageCellRender;
-import Presentation_Layer.Componentes.ThumbnailIcon;
+import presentation_Layer.Componentes.ButtonEditor;
+import presentation_Layer.Componentes.ButtonRenderer;
+import presentation_Layer.Componentes.ImageCellRender;
+import presentation_Layer.Componentes.ThumbnailIcon;
+
+import business_Layer.Imagem;
+
 
 public class Tabela_Imagens extends JPanel {
 
@@ -30,12 +37,17 @@ public class Tabela_Imagens extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final JTable table;
-
+	private Map<String,Imagem> imagens;
+	private int codigo;
+	private int img;
 	/**
 	 * Create the panel.
 	 */
 	@SuppressWarnings("serial")
-	public Tabela_Imagens() {
+	public Tabela_Imagens(int codigo) {
+		this.img = 0;
+		this.codigo = codigo;
+		imagens = new HashMap<>();
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
@@ -55,22 +67,21 @@ public class Tabela_Imagens extends JPanel {
 
 		DefaultTableModel dm = new DefaultTableModel() {
 			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { Object.class, String.class,
-					Object.class };
+			Class[] columnTypes = new Class[] { Object.class, Object.class };
 
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 
-			boolean[] columnEditables = new boolean[] { false, false, true };
+			boolean[] columnEditables = new boolean[] { false, true };
 
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		};
 
-		dm.setDataVector(new Object[][] {}, new Object[] { "Foto", "Nome", "" });
+		dm.setDataVector(new Object[][] {}, new Object[] { "Foto", "" });
 
 		table = new JTable(dm);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -91,6 +102,7 @@ public class Tabela_Imagens extends JPanel {
 				int row = table.getSelectedRow();
 				int size = table.getRowCount();
 				dtm.removeRow(row);// fireEditingStopped();
+				imagens.remove(row);
 				if (row + 1 < size)
 					table.setRowSelectionInterval(row, row);
 
@@ -114,13 +126,21 @@ public class Tabela_Imagens extends JPanel {
 			Image img = icon.getImage();
 			ThumbnailIcon ti = new ThumbnailIcon(img, table.getColumn("Foto")
 					.getWidth());
-			Object[] row = { ti, "exito", "cancelar" };
+			
+			String nome = "IMG"+codigo+img;
+			Imagem imagem = new Imagem(nome,path);
+			imagens.put(nome,imagem);
+			this.img++;
+			Object[] row = { ti, "cancelar" };
 			dtm.addRow(row);
 			updateRowHeights();
 		}
 
 	}
 
+	public Map<String,Imagem> getImagens(){
+		return imagens;
+	}
 	public boolean isFull() {
 		if (table.getRowCount() < 9)
 			return false;
@@ -144,4 +164,5 @@ public class Tabela_Imagens extends JPanel {
 		} catch (ClassCastException e) {
 		}
 	}
+
 }

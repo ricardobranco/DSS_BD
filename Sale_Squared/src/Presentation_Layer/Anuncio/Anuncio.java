@@ -1,4 +1,4 @@
-package Presentation_Layer.Negocio;
+package Presentation_Layer.Anuncio;
 
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -13,6 +13,7 @@ import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Tabbed.Tabbed_Anuncio;
 import Presentation_Layer.Tabbed.Tabbed_Sugestoes;
 
+
 public class Anuncio extends JPanel {
 
 	/**
@@ -23,9 +24,13 @@ public class Anuncio extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Anuncio(final Sale_Squared root) {
+	
+	private business_Layer.Anuncio anuncio;
+	
+	public Anuncio(final Sale_Squared root, business_Layer.Anuncio anuncio) {
 
-		JLabel lblNewLabel = new JLabel("Titulo do Neg\u00F3cio");
+		this.anuncio = anuncio;
+		JLabel lblNewLabel = new JLabel("Titulo do Negócio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 35));
 
 		JPanel panel = new JPanel();

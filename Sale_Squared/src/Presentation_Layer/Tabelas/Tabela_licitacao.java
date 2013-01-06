@@ -13,10 +13,11 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.swingx.JXTable;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.HyperLinkEditor;
-import Presentation_Layer.Componentes.HyperLinkRenderer;
-import Presentation_Layer.Negocio.Anuncio;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Componentes.HyperLinkEditor;
+import presentation_Layer.Componentes.HyperLinkRenderer;
+
+import Anuncio.Anuncio;
 
 public class Tabela_licitacao extends JPanel {
 
@@ -72,12 +73,12 @@ public class Tabela_licitacao extends JPanel {
 
 			}
 		};
-		dm.setDataVector(new Object[][] {}, new Object[] { "Data", "Neg—cio",
+		dm.setDataVector(new Object[][] {}, new Object[] { "Data", "Negï¿½cio",
 				"Valor", "Estado" });
 
 		JXTable table = new JXTable(dm);
-		table.getColumn("Neg—cio").setCellRenderer(new HyperLinkRenderer());
-		table.getColumn("Neg—cio").setCellEditor(
+		table.getColumn("Negï¿½cio").setCellRenderer(new HyperLinkRenderer());
+		table.getColumn("Negï¿½cio").setCellEditor(
 				new HyperLinkEditor(new JCheckBox(), abre));
 
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -85,9 +86,9 @@ public class Tabela_licitacao extends JPanel {
 		scrollPane.setViewportView(table);
 		// teste
 
-		Object[] row1 = { "3/1/2013", "Neg—cio", "Û 15", "Aberto" };
-		Object[] row2 = { "3/1/2013", "Neg—cio 2", "Û 30", "Vencedora" };
-		Object[] row3 = { "3/1/2013", "Neg—cio 3", "Û 45", "Sem sucesso" };
+		Object[] row1 = { "3/1/2013", "Negï¿½cio", "ï¿½ 15", "Aberto" };
+		Object[] row2 = { "3/1/2013", "Negï¿½cio 2", "ï¿½ 30", "Vencedora" };
+		Object[] row3 = { "3/1/2013", "Negï¿½cio 3", "ï¿½ 45", "Sem sucesso" };
 		dm.addRow(row1);
 		dm.addRow(row2);
 		dm.addRow(row3);

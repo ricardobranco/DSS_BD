@@ -1,4 +1,4 @@
-package Data_Layer;
+package data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import Business_Layer.Categoria;
+import business_Layer.Categoria;
+
 
 public class CategoriaDAO implements Map<String, Categoria> {
 

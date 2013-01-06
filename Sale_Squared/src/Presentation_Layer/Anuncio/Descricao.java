@@ -1,4 +1,4 @@
-package Presentation_Layer.Negocio;
+package Presentation_Layer.Anuncio;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

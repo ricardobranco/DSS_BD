@@ -15,8 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Negocio.Anuncio;
+import presentation_Layer.Sale_Squared;
+
+import Anuncio.Anuncio;
 
 public class Produto_Base extends JPanel {
 
@@ -44,14 +45,14 @@ public class Produto_Base extends JPanel {
 		JLabel lblMin = new JLabel("50");
 
 		if (tulic)
-			lblMin.setText("Û " + ulic);
+			lblMin.setText("ï¿½ " + ulic);
 		else
 			lblMin.setVisible(false);
 
 		JLabel label = new JLabel("100");
 
 		if (tpreco)
-			label.setText("Û " + preco);
+			label.setText("ï¿½ " + preco);
 		else
 			label.setVisible(false);
 

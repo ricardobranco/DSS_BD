@@ -7,8 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Tabbed.Tabbed_Resultados;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Tabbed.Tabbed_Resultados;
+
 
 public class Pesquisa_Resultado extends JPanel {
 

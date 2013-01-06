@@ -1,4 +1,4 @@
-package Data_Layer;
+package data_Layer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import Business_Layer.Avaliacao;
+import business_Layer.Avaliacao;
+
 
 public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 

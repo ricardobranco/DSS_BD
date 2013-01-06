@@ -12,8 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Home.Home;
+import presentation_Layer.Sale_Squared;
+import presentation_Layer.Home.Home;
+
 
 public class Header extends JPanel {
 

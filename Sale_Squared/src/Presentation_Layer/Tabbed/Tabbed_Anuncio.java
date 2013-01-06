@@ -7,9 +7,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Presentation_Layer.Negocio.Descricao;
-import Presentation_Layer.Negocio.Envio_Pagamento;
-import Presentation_Layer.Negocio.Imagem_Panel;
+import Anuncio.Descricao;
+import Anuncio.Envio_Pagamento;
+import Anuncio.Imagem_Panel;
 
 public class Tabbed_Anuncio extends JPanel {
 
