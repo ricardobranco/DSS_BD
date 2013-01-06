@@ -48,17 +48,18 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 	public static final int ID = 1, ID_V = 1, ID_C = 1, ID_M_V = 1, ID_L = 1,
 			ID_V_D = 1;
 	public static final int TITULO = 2, ENVIO_E = 2, TIPO_M_V = 2,
-			PRECO_BASE = 2, N_PROPOSTAS = 2;
-	public static final int DATA_INS = 3, COND_E = 3, PRECO_ACTUAL = 3;
+			PRECO_BASE = 2, N_PROPOSTAS = 2, PRECO_SUGERIDO = 2;
+	public static final int DATA_INS = 3, COND_E = 3, PRECO_ACTUAL = 3, PRECO_V_D = 3;
 	public static final int DATA_EXP = 4, PRECO_E = 4, N_LICITACOES = 4;
-	public static final int PRECO = 5, SEGURO = 5, DATA_FIM = 5;
-	public static final int DESCRICAO = 6, METODO_E = 6;
-	public static final int QUANTIDADE = 7, PROPOSTA_T = 7;
-	public static final int N_VISITAS = 8, MODO_V = 8;
-	public static final int ESTADO_PROD = 9;
-	public static final int ESTADO_ANUNC = 10;
-	public static final int ANUNCIANTE = 11;
-	public static final int TIPO_A = 12;
+	public static final int SEGURO = 5, DATA_FIM = 5;
+	public static final int DESCRICAO = 5, METODO_E = 6;
+        public static final int INC_MINIMO = 6 ;
+	public static final int QUANTIDADE = 6, PROPOSTA_T = 7;
+	public static final int N_VISITAS = 7, MODO_V = 8;
+	public static final int ESTADO_PROD = 8;
+	public static final int ESTADO_ANUNC = 9;
+	public static final int ANUNCIANTE = 10;
+	public static final int TIPO_A = 11;
 
 	// construtor
 	public AnuncioDAO() {
@@ -153,7 +154,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 						mv = new Leilao(rsVL.getInt(ID_L),
 								rsVL.getDouble(PRECO_BASE), dataFim,
 								rsVL.getInt(N_LICITACOES),
-								rsVL.getDouble(PRECO_ACTUAL));
+								rsVL.getDouble(PRECO_ACTUAL), rsVL.getDouble(INC_MINIMO));
 					} else {
 						Statement stmVVD = ConexaoBD.getConexao()
 								.createStatement();
@@ -163,7 +164,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 						ResultSet rsVVD = stmVVD.executeQuery(sqlVVD);
 						rsVVD.next();
 						mv = new VendaDirecta(rsV.getInt(MODO_V + ID_M_V),
-								rsVVD.getInt(N_PROPOSTAS));
+								rsVVD.getInt(N_PROPOSTAS), rsVVD.getDouble(PRECO_V_D));
 					}
 					// ResultSetMetaData rsmd = rsV.getMetaData() ;
 					// int a = rsmd.getColumnCount();
@@ -172,7 +173,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 					boolean propostaTrocar = (rsV.getString(PROPOSTA_T).equals(
 							SIM) ? true : false);
 					res = new AnuncioVenda(chave, rs.getString(TITULO),
-							dataInser, dataExp, rs.getDouble(PRECO),
+							dataInser, dataExp, 
 							rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
 							rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
 							u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro,
@@ -180,11 +181,15 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 							rsV.getDouble(SEGURO), rsV.getString(METODO_E),
 							propostaTrocar, mv);
 				} else {
+                                        Statement stmC = ConexaoBD.getConexao().createStatement();
+					String sqlC = "SELECT * FROM " + ANUNCIO_C_T + " WHERE ac.id = " + chave ;
+					ResultSet rsC = stmC.executeQuery(sqlC);
+					rsC.next();
 					res = new AnuncioCompra(chave, rs.getString(TITULO),
-							dataInser, dataExp, rs.getDouble(PRECO),
+							dataInser, dataExp,
 							rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
 							rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
-							u.get(rs.getString(ANUNCIANTE)));
+							u.get(rs.getString(ANUNCIANTE)), rsC.getDouble(PRECO_SUGERIDO));
 				}
 			}
 		} catch (Exception e) {
@@ -231,11 +236,11 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 			if ((existe = this.containsKey(key)) == true) {
 				sqlA = "UPDATE "
 						+ ANUNCIO_T
-						+ " SET a.id = ?, a.titulo = ?, a.dataInsercao = ?, a.dataExp = ?, a.preco = ?, a.descricao = ?, a.quantidade = ?, a.nVisitas = ?, a.estadoProduto = ?, a.estadoAnuncio = ?, a.anunciante = ?, a.tipo = ? WHERE a.id = "
+						+ " SET a.id = ?, a.titulo = ?, a.dataInsercao = ?, a.dataExp = ?, a.descricao = ?, a.quantidade = ?, a.nVisitas = ?, a.estadoProduto = ?, a.estadoAnuncio = ?, a.anunciante = ?, a.tipo = ? WHERE a.id = "
 						+ key;
 			} else {
 				sqlA = "INSERT INTO " + ANUNCIO_T
-						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			}
 			Timestamp tsDI = new Timestamp(value.getDataInser()
 					.getTimeInMillis()), tsDE = new Timestamp(value
@@ -262,7 +267,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 			stmA.setString(TITULO, value.getTitulo());
 			stmA.setTimestamp(DATA_INS, tsDI);
 			stmA.setTimestamp(DATA_EXP, tsDE);
-			stmA.setDouble(PRECO, value.getPreco());
+			//stmA.setDouble(PRECO, value.getPreco());
 			stmA.setString(DESCRICAO, value.getDescricao());
 			stmA.setInt(QUANTIDADE, value.getQuantidade());
 			stmA.setInt(N_VISITAS, value.getnVisitas());
@@ -290,11 +295,11 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 					if (existe)
 						sqlL = "UPDATE "
 								+ LEILAO_T
-								+ " SET l.id = ?, l.precoBase = ?, l.precoActual = ?, l.nLicitacoes = ?, l.dataFim = ? WHERE l.id = "
+								+ " SET l.id = ?, l.precoBase = ?, l.precoActual = ?, l.nLicitacoes = ?, l.dataFim = ?, l.incMinimo = ? WHERE l.id = "
 								+ l.getId();
 					else
 						sqlL = "INSERT INTO " + LEILAO_T
-								+ " VALUES (?, ?, ?, ?, ?)";
+								+ " VALUES (?, ?, ?, ?, ?, ?)";
 					PreparedStatement stmL = ConexaoBD.getConexao()
 							.prepareStatement(sqlL);
 					Timestamp tsDF = new Timestamp(l.getDataFim()
@@ -304,6 +309,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 					stmL.setDouble(PRECO_ACTUAL, l.getPrecoActual());
 					stmL.setInt(N_LICITACOES, l.getnLicitacoes());
 					stmL.setTimestamp(DATA_FIM, tsDF);
+                                        stmL.setDouble(INC_MINIMO, l.getIncrementoMinimo()) ;
 					stmMV.execute();
 					stmL.execute();
 				} else {
@@ -314,15 +320,16 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 					if (existe)
 						sqlVD = "UPDATE "
 								+ VENDA_DIRECTA_T
-								+ " SET vd.id = ?, vd.nPropostas = ? WHERE vd.id = "
+								+ " SET vd.id = ?, vd.nPropostas = ?, vd.preco = ? WHERE vd.id = "
 								+ v.getId();
 					else
 						sqlVD = "INSERT INTO " + VENDA_DIRECTA_T
-								+ " VALUES (?, ?)";
+								+ " VALUES (?, ?, ?)";
 					PreparedStatement stmVD = ConexaoBD.getConexao()
 							.prepareStatement(sqlVD);
 					stmVD.setInt(ID_V_D, v.getId());
 					stmVD.setInt(N_PROPOSTAS, v.getnPropostas());
+                                        stmVD.setDouble(PRECO_V_D, v.getPreco()) ;
 					stmMV.execute();
 					stmVD.execute();
 				}
@@ -355,13 +362,13 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 				String sqlAC;
 				if (existe)
 					sqlAC = "UPDATE " + ANUNCIO_C_T
-							+ " SET ac.id = ? WHERE ac.id = " + key;
+							+ " SET ac.id = ?, ac.precoSugerido = ? WHERE ac.id = " + key;
 				else
-					sqlAC = "INSERT INTO " + ANUNCIO_C_T + " VALUES (?)";
+					sqlAC = "INSERT INTO " + ANUNCIO_C_T + " VALUES (?, ?)";
 				PreparedStatement stmAC = ConexaoBD.getConexao()
 						.prepareStatement(sqlAC);
 				stmAC.setInt(ID_C, ac.getCodigo());
-				stmA.execute();
+                                stmAC.setDouble(PRECO_SUGERIDO, ac.getPrecoSugerido()) ;
 				stmAC.execute();
 			}
 		} catch (Exception e) {
@@ -438,7 +445,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 						mv = new Leilao(rsV.getInt(MODO_V + ID_M_V),
 								rsVL.getDouble(PRECO_BASE), dataFim,
 								rsVL.getInt(N_LICITACOES),
-								rsVL.getDouble(PRECO_BASE));
+								rsVL.getDouble(PRECO_BASE), rsVL.getDouble(INC_MINIMO));
 					} else {
 						Statement stmVVD = ConexaoBD.getConexao()
 								.createStatement();
@@ -448,13 +455,13 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 						ResultSet rsVVD = stmVVD.executeQuery(sqlVVD);
 						rsVVD.next();
 						mv = new VendaDirecta(rsV.getInt(MODO_V + ID_M_V),
-								rsVVD.getInt(N_PROPOSTAS));
+								rsVVD.getInt(N_PROPOSTAS), rsVVD.getDouble(PRECO_V_D));
 					}
 					boolean envioEstrangeiro = (rsV.getString(ENVIO_E).equals(
 							SIM) ? true : false), propostaTrocar = (rsV
 							.getString(PROPOSTA_T).equals(SIM) ? true : false);
 					a = new AnuncioVenda(chave, rs.getString(TITULO),
-							dataInser, dataExp, rs.getDouble(PRECO),
+							dataInser, dataExp, //rs.getDouble(PRECO),
 							rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
 							rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
 							u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro,
@@ -462,11 +469,15 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
 							rsV.getDouble(SEGURO), rsV.getString(METODO_E),
 							propostaTrocar, mv);
 				} else {
+                                        Statement stmC = ConexaoBD.getConexao().createStatement();
+					String sqlC = "SELECT * FROM " + ANUNCIO_C_T + " WHERE ac.id = " + chave ;
+					ResultSet rsC = stmC.executeQuery(sqlC);
+					rsC.next();
 					a = new AnuncioCompra(chave, rs.getString(TITULO),
-							dataInser, dataExp, rs.getDouble(PRECO),
+							dataInser, dataExp, //rs.getDouble(PRECO),
 							rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
 							rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
-							u.get(rs.getString(ANUNCIANTE)));
+							u.get(rs.getString(ANUNCIANTE)), rsC.getDouble(PRECO_SUGERIDO));
 				}
 				res.add(a);
 			}

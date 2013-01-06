@@ -10,16 +10,18 @@ public class AnuncioCompra extends Anuncio {
 
 	// v. i.
 	private Map<Integer, Anuncio> respostas;
+        private double precoSugerido ;
 
 	// construtor
 	public AnuncioCompra(int codigo, String titulo,
 			GregorianCalendar dataInser, GregorianCalendar dataExpir,
-			double preco, String descricao, int quantidade, int nVisitas,
+			String descricao, int quantidade, int nVisitas,
 			boolean estadoProduto, int estadoAnuncio,
-			UtilizadorRegistado anunciante) {
-		super(codigo, titulo, dataInser, dataExpir, preco, descricao,
+			UtilizadorRegistado anunciante, double precoS) {
+		super(codigo, titulo, dataInser, dataExpir, descricao,
 				quantidade, nVisitas, estadoProduto, estadoAnuncio, anunciante);
 		this.respostas = new RespostaAnuncioCompraDAO(codigo);
+                this.precoSugerido = precoS ;
 	}
 
 	public AnuncioCompra(int codigo) {
@@ -35,6 +37,14 @@ public class AnuncioCompra extends Anuncio {
 	public void setRespostas(Map<Integer, Anuncio> respostas) {
 		this.respostas = respostas;
 	}
+
+        public double getPrecoSugerido() {
+            return precoSugerido;
+        }
+
+        public void setPrecoSugerido(double precoSugerido) {
+            this.precoSugerido = precoSugerido;
+        }        
 
 	// e, c, tS
 	@Override
@@ -55,16 +65,16 @@ public class AnuncioCompra extends Anuncio {
 	@Override
 	public String toString() {
 		return super.toString() + "AnuncioCompra{" + "respostas="
-				+ respostas.toString() + '}';
+				+ this.respostas.toString() + this.precoSugerido + '}';
 	}
 
 	@Override
 	public AnuncioCompra clone() {
 		return new AnuncioCompra(this.getCodigo(), this.getTitulo(),
-				this.getDataInser(), this.getDataExpir(), this.getPreco(),
+				this.getDataInser(), this.getDataExpir(), 
 				this.getDescricao(), this.getQuantidade(), this.getnVisitas(),
 				this.isEstadoProduto(), this.getEstadoAnuncio(), this
-						.getAnunciante().clone());
+						.getAnunciante().clone(), this.precoSugerido);
 	}
 
 	// gestão map
@@ -91,4 +101,6 @@ public class AnuncioCompra extends Anuncio {
 	public boolean eNullRespostas() {
 		return this.respostas == null;
 	}
+        
+        public double getPreco () { return this.precoSugerido ; }
 }

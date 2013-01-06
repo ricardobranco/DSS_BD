@@ -21,6 +21,9 @@ public abstract class ModoVenda {
 	public void setId(int idArg) {
 		this.id = idArg;
 	}
+        
+        // outros
+        public abstract double getPreco() ;
 
 	// e, tS
 	@Override

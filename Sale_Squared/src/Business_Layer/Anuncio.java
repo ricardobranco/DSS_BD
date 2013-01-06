@@ -34,7 +34,7 @@ public abstract class Anuncio {
 	private String titulo;
 	private GregorianCalendar dataInser;
 	private GregorianCalendar dataExpir;
-	private double preco;
+	//private double preco;
 	private String descricao;
 	private int quantidade;
 	private int nVisitas;
@@ -44,7 +44,7 @@ public abstract class Anuncio {
 
 	// construtor
 	public Anuncio(int codigo, String titulo, GregorianCalendar dataInser,
-			GregorianCalendar dataExpir, double preco, String descricao,
+			GregorianCalendar dataExpir, String descricao,
 			int quantidade, int nVisitas, boolean estadoProduto,
 			int estadoAnuncio, UtilizadorRegistado anunciante) {
 		this.tags = new TagAnuncioDAO(codigo);
@@ -54,7 +54,7 @@ public abstract class Anuncio {
 		this.titulo = titulo;
 		this.dataInser = dataInser;
 		this.dataExpir = dataExpir;
-		this.preco = preco;
+		//this.preco = preco;
 		this.descricao = descricao;
 		this.quantidade = quantidade;
 		this.imagens = new ImagemAnuncioDAO(codigo);
@@ -129,13 +129,13 @@ public abstract class Anuncio {
 		this.dataExpir = dataExpir;
 	}
 
-	public double getPreco() {
+	/*public double getPreco() {
 		return preco;
 	}
 
 	public void setPreco(double preco) {
 		this.preco = preco;
-	}
+	}*/
 
 	public String getDescricao() {
 		return descricao;
@@ -216,7 +216,7 @@ public abstract class Anuncio {
 				+ this.avaliacoes.toString() + ", codigo=" + this.codigo
 				+ ", titulo=" + this.titulo + ", dataInser="
 				+ this.dataInser.toString() + ", dataExpir="
-				+ this.dataExpir.toString() + ", preco=" + this.preco
+				+ this.dataExpir.toString() /*+ ", preco=" + this.preco*/
 				+ ", descricao=" + this.descricao + ", quantidade="
 				+ this.quantidade + ", imagens=" + this.imagens.toString()
 				+ ", nVisitas=" + this.nVisitas + ", estadoProduto="
@@ -337,6 +337,8 @@ public abstract class Anuncio {
 		for (Imagem i : imagensArg)
 			this.imagens.put(i.getNome(), i);
 	}
+        
+        public abstract double getPreco () ;
 }
 
 class ComparadorAnuncNVis implements Comparator<Anuncio> {

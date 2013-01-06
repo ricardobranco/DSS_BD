@@ -25,13 +25,13 @@ public class AnuncioVenda extends Anuncio {
 
 	// construtor
 	public AnuncioVenda(int codigo, String titulo, GregorianCalendar dataInser,
-			GregorianCalendar dataExpir, double preco, String descricao,
+			GregorianCalendar dataExpir, String descricao,
 			int quantidade, int nVisitas, boolean estadoProduto,
 			int estadoAnuncio, UtilizadorRegistado anunciante,
 			boolean envioEstrangeiro, String condicoesEnvio, double precoEnvio,
 			double seguro, String metodoEnvio, boolean possivelTrocar,
 			ModoVenda modoV) {
-		super(codigo, titulo, dataInser, dataExpir, preco, descricao,
+		super(codigo, titulo, dataInser, dataExpir, descricao,
 				quantidade, nVisitas, estadoProduto, estadoAnuncio, anunciante);
 		this.tipoVenda = modoV;
 		this.modosPagamento = new ModoPagamentoDAO(codigo);
@@ -142,8 +142,7 @@ public class AnuncioVenda extends Anuncio {
 				this.getCodigo(),
 				this.getTitulo(),
 				this.getDataInser(),
-				this.getDataExpir(),
-				this.getPreco(),
+				this.getDataExpir(),				
 				this.getDescricao(),
 				this.getQuantidade(),
 				this.getnVisitas(),
@@ -178,4 +177,6 @@ public class AnuncioVenda extends Anuncio {
 	public long calculaTempoRestanteLeilao() {
 		return ((Leilao) this.tipoVenda).calculaTempoRestante();
 	}
+        
+        public double getPreco () { return this.tipoVenda.getPreco() ;}
 }

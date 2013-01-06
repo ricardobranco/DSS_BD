@@ -11,15 +11,17 @@ public class Leilao extends ModoVenda {
 	private GregorianCalendar dataFim;
 	private int nLicitacoes;
 	private double precoActual;
+        private double incrementoMinimo;
 
 	// construtores
 	public Leilao(int id, double precoB, GregorianCalendar dataF, int nLicit,
-			double precoActual) {
+			double precoActual, double incrementoMinimo) {
 		super(id);
 		this.precoBase = precoB;
 		this.dataFim = dataF;
 		this.nLicitacoes = nLicit;
 		this.precoActual = precoActual;
+                this.incrementoMinimo = incrementoMinimo ;
 	}
 
 	// get and set
@@ -32,7 +34,7 @@ public class Leilao extends ModoVenda {
 	}
 
 	public Double getPrecoBase() {
-		return precoBase;
+		return this.precoBase;
 	}
 
 	public void setPrecoBase(Double precoBase) {
@@ -54,6 +56,14 @@ public class Leilao extends ModoVenda {
 	public void setnLicitacoes(int nLicitacoes) {
 		this.nLicitacoes = nLicitacoes;
 	}
+
+        public double getIncrementoMinimo() {
+            return this.incrementoMinimo;
+        }
+
+        public void setIncrementoMinimo(double incrementoMinimo) {
+            this.incrementoMinimo = incrementoMinimo;
+        }      
 
 	// e, c, tS
 	@Override
@@ -87,7 +97,7 @@ public class Leilao extends ModoVenda {
 	@Override
 	public Leilao clone() {
 		return new Leilao(this.getId(), this.precoBase, this.dataFim,
-				this.nLicitacoes, this.precoActual);
+				this.nLicitacoes, this.precoActual, this.incrementoMinimo);
 	}
 
 	// outros métodos
@@ -96,4 +106,6 @@ public class Leilao extends ModoVenda {
 		GregorianCalendar agora = new GregorianCalendar();
 		return this.dataFim.getTimeInMillis() - agora.getTimeInMillis();
 	}
+        
+        public double getPreco() { return this.precoActual ;}
 }

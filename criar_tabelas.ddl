@@ -68,6 +68,7 @@ CREATE TABLE AnuncioVisitado (
 CREATE TABLE VendaDirecta (
   id         number(10) NOT NULL, 
   nPropostas number(10) NOT NULL, 
+  preco      number NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE Leilao (
   id          number(10) NOT NULL, 
@@ -75,6 +76,7 @@ CREATE TABLE Leilao (
   precoActual number NOT NULL, 
   nLicitacoes number(10) NOT NULL, 
   dataFim     date NOT NULL, 
+  incMinimo   number(1), 
   PRIMARY KEY (id));
 CREATE TABLE ModoVenda (
   id   number(10) NOT NULL, 
@@ -96,7 +98,8 @@ CREATE TABLE RespostaAnuncio (
   PRIMARY KEY (resposta, 
   anuncio));
 CREATE TABLE AnuncioCompra (
-  id number(10) NOT NULL, 
+  id            number(10) NOT NULL, 
+  precoSugerido number NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE CategoriaAnuncio (
   anuncio   number(10) NOT NULL, 
@@ -119,7 +122,6 @@ CREATE TABLE Anuncio (
   titulo        varchar2(30) NOT NULL, 
   dataInsercao  date NOT NULL, 
   dataExp       date NOT NULL, 
-  preco         number NOT NULL, 
   descricao     varchar2(4000) NOT NULL, 
   quantidade    number(10) NOT NULL, 
   nVisitas      number(10) NOT NULL, 
@@ -263,8 +265,6 @@ CREATE INDEX Anuncio_id
   ON Anuncio (id);
 CREATE INDEX Anuncio_titulo 
   ON Anuncio (titulo);
-CREATE INDEX Anuncio_preco 
-  ON Anuncio (preco);
 CREATE INDEX Anuncio_anunciante 
   ON Anuncio (anunciante);
 CREATE INDEX CategoriaSeguida_username 

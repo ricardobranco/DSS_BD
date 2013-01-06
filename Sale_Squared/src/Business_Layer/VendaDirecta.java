@@ -4,12 +4,14 @@ public class VendaDirecta extends ModoVenda {
 
 	// v. i.
 	private int nPropostas;
+        private double preco ;
 
 	// construtores
-	public VendaDirecta(int id, int nPropostas) {
+	public VendaDirecta(int id, int nPropostas, double preco) {
 
 		super(id);
 		this.nPropostas = nPropostas;
+                this.preco = preco ;
 	}
 
 	// get and set
@@ -20,6 +22,14 @@ public class VendaDirecta extends ModoVenda {
 	public void setnPropostas(int nPropostas) {
 		this.nPropostas = nPropostas;
 	}
+
+        public double getPreco() {
+            return this.preco;
+        }
+
+        public void setPreco(double preco) {
+            this.preco = preco;
+        }        
 
 	// e, c, tS
 	@Override
@@ -38,12 +48,12 @@ public class VendaDirecta extends ModoVenda {
 
 	@Override
 	public String toString() {
-		return "VendaDirecta{" + "nPropostas=" + this.nPropostas
+		return "VendaDirecta{" + "nPropostas=" + this.nPropostas + "preco=" + this.preco 
 				+ super.toString() + '}';
 	}
 
 	@Override
 	public VendaDirecta clone() {
-		return new VendaDirecta(this.getId(), this.nPropostas);
+		return new VendaDirecta(this.getId(), this.nPropostas, this.preco);
 	}
 }
