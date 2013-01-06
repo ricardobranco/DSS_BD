@@ -120,7 +120,7 @@ public class Inserir extends JPanel {
 								.getSistema()
 								.encontrarUtilizadorReg(Sale_Squared.UTILIZADOR));
 						root.getSistema().inserirAnuncio(a);
-						root.setBody(new Presentation_Layer.Anuncio.Anuncio(
+						root.setBody(new Presentation_Layer.Anuncio.Anuncio_Main(
 								root, a), a.getTitulo());
 
 						break;

@@ -67,7 +67,7 @@ public class Tabela_licitacao extends JPanel {
 
 		ActionListener abre = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Anuncio(root), "Anuncio");
+				root.setBody(new Anuncio_Main(root), "Anuncio");
 
 			}
 		};

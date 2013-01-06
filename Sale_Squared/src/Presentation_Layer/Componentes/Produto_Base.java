@@ -16,7 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.jdesktop.swingx.JXHyperlink;
 
 import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Anuncio.Anuncio;
+import Presentation_Layer.Anuncio.Anuncio_Main;
 
 public class Produto_Base extends JPanel {
 
@@ -34,7 +34,7 @@ public class Produto_Base extends JPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPanel anuncio = new Anuncio(root);
+				JPanel anuncio = new Anuncio_Main(root);
 				root.setBody(anuncio, "Nome do anuncio");
 
 			}

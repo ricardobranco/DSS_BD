@@ -1,7 +1,6 @@
 package Presentation_Layer.Anuncio;
 
 import java.awt.CardLayout;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;

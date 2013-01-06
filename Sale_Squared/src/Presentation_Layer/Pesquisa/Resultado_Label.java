@@ -247,7 +247,7 @@ public class Resultado_Label extends JPanel {
 		JXHyperlink hprlnkTituloDoNegcio = new JXHyperlink();
 		hprlnkTituloDoNegcio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Anuncio(root), "anuncio");
+				root.setBody(new Anuncio_Main(root), "anuncio");
 			}
 		});
 		hprlnkTituloDoNegcio.setForeground(new Color(0, 102, 204));
@@ -276,7 +276,7 @@ public class Resultado_Label extends JPanel {
 		JButton btnNewButton = new JButton("\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setBody(new Anuncio(root), "Anuncio");
+				root.setBody(new Anuncio_Main(root), "Anuncio");
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(Resultado_Label.class

@@ -14,7 +14,7 @@ import Presentation_Layer.Tabbed.Tabbed_Anuncio;
 import Presentation_Layer.Tabbed.Tabbed_Sugestoes;
 
 
-public class Anuncio extends JPanel {
+public class Anuncio_Main extends JPanel {
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class Anuncio extends JPanel {
 	
 	private business_Layer.Anuncio anuncio;
 	
-	public Anuncio(final Sale_Squared root, business_Layer.Anuncio anuncio) {
+	public Anuncio_Main(final Sale_Squared root, business_Layer.Anuncio anuncio) {
 
 		this.anuncio = anuncio;
 		JLabel lblNewLabel = new JLabel("Titulo do Negócio");
@@ -147,7 +147,7 @@ public class Anuncio extends JPanel {
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel_1.add(new Tabbed_Anuncio(), "Info");
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Anuncio_Compra(), "Compra");
+		panel.add(new Anuncio_Info(), "Compra");
 		setLayout(groupLayout);
 
 	}
