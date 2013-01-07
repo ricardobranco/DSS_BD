@@ -157,4 +157,6 @@ public class Anuncio_Main extends JPanel {
         setLayout(groupLayout);
 
     }
+
+  
 }
