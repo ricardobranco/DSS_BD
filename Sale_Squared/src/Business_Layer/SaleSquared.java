@@ -41,7 +41,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		this.anuncios = new AnuncioDAO();
 		this.categorias = new CategoriaDAO();
 		this.iniciarConexao();
-		this.emSessao = new Utilizador(this.registaIdUtilizador());
+                this.registaUtilizador() ;
+		//this.emSessao = new Utilizador(this.registaIdUtilizador());
 	}
 
 	// get e set

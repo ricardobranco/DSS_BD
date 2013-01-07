@@ -68,7 +68,7 @@ public interface SaleSquaredFacade {
 
 	public boolean eCategoriaSeguida(String uName, String categoria);
 
-	// public void inserirAnuncio(Anuncio anuncio);
+	//public void inserirAnuncio(Anuncio anuncio);
 
 	public void enviarMensagem(Mensagem msgEnv, Mensagem msgRec);
 
