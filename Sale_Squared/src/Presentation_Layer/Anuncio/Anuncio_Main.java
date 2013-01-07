@@ -146,7 +146,7 @@ public class Anuncio_Main extends JPanel {
                 Short.MAX_VALUE)))
                 .addGap(15)));
         panel_2.setLayout(new CardLayout(0, 0));
-        panel_2.add(new Tabbed_Sugestoes(root), "Mais sugestoes");
+        panel_2.add(new Tabbed_Sugestoes(root,anuncio), "Mais sugestoes");
 
         panel_3.setLayout(new CardLayout(0, 0));
         panel_3.add(imagepanel, "Imagem");
