@@ -79,7 +79,8 @@ public class Registo_Main extends JPanel {
 					rf.termosaceites();
                                         
 				         SaleSquared sistema = root.getSistema();
-					sistema.inserirUtilizadorReg(ur);
+                                         
+                                         sistema.inserirUtilizadorReg(ur);
 
 					Map<String, Categoria> categorias = r3.getCategorias();
 					for (Categoria c : categorias.values())
