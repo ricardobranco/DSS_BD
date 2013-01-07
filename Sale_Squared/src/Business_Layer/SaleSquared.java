@@ -770,6 +770,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			for (int i = 0; i < campos.length && exitFlag; i++) {
 				switch (campos[i]) {
                                 case "tit": { exitFlag = exitFlag && a.getTitulo().contains((String)valores[i]) ; break;}    
+                                case "desc" : {exitFlag = exitFlag && a.getDescricao().contains((String)valores[i]) ; break ;}
 				case "pMenorI": {
 					exitFlag = exitFlag && a.getPreco() <= (Double) valores[i];
 					break;
@@ -780,8 +781,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 				}
 				case "c": {
 					exitFlag = exitFlag
-							&& a.getCategorias().containsKey(
-									(String) valores[i]);
+							&& (a.getCategorias().containsKey(
+									(String) valores[i]) || (a.eFilho((String)valores[i])));
 					break;
 				}
 				case "t": {
@@ -1070,6 +1071,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         public SortedSet<Anuncio> anuncioOrdPreco() {
             
             TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncPreco()) ;
+            for(Anuncio a : this.anuncios.values())
+                res.add(a) ;
+            return res ;
+        }
+        
+        public SortedSet<Anuncio> anuncioOrdtempoRestante()  {
+            
+            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorTempoRest()) ;
             for(Anuncio a : this.anuncios.values())
                 res.add(a) ;
             return res ;

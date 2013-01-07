@@ -200,6 +200,8 @@ public interface SaleSquaredFacade {
         
         public SortedSet<Anuncio> anuncioOrdPreco() ;
 
+        public SortedSet<Anuncio> anuncioOrdtempoRestante() ;
+        
 	public void iniciarConexao();
 
 	public void terminarConexao();

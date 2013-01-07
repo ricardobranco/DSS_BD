@@ -1,10 +1,6 @@
 package Business_Layer;
 
-import java.util.Comparator;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.* ;
 
 import Data_Layer.AvaliacaoAnuncioDAO;
 import Data_Layer.CategoriaAnuncioDAO;
@@ -352,6 +348,16 @@ public abstract class Anuncio {
             }
             return this.dataExpir.getTimeInMillis() - new GregorianCalendar().getTimeInMillis() ;           
 	}
+        
+        public boolean eFilho (String categoriaPai) {
+            
+            boolean res = false ;
+            for(Iterator<Categoria> it = this.getCategorias().values().iterator(); it.hasNext() && !res; ) {
+                if(it.next().eCategoriaFilho(categoriaPai))
+                    res = true ;
+            }
+            return res ;
+        }
 }
 
 

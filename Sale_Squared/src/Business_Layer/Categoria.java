@@ -65,4 +65,20 @@ public class Categoria {
 		return new Categoria(this.nome, (this.categoriaPai == null ? null
 				: this.categoriaPai.clone()));
 	}
+        
+        // 
+        public boolean eCategoriaFilho (String categoriaPai) {
+            
+            boolean res = false ;
+            Categoria c = this.categoriaPai ;
+            if(c == null)
+                return false ;            
+            while(c != null && !res) {
+                if(c.getNome().equals(categoriaPai))
+                    res = true ;
+                else
+                    c = c.getCategoriaPai() ;                
+            }
+            return res ;
+        }
 }
