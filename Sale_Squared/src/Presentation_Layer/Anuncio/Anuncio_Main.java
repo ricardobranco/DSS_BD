@@ -1,6 +1,7 @@
 package Presentation_Layer.Anuncio;
 
 import Business_Layer.AnuncioVenda;
+import Business_Layer.ModoVenda;
 import java.awt.CardLayout;
 import java.awt.Font;
 
@@ -38,6 +39,13 @@ public class Anuncio_Main extends JPanel {
         JPanel panel_2 = new JPanel();
 
         JPanel panel_3 = new JPanel();
+       
+        
+        
+        
+        
+        
+        
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout
                 .setHorizontalGroup(groupLayout
@@ -145,7 +153,7 @@ public class Anuncio_Main extends JPanel {
         panel_1.setLayout(new CardLayout(0, 0));
         panel_1.add(new Tabbed_Anuncio(anuncio, imagepanel), "Info");
         panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Anuncio_Info(), "Compra");
+        panel.add(new Anuncio_Info(root, anuncio), "Compra");
         setLayout(groupLayout);
 
     }
