@@ -3,6 +3,7 @@ package Presentation_Layer.Anuncio;
 import Business_Layer.Imagem;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -214,4 +215,6 @@ public class Imagem_Grid extends JPanel {
 		setLayout(groupLayout);
 
 	}
+
+    
 }

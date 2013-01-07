@@ -89,7 +89,8 @@ public class Envio_Pagamento extends JPanel {
 
 		JLabel lblCondiesDeEnvio = new JLabel("Condições de Envio");
 
-		JLabel quempaga = new JLabel("Comprador paga custos de envio");
+                
+                JLabel quempaga = new JLabel((anuncio.getPrecoEnvio() == 0 && anuncio.getSeguro() == 0)?"Comprador":"Vendedor"+"paga custos de envio e seguro");
 
 		JLabel envio = new JLabel("Envio");
 

@@ -1,8 +1,10 @@
 package Presentation_Layer.Anuncio;
 
+import Business_Layer.AnuncioVenda;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,23 +26,27 @@ public class Anuncio_Info extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Anuncio_Info() {
+	public Anuncio_Info(AnuncioVenda anuncio) {
 
-		JLabel lblNewLabel = new JLabel("Início:");
+		
+                
+            
+            
+                JLabel lblNewLabel = new JLabel("Início:");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-		JLabel lblNewLabel_1 = new JLabel("24/12/2012 - 06:30");
+                
+                JLabel lblNewLabel_1 = new JLabel(showdata(anuncio.getDataInser()));
 
 		JLabel lblNewLabel_2 = new JLabel("Fim:");
 		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		JLabel lblNewLabel_3 = new JLabel(
-				"2 dias, 12h 48m (26.12.2012 19:17:02)");
+		JLabel lblNewLabel_3 = new JLabel(temporestante(anuncio.calculaTempoRestanteLeilao()) +" ("+showdata(anuncio.getDataExpir())+")");
+			
 
 		JLabel lblNewLabel_4 = new JLabel("Quantidade:");
 		lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-		JLabel lblNewLabel_5 = new JLabel("10 Unidades");
+		JLabel lblNewLabel_5 = new JLabel(""+anuncio.getQuantidade());
 
 		JLabel lblNewLabel_6 = new JLabel("Preço:");
 		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 13));
@@ -376,4 +382,47 @@ public class Anuncio_Info extends JPanel {
 		setLayout(groupLayout);
 
 	}
+        
+        private String showdata(GregorianCalendar gc){
+            int dia,mes,ano,hora,minutos;
+            
+            dia=gc.get(GregorianCalendar.DAY_OF_MONTH);
+            mes=gc.get(GregorianCalendar.MONTH);
+            ano=gc.get(GregorianCalendar.YEAR);
+            hora=gc.get(GregorianCalendar.HOUR_OF_DAY);
+            minutos=gc.get(GregorianCalendar.MINUTE);
+            return dia+"/"+mes+"/"+ano+" - "+hora+":"+minutos;
+        }
+        
+        private String temporestante(long diff){
+            
+             long segundos = diff/1000;
+             long msres = diff%1000;
+             
+             long minutos = segundos/60;
+             long sres = segundos%60;
+             
+             long horas = minutos/60;
+             long mres = minutos%60;
+             
+             long dia = horas/24;
+             long hres = horas%24;
+             
+             String sdias = (((int)dia>0)?(int)dia + (((int)dia>1)?"1 dia":(int)dia+"dias"):"");
+             String shoras = (((int)hres>0)?(int)hres + (((int)hres>1)?"1 hora":(int)hres+"horas"):"");   
+             String sminutos = (((int)mres>0)?(int)mres + (((int)mres>1)?"1 minuto":(int)hres+"minutos"):""); 
+             String ssegundos = (((int)sres>0)?(int)sres + (((int)sres>1)?"1 segundo":(int)hres+"segundo"):""); 
+             
+             if((sdias+shoras+sminutos+ssegundos+"").isEmpty())
+                 return "Terminado";
+             else return sdias+", "+shoras+" "+sminutos+" "+ssegundos;
+             
+             
+           
+            
+        }
+        
+        
+        
+        
 }
