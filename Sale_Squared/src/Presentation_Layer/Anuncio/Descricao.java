@@ -17,7 +17,7 @@ public class Descricao extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Descricao() {
+	public Descricao(String descricao) {
 
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -37,7 +37,8 @@ public class Descricao extends JPanel {
 								290, Short.MAX_VALUE).addGap(5)));
 
 		JTextArea txtrCondioUtilizaoNovo = new JTextArea();
-		txtrCondioUtilizaoNovo.setLineWrap(true);
+		txtrCondioUtilizaoNovo.setText(descricao);
+                txtrCondioUtilizaoNovo.setLineWrap(true);
 		txtrCondioUtilizaoNovo.setEditable(false);
 		txtrCondioUtilizaoNovo.setBackground(UIManager
 				.getColor("Button.background"));
