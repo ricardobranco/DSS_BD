@@ -1,9 +1,12 @@
 package Presentation_Layer.Anuncio;
 
+import Presentation_Layer.Componentes.Avatar;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import org.jdesktop.swingx.JXImageView;
@@ -13,14 +16,12 @@ public class ImagePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+        private JXImageView imageView;
 	/** Creates a new instance of ImagePanel */
 	public ImagePanel() {
 
-		JXImageView imageView = new JXImageView();
-		imageView.setImage(Toolkit.getDefaultToolkit().getImage(
-				ImagePanel.class.getResource("/Imagens/header.png")));
-		GroupLayout groupLayout = new GroupLayout(this);
+		imageView = new JXImageView();
+                GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
 				Alignment.LEADING).addGroup(
 				groupLayout
@@ -38,4 +39,13 @@ public class ImagePanel extends JPanel {
 		setLayout(groupLayout);
 
 	}
+        
+        public void setImage(Image image){
+            Avatar av = new Avatar(image);
+            av.setHeight(imageView.getHeight());
+            av.setWidth(imageView.getWidth());
+            imageView.setImage(av.getImage());    
+        } 
+        
+        
 }

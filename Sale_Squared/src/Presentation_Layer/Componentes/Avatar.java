@@ -18,7 +18,18 @@ public class Avatar implements Icon {
 
 	}
 
-	public int getIconHeight() {
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+	
+        
+        
+        public int getIconHeight() {
 		return height;
 	}
 

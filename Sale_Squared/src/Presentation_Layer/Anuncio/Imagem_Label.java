@@ -7,6 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Business_Layer.Imagem;
+import Presentation_Layer.Componentes.Avatar;
+import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Imagem_Label extends JPanel {
 
@@ -18,13 +22,22 @@ public class Imagem_Label extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Imagem_Label(Imagem i) {
+	public Imagem_Label(Imagem i, final ImagePanel ip) {
 
 		JButton button = new JButton("");
-		
-		
-		button.setIcon(new ImageIcon(Imagem_Label.class
-				.getResource("/Imagens/Sem_Imagem.png")));
+		ImageIcon icon = new ImageIcon(i.getPath());
+                final Image img = icon.getImage();
+                
+                button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            ip.setImage(img);
+			}
+		});
+		Avatar av = new Avatar(img);
+		av.setHeight(button.getHeight());
+                av.setWidth(button.getWidth());
+		button.setIcon(av);
+                
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
