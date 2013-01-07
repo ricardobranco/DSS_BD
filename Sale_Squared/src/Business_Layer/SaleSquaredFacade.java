@@ -190,7 +190,9 @@ public interface SaleSquaredFacade {
 
 	public Iterator<Anuncio> ultimosAnuncios();
 
-	public long tempoRestanteLeilao(int codAnunc);
+	public long tempoRestante(int codAnunc);
+        
+        //public long tempoRestanteVendaDir (int codAnunc)
 
 	public Collection<Anuncio> anunciosSeguidos(String username);
 

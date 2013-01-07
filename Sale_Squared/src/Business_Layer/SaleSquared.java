@@ -984,9 +984,9 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	// tempo restante em milisegundos
 	// pré-condição: modo de venda de anúncio é leilão
-	public long tempoRestanteLeilao(int codAnunc) {
-		return ((AnuncioVenda) this.anuncios.get(codAnunc))
-				.calculaTempoRestanteLeilao();
+	public long tempoRestante(int codAnunc) {
+		return this.anuncios.get(codAnunc)
+				.calculaTempoRestante();
 	}
 
 	public Collection<Anuncio> anunciosSeguidos(String username) {

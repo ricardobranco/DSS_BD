@@ -340,6 +340,18 @@ public abstract class Anuncio {
 	}
         
         public abstract double getPreco () ;
+        
+        public long calculaTempoRestante() {
+            
+            if(this.getClass().getName().equals(AnuncioVenda.class.getName())) {
+                AnuncioVenda a = (AnuncioVenda)this ;
+                if(a.getTipoVenda().getClass().getName().equals(Leilao.class.getName())) {
+                    Leilao l = (Leilao)a.getTipoVenda() ;
+                    return l.getDataFim().getTimeInMillis() - new GregorianCalendar().getTimeInMillis() ;
+                }
+            }
+            return this.dataExpir.getTimeInMillis() - new GregorianCalendar().getTimeInMillis() ;           
+	}
 }
 
 class ComparadorAnuncNVis implements Comparator<Anuncio> {
