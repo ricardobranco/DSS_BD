@@ -38,7 +38,7 @@ public class Inserir_Envio extends JPanel {
 		JLabel lblNewLabel = new JLabel("2 - Envio");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
-		JLabel lblNewLabel_1 = new JLabel("M\u00E9todo de Envio");
+		JLabel lblNewLabel_1 = new JLabel("Método de Envio");
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
 		envio = new JComboBox<String>();

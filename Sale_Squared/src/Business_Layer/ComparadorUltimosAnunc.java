@@ -6,6 +6,8 @@ public class ComparadorUltimosAnunc implements Comparator<Anuncio> {
 
 	public static GregorianCalendar tempoActual;
 
+        
+        
 	public int compare(Anuncio a, Anuncio b) {
 
 		long dA = tempoActual.getTimeInMillis()

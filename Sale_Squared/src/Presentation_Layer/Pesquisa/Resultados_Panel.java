@@ -18,9 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import Business_Layer.*;
-import Business_Layer.AnuncioVenda;
-import business_Layer.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import java.util.TreeSet;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Resultados_Panel extends JPanel {
 
@@ -29,26 +33,41 @@ public class Resultados_Panel extends JPanel {
      */
     private static final long serialVersionUID = 1L;
     JComboBox comboBox;
+    JComboBox comboBox_1;
     private Set<AnuncioVenda> anuncios;
+    private List<JPanel> jpanels;
+    private Sale_Squared root;
+
     /**
      * Create the panel.
      */
-    public Resultados_Panel(final Sale_Squared root,Set<AnuncioVenda> anuncios) {
-
-       
+    public Resultados_Panel(final Sale_Squared root, Set<AnuncioVenda> anuncios) {
+        this.root = root;
+        this.jpanels = new ArrayList<>();
         this.anuncios = anuncios;
         comboBox = new JComboBox();
+        comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ordena();
+
+            }
+        });
         comboBox.setModel(new DefaultComboBoxModel(new String[]{
                     "Mais Recentes", "A fechar",
                     "Preço: Mais baixo", "Preço: Mais alto",
                     "Preço + portes: Mais baixo",
-                    "Preço + portes: Mais alto","Popularidade"}));
+                    "Preço + portes: Mais alto", "Popularidade"}));
 
-        
-       
+
+
         JPanel panel = new JPanel();
 
-        JComboBox comboBox_1 = new JComboBox();
+        comboBox_1 = new JComboBox();
+        comboBox_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ordena();
+            }
+        });
         comboBox_1.setModel(new DefaultComboBoxModel(listaPagina(npaginas(this.anuncios.size()))));
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout
@@ -132,8 +151,24 @@ public class Resultados_Panel extends JPanel {
         JPanel panel_9 = new JPanel();
 
         JSeparator separator_8 = new JSeparator();
-
         JPanel panel_10 = new JPanel();
+
+
+        this.jpanels.add(panel_1);
+        this.jpanels.add(panel_2);
+        this.jpanels.add(panel_3);
+        this.jpanels.add(panel_4);
+        this.jpanels.add(panel_5);
+        this.jpanels.add(panel_6);
+        this.jpanels.add(panel_7);
+        this.jpanels.add(panel_8);
+        this.jpanels.add(panel_9);
+        this.jpanels.add(panel_10);
+
+
+
+
+
         GroupLayout gl_panel = new GroupLayout(panel);
         gl_panel.setHorizontalGroup(gl_panel
                 .createParallelGroup(Alignment.TRAILING)
@@ -309,35 +344,92 @@ public class Resultados_Panel extends JPanel {
         panel_3.setLayout(new CardLayout(0, 0));
         panel_4.setLayout(new CardLayout(0, 0));
         panel_1.setLayout(new CardLayout(0, 0));
+        ordena();
         panel.setLayout(gl_panel);
         setLayout(groupLayout);
 
     }
 
-    
-    private void ordena(){
-        String criterio = (String) comboBox.getModel().getElementAt(comboBox.getSelectedIndex());
-        TreeSet<AnuncioVenda> ordenado;
-        switch(criterio){
-            case "Mais Recentes"
-                   
-                
-                    
-        }
-        
-        
-    });
-                
-                    
-        }
-        
-        
+    public void setanuncios(Set<AnuncioVenda> anuncios) {
+        this.anuncios = anuncios;
+        comboBox_1.setModel(new DefaultComboBoxModel(listaPagina(npaginas(this.anuncios.size()))));
+        ordena();
+
     }
-    private int npaginas(int size){
-        int res1 = size/10;
-        int res2 = size%10==0?0:1;
-        return res1+res2;
-}
+    
+    
+
+    @SuppressWarnings("empty-statement")
+    public void ordena() {
+        String criterio = (String) comboBox.getModel().getElementAt(comboBox.getSelectedIndex());
+        TreeSet<AnuncioVenda> ordenado = null;
+        int numeroPag = new Integer((String) this.comboBox_1.getModel().getElementAt(this.comboBox_1.getSelectedIndex())).intValue();
+
+        for (JPanel j : this.jpanels) {
+            j.setVisible(false);
+        }
+
+        switch (criterio) {
+            case "Mais Recentes":
+
+                ordenado = new TreeSet<>(new ComparadorUltimosAnunc());
+                ordenado.addAll(this.anuncios);
+                break;
+
+            case "Popularidade":
+
+                ordenado = new TreeSet<>(new ComparadorAnuncNVis());
+                ordenado.addAll(this.anuncios);
+                break;
+
+            case "A fechar":
+                ordenado = new TreeSet<>(new ComparadorATerminar());
+                ordenado.addAll(this.anuncios);
+                break;
+            case "Preço: Mais baixo":
+                ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
+                ordenado.addAll(this.anuncios);
+                break;
+            case "Preço + portes: Mais baixo":
+                ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.CRESCENTE));
+                ordenado.addAll(this.anuncios);
+                break;
+
+            case "Preço: Mais alto":
+                ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.DECRESCENTE));
+                ordenado.addAll(this.anuncios);
+                break;
+            case "Preço + portes: Mais alto":
+                ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.DECRESCENTE));
+                ordenado.addAll(this.anuncios);
+                break;
+        }
+
+        Iterator<AnuncioVenda> it = ordenado.iterator();
+        List<AnuncioVenda> la = new ArrayList<>();
+        while (it.hasNext()) {
+            la.add(it.next());
+        }
+
+        int i = 0;
+        int start = (numeroPag - 1) * 10;
+        for (; start < this.anuncios.size() && i < 10; i++, start++) {
+            this.jpanels.get(i).removeAll();
+            this.jpanels.get(i).add(new Resultado_Label(root, la.get(start)));
+            this.jpanels.get(i).updateUI();
+            this.jpanels.get(i).validate();
+            this.jpanels.get(i).setVisible(true);
+        }
+
+
+    }
+
+    private int npaginas(int size) {
+        int res1 = size / 10;
+        int res2 = size % 10 == 0 ? 0 : 1;
+        return res1 + res2;
+    }
+
     private String[] listaPagina(final int n) {
         String[] res = new String[n];
         for (int i = 1; i <= n; i++) {

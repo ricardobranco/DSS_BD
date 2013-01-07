@@ -1070,7 +1070,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         
         public SortedSet<Anuncio> anuncioOrdPreco() {
             
-            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncPreco()) ;
+            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE)) ;
             for(Anuncio a : this.anuncios.values())
                 res.add(a) ;
             return res ;

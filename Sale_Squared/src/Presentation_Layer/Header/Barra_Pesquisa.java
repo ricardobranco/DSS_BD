@@ -101,6 +101,7 @@ public class Barra_Pesquisa extends JPanel {
 		JButton btnPesquisa = new JButton("Pesquisa");
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+                            
 				root.setBody(new Pesquisa_Resultado(root), "Resultados");
 			}
 		});

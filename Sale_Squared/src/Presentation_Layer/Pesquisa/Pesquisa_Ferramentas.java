@@ -1,5 +1,12 @@
 package Presentation_Layer.Pesquisa;
 
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorAnuncPreco;
+import Business_Layer.ComparadorUltimosAnunc;
+import Business_Layer.SaleSquared;
+import Presentation_Layer.Componentes.Mensagem_Erro;
+import Presentation_Layer.Sale_Squared;
 import java.awt.Font;
 
 import javax.swing.GroupLayout;
@@ -11,363 +18,368 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Pesquisa_Ferramentas extends JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private JTextField min;
+    private JTextField max;
+    private TreeSet<AnuncioVenda> anuncios;
+    private JCheckBox portesgratis;
+    private JCheckBox portespagos;
+    private JCheckBox tb;
+    private JCheckBox pp;
+    private JCheckBox dinheiro;
+    private JCheckBox envicob;
+    private JCheckBox cheque;
+    private JCheckBox normal;
+    private JCheckBox reg;
+    private JCheckBox transp;
+    private JCheckBox entmao;
+    private JCheckBox seguro;
+    private JCheckBox azul;
+    private JCheckBox verde;
+    private JCheckBox novo;
+    private JCheckBox usado;
+    private List<JCheckBox> pagamentos;
+    private List<JCheckBox> envios;
 
-	/**
-	 * Create the panel.
-	 */
-	public Pesquisa_Ferramentas() {
+    /**
+     * Create the panel.
+     */
+    public Pesquisa_Ferramentas(final Sale_Squared root, Pesquisa_Resultado pr) {
+        
+        
+        anuncios = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
+        anuncios.addAll(pr.getAnuncios());
+        this.pagamentos = new ArrayList<>();
+        this.envios = new ArrayList<>();
+        
+        
+        
+        JLabel lblNewLabel = new JLabel("Refinar Pesquisa");
+        lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+        
+        JLabel lblNewLabel_1 = new JLabel("€");
+        
+        min = new JTextField();
+        min.setText("" + anuncios.first().getPreco());
+        min.setColumns(10);
+        
+        JLabel lblNewLabel_2 = new JLabel("até €");
+        
+        max = new JTextField();
+        max.setText("" + anuncios.last().getPreco());
+        max.setColumns(10);
+        
+        JButton btnNewButton = new JButton("Filtrar");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SaleSquared sistema = root.getSistema();
+                Set<AnuncioVenda> res = new TreeSet<>(new ComparadorUltimosAnunc());
+                
+                try {
+                    String[] crit = {"pMenorI", "pMaiorI"};
+                    Object[] values = {getMin(), getMax()};
+                    Set<Anuncio> res1 = sistema.procurarAnuncAvanc(crit, values);
+                    //Portes Gratis
+                    for (Anuncio a : res1) {
+                        AnuncioVenda av = (AnuncioVenda) a;
 
-		JLabel lblNewLabel = new JLabel("Refinar Pesquisa");
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+                        //Portes gratis
+                        if (portesgratis.isSelected()) {
+                            if (av.getPrecoEnvio() == 0) {
+                                res.add(av);
+                            }
+                            
+                        }
 
-		JLabel lblNewLabel_1 = new JLabel("\u20AC");
-
-		textField = new JTextField();
-		textField.setText("0");
-		textField.setColumns(10);
-
-		JLabel lblNewLabel_2 = new JLabel("at\u00E9 \u20AC");
-
-		textField_1 = new JTextField();
-		textField_1.setText("10000");
-		textField_1.setColumns(10);
-
-		JButton btnNewButton = new JButton("Filtrar");
-
-		JSeparator separator = new JSeparator();
-
-		JLabel lblNewLabel_3 = new JLabel("Prefer\u00EAncias");
-		lblNewLabel_3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-
-		JPanel panel = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addGroup(
-																Alignment.LEADING,
-																groupLayout
-																		.createSequentialGroup()
-																		.addGap(33)
-																		.addComponent(
-																				lblNewLabel_1)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				textField,
-																				GroupLayout.PREFERRED_SIZE,
-																				91,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				lblNewLabel_2)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				textField_1,
-																				GroupLayout.PREFERRED_SIZE,
-																				91,
-																				GroupLayout.PREFERRED_SIZE))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				separator,
-																				GroupLayout.DEFAULT_SIZE,
-																				266,
-																				Short.MAX_VALUE))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addGap(76)
-																		.addComponent(
-																				panel,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap(
-																				191,
-																				Short.MAX_VALUE)
-																		.addComponent(
-																				btnNewButton))
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblNewLabel_3))
-														.addGroup(
-																Alignment.LEADING,
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblNewLabel)))
-										.addContainerGap()));
-		groupLayout
-				.setVerticalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(lblNewLabel)
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																lblNewLabel_1)
-														.addComponent(
-																textField,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblNewLabel_2)
-														.addComponent(
-																textField_1,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addComponent(separator,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addComponent(lblNewLabel_3)
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addComponent(panel,
-												GroupLayout.PREFERRED_SIZE,
-												497, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addComponent(btnNewButton)
-										.addContainerGap(
-												GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)));
-
-		JLabel lblNewLabel_4 = new JLabel("Portes de Envio");
-		lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Pagos Gr\u00E1tis");
-		chckbxNewCheckBox.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Portes Pagos");
-		chckbxNewCheckBox_1.setSelected(true);
-
-		JLabel lblNewLabel_5 = new JLabel("Modos de Pagamento");
-		lblNewLabel_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox(
-				"Transfer\u00EAncia Banc\u00E1ria");
-		chckbxNewCheckBox_2.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("PayPal");
-		chckbxNewCheckBox_3.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Dinheiro");
-		chckbxNewCheckBox_4.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_5 = new JCheckBox(
-				"Envia \u00E0 Cobran\u00E7a");
-		chckbxNewCheckBox_5.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_6 = new JCheckBox("Cheque");
-		chckbxNewCheckBox_6.setSelected(true);
-
-		JLabel lblNewLabel_6 = new JLabel("Modo de Envio");
-		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-		JCheckBox chckbxNewCheckBox_7 = new JCheckBox("Normal");
-		chckbxNewCheckBox_7.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_8 = new JCheckBox("Registado");
-		chckbxNewCheckBox_8.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_9 = new JCheckBox("Transportadora");
-		chckbxNewCheckBox_9.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_10 = new JCheckBox("Entrega em m\u00E3o");
-		chckbxNewCheckBox_10.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_11 = new JCheckBox("Registado com Seguro");
-		chckbxNewCheckBox_11.setSelected(true);
-
-		JLabel lblNewLabel_7 = new JLabel("Estado");
-		lblNewLabel_7.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-		JCheckBox chckbxNewCheckBox_12 = new JCheckBox("Novo");
-		chckbxNewCheckBox_12.setSelected(true);
-
-		JCheckBox chckbxNewCheckBox_13 = new JCheckBox("Usado");
-		chckbxNewCheckBox_13.setSelected(true);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		lblNewLabel_4))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		lblNewLabel_5))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_1))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_2))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_3))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_4))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_5))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_6))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		lblNewLabel_6))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_7))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_8))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_9))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_10))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_11))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		lblNewLabel_7))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_12))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addContainerGap()
-																.addComponent(
-																		chckbxNewCheckBox_13)))
-								.addContainerGap(17, Short.MAX_VALUE)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel.createSequentialGroup().addContainerGap()
-						.addComponent(lblNewLabel_4)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_1)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblNewLabel_5)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_2)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_3)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_4)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_5)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_6)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblNewLabel_6)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_7)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_8)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_9)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_10)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_11)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblNewLabel_7)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_12)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(chckbxNewCheckBox_13)
-						.addContainerGap(58, Short.MAX_VALUE)));
-		panel.setLayout(gl_panel);
-		setLayout(groupLayout);
-
-	}
+                        //Portes Pagos
+                        if (portespagos.isSelected()) {
+                            if (av.getPrecoEnvio() != 0) {
+                                res.add(av);
+                            }
+                            
+                        }
+                        
+                       for(JCheckBox j : pagamentos){
+                           if(j.isSelected()){
+                               if(av.getModosPagamento().contains(j.getText()))
+                                  res.add(av);
+                           }
+                       }
+                       
+                       for(JCheckBox j : envios){
+                           if(j.isSelected()){
+                               if(av.getMetodoEnvio().contains(j.getText()))
+                                  res.add(av);
+                           }
+                       }
+                       
+                       if(novo.isSelected()){
+                           if(av.isEstadoProduto()==AnuncioVenda.NOVO)
+                               res.add(av);
+                       }
+                       
+                        if(usado.isSelected()){
+                           if(av.isEstadoProduto()==AnuncioVenda.USADO)
+                               res.add(av);
+                       }
+                    }
+                    
+                    
+                } catch (Exception e2) {
+                    
+                    Mensagem_Erro frame = new Mensagem_Erro(root, e2
+                            .getMessage());
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                 }
+                
+            }
+        });
+        
+        JSeparator separator = new JSeparator();
+        
+        JLabel lblNewLabel_3 = new JLabel("Preferências");
+        lblNewLabel_3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+        
+        JPanel panel = new JPanel();
+        GroupLayout groupLayout = new GroupLayout(this);
+        groupLayout.setHorizontalGroup(
+                groupLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(groupLayout.createSequentialGroup()
+                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(groupLayout.createSequentialGroup()
+                .addGap(33)
+                .addComponent(lblNewLabel_1)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(min, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(lblNewLabel_2)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(max, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+                .addGroup(groupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(separator, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                .addGroup(groupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNewLabel))
+                .addGroup(groupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNewLabel_3))
+                .addGroup(groupLayout.createSequentialGroup()
+                .addGap(76)
+                .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNewButton))))
+                .addContainerGap()));
+        groupLayout.setVerticalGroup(
+                groupLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(groupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNewLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                .addComponent(lblNewLabel_1)
+                .addComponent(min, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblNewLabel_2)
+                .addComponent(max, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18)
+                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(lblNewLabel_3)
+                .addPreferredGap(ComponentPlacement.UNRELATED)
+                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 558, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(btnNewButton)
+                .addContainerGap(53, Short.MAX_VALUE)));
+        
+        JLabel lblNewLabel_4 = new JLabel("Portes de Envio");
+        lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        portesgratis = new JCheckBox("Portes Grátis");
+        portesgratis.setSelected(true);
+        
+        portespagos = new JCheckBox("Portes Pagos");
+        portespagos.setSelected(true);
+        
+        JLabel lblNewLabel_5 = new JLabel("Modos de Pagamento");
+        lblNewLabel_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        tb = new JCheckBox(
+                "Transferêcia Bancária");
+        tb.setSelected(true);
+        pagamentos.add(tb);
+        
+        pp = new JCheckBox("PayPal");
+        pp.setSelected(true);
+        pagamentos.add(pp);
+        
+        dinheiro = new JCheckBox("Dinheiro");
+        dinheiro.setSelected(true);
+        pagamentos.add(dinheiro);
+        
+        envicob = new JCheckBox(
+                "Envia à Cobrança");
+        envicob.setSelected(true);
+        
+        pagamentos.add(envicob);
+        
+        cheque = new JCheckBox("Cheque");
+        cheque.setSelected(true);
+        pagamentos.add(cheque);
+        
+        JLabel lblNewLabel_6 = new JLabel("Modo de Envio");
+        lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        normal = new JCheckBox("Normal");
+        normal.setSelected(true);
+        envios.add(normal);
+        
+        
+        
+        reg = new JCheckBox("Registado");
+        reg.setSelected(true);
+        envios.add(reg);
+        
+        transp = new JCheckBox("Transportadora");
+        transp.setSelected(true);
+        envios.add(transp);
+        
+        entmao = new JCheckBox("Entrega em mão");
+        entmao.setSelected(true);
+        envios.add(entmao);
+        
+        seguro = new JCheckBox("Registado com Seguro");
+        seguro.setSelected(true);
+        envios.add(seguro);
+        
+        
+        JLabel lblNewLabel_7 = new JLabel("Estado");
+        lblNewLabel_7.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        novo = new JCheckBox("Novo");
+        novo.setSelected(true);
+        
+        usado = new JCheckBox("Usado");
+        usado.setSelected(true);
+        
+        azul = new JCheckBox("Correio Azul");
+        azul.setSelected(true);
+        
+        verde = new JCheckBox("Correio Verde");
+        verde.setSelected(true);
+        GroupLayout gl_panel = new GroupLayout(panel);
+        gl_panel.setHorizontalGroup(
+                gl_panel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                .addComponent(lblNewLabel_4)
+                .addComponent(lblNewLabel_5)
+                .addComponent(portesgratis)
+                .addComponent(portespagos)
+                .addComponent(tb)
+                .addComponent(pp)
+                .addComponent(dinheiro)
+                .addComponent(envicob)
+                .addComponent(cheque)
+                .addComponent(lblNewLabel_6)
+                .addComponent(normal)
+                .addComponent(reg)
+                .addComponent(transp)
+                .addComponent(entmao)
+                .addComponent(seguro)
+                .addComponent(lblNewLabel_7)
+                .addComponent(novo)
+                .addComponent(usado)
+                .addComponent(azul)
+                .addComponent(verde))
+                .addContainerGap(17, Short.MAX_VALUE)));
+        gl_panel.setVerticalGroup(
+                gl_panel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNewLabel_4)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(portesgratis)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(portespagos)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(lblNewLabel_5)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(tb)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(pp)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(dinheiro)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(envicob)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(cheque)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(lblNewLabel_6)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(normal)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(reg)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(transp)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(entmao)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(seguro)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(azul)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(verde)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(lblNewLabel_7)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(novo)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(usado)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        panel.setLayout(gl_panel);
+        setLayout(groupLayout);
+        
+    }
+    
+    public double getMin() throws Exception {
+        double dmin;
+        try {
+            dmin = new Double(min.getText());
+        } catch (Exception e) {
+            throw new Exception("Insira um minimo válido");
+        }
+        if (dmin < anuncios.first().getPreco()) {
+            min.setText("" + anuncios.first().getPreco());
+            dmin = anuncios.first().getPreco();
+        }
+        return dmin;
+    }
+    
+    public double getMax() throws Exception {
+        double dmax;
+        try {
+            dmax = new Double(min.getText());
+        } catch (Exception e) {
+            throw new Exception("Insira um maximo válido");
+        }
+        if (dmax < anuncios.first().getPreco()) {
+            max.setText("" + anuncios.last().getPreco());
+            dmax = anuncios.last().getPreco();
+        }
+        return dmax;
+    }
 }

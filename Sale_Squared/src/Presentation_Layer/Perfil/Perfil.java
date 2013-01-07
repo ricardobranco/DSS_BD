@@ -1,5 +1,6 @@
 package Presentation_Layer.Perfil;
 
+import Business_Layer.UtilizadorRegistado;
 import java.awt.CardLayout;
 import java.awt.Font;
 
@@ -22,12 +23,12 @@ public class Perfil extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+        private UtilizadorRegistado ur;
 	/**
 	 * Create the panel.
 	 */
-	public Perfil(final Sale_Squared root) {
-
+	public Perfil(final Sale_Squared root,UtilizadorRegistado ur) {
+                this.ur = ur;
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Perfil.class
 				.getResource("/Imagens/avatar.jpg")));
@@ -135,7 +136,7 @@ public class Perfil extends JPanel {
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Neg�cios", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Pesquisa_Resultado(root), "Neg�cios");
+		//panel_1.add(new Pesquisa_Resultado(root, null), "Neg�cios");
 		setLayout(groupLayout);
 
 	}
