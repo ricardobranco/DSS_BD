@@ -1,5 +1,9 @@
 package Presentation_Layer.Tabbed;
 
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorUltimosAnunc;
+import Business_Layer.UtilizadorRegistado;
 import java.awt.CardLayout;
 
 import javax.swing.GroupLayout;
@@ -9,6 +13,8 @@ import javax.swing.JTabbedPane;
 
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Produtos_Coluna;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class Tabbed_Sugestoes extends JPanel {
@@ -21,9 +27,10 @@ public class Tabbed_Sugestoes extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Sugestoes(final Sale_Squared root) {
+	public Tabbed_Sugestoes(final Sale_Squared root, AnuncioVenda anuncio) {
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		UtilizadorRegistado ur = anuncio.getAnunciante();
+                JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
 				Alignment.LEADING).addGroup(
@@ -40,16 +47,37 @@ public class Tabbed_Sugestoes extends JPanel {
 						.addContainerGap()
 						.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE,
 								288, Short.MAX_VALUE).addContainerGap()));
-
+                
+                String[] user = {"user"};
+                Object[] nome = {ur.getUsername()};
+                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(user, nome);
+                Set<AnuncioVenda> anuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
+                for(Anuncio a : panuncios){
+                    anuncios.add((AnuncioVenda) a);
+                }
+                
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Do Vendedor", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Produtos_Coluna(root), "Do vendedor");
+		
+                panel.add(new Produtos_Coluna(root, anuncios), "Do vendedor");
 
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Veja tamb�m", null, panel_1, null);
+		
+                String[] uservt = {"c"};
+                Object[] campos = {};//ACABAR
+                
+                 Set<Anuncio> pvtanuncios = root.getSistema().procurarAnuncAvanc(user, nome);
+                Set<AnuncioVenda> vtanuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
+                for(Anuncio a : panuncios){
+                    anuncios.add((AnuncioVenda) a);
+                }
+                
+                
+                
+                JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Veja também", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Produtos_Coluna(root), "Veja tambem");
+		panel_1.add(new Produtos_Coluna(root,vtanuncios), "Veja tambem");
 		setLayout(groupLayout);
 
 	}

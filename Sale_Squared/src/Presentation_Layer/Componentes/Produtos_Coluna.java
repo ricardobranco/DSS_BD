@@ -12,7 +12,9 @@ import Presentation_Layer.Sale_Squared;
 import java.util.List;
 import Business_Layer.AnuncioVenda;
 import Presentation_Layer.Anuncio.Anuncio_Main;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Produtos_Coluna extends JPanel {
 
@@ -26,9 +28,14 @@ public class Produtos_Coluna extends JPanel {
     private List<AnuncioVenda> anuncios;
     private List<JPanel> jpanels;
 
-    public Produtos_Coluna(final Sale_Squared root, List<AnuncioVenda> anuncios) {
+    public Produtos_Coluna(final Sale_Squared root, Set<AnuncioVenda> anuncios) {
 
-        this.anuncios = anuncios;
+        
+        this.anuncios = new ArrayList<>();
+        for(AnuncioVenda av : anuncios)
+            this.anuncios.add(av);
+        
+        
         this.jpanels = new ArrayList<>();
 
 

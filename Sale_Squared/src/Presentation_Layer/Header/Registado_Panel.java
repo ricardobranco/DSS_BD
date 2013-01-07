@@ -43,7 +43,7 @@ public class Registado_Panel extends JPanel {
 		JButton btnNewButton_2 = new JButton("Perfil");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Perfil(root), "perfil");
+				root.setBody(new Perfil(root,root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR)), "perfil");
 			}
 		});
 

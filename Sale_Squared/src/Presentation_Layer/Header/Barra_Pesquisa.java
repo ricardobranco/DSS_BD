@@ -1,5 +1,8 @@
 package Presentation_Layer.Header;
 
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorUltimosAnunc;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +18,8 @@ import org.jdesktop.swingx.JXSearchField;
 
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class Barra_Pesquisa extends JPanel {
@@ -27,30 +32,32 @@ public class Barra_Pesquisa extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+        
+        private JXSearchField searchField;
 	public Barra_Pesquisa(final Sale_Squared root) {
 
 		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] { "Todos",
-				"    Moda", "        Vestu\u00E1rio",
-				"        Acess\u00F3rios", "    Casa e Jardim",
+				"    Moda", "        Vestuário",
+				"        Acessórios", "    Casa e Jardim",
 				"        Animais", "        Artigos de Jardim",
-				"        Im\u00F3veis", "        M\u00F3veis",
-				"    Tecnologia e Electr\u00F3nica",
-				"        \u00C1udio,Tv e V\u00EDdeo", "        Consolas",
-				"        Fotografia", "        Inform\u00E1tica",
-				"        Telem\u00F3veis e Telefones",
-				"    Coleccion\u00E1veis e Arte", "        Selos",
+				"        Imóveis", "        Móveis",
+				"    Tecnologia e Electrónica",
+				"        Áudio,Tv e Vídeo", "        Consolas",
+				"        Fotografia", "        Informática",
+				"        Telemóveis e Telefones",
+				"    Coleccionáveis e Arte", "        Selos",
 				"        Moeda e Notas", "        Medalhas",
-				"        Antiguidades", "        Arte", "    Sa\u00FAde",
-				"        Cosm\u00E9ticos", "    Desporto e Entretenimento",
+				"        Antiguidades", "        Arte", "    Saíúde",
+				"        Cosméticos", "    Desporto e Entretenimento",
 				"        Brinquedos", "        Artigos de Desporto",
 				"        Filmes e Cinema", "        Livros e Revistas",
-				"        M\u00FAsica", "    Auto    ", "        Ve\u00EDculos",
-				"        Pe\u00E7as auto", "    Outros    \t" }));
+				"        Música", "    Auto    ", "        Veículos",
+				"        Peças auto", "    Outros" }));
 
 		JPanel panel = new JPanel();
 
-		JXSearchField searchField = new JXSearchField();
+		 searchField = new JXSearchField();
 		searchField.setToolTipText("Procurar");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
@@ -102,11 +109,20 @@ public class Barra_Pesquisa extends JPanel {
 		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                             
-				root.setBody(new Pesquisa_Resultado(root), "Resultados");
+                            String[] campos = {"tit","desc","c","t",};
+                            Object[] valores = {searchField.getText()};
+                            Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(campos, valores);
+                            Set<AnuncioVenda> anuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
+                            for(Anuncio a : panuncios){
+                                anuncios.add((AnuncioVenda) a);
+                }
+                
+                            
+                            root.setBody(new Pesquisa_Resultado(root,anuncios), "Resultados");
 			}
 		});
 
-		JButton btnPesquisaAvanada = new JButton("Pesquisa Avan\u00E7ada");
+		JButton btnPesquisaAvanada = new JButton("Pesquisa Avançada");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel
 				.createParallelGroup(Alignment.LEADING)

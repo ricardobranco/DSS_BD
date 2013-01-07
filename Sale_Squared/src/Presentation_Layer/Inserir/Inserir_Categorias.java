@@ -30,7 +30,9 @@ public class Inserir_Categorias extends JPanel {
 	private List<JCheckBox> jcbs;
 
 	public Inserir_Categorias() {
-
+                
+                Categoria todos = new Categoria("Todos");
+                
 		this.categorias = new HashMap<>();
 		this.jcbs = new ArrayList<>();
 		JLabel label = new JLabel("Categoria");
@@ -45,7 +47,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbpecas);
 		this.jcbs.add(cbauto);
 
-		Categoria cauto = new Categoria("Auto");
+		Categoria cauto = new Categoria("Auto",todos);
 		Categoria cpecas = new Categoria("Peças Auto", cauto);
 		Categoria cveiculos = new Categoria("Veículos", cauto);
 
@@ -62,7 +64,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbacessorios);
 		this.jcbs.add(cbmoda);
 
-		Categoria cmoda = new Categoria("Moda");
+		Categoria cmoda = new Categoria("Moda",todos);
 		Categoria cacessorios = new Categoria("Acessórios", cmoda);
 		Categoria cvestuario = new Categoria("Vestuário", cmoda);
 
@@ -79,7 +81,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbcosmeticos);
 		this.jcbs.add(cbsaude);
 
-		Categoria csaude = new Categoria("Saúde");
+		Categoria csaude = new Categoria("Saúde",todos);
 		Categoria ccosmeticos = new Categoria("Cosméticos", csaude);
 		Categoria chigiene = new Categoria("Higiene", csaude);
 
@@ -101,7 +103,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbanimais);
 		this.jcbs.add(cbplantas);
 
-		Categoria ccasajardim = new Categoria("Casa e Jardim");
+		Categoria ccasajardim = new Categoria("Casa e Jardim",todos);
 		Categoria cartjardim = new Categoria("Artigos de Jardim", ccasajardim);
 		Categoria canimais = new Categoria("Animais", ccasajardim);
 		Categoria cimoveis = new Categoria("Imóveis", ccasajardim);
@@ -131,7 +133,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbantiguidade);
 		this.jcbs.add(cbarte);
 
-		Categoria ccolarte = new Categoria("Coleccionáveis e Arte");
+		Categoria ccolarte = new Categoria("Coleccionáveis e Arte",todos);
 		Categoria cmoedas = new Categoria("Moedas e Notas", ccolarte);
 		Categoria cselos = new Categoria("Selos", ccolarte);
 		Categoria cmedalhas = new Categoria("Medalhas", ccolarte);
@@ -165,7 +167,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbgad);
 		this.jcbs.add(cbcirc);
 
-		Categoria ctecelec = new Categoria("Tecnologia e Electrónica");
+		Categoria ctecelec = new Categoria("Tecnologia e Electrónica",todos);
 		Categoria cconsolas = new Categoria("Consolas", ctecelec);
 		Categoria caudio = new Categoria("Áudio, Tv e Vídeo", ctecelec);
 		Categoria cfoto = new Categoria("Fotografia", ctecelec);
@@ -198,7 +200,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cblit);
 		this.jcbs.add(cbbd);
 
-		Categoria clivrosrevistas = new Categoria("Livros e Revistas");
+		Categoria clivrosrevistas = new Categoria("Livros e Revistas",todos);
 		Categoria crevistas = new Categoria("Revistas", clivrosrevistas);
 		Categoria cmanuais = new Categoria("Manuais Escolares", clivrosrevistas);
 		Categoria clitinf = new Categoria("Literatura Infantil",
@@ -235,7 +237,7 @@ public class Inserir_Categorias extends JPanel {
 		this.jcbs.add(cbfutebol);
 		this.jcbs.add(cbnatacao);
 
-		Categoria cdespentre = new Categoria("Desporto e Entretenimento");
+		Categoria cdespentre = new Categoria("Desporto e Entretenimento",todos);
 		Categoria cbrinquedos = new Categoria("Brinquedos", cdespentre);
 		Categoria cfitness = new Categoria("Fitness e Musculação", cdespentre);
 		Categoria cfilmes = new Categoria("Filmes e Cinema", cdespentre);

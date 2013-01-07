@@ -1,5 +1,8 @@
 package Presentation_Layer.Perfil;
 
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.UtilizadorRegistado;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -15,6 +18,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class Perfil extends JPanel {
@@ -129,14 +134,22 @@ public class Perfil extends JPanel {
 										.addGap(12)));
 
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("Reputa��o", null, panel, null);
+		tabbedPane.addTab("Reputação", null, panel, null);
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(new Perfil_Reputacao(), "perfil_rep");
 
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Neg�cios", null, panel_1, null);
+		tabbedPane.addTab("Negócios", null, panel_1, null);
 		panel_1.setLayout(new CardLayout(0, 0));
-		//panel_1.add(new Pesquisa_Resultado(root, null), "Neg�cios");
+		String[] user = {"user"};
+                Object[] nome = {Sale_Squared.UTILIZADOR};
+                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(user, nome);
+                Set<AnuncioVenda> anuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
+                for(Anuncio a : panuncios){
+                    anuncios.add((AnuncioVenda) a);
+                }
+                
+                panel_1.add(new Pesquisa_Resultado(root, anuncios), "Negócios");
 		setLayout(groupLayout);
 
 	}
