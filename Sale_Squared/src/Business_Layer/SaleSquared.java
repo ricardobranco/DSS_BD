@@ -818,6 +818,9 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                                 case "me": {
                                     exitFlag = exitFlag && ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]) ; break ;
                                 }    
+                                case "user": {
+                                    exitFlag = exitFlag && a.getAnunciante().getUsername().equals((String)valores[i]) ; break ;
+                                }
 				default: {
 				}
 				}
