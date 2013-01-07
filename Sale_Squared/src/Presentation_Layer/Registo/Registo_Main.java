@@ -93,9 +93,10 @@ public class Registo_Main extends JPanel {
 				}
 
 				catch (Exception e) {
-					//e.printStackTrace();
-					//System.out.println(e.getMessage());
-                                                
+				System.out.println(e.getMessage());
+                                        	
+                                    //e.printStackTrace();
+					        
                                         Mensagem_Erro frame = new Mensagem_Erro(root, e
 							.getMessage());
 					frame.setLocationRelativeTo(null);

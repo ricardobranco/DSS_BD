@@ -125,10 +125,14 @@ public class Registo_3 extends JPanel {
 	
 	
 	public Map<String,Categoria> getCategorias(){
-		Map<String,Categoria> res = new  HashMap<>();
+		Categoria todos = new Categoria("Todos");
+                Map<String,Categoria> res = new  HashMap<>();
 		for(JCheckBox jcb : categorias){
-			Categoria c = new Categoria(jcb.getText());
+                    if(jcb.isSelected()){
+                        Categoria c = new Categoria(jcb.getText(),todos);
 			res.put(c.getNome(),c);
+                    }
+                    
 		}
 		return res;
 	}
