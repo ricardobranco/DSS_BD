@@ -16,7 +16,7 @@ public class ConexaoBD {
 			+ ":" + sid;
 	public static Connection conexao;
 
-	public static final String pathImagem = "/";
+	public static final String pathImagem = "./src/Imagens";
 
 	// m. c.
 	public static void iniciarConexao() {

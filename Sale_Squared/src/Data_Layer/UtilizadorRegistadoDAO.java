@@ -125,7 +125,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 		try {
 			if (rs.getBlob(IMAGEM) == null)
 				return new Imagem("", "");
-			String res = ConexaoBD.pathImagem + "\\"
+			String res = ConexaoBD.pathImagem + "/"
 					+ rs.getString(NOME_IMAGEM);
 			File f = new File(res);
 			if (f.exists())

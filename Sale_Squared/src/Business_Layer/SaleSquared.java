@@ -1078,7 +1078,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         
         public SortedSet<Anuncio> anuncioOrdtempoRestante()  {
             
-            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorTempoRest()) ;
+            TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorATerminar()) ;
             for(Anuncio a : this.anuncios.values())
                 res.add(a) ;
             return res ;
