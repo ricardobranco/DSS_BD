@@ -812,6 +812,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 							&& a.getnVisitas() >= (Integer) valores[i];
 					break;
 				}
+                                case "mp": {
+                                    exitFlag = exitFlag && ((AnuncioVenda)a).getModosPagamento().contains((String)valores[i]) ; break ;
+                                }
+                                case "me": {
+                                    exitFlag = exitFlag && ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]) ; break ;
+                                }    
 				default: {
 				}
 				}
