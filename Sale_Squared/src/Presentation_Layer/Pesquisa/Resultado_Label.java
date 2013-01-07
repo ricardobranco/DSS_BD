@@ -15,7 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.jdesktop.swingx.JXHyperlink;
 
+import Business_Layer.AnuncioVenda;
 import Presentation_Layer.Sale_Squared;
+import Presentation_Layer.Anuncio.Anuncio_Main;
 import Presentation_Layer.Perfil.Perfil;
 
 public class Resultado_Label extends JPanel {
@@ -28,7 +30,7 @@ public class Resultado_Label extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Resultado_Label(final Sale_Squared root) {
+	public Resultado_Label(final Sale_Squared root,final AnuncioVenda anuncio) {
 		setBorder(null);
 
 		JPanel panel = new JPanel();
@@ -247,7 +249,7 @@ public class Resultado_Label extends JPanel {
 		JXHyperlink hprlnkTituloDoNegcio = new JXHyperlink();
 		hprlnkTituloDoNegcio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Anuncio_Main(root), "anuncio");
+				root.setBody(new Anuncio_Main(root, anuncio), "anuncio");
 			}
 		});
 		hprlnkTituloDoNegcio.setForeground(new Color(0, 102, 204));
@@ -276,7 +278,7 @@ public class Resultado_Label extends JPanel {
 		JButton btnNewButton = new JButton("\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setBody(new Anuncio_Main(root), "Anuncio");
+				root.setBody(new Anuncio_Main(root,anuncio), "Anuncio");
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(Resultado_Label.class

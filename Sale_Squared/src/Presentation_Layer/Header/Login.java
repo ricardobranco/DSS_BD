@@ -19,7 +19,7 @@ import Business_Layer.SaleSquared;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Home.Home;
-import Presentation_Layer.Registo.Registo;
+import Presentation_Layer.Registo.Registo_Main;
 
 
 public class Login extends JDialog {
@@ -58,7 +58,7 @@ public class Login extends JDialog {
 		JXHyperlink hprlnkRegistese = new JXHyperlink();
 		hprlnkRegistese.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Registo(root), "Registo");
+				root.setBody(new Registo_Main(root), "Registo");
 				root.setEnabled(true);
 				dispose();
 

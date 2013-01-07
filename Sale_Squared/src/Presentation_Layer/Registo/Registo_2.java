@@ -386,8 +386,8 @@ public class Registo_2 extends JPanel {
 
 	public String getAvatar() {
 		if (avatar_s2)
-			return avatarurl;
+			return avatarurl==null ? "" : avatarurl;
 		else
-			return null;
+			return "";
 	}
 }

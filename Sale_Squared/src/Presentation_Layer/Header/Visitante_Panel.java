@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Registo.Registo;
+import Presentation_Layer.Registo.Registo_Main;
 
 
 public class Visitante_Panel extends JPanel {
@@ -29,7 +29,7 @@ public class Visitante_Panel extends JPanel {
 		JButton btnRegistar = new JButton("Registar");
 		btnRegistar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Registo(root), "Registo");
+				root.setBody(new Registo_Main(root), "Registo");
 
 			}
 		});

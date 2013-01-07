@@ -23,7 +23,7 @@ import Presentation_Layer.Componentes.Mensagem_Erro;
 import Presentation_Layer.Home.Home;
 
 
-public class Registo extends JPanel {
+public class Registo_Main extends JPanel {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class Registo extends JPanel {
 	 * Create the panel.
 	 */
 
-	public Registo(final Sale_Squared root) {
+	public Registo_Main(final Sale_Squared root) {
 
 		final Registo_1 r1 = new Registo_1(root);
 		final Registo_2 r2 = new Registo_2();
@@ -52,7 +52,8 @@ public class Registo extends JPanel {
 				try {
 
 					int id = root.getSistema().getEmSessao().getId();
-					String username = r1.getUser(root);
+					System.out.println(id);
+                                        String username = r1.getUser(root);
 					String password = r1.getPassword(root);
 					String email = r1.getEmail(root);
 					char estado = UtilizadorRegistado.NORMAL;
@@ -76,8 +77,8 @@ public class Registo extends JPanel {
 							contacto, nome, dn);
 
 					rf.termosaceites();
-
-					SaleSquared sistema = root.getSistema();
+                                        
+				         SaleSquared sistema = root.getSistema();
 					sistema.inserirUtilizadorReg(ur);
 
 					Map<String, Categoria> categorias = r3.getCategorias();
@@ -92,7 +93,9 @@ public class Registo extends JPanel {
 
 				catch (Exception e) {
 					//e.printStackTrace();
-					Mensagem_Erro frame = new Mensagem_Erro(root, e
+					System.out.println(e.getMessage());
+                                                
+                                        Mensagem_Erro frame = new Mensagem_Erro(root, e
 							.getMessage());
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
