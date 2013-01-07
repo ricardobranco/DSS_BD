@@ -1,5 +1,6 @@
 package Presentation_Layer.Pesquisa;
 
+import Business_Layer.AnuncioVenda;
 import java.awt.CardLayout;
 
 import javax.swing.GroupLayout;
@@ -9,6 +10,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Tabbed.Tabbed_Resultados;
+import java.util.Set;
 
 
 public class Pesquisa_Resultado extends JPanel {
@@ -16,12 +18,17 @@ public class Pesquisa_Resultado extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+    private Set<AnuncioVenda> anuncios;
+    
+    private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.
 	 */
-	public Pesquisa_Resultado(final Sale_Squared root) {
+	public Pesquisa_Resultado(final Sale_Squared root,Set<AnuncioVenda> anuncios) {
+            
+                this.anuncios = anuncios;
 
 		JPanel panel = new JPanel();
 
@@ -58,10 +65,19 @@ public class Pesquisa_Resultado extends JPanel {
 						.addContainerGap()));
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel_1.add(new Tabbed_Resultados(root), "Resultados");
-		panel.add(new Pesquisa_Ferramentas(), "Ferramentas");
+		panel_1.add(new Tabbed_Resultados(root,anuncios), "Resultados");
+		panel.add(new Pesquisa_Ferramentas(root, this), "Ferramentas");
 		setLayout(groupLayout);
 
 	}
+        
+        public Set<AnuncioVenda> getAnuncios(){
+            return this.anuncios;
+            
+        }   
+                
+        
+        
+        
 
 }
