@@ -57,15 +57,9 @@ public class Perfil extends JPanel {
         lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 
         JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setVisible(false);
+        lblNewLabel_1.setVisible(root.getSistema().eUserConfiavel(this.username));
 
-        if (this.root.getSistema().temUserRating(this.username)) {
-            //VER REPUTAÇÃO
-            double rating = this.root.getSistema().calcularRegistadoRating(this.username);
-            if (rating >= 90) {
-                lblNewLabel_1.setVisible(true);
-            }
-        }
+       
         lblNewLabel_1.setIcon(new ImageIcon(Perfil.class
                 .getResource("/Imagens/top_cliente.png")));
 
