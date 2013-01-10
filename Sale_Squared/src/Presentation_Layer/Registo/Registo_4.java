@@ -67,6 +67,6 @@ public class Registo_4 extends JPanel {
 	}
 	
 	public String getInfo(){
-		return textArea.getSelectedText();
+		return textArea.getText();
 	}
 }

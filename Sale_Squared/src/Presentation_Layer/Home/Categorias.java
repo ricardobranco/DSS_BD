@@ -28,7 +28,7 @@ public class Categorias extends JPanel {
 		JLayeredPane layeredPane_1 = new JLayeredPane();
 
 		JXHyperlink hprlnkColleccionveisEArte = new JXHyperlink();
-		hprlnkColleccionveisEArte.setText("Colecionáveis e Arte");
+		hprlnkColleccionveisEArte.setText("Coleccionáveis e Arte");
 		hprlnkColleccionveisEArte.setForeground(new Color(0, 102, 204));
 		hprlnkColleccionveisEArte.setFont(new Font("Lucida Grande", Font.BOLD,
 				15));

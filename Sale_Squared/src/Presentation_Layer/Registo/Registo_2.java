@@ -185,7 +185,8 @@ public class Registo_2 extends JPanel {
 			}
 		});
 
-		JButton btnProcurar = new JButton("Procurar");
+		
+                JButton btnProcurar = new JButton("Procurar");
 		btnProcurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				procura(avatar);
@@ -386,8 +387,8 @@ public class Registo_2 extends JPanel {
 	}
 
 	public String getAvatar() {
-		if (avatar_s2)
-			return avatarurl==null ? "" : avatarurl;
+		if (!avatar_s2)
+			return avatarurl;
 		else
 			return "";
 	}
