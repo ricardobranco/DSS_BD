@@ -46,12 +46,13 @@ public class UtilizadorRegistado extends Utilizador {
 	private String contacto;
 	private String nome;
 	private GregorianCalendar dataNasc;
+        private GregorianCalendar dataRegisto;
 
 	// construtor - DAO
 	public UtilizadorRegistado(int id, String username, String password,
 			int estado, String email, String morada, String codPostal,
 			String localidade, String pais, String infPessoal, Imagem imagem,
-			String contacto, String nome, GregorianCalendar dn) {
+			String contacto, String nome, GregorianCalendar dn, GregorianCalendar dr) {
 		super(id);
 		this.usersSeguidos = new UserSeguidoDAO(username);
 		this.enviadas = new MsgEnviadaDAO(username);
@@ -73,6 +74,7 @@ public class UtilizadorRegistado extends Utilizador {
 		this.contacto = contacto;
 		this.nome = nome;
 		this.dataNasc = dn;
+                this.dataRegisto = dr ;
 	}
 
 	public UtilizadorRegistado(String username) {
@@ -87,7 +89,16 @@ public class UtilizadorRegistado extends Utilizador {
 		this.transaccoes = new TransaccaoDAO(username);
 	}
 
-	// get e set
+        // get e set
+        public GregorianCalendar getDataRegisto() {
+            return this.dataRegisto;
+        }
+
+        public void setDataRegisto(GregorianCalendar dataRegisto) {
+            this.dataRegisto = dataRegisto;
+        }
+
+	
 	public String getUsername() {
 		return username;
 	}
@@ -283,7 +294,7 @@ public class UtilizadorRegistado extends Utilizador {
 		return new UtilizadorRegistado(this.getId(), this.username,
 				this.password, this.estado, this.email, this.morada,
 				this.codPostal, this.localidade, this.pais, this.infPessoal,
-				this.imagem, this.contacto, this.nome, this.dataNasc);
+				this.imagem, this.contacto, this.nome, this.dataNasc, this.dataRegisto);
 	}
 
 	// gestao maps
