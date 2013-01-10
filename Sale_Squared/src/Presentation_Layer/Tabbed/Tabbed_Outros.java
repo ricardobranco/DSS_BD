@@ -56,7 +56,7 @@ public class Tabbed_Outros extends JPanel {
 			JPanel panel_2 = new JPanel();
 			tabbedPane.addTab("Negócios Seguidos", null, panel_2, null);
 			panel_2.setLayout(new CardLayout(0, 0));
-			panel_2.add(new Produtos_Coluna(root), "Negócios Seguidos");
+			//panel_2.add(new Produtos_Coluna(root), "Negócios Seguidos");
 		}
 		setLayout(groupLayout);
 

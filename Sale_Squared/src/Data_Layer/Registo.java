@@ -35,6 +35,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idMensagem = s.idMensagem + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (SQLException e) {
 			throw new NullPointerException(e.getMessage());
@@ -52,6 +54,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idImagem = s.idImagem + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (SQLException e) {
 			throw new NullPointerException(e.getMessage());
@@ -69,6 +73,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idTransaccao = s.idTransaccao + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -86,6 +92,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idAnuncio = s.idAnuncio + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -103,6 +111,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idAvaliacao = s.idAvaliacao + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -128,6 +138,8 @@ public class Registo {
 				 */
 				stm.executeUpdate(sqlU);
 			}
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -145,6 +157,8 @@ public class Registo {
 			String sqlU = "UPDATE " + REGISTO_T
 					+ " SET s.idModoVenda = s.idModoVenda + 1";
 			stm.executeUpdate(sqlU);
+                        rs.close() ;
+                        stm.close() ;
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -160,6 +174,8 @@ public class Registo {
 			stm.setInt(1, u.getId());
 			stm.setString(2, USER);
 			stm.execute();
+                       
+                       stm.close() ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}

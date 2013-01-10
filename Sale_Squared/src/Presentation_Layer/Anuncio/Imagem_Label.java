@@ -22,18 +22,20 @@ public class Imagem_Label extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Imagem_Label(Imagem i, final ImagePanel ip) {
-
+        
+        private Imagem imagem;
+        private ImagePanel ip;
+	public Imagem_Label(final Imagem i, final ImagePanel ip) {
+               this.imagem = i;
+               this.ip = ip;
 		JButton button = new JButton("");
-		ImageIcon icon = new ImageIcon(i.getPath());
-                final Image img = icon.getImage();
-                
-                button.addActionListener(new ActionListener() {
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                            ip.setImage(img);
+                            setImagem();
 			}
 		});
-		Avatar av = new Avatar(img);
+                
+		Avatar av = new Avatar(new ImageIcon(i.getPath()).getImage());
 		av.setHeight(button.getHeight());
                 av.setWidth(button.getWidth());
 		button.setIcon(av);
@@ -56,5 +58,9 @@ public class Imagem_Label extends JPanel {
 		setLayout(groupLayout);
 
 	}
+        
+        public void setImagem(){
+            this.ip.setImage(this.imagem);
+        }
 
 }

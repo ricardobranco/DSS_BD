@@ -37,7 +37,7 @@ public class Visitante_Panel extends JPanel {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog frame = new Login(root);
+				JDialog frame = new Entrar(root);
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}

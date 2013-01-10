@@ -92,7 +92,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
 				Blob b = rs.getBlob(IMAGEM);
-				File f = new File(ConexaoBD.pathImagem + "\\"
+				File f = new File(ConexaoBD.pathImagem + "/"
 						+ rs.getString(NOME));
 				if (f.exists())
 					f.delete();
@@ -101,7 +101,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 				FileOutputStream fos = new FileOutputStream(f);
 				fos.write(b.getBytes(1, (int) b.length()));
 				res = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem
-						+ "\\" + rs.getString(NOME));
+						+ "/" + rs.getString(NOME));
 			}
 			return res;
 		} catch (Exception e) {
@@ -149,13 +149,16 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 	public Imagem put(String key, Imagem value) {
 
 		try {
+                    File f = new File(value.getPath());
+                    if(f.exists() == false)
+                        return null ;
 			Imagem res = null;
 			String sql = "INSERT INTO " + IMAGEM_T + " VALUES (?, ?, ?)";
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			stm.setInt(ANUNCIO, this.codAnunc);
 			stm.setString(NOME, key);
-			FileInputStream fis = new FileInputStream(value.getPath());
+			FileInputStream fis = new FileInputStream(f);
 			stm.setBlob(IMAGEM, fis);
 			stm.execute();
 			return res;
@@ -217,7 +220,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			while (rs.next()) {
 				Imagem i = null;
 				Blob b = rs.getBlob(IMAGEM);
-				File f = new File(ConexaoBD.pathImagem + "\\"
+				File f = new File(ConexaoBD.pathImagem + "/"
 						+ rs.getString(NOME));
 				if (f.exists())
 					f.delete();
@@ -225,7 +228,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 				@SuppressWarnings("resource")
 				FileOutputStream fos = new FileOutputStream(f);
 				fos.write(b.getBytes(1, (int) b.length()));
-				i = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem + "\\"
+				i = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem + "/"
 						+ rs.getString(NOME));
 				res.add(i);
 			}

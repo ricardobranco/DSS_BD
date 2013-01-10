@@ -1,5 +1,6 @@
 package Presentation_Layer.Anuncio;
 
+import Business_Layer.Imagem;
 import Presentation_Layer.Componentes.Avatar;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,6 +22,8 @@ public class ImagePanel extends JPanel {
 	public ImagePanel() {
 
 		imageView = new JXImageView();
+		imageView.setImage(Toolkit.getDefaultToolkit().getImage(ImagePanel.class.getResource("/Imagens/header.png")));
+                
                 GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
 				Alignment.LEADING).addGroup(
@@ -40,12 +43,16 @@ public class ImagePanel extends JPanel {
 
 	}
         
-        public void setImage(Image image){
-            Avatar av = new Avatar(image);
+        public void setImage(Imagem imagem){
+            
+            Avatar av = new Avatar(new ImageIcon(imagem.getPath()).getImage());
             av.setHeight(imageView.getHeight());
             av.setWidth(imageView.getWidth());
             imageView.setImage(av.getImage());    
-        } 
+        }
+        
+        
+        
         
         
 }

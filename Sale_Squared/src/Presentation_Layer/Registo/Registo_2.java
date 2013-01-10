@@ -180,7 +180,7 @@ public class Registo_2 extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				avatar.setIcon(new ImageIcon(Registo_2.class
 						.getResource("/Imagens/avatar.jpg")));
-				
+				avatar_s2 = true;
 				btnApagar.setVisible(!avatar_s2);
 			}
 		});
@@ -189,7 +189,7 @@ public class Registo_2 extends JPanel {
 		btnProcurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				procura(avatar);
-                                avatar_s2 = true;
+                                avatar_s2 = false;
 				btnApagar.setVisible(!avatar_s2);
 
 			}

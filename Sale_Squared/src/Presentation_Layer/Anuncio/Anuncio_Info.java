@@ -1,23 +1,22 @@
 package Presentation_Layer.Anuncio;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
-import Business_Layer.Leilao;
 import Business_Layer.ModoVenda;
 import Presentation_Layer.Sale_Squared;
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
-
+import java.util.Map;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.CardLayout;
 
 public class Anuncio_Info extends JPanel {
 
@@ -25,15 +24,21 @@ public class Anuncio_Info extends JPanel {
      *
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * Create the panel.
      */
-    public Anuncio_Info(final Sale_Squared root, final AnuncioVenda anuncio) {
+    private AnuncioVenda anuncio;
+    private int idanuncio;
+    private final JButton btnNewButton_2;
+    private Sale_Squared root;
+    private String username;
 
+    public Anuncio_Info(final Sale_Squared root, int idanuncio) {
 
-
-
+        this.root = root;
+        this.idanuncio = idanuncio;
+        this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio); 
+        this.username = this.anuncio.getAnunciante().getUsername();
 
         JLabel lblNewLabel = new JLabel("Início:");
         lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 13));
@@ -43,7 +48,7 @@ public class Anuncio_Info extends JPanel {
         JLabel lblNewLabel_2 = new JLabel("Fim:");
         lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        JLabel lblNewLabel_3 = new JLabel(temporestante(anuncio.calculaTempoRestanteLeilao()) + " (" + showdata(anuncio.getDataExpir()) + ")");
+        JLabel lblNewLabel_3 = new JLabel(temporestante(new GregorianCalendar(), anuncio.getDataExpir()) + " (" + showdata(anuncio.getDataExpir()) + ")");
 
 
         JLabel lblNewLabel_4 = new JLabel("Quantidade:");
@@ -56,22 +61,28 @@ public class Anuncio_Info extends JPanel {
         JLabel lblLocalizo = new JLabel("Localizão:");
         lblLocalizo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        JLabel lblNewLabel_13 = new JLabel("4705-652, Braga, Portugal");
+
+        String codPostal = this.root.getSistema().encontrarUtilizadorReg(username).getCodPostal();
+        String localidade = this.root.getSistema().encontrarUtilizadorReg(username).getLocalidade();
+        JLabel lblNewLabel_13 = new JLabel(codPostal+", "+localidade);
 
         JLabel lblNewLabel_14 = new JLabel(
                 "(Envio para o estrangeiro: " + (anuncio.isEnvioEstrangeiro() ? "Sim" : "Não"));
         lblNewLabel_14.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 
-        final JButton btnNewButton_2 = new JButton("Seguir Negócio");
+        
+        
+        btnNewButton_2 = new JButton("Seguir Negócio");
+        btnNewButton_2.setVisible(Sale_Squared.REGISTADO);
+        if(Sale_Squared.REGISTADO){
+            Map<Integer,Anuncio> anunciosseguidos = root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getAnuncSeguidos();
+            if(anunciosseguidos.containsKey(new Integer(this.idanuncio)))
+                btnNewButton_2.setText("Deixar Negócio");
+        }
+        
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (btnNewButton_2.getText().equals("Seguir Negócio")) {
-                    btnNewButton_2.setText("Deixar Negócio");
-                    root.getSistema().seguirAnuncio(Sale_Squared.UTILIZADOR, anuncio);
-                } else {
-                    btnNewButton_2.setText("Seguir Negócio");
-                    root.getSistema().deixarSegAnuncio(Sale_Squared.UTILIZADOR,anuncio.getCodigo());
-                }
+                removerSeguir();
             }
         });
 
@@ -80,10 +91,10 @@ public class Anuncio_Info extends JPanel {
         JLabel lblNewLabel_15 = new JLabel("Utilizador:");
         lblNewLabel_15.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        JLabel lblNewLabel_16 = new JLabel("Sale_Squared");
+        JLabel lblNewLabel_16 = new JLabel(username);
 
         JButton btnNewButton_4 = new JButton("Ver Perfil");
-        
+
 
         JPanel panel = new JPanel();
         GroupLayout groupLayout = new GroupLayout(this);
@@ -171,11 +182,12 @@ public class Anuncio_Info extends JPanel {
                 .addContainerGap(30, Short.MAX_VALUE)));
         panel.setLayout(new CardLayout(0, 0));
         ModoVenda mv = anuncio.getTipoVenda();
-        if(mv.getClass().getSimpleName().equals("Leilao"))
-            panel.add(new Anuncio_Leilao(root, anuncio));
-        else
-            panel.add(new Anuncio_Compra(root, anuncio));
-        
+        if (mv.getClass().getSimpleName().equals("Leilao")) {
+            panel.add(new Anuncio_Leilao(root, this.anuncio));
+        } else {
+            panel.add(new Anuncio_Compra(root, this.anuncio));
+        }
+
         setLayout(groupLayout);
 
     }
@@ -184,15 +196,18 @@ public class Anuncio_Info extends JPanel {
         int dia, mes, ano, hora, minutos;
 
         dia = gc.get(GregorianCalendar.DAY_OF_MONTH);
-        mes = gc.get(GregorianCalendar.MONTH);
+        mes = gc.get(GregorianCalendar.MONTH)+1;
         ano = gc.get(GregorianCalendar.YEAR);
         hora = gc.get(GregorianCalendar.HOUR_OF_DAY);
         minutos = gc.get(GregorianCalendar.MINUTE);
         return dia + "/" + mes + "/" + ano + " - " + hora + ":" + minutos;
     }
 
-    private String temporestante(long diff) {
+    private String temporestante(GregorianCalendar in, GregorianCalendar end) {
 
+        long lin = in.getTimeInMillis();
+        long lend = end.getTimeInMillis();
+        long diff = lend - lin;
         long segundos = diff / 1000;
         long msres = diff % 1000;
 
@@ -202,19 +217,41 @@ public class Anuncio_Info extends JPanel {
         long horas = minutos / 60;
         long mres = minutos % 60;
 
-        long dia = horas / 24;
+        long ldia = horas / 24;
         long hres = horas % 24;
 
-        String sdias = (((int) dia > 0) ? (int) dia + (((int) dia > 1) ? "1 dia" : (int) dia + "dias") : "");
-        String shoras = (((int) hres > 0) ? (int) hres + (((int) hres > 1) ? "1 hora" : (int) hres + "horas") : "");
-        String sminutos = (((int) mres > 0) ? (int) mres + (((int) mres > 1) ? "1 minuto" : (int) hres + "minutos") : "");
-        String ssegundos = (((int) sres > 0) ? (int) sres + (((int) sres > 1) ? "1 segundo" : (int) hres + "segundo") : "");
+        int dia = (int) ldia;
+        int hora = (int) hres;
+        int minuto = (int) mres;
+        int segundo = (int) sres;
 
+        String sdias = (dia > 0) ? (dia > 1 ? dia + " dias " : "1 dia ") : "";
+        String shoras = (hora > 0) ? (hora > 1 ? hora + " horas " : "1 hora ") : "";
+        String sminutos = (minuto > 0) ? (minuto > 1 ? minuto + " minutos " : "1 minuto ") : "";
+        String ssegundos = (segundo > 0) ? (segundo > 1 ? segundo + " segundos" : "1 segundo ") : "";
         if ((sdias + shoras + sminutos + ssegundos + "").isEmpty()) {
             return "Terminado";
         } else {
             return sdias + ", " + shoras + " " + sminutos + " " + ssegundos;
         }
+
+
+
+
+    }
+
+    public void removerSeguir() {
+
+
+        if (btnNewButton_2.getText().equals("Seguir Negócio")) {
+            btnNewButton_2.setText("Deixar Negócio");
+            root.getSistema().seguirAnuncio(Sale_Squared.UTILIZADOR, root.getSistema().encontrarAnuncio(this.idanuncio));
+        } else {
+            btnNewButton_2.setText("Seguir Negócio");
+            root.getSistema().deixarSegAnuncio(Sale_Squared.UTILIZADOR, this.idanuncio);
+        }
+
+
 
 
 

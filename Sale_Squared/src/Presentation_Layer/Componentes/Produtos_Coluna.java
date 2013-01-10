@@ -123,8 +123,8 @@ public class Produtos_Coluna extends JPanel {
         panel_1.setLayout(new CardLayout(0, 0));
         panel.setLayout(new CardLayout(0, 0));
 
-        for(int i=0;i<anuncios.size();i++){
-            jpanels.get(i).add(new Produto_Base(root, this.anuncios.get(i)),"anuncio");
+        for(int i=0;i<anuncios.size() && i<jpanels.size();i++){
+            jpanels.get(i).add(new Produto_Base(root, this.anuncios.get(i).getCodigo()),"anuncio");
             jpanels.get(i).setVisible(true);
         }
         setLayout(groupLayout);

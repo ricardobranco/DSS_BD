@@ -384,7 +384,7 @@ public class UtilizadorRegistado extends Utilizador {
 	}
 
 	public Anuncio inserirAnuncSeguido(Anuncio a) {
-		return this.anuncSeguidos.put(a.getCodigo(), (a.getClass().toString()
+		return this.anuncSeguidos.put(a.getCodigo(), (a.getClass().getSimpleName()
 				.equals("AnuncioVenda") ? ((AnuncioVenda) a).clone()
 				: ((AnuncioCompra) a).clone()));
 	}

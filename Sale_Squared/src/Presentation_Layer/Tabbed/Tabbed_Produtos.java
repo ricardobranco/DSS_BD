@@ -2,6 +2,7 @@ package Presentation_Layer.Tabbed;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorATerminar;
 import Business_Layer.ComparadorAnuncPreco;
 import Business_Layer.ComparadorUltimosAnunc;
 import java.awt.CardLayout;
@@ -39,19 +40,26 @@ public class Tabbed_Produtos extends JPanel {
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Últimos Negócios", null, panel, null);
 		Set<AnuncioVenda> un = new TreeSet<>(new ComparadorUltimosAnunc());
-                Iterator<Anuncio> it = root.getSistema().ultimosAnuncios();
-                while(it.hasNext())
-                    un.add((AnuncioVenda)it.next());
+                Set<AnuncioVenda> af = new TreeSet<>(new ComparadorATerminar());
                 
+                Iterator<Anuncio> it = root.getSistema().ultimosAnuncios();
+                while(it.hasNext()){
+                    Anuncio anunc = it.next();
+                    un.add((AnuncioVenda)anunc);
+                    af.add((AnuncioVenda)anunc);
+                }
+                
+                panel.setLayout(new CardLayout(0, 0));
                 panel.add(new Produtos_Coluna(root,un), "Ultimos Negócios");
-		panel.setLayout(new CardLayout(0, 0));
-
+		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Negócios a Fechar", null, panel_1, null);
-		//panel_1.add(new Produtos_Coluna(root), "Ultimos Negócios");
 		panel_1.setLayout(new CardLayout(0, 0));
-
-		if (Sale_Squared.REGISTADO) {
+                panel_1.add(new Produtos_Coluna(root,af), "A Fechar");
+		
+		
+                
+                if (Sale_Squared.REGISTADO) {
 			JPanel panel_2 = new JPanel();
 			
                         Set<AnuncioVenda> ns = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
@@ -60,8 +68,9 @@ public class Tabbed_Produtos extends JPanel {
                             ns.add((AnuncioVenda) a);
                         
                         tabbedPane.addTab("Sugestões", null, panel_2, null);
+                        panel_2.setLayout(new CardLayout(0, 0));
 			panel_2.add(new Produtos_Coluna(root,ns), "Ultimos Negócios");
-			panel_2.setLayout(new CardLayout(0, 0));
+			
 		}
 
 		GroupLayout groupLayout = new GroupLayout(this);

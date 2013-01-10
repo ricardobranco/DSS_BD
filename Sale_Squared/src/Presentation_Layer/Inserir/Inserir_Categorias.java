@@ -790,7 +790,7 @@ public class Inserir_Categorias extends JPanel {
 		Map<String, Categoria> res = new HashMap<>();
 		for (JCheckBox jcb : jcbs) {
 			if (jcb.isSelected())
-				res.put(jcb.getText(), categorias.get(jcb));
+				res.put(jcb.getText(), categorias.get(jcb.getText()));
 		}
 
 		return res;

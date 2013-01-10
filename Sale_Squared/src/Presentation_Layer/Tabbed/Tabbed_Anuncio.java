@@ -13,6 +13,7 @@ import Presentation_Layer.Anuncio.Descricao;
 import Presentation_Layer.Anuncio.Envio_Pagamento;
 import Presentation_Layer.Anuncio.ImagePanel;
 import Presentation_Layer.Anuncio.Imagem_Grid;
+import Presentation_Layer.Sale_Squared;
 import java.util.List;
 
 public class Tabbed_Anuncio extends JPanel {
@@ -25,9 +26,15 @@ public class Tabbed_Anuncio extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Anuncio(AnuncioVenda anuncio,ImagePanel ip) {
-
-            
+        
+        private int idanuncio;
+        private AnuncioVenda anuncio;
+        private Sale_Squared root;
+	public Tabbed_Anuncio(final Sale_Squared root,int idanuncio,ImagePanel ip) {
+                this.root = root;
+                this.idanuncio = idanuncio;
+                this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio); 
+                
             
                 List<Imagem> imagens = (List<Imagem>)anuncio.getImagens().values();
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

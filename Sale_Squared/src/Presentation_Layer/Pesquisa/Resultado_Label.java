@@ -1,5 +1,6 @@
 package Presentation_Layer.Pesquisa;
 
+import Business_Layer.Anuncio;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ import Presentation_Layer.Anuncio.Anuncio_Main;
 import Presentation_Layer.Componentes.Avatar;
 import Presentation_Layer.Componentes.Produto_Base;
 import Presentation_Layer.Perfil.Perfil;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.Icon;
 
@@ -34,12 +36,22 @@ public class Resultado_Label extends JPanel {
      *
      */
     private static final long serialVersionUID = 1L;
+    private final Sale_Squared root;
+    private final int idanuncio;
+    private final AnuncioVenda anuncio;
+    private final JXHyperlink hprlnkTituloDoNegcio;
 
     /**
      * Create the panel.
      */
-    public Resultado_Label(final Sale_Squared root, final AnuncioVenda anuncio) {
+    public Resultado_Label(final Sale_Squared root, int idanuncio) {
         setBorder(null);
+
+
+        this.root = root;
+        this.idanuncio = idanuncio;
+        this.anuncio = (AnuncioVenda) this.root.getSistema().encontrarAnuncio(this.idanuncio);
+
 
         JPanel panel = new JPanel();
 
@@ -154,7 +166,7 @@ public class Resultado_Label extends JPanel {
                 GroupLayout.PREFERRED_SIZE))
                 .addContainerGap()));
 
-        JLabel lblNewLabel_5 = new JLabel(temporestante(anuncio.calculaTempoRestanteLeilao()));
+        JLabel lblNewLabel_5 = new JLabel(temporestante(new GregorianCalendar(), this.anuncio.getDataExpir()));
         lblNewLabel_5.setForeground(new Color(0, 0, 51));
         lblNewLabel_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
         GroupLayout gl_panel_4 = new GroupLayout(panel_4);
@@ -173,12 +185,13 @@ public class Resultado_Label extends JPanel {
         panel_4.setLayout(gl_panel_4);
 
         JLabel lblNewLabel_2 = new JLabel("");
-        
-        if(root.getSistema().temUserRating(anuncio.getAnunciante().getUsername()) && root.getSistema().eUserConfiavel(anuncio.getAnunciante().getUsername()))
+
+        if (root.getSistema().temUserRating(anuncio.getAnunciante().getUsername()) && root.getSistema().eUserConfiavel(anuncio.getAnunciante().getUsername())) {
             lblNewLabel_2.setVisible(true);
-        else
+        } else {
             lblNewLabel_2.setVisible(false);
-       
+        }
+
         lblNewLabel_2.setIcon(new ImageIcon(Resultado_Label.class
                 .getResource("/Imagens/top_cliente.png")));
         lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -242,11 +255,11 @@ public class Resultado_Label extends JPanel {
         JXHyperlink hprlnkAutor = new JXHyperlink();
         hprlnkAutor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                root.setBody(new Perfil(root,anuncio.getAnunciante()), "Perfil");
+                abrirperfil();
             }
         });
         hprlnkAutor.setForeground(new Color(0, 0, 0));
-        hprlnkAutor.setText(""+anuncio.getAnunciante().getUsername());
+        hprlnkAutor.setText("" + anuncio.getAnunciante().getUsername());
         GroupLayout gl_panel_2 = new GroupLayout(panel_2);
         gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(
                 Alignment.LEADING).addGroup(
@@ -266,10 +279,10 @@ public class Resultado_Label extends JPanel {
                 Short.MAX_VALUE)));
         panel_2.setLayout(gl_panel_2);
 
-        JXHyperlink hprlnkTituloDoNegcio = new JXHyperlink();
+        hprlnkTituloDoNegcio = new JXHyperlink();
         hprlnkTituloDoNegcio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                root.setBody(new Anuncio_Main(root, anuncio), "anuncio");
+                abriranuncio();
             }
         });
         hprlnkTituloDoNegcio.setForeground(new Color(0, 102, 204));
@@ -298,7 +311,7 @@ public class Resultado_Label extends JPanel {
         JButton btnNewButton = new JButton("\n");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                root.setBody(new Anuncio_Main(root, anuncio), anuncio.getTitulo());
+                root.setBody(new Anuncio_Main(root, anuncio.getCodigo()), anuncio.getTitulo());
             }
         });
 
@@ -327,10 +340,12 @@ public class Resultado_Label extends JPanel {
         setLayout(groupLayout);
 
     }
-    
-    
-    private String temporestante(long diff) {
 
+    private String temporestante(GregorianCalendar in, GregorianCalendar end) {
+
+        long lin = in.getTimeInMillis();
+        long lend = end.getTimeInMillis();
+        long diff = lend - lin;
         long segundos = diff / 1000;
         long msres = diff % 1000;
 
@@ -340,14 +355,18 @@ public class Resultado_Label extends JPanel {
         long horas = minutos / 60;
         long mres = minutos % 60;
 
-        long dia = horas / 24;
+        long ldia = horas / 24;
         long hres = horas % 24;
 
-        String sdias = (((int) dia > 0) ? (int) dia + (((int) dia > 1) ? "1 dia" : (int) dia + "dias") : "");
-        String shoras = (((int) hres > 0) ? (int) hres + (((int) hres > 1) ? "1 hora" : (int) hres + "horas") : "");
-        String sminutos = (((int) mres > 0) ? (int) mres + (((int) mres > 1) ? "1 minuto" : (int) hres + "minutos") : "");
-        String ssegundos = (((int) sres > 0) ? (int) sres + (((int) sres > 1) ? "1 segundo" : (int) hres + "segundo") : "");
+        int dia = (int) ldia;
+        int hora = (int) hres;
+        int minuto = (int) mres;
+        int segundo = (int) sres;
 
+        String sdias = (dia > 0) ? (dia > 1 ? dia + " dias " : "1 dia ") : "";
+        String shoras = (hora > 0) ? (hora > 1 ? hora + " horas " : "1 hora ") : "";
+        String sminutos = (minuto > 0) ? (minuto > 1 ? minuto + " minutos " : "1 minuto ") : "";
+        String ssegundos = (segundo > 0) ? (segundo > 1 ? segundo + " segundos" : "1 segundo ") : "";
         if ((sdias + shoras + sminutos + ssegundos + "").isEmpty()) {
             return "Terminado";
         } else {
@@ -359,4 +378,24 @@ public class Resultado_Label extends JPanel {
 
     }
     
+    
+    
+     private String showdata(GregorianCalendar gc) {
+        int dia, mes, ano, hora, minutos;
+
+        dia = gc.get(GregorianCalendar.DAY_OF_MONTH);
+        mes = gc.get(GregorianCalendar.MONTH) + 1;
+        ano = gc.get(GregorianCalendar.YEAR);
+        return dia + "/" + mes + "/" + ano;
+    }
+
+    public void abriranuncio() {
+        root.setBody(new Anuncio_Main(this.root, this.anuncio.getCodigo()), this.anuncio.getTitulo());
+    }
+
+    public void abrirperfil() {
+        root.setBody(new Perfil(root, anuncio.getAnunciante().getUsername()), "Perfil");
+
+
+    }
 }

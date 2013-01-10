@@ -52,7 +52,10 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			stm.setString(1, this.username);
 			stm.setString(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+                        boolean res = rs.next() ;
+                        rs.close();
+                        stm.close() ;
+			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}

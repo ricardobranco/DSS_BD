@@ -23,13 +23,18 @@ public class Tabbed_Sugestoes extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+    private final int idanuncio;
+    private final AnuncioVenda anuncio;
 
 	/**
 	 * Create the panel.
 	 */
-	public Tabbed_Sugestoes(final Sale_Squared root, AnuncioVenda anuncio) {
+	public Tabbed_Sugestoes(final Sale_Squared root, int idanuncio) {
 
-		UtilizadorRegistado ur = anuncio.getAnunciante();
+            
+                this.idanuncio = idanuncio;
+                this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio);
+		UtilizadorRegistado ur = this.anuncio.getAnunciante();
                 JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(

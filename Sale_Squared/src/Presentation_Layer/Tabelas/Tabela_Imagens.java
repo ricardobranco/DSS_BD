@@ -36,13 +36,13 @@ public class Tabela_Imagens extends JPanel {
 	private final JTable table;
 	private Map<String,Imagem> imagens;
 	private int codigo;
-	private int img;
+	private int nimg;
 	/**
 	 * Create the panel.
 	 */
 	@SuppressWarnings("serial")
 	public Tabela_Imagens(int codigo) {
-		this.img = 0;
+		this.nimg = 0;
 		this.codigo = codigo;
 		imagens = new HashMap<>();
 		JScrollPane scrollPane = new JScrollPane();
@@ -123,11 +123,11 @@ public class Tabela_Imagens extends JPanel {
 			Image img = icon.getImage();
 			ThumbnailIcon ti = new ThumbnailIcon(img, table.getColumn("Foto")
 					.getWidth());
-			
-			String nome = "IMG"+codigo+img;
+			this.nimg++;
+			String nome = "IMG"+codigo+nimg;
 			Imagem imagem = new Imagem(nome,path);
 			imagens.put(nome,imagem);
-			this.img++;
+			
 			Object[] row = { ti, "cancelar" };
 			dtm.addRow(row);
 			updateRowHeights();

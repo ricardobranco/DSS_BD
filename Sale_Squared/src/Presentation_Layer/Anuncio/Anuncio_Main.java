@@ -1,5 +1,6 @@
 package Presentation_Layer.Anuncio;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ModoVenda;
 import java.awt.CardLayout;
@@ -24,20 +25,26 @@ public class Anuncio_Main extends JPanel {
     /**
      * Create the panel.
      */
-    private Business_Layer.Anuncio anuncio;
+    private Anuncio anuncio;
+    private int idanuncio;
+    private final ImagePanel imagepanel;
+    
 
-    public Anuncio_Main(final Sale_Squared root, AnuncioVenda anuncio) {
+    public Anuncio_Main(final Sale_Squared root, int idAnuncio) {
 
-        this.anuncio = anuncio;
-        JLabel lblNewLabel = new JLabel("Titulo do Negócio");
+       
+        this.idanuncio = idAnuncio;
+        this.anuncio = root.getSistema().encontrarAnuncio(this.idanuncio);
+        JLabel lblNewLabel = new JLabel(anuncio.getTitulo());
+        
+        
         lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 35));
-        ImagePanel imagepanel = new ImagePanel();
+        
+        
+         imagepanel = new ImagePanel();
         JPanel panel = new JPanel();
-
         JPanel panel_1 = new JPanel();
-
         JPanel panel_2 = new JPanel();
-
         JPanel panel_3 = new JPanel();
        
         
@@ -145,15 +152,18 @@ public class Anuncio_Main extends JPanel {
                 216,
                 Short.MAX_VALUE)))
                 .addGap(15)));
+        
+        
+        
         panel_2.setLayout(new CardLayout(0, 0));
-        panel_2.add(new Tabbed_Sugestoes(root,anuncio), "Mais sugestoes");
-
         panel_3.setLayout(new CardLayout(0, 0));
-        panel_3.add(imagepanel, "Imagem");
         panel_1.setLayout(new CardLayout(0, 0));
-        panel_1.add(new Tabbed_Anuncio(anuncio, imagepanel), "Info");
+        
+        panel_2.add(new Tabbed_Sugestoes(root,this.idanuncio), "Mais sugestoes");
+        panel_3.add(imagepanel, "Imagem");
+        panel_1.add(new Tabbed_Anuncio(root,this.idanuncio, this.imagepanel), "Info");
         panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Anuncio_Info(root, anuncio), "Compra");
+        panel.add(new Anuncio_Info(root, this.idanuncio), "Compra");
         setLayout(groupLayout);
 
     }

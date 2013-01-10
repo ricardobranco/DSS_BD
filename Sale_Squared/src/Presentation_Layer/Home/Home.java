@@ -90,9 +90,9 @@ public class Home extends JPanel {
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(new Categorias(), "Categorias");
-		//panel_2.add(new Tabbed_Outros(root), "Outros");
-		//panel_1.add(new Tabbed_Produtos(root), "Negocios");
-
+		panel_1.add(new Tabbed_Produtos(root), "Negocios");
+                //panel_2.add(new Tabbed_Outros(root), "Outros");
+		
 		setLayout(groupLayout);
 
 	}

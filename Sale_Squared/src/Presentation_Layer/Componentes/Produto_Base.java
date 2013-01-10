@@ -20,6 +20,7 @@ import Presentation_Layer.Anuncio.Anuncio_Main;
 
 import Business_Layer.*;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.Icon;
 
@@ -29,22 +30,25 @@ public class Produto_Base extends JPanel {
      *
      */
     private AnuncioVenda anuncio;
+    private int idanuncio;
     private static final long serialVersionUID = 1L;
+    private final Sale_Squared root;
+    
 
     /**
      * Create the panel.
      */
-    public Produto_Base(final Sale_Squared root, AnuncioVenda anuncio) {
+    public Produto_Base(final Sale_Squared root, int idanuncio) {
 
-
-        this.anuncio = anuncio;
+       this.root = root;
+       this.idanuncio = idanuncio;
+       this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio); 
         JButton button = new JButton("");
         button.addActionListener(new ActionListener() {
             private AnuncioVenda anuncio;
 
             public void actionPerformed(ActionEvent e) {
-                JPanel anuncio = new Anuncio_Main(root, this.anuncio);
-                root.setBody(anuncio, this.anuncio.getTitulo());
+               abrir();
 
             }
         });
@@ -78,7 +82,7 @@ public class Produto_Base extends JPanel {
 
         label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        JLabel label_1 = new JLabel(temporestante(anuncio.calculaTempoRestanteLeilao()));
+        JLabel label_1 = new JLabel(temporestante(new GregorianCalendar(), anuncio.getDataExpir()));
         label_1.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 13));
 
         JXHyperlink hprlnkNegcio = new JXHyperlink();
@@ -165,8 +169,11 @@ public class Produto_Base extends JPanel {
 
     }
 
-    private String temporestante(long diff) {
+    private String temporestante(GregorianCalendar in, GregorianCalendar end) {
 
+        long lin = in.getTimeInMillis();
+        long lend = end.getTimeInMillis();
+        long diff = lend - lin;
         long segundos = diff / 1000;
         long msres = diff % 1000;
 
@@ -176,14 +183,18 @@ public class Produto_Base extends JPanel {
         long horas = minutos / 60;
         long mres = minutos % 60;
 
-        long dia = horas / 24;
+        long ldia = horas / 24;
         long hres = horas % 24;
 
-        String sdias = (((int) dia > 0) ? (int) dia + (((int) dia > 1) ? "1 dia" : (int) dia + "dias") : "");
-        String shoras = (((int) hres > 0) ? (int) hres + (((int) hres > 1) ? "1 hora" : (int) hres + "horas") : "");
-        String sminutos = (((int) mres > 0) ? (int) mres + (((int) mres > 1) ? "1 minuto" : (int) hres + "minutos") : "");
-        String ssegundos = (((int) sres > 0) ? (int) sres + (((int) sres > 1) ? "1 segundo" : (int) hres + "segundo") : "");
+        int dia = (int) ldia;
+        int hora = (int) hres;
+        int minuto = (int) mres;
+        int segundo = (int) sres;
 
+        String sdias = (dia > 0) ? (dia > 1 ? dia + " dias " : "1 dia ") : "";
+        String shoras = (hora > 0) ? (hora > 1 ? hora + " horas " : "1 hora ") : "";
+        String sminutos = (minuto > 0) ? (minuto > 1 ? minuto + " minutos " : "1 minuto ") : "";
+        String ssegundos = (segundo > 0) ? (segundo > 1 ? segundo + " segundos" : "1 segundo ") : "";
         if ((sdias + shoras + sminutos + ssegundos + "").isEmpty()) {
             return "Terminado";
         } else {
@@ -193,5 +204,14 @@ public class Produto_Base extends JPanel {
 
 
 
+    }
+    
+    
+    public void abrir(){
+         this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
+                JPanel anuncio = new Anuncio_Main(root, this.idanuncio);
+                
+                root.setBody(anuncio, this.anuncio.getTitulo());
+        
     }
 }

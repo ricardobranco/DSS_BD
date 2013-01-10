@@ -761,7 +761,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	// case;
 	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores) {
 
-		Set<Anuncio> res = new TreeSet<Anuncio>();
+		Set<Anuncio> res = new TreeSet<Anuncio>(new ComparadorUltimosAnunc());
 		boolean exitFlag;
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {

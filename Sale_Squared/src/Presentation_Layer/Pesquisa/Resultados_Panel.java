@@ -373,37 +373,39 @@ public class Resultados_Panel extends JPanel {
             case "Mais Recentes":
 
                 ordenado = new TreeSet<>(new ComparadorUltimosAnunc());
-                ordenado.addAll(this.anuncios);
+                
                 break;
 
             case "Popularidade":
 
                 ordenado = new TreeSet<>(new ComparadorAnuncNVis());
-                ordenado.addAll(this.anuncios);
+                
                 break;
 
             case "A fechar":
                 ordenado = new TreeSet<>(new ComparadorATerminar());
-                ordenado.addAll(this.anuncios);
+                
                 break;
             case "Preço: Mais baixo":
                 ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
-                ordenado.addAll(this.anuncios);
+                
                 break;
             case "Preço + portes: Mais baixo":
                 ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.CRESCENTE));
-                ordenado.addAll(this.anuncios);
+                
                 break;
 
             case "Preço: Mais alto":
                 ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.DECRESCENTE));
-                ordenado.addAll(this.anuncios);
+                
                 break;
             case "Preço + portes: Mais alto":
                 ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.DECRESCENTE));
-                ordenado.addAll(this.anuncios);
+                
                 break;
         }
+        for(AnuncioVenda av : this.anuncios)
+                    ordenado.add(av);
 
         Iterator<AnuncioVenda> it = ordenado.iterator();
         List<AnuncioVenda> la = new ArrayList<>();
@@ -415,7 +417,7 @@ public class Resultados_Panel extends JPanel {
         int start = (numeroPag - 1) * 10;
         for (; start < this.anuncios.size() && i < 10; i++, start++) {
             this.jpanels.get(i).removeAll();
-            this.jpanels.get(i).add(new Resultado_Label(root, la.get(start)));
+            this.jpanels.get(i).add(new Resultado_Label(root, la.get(start).getCodigo()));
             this.jpanels.get(i).updateUI();
             this.jpanels.get(i).validate();
             this.jpanels.get(i).setVisible(true);
