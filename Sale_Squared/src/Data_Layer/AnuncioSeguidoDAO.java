@@ -37,6 +37,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 					.prepareStatement(sql);
 			stm.setString(1, this.username);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -53,7 +54,9 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 			stm.setString(1, this.username);
 			stm.setInt(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res = rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -90,6 +93,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 				AnuncioDAO a = new AnuncioDAO();
 				res = a.get(rs.getInt(ANUNCIO));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -109,7 +113,9 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 					.prepareStatement(sql);
 			stm.setString(1, this.username);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res =  !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -127,6 +133,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getInt(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -143,6 +150,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 			stm.setString(USERNAME, this.username);
 			stm.setInt(ANUNCIO, value.getCodigo());
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -166,6 +174,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 			stm.setString(1, this.username);
 			stm.setInt(2, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -184,6 +193,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -205,6 +215,7 @@ public class AnuncioSeguidoDAO implements Map<Integer, Anuncio> {
 				Anuncio a = aDao.get(rs.getInt(ANUNCIO));
 				res.add(a);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

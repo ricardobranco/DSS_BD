@@ -34,6 +34,7 @@ public class ModoPagamentoDAO implements Set<String> {
 			stm.setInt(ANUNCIO, this.codAnunc);
 			stm.setString(MODO_PAGAMENTO, s);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -52,6 +53,7 @@ public class ModoPagamentoDAO implements Set<String> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -68,7 +70,9 @@ public class ModoPagamentoDAO implements Set<String> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -95,7 +99,9 @@ public class ModoPagamentoDAO implements Set<String> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -112,6 +118,7 @@ public class ModoPagamentoDAO implements Set<String> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getString(MODO_PAGAMENTO));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res.iterator();
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -130,6 +137,7 @@ public class ModoPagamentoDAO implements Set<String> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -157,6 +165,7 @@ public class ModoPagamentoDAO implements Set<String> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

@@ -43,6 +43,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 	public static final int NOME = 11;
 	public static final int DATA_NASC = 12;
 	public static final int NOME_IMAGEM = 13;
+        public static final int DATA_REG = 14 ;
         
         public static final int LOCALIDADE = 0;
 	public static final int PAIS = 1;
@@ -70,7 +71,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			String sql = "SELECT username FROM " + U_R_T
 					+ " WHERE ur.username = '" + chave + "'";
 			ResultSet rs = stm.executeQuery(sql);
-			return rs.next();
+			boolean res = rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {throw new NullPointerException(e.getMessage());}
 	}
 
@@ -100,8 +103,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
 				int estado = rs.getInt(ESTADO); 
-				GregorianCalendar dataNasc = new GregorianCalendar();
+				GregorianCalendar dataNasc = new GregorianCalendar(), dataRegisto = new GregorianCalendar();
 				rs.getTimestamp(DATA_NASC, dataNasc);
+                                rs.getTimestamp(DATA_REG, dataRegisto) ;
 				Imagem pathImg = receberImagem(rs);
                                 String locPais[] = {"", ""} ;
                                 if(rs.getString(COD_POSTAL) != null) 
@@ -112,8 +116,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 						rs.getString(COD_POSTAL), locPais[LOCALIDADE],
 						locPais[PAIS], rs.getString(INFORMACAO_P),
 						pathImg, rs.getString(CONTACTO), rs.getString(NOME),
-						dataNasc);
+						dataNasc, dataRegisto);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -150,7 +155,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 		try {
 			Statement stm = ConexaoBD.getConexao().createStatement();
 			ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -164,6 +171,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
 			while (rs.next())
 				res.add(rs.getString(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -216,6 +224,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			stm.setString(NOME, value.getNome());
 			stm.setTimestamp(DATA_NASC, dataNasc);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -237,6 +246,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -251,8 +261,9 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			while (rs.next()) {
 				UtilizadorRegistado u = null;
 				int estado = rs.getInt(ESTADO); 
-				GregorianCalendar dataNasc = new GregorianCalendar();
+				GregorianCalendar dataNasc = new GregorianCalendar(), dataRegisto = new GregorianCalendar();
 				rs.getTimestamp(DATA_NASC, dataNasc);
+                                rs.getTimestamp(DATA_REG, dataRegisto) ;
 				Imagem pathImg = receberImagem(rs);
                                 String locPais[] = {"", ""} ;
                                 if(rs.getString(COD_POSTAL) != null) 
@@ -263,9 +274,10 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 						rs.getString(COD_POSTAL), locPais[LOCALIDADE],
 						locPais[PAIS], rs.getString(INFORMACAO_P),
 						pathImg, rs.getString(CONTACTO), rs.getString(NOME),
-						dataNasc);
+						dataNasc, dataRegisto);
 				res.add(u);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

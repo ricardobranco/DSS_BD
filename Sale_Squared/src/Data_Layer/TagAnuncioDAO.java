@@ -36,6 +36,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -52,7 +53,9 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -88,6 +91,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			if (rs.next()) {
 				res = new Tag(rs.getString(TAG));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -106,7 +110,9 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -123,6 +129,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getString(TAG));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -139,6 +146,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			stm.setInt(ANUNCIO, this.codAnunc);
 			stm.setString(TAG, key);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -161,6 +169,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -178,6 +187,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res++;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -195,6 +205,7 @@ public class TagAnuncioDAO implements Map<String, Tag> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(new Tag(rs.getString(TAG)));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

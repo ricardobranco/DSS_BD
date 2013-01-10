@@ -68,7 +68,9 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 					.prepareStatement(sql);
 			stm.setInt(1, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -123,6 +125,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							locPais[LOCALIDADE],
 							locPais[PAIS], (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
+                                        ConexaoBD.fecharCursor(rsT, stmT);
 				} else
 					res = new Transaccao(a.get(rs.getInt(ANUNCIO)), u.get(rs
 							.getString(VENDEDOR)), u.get(rs
@@ -134,6 +137,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							locPais[PAIS], (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -154,7 +158,9 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			stm.setString(1, this.username);
 			stm.setString(2, this.username);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -176,6 +182,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getInt(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -232,10 +239,12 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 				stm.setString(TIPO, TROCA);
 				stm.execute();
 				stmTro.execute();
+                                ConexaoBD.fecharCursor(null, stmTro);
 			} else {
 				stm.setString(TIPO, TRANSACCAO);
 				stm.execute();
 			}
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -267,6 +276,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -314,6 +324,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							locPais[PAIS], 
                                                         (char) rs.getInt(ESTADO),
 							rs.getInt(QUANTIDADE));
+                                        ConexaoBD.fecharCursor(rsT, stmT);
 				} else
 					t = new Transaccao(a.get(rs.getInt(ANUNCIO)), u.get(rs
 							.getString(VENDEDOR)), u.get(rs
@@ -326,6 +337,7 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 							rs.getInt(QUANTIDADE));
 				res.add(t);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

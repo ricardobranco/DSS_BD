@@ -52,6 +52,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setString(1, this.username);
 			stm.setInt(2, PERTENCE_E);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -68,7 +69,9 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setString(1, this.username);
 			stm.setInt(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -110,6 +113,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 						u.get(rs.getString(RECEPTOR)), dataEnvio,
 						rs.getString(ASSUNTO), rs.getString(CORPO), rs.getInt(ESTADO));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -130,7 +134,9 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setString(1, this.username);
 			stm.setInt(2, PERTENCE_E);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -149,6 +155,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getInt(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -183,6 +190,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			stm.setTimestamp(DATA_ENVIO, dataEnvio);
 			stm.setInt(PERTENCE, PERTENCE_E);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -203,6 +211,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 					.prepareStatement(sql);
 			stm.setInt(1, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -222,6 +231,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -250,6 +260,7 @@ public class MsgEnviadaDAO implements Map<Integer, Mensagem> {
 						rs.getString(ASSUNTO), rs.getString(CORPO), rs.getInt(ESTADO));
 				res.add(m);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

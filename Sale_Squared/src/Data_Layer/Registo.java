@@ -36,7 +36,7 @@ public class Registo {
 					+ " SET s.idMensagem = s.idMensagem + 1";
 			stm.executeUpdate(sqlU);
                         rs.close() ;
-                        stm.close() ;
+                        stm.close() ;                        
 			return res;
 		} catch (SQLException e) {
 			throw new NullPointerException(e.getMessage());
@@ -187,7 +187,8 @@ public class Registo {
                 String sql = "INSERT INTO " + PAIS_T + " VALUES (?)" ;
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);                
                 stm.setString(1, pais) ;
-                stm.execute();                
+                stm.execute();  
+                ConexaoBD.fecharCursor(null, stm);
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -200,7 +201,9 @@ public class Registo {
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
                 stm.setString(1, pais) ;
                 ResultSet rs = stm.executeQuery();
-                return rs.next();
+                boolean res = rs.next();
+                ConexaoBD.fecharCursor(rs, stm);
+                return res ;                
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -212,8 +215,10 @@ public class Registo {
                 String sql = "SELECT * FROM " + LOC_T + " WHERE loc.localidade = ?" ;
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
                 stm.setString(1, localidade) ;
-                ResultSet rs = stm.executeQuery();
-                return rs.next();
+                ResultSet rs = stm.executeQuery();                
+                boolean res = rs.next();
+                ConexaoBD.fecharCursor(rs, stm);
+                return res ;
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -226,7 +231,8 @@ public class Registo {
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
                 stm.setString(1, localidade) ;
                 stm.setString(2, pais) ;
-                stm.execute();                
+                stm.execute();  
+                ConexaoBD.fecharCursor(null, stm);
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -238,8 +244,10 @@ public class Registo {
                 String sql = "SELECT * FROM " + C_P_T + " WHERE cp.codPostal = ?" ;
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
                 stm.setString(1, codPostal) ;
-                ResultSet rs = stm.executeQuery();
-                return rs.next();
+                ResultSet rs = stm.executeQuery();                
+                boolean res =  rs.next();
+                ConexaoBD.fecharCursor(rs, stm);
+                return res ;
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -252,7 +260,8 @@ public class Registo {
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql);
                 stm.setString(1, codPostal) ;
                 stm.setString(2, localidade) ;
-                stm.execute();                
+                stm.execute();
+                ConexaoBD.fecharCursor(null, stm);
            } catch (Exception e) {
                 throw new NullPointerException(e.getMessage());
 		}
@@ -270,6 +279,7 @@ public class Registo {
                     res[LOCALIDADE] = rs.getString(1) ;
                     res[PAIS] = rs.getString(2) ;
                 }
+                ConexaoBD.fecharCursor(rs, stm);
                 return res ;
             } catch (Exception e) {throw new NullPointerException(e.getMessage());}
         }

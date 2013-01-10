@@ -36,6 +36,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 					.prepareStatement(sql);
 			stm.setString(1, this.username);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -92,6 +93,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 				UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO();
 				res = u.get(rs.getString(SEGUIDO));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -110,7 +112,9 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 					.prepareStatement(sql);
 			stm.setString(1, this.username);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -128,6 +132,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getString(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -144,6 +149,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			stm.setString(SEGUIDOR, this.username);
 			stm.setString(SEGUIDO, key);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -167,6 +173,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			stm.setString(1, this.username);
 			stm.setString(2, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -185,6 +192,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -204,6 +212,7 @@ public class UserSeguidoDAO implements Map<String, UtilizadorRegistado> {
 			while (rs.next()) {
 				res.add(u.get(rs.getString(SEGUIDO)));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

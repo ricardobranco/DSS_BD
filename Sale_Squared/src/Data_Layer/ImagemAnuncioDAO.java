@@ -41,6 +41,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -57,7 +58,9 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -103,6 +106,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 				res = new Imagem(rs.getString(NOME), ConexaoBD.pathImagem
 						+ "/" + rs.getString(NOME));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -122,7 +126,9 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res = !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -140,6 +146,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getString(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -161,6 +168,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			FileInputStream fis = new FileInputStream(f);
 			stm.setBlob(IMAGEM, fis);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -184,6 +192,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			stm.setInt(1, this.codAnunc);
 			stm.setString(2, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -202,6 +211,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -232,6 +242,7 @@ public class ImagemAnuncioDAO implements Map<String, Imagem> {
 						+ rs.getString(NOME));
 				res.add(i);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

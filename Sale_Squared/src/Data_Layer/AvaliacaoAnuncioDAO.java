@@ -50,7 +50,9 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			stm.setInt(1, this.codAnunc);
 			stm.setInt(2, chave);
 			ResultSet rs = stm.executeQuery();
-			return rs.next();
+			boolean res =  rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -91,6 +93,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 						data, rs.getDouble(CLASSIFICACAO),
 						rs.getString(COMENTARIO));
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -110,7 +113,9 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
 			ResultSet rs = stm.executeQuery();
-			return !rs.next();
+			boolean res =  !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -128,6 +133,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 				res.add(rs.getInt(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -150,6 +156,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			stm.setDouble(CLASSIFICACAO, value.getClassificacao());
 			stm.setTimestamp(DATA, t);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -177,6 +184,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			ResultSet rs = stm.executeQuery();
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -203,6 +211,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 						rs.getDouble(CLASSIFICACAO), rs.getString(COMENTARIO));
 				res.add(a);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());

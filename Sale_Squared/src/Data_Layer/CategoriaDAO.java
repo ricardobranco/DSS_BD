@@ -31,6 +31,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			Statement stm = ConexaoBD.getConexao().createStatement();
 			String sql = "DELETE FROM " + CATEGORIA_T;
 			stm.execute(sql);
+                        ConexaoBD.fecharCursor(null, stm);
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -44,7 +45,9 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			String sql = "SELECT nome FROM " + CATEGORIA_T
 					+ " WHERE cat.nome = '" + chave + "'";
 			ResultSet rs = stm.executeQuery(sql);
-			return rs.next();
+			boolean res = rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -77,6 +80,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			// if (rs.next()) {
 			res = getAux(chave, stm);
 			// }
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -91,12 +95,15 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			ResultSet rs = stm.executeQuery(sql);
 			if (rs.next()) {
 				String nome = rs.getString(NOME), pai = rs.getString(PAI);
-				if (pai != null)
+                                ConexaoBD.fecharCursor(rs, null);
+				if (pai != null) 
 					return new Categoria(nome, getAux(pai, stm));
 				else
 					return new Categoria(nome, null);
-			} else
+			} else {
+                                ConexaoBD.fecharCursor(rs, null);
 				return null;
+                        }
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -111,7 +118,9 @@ public class CategoriaDAO implements Map<String, Categoria> {
 		try {
 			Statement stm = ConexaoBD.getConexao().createStatement();
 			ResultSet rs = stm.executeQuery("SELECT nome FROM " + CATEGORIA_T);
-			return !rs.next();
+			boolean res =  !rs.next();
+                        ConexaoBD.fecharCursor(rs, stm);
+                        return res ;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
 		}
@@ -125,6 +134,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			ResultSet rs = stm.executeQuery("SELECT nome FROM " + CATEGORIA_T);
 			while (rs.next())
 				res.add(rs.getString(1));
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -142,6 +152,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			stm.setString(PAI, (value.getCategoriaPai() != null ? value
 					.getCategoriaPai().getNome() : null));
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -163,6 +174,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 					.prepareStatement(sql);
 			stm.setString(1, chave);
 			stm.execute();
+                        ConexaoBD.fecharCursor(null, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -176,6 +188,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 			ResultSet rs = stm.executeQuery("SELECT nome FROM " + CATEGORIA_T);
 			for (; rs.next(); i++)
 				;
+                        ConexaoBD.fecharCursor(rs, stm);
 			return i;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
@@ -192,6 +205,7 @@ public class CategoriaDAO implements Map<String, Categoria> {
 				Categoria c = this.get(rs.getString(NOME));
 				res.add(c);
 			}
+                        ConexaoBD.fecharCursor(rs, stm);
 			return res;
 		} catch (Exception e) {
 			throw new NullPointerException(e.getMessage());
