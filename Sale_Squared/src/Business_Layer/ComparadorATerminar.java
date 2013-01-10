@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 public class ComparadorATerminar
         implements Comparator<Anuncio> {
     
-    public static GregorianCalendar tempoActual;
+    public static GregorianCalendar tempoActual = new GregorianCalendar();
 
 	public int compare(Anuncio a, Anuncio b) {
 
@@ -23,9 +23,9 @@ public class ComparadorATerminar
 		long dB = tempoActual.getTimeInMillis()
 				- b.getDataExpir().getTimeInMillis();
 		if (dA >= dB)
-			return 1;
-		else
 			return -1;
+		else
+			return 1;
 	}
 
 	public boolean equals(Object obj) {
