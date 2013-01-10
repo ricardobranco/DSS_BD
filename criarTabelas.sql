@@ -164,6 +164,7 @@ CREATE TABLE UtilizadorRegistado (
   nome       varchar2(50) NOT NULL, 
   dataNasc   date NOT NULL, 
   nomeImagem varchar2(30), 
+  dataRegisto date,
   PRIMARY KEY (username));
 CREATE TABLE Utilizador (
   id   number(10) NOT NULL, 
