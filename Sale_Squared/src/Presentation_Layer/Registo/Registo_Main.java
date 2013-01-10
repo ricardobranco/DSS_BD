@@ -74,7 +74,7 @@ public class Registo_Main extends JPanel {
 					UtilizadorRegistado ur = new UtilizadorRegistado(id,
 							username, password, estado, email, morada,
 							codPostal, localidade, pais, infPessoal, imagem,
-							contacto, nome, dn);
+							contacto, nome, dn,new GregorianCalendar());
 
 					rf.termosaceites();
                                         

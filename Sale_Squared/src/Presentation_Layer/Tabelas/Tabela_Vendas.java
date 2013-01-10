@@ -73,7 +73,7 @@ public class Tabela_Vendas extends JPanel {
 				"Comprar J�" });
 		ActionListener abre = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				root.setBody(new Anuncio_Main(root), "Anuncio");
+				//root.setBody(new Anuncio_Main(root), "Anuncio");
 
 			}
 		};

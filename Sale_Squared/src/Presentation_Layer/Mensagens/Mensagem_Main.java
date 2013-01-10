@@ -31,15 +31,17 @@ public class Mensagem_Main extends JPanel {
 	
 
 	public Mensagem_Main(final Sale_Squared root) {
-		cr = new Caixa_Rec(root, (List<Mensagem>) root.getSistema()
+		
+                cr = new Caixa_Rec(root, (List<Mensagem>) root.getSistema()
 				.encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getRecebidas()
 				.values());
 		ce = new Caixa_Envio(root, (List<Mensagem>) root.getSistema()
 				.encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getEnviadas()
 				.values());
-		btnEnviarMensagem = new JButton("Enviar Mensagem");
-
-		btnMarcarComoLido = new JButton("Marcar como lido");
+		
+                
+                btnEnviarMensagem = new JButton("Enviar Mensagem");
+                btnMarcarComoLido = new JButton("Marcar como lido");
 		btnMarcarComoLido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cr.marcarLidas();
