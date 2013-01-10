@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.HashSet;
 
 import Data_Layer.AnuncioDAO;
 import Data_Layer.CategoriaDAO;
@@ -284,7 +285,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	public Set<UtilizadorRegistado> procurarUserNome(String user) {
 
-		Set<UtilizadorRegistado> res = new TreeSet<UtilizadorRegistado>();
+		Set<UtilizadorRegistado> res = new HashSet<UtilizadorRegistado>();
 		for (Iterator<UtilizadorRegistado> it = this.users.values().iterator(); it
 				.hasNext();) {
 			UtilizadorRegistado u = it.next();
@@ -296,7 +297,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	public Set<UtilizadorRegistado> procurarUserMail(String email) {
 
-		Set<UtilizadorRegistado> res = new TreeSet<UtilizadorRegistado>();
+		Set<UtilizadorRegistado> res = new HashSet<UtilizadorRegistado>();
 		for (Iterator<UtilizadorRegistado> it = this.users.values().iterator(); it
 				.hasNext();) {
 			UtilizadorRegistado u = it.next();
@@ -704,7 +705,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 		//double res = 0;
 		//ArrayList<Double> amostra = new ArrayList<Double>();
-                Set<Avaliacao> res = new TreeSet<Avaliacao>() ;
+                Set<Avaliacao> res = new HashSet<Avaliacao>() ;
 		UtilizadorRegistado u = this.users.get(username);
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {
@@ -737,7 +738,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	public Set<Anuncio> procurarAnuncTag(String nome) {
 
-		Set<Anuncio> res = new TreeSet<Anuncio>();
+		Set<Anuncio> res = new HashSet<Anuncio>();
 		for (Iterator<Anuncio> itA = this.anuncios.values().iterator(); itA
 				.hasNext();) {
 			Anuncio a = itA.next();
@@ -753,7 +754,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	public Set<Anuncio> procurarAnuncCat(String nome) {
 
-		Set<Anuncio> res = new TreeSet<Anuncio>();
+		Set<Anuncio> res = new HashSet<Anuncio>();
 		for (Iterator<Anuncio> itA = this.anuncios.values().iterator(); itA
 				.hasNext();) {
 			Anuncio a = itA.next();

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JProgressBar;
 import org.jdesktop.swingx.JXHyperlink;
+//import org.jdesktop.layout.GroupLayout;
 
 /**
  *
