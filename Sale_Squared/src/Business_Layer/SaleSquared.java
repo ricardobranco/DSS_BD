@@ -700,29 +700,39 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	// pré-condição: existem ratings para o utilizador
 	// classificações de 0 a 100
-	public double calcularRegistadoRating(String username) {
+	public Set<Avaliacao> calcularRegistadoRating(String username) {
 
-		double res = 0;
-		ArrayList<Double> amostra = new ArrayList<Double>();
+		//double res = 0;
+		//ArrayList<Double> amostra = new ArrayList<Double>();
+                Set<Avaliacao> res = new TreeSet<Avaliacao>() ;
 		UtilizadorRegistado u = this.users.get(username);
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
-			for (Iterator<Avaliacao> itAval = a.getAvaliacoes().values()
-					.iterator(); itAval.hasNext();) {
-				Avaliacao aval = itAval.next();
-				if (itAval.next().getAvaliador().getUsername().equals(username))
-					amostra.add(aval.getClassificacao());
-			}
-		}
-		for (Double d : amostra)
-			res += d;
-		return res / amostra.size();
+                        if(a.getAnunciante().getUsername().equals(username)) {
+                            res.addAll(a.getAvaliacoes().values());
+                        }
+		}		
+		return res ;
 	}
 
 	// pré-condição: existem ratings para o utilizador
 	public boolean eUserConfiavel(String username) {
-		return calcularRegistadoRating(username) >= UtilizadorRegistado.CLASSIFICACAO_MINIMA;
+		
+            boolean res = false ;
+            ArrayList<Double> notas = new ArrayList<Double>() ;
+            Set<Avaliacao> av = this.calcularRegistadoRating(username) ;
+            for(Iterator<Avaliacao> it = av.iterator(); it.hasNext(); ) {
+                notas.add(it.next().getClassificacao()) ;                
+            }
+            if(notas.isEmpty() == false) {
+                double sum = 0 ;
+                for(Double d : notas)
+                    sum += d ;
+                if(sum/notas.size() >= UtilizadorRegistado.CLASSIFICACAO_MINIMA)
+                    res = true ;
+            }
+            return res ;
 	}
 
 	public Set<Anuncio> procurarAnuncTag(String nome) {
@@ -796,13 +806,13 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 									.equals((String) valores[i]);
 					break;
 				}
-				case "rMaiorI": {
+				/*case "rMaiorI": {
 					UtilizadorRegistado u = a.getAnunciante();
 					if (temUserRating(u.getUsername()))
 						exitFlag = exitFlag
 								&& calcularRegistadoRating(u.getUsername()) >= (Double) valores[i];
 					break;
-				}
+				}*/
 				case "e": {
 					exitFlag = exitFlag
 							&& a.isEstadoProduto() == (Boolean) valores[i];

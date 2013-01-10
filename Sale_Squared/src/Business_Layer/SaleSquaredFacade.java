@@ -141,8 +141,12 @@ public interface SaleSquaredFacade {
 
 	public boolean temUserRating(String username);
 
-	public double calcularRegistadoRating(String username);
+	public Set<Avaliacao> calcularRegistadoRating(String username);
 
+        //public boolean temAnuncioRating(String username);
+
+	//public double calcularAnuncioRating(String username);
+        
 	public boolean eUserConfiavel(String username);
 
 	public Set<Anuncio> procurarAnuncTag(String nome);
