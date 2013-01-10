@@ -1,0 +1,50 @@
+--------------------------------------------------------
+--  File created - Thursday-January-10-2013   
+--------------------------------------------------------
+REM INSERTING into PEDRO.CATEGORIA
+SET DEFINE OFF;
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Todos',null);
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Auto','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Livros e Revistas','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Casa e Jardim','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Saúde','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Colecionáveis e Arte','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Moda','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Desporto e Entretenimento','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Tecnologia e Electrónica','Todos');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Peças Auto','Auto');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Veículos','Auto');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Revistas','Livros e Revistas');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Manuais Escolares','Livros e Revistas');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Literatura','Livros e Revistas');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Literatura Infantil','Livros e Revistas');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Banda Desenhada','Livros e Revistas');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Animais','Casa e Jardim');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Jardinagem','Casa e Jardim');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Imóveis','Casa e Jardim');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Mobília','Casa e Jardim');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Plantas e Flores','Casa e Jardim');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Higiene','Saúde');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Cosméticos','Saúde');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Selos','Colecionáveis e Arte');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Moedas e Notas','Colecionáveis e Arte');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Medalhas','Colecionáveis e Arte');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Antiguidades','Colecionáveis e Arte');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Arte','Colecionáveis e Arte');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Vestuário','Moda');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Acessórios','Moda');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Brinquedos','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Fitness e Musculação','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Filmes e Cinema','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Música','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Caça e Pesca','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Campismo','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Futebol','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Natação','Desporto e Entretenimento');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Áudio, TV e Vídeo','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Consolas','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Fotografia','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Informática','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Telemóveis e Telefones','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Gadgets','Tecnologia e Electrónica');
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Circuitos','Tecnologia e Electrónica');
