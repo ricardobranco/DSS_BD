@@ -3,7 +3,9 @@ package Presentation_Layer.Componentes;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,26 +19,31 @@ public class Utilizadores_Coluna extends JPanel {
      */
     private static final long serialVersionUID = 1L;
     private final Sale_Squared root;
-    private final String username;
-    private  UtilizadorRegistado ur;
+    private final Collection<UtilizadorRegistado> users;
+    private List<JPanel> jpanels;
 
     /**
      * Create the panel.
      */
-    public Utilizadores_Coluna(final Sale_Squared root ,Collection<UtilizadorRegistado> users) {
+    public Utilizadores_Coluna(final Sale_Squared root, Collection<UtilizadorRegistado> users) {
 
-       
-        
+        this.root = root;
+        this.users = users;
+        this.jpanels = new ArrayList<>();
 
         JPanel panel = new JPanel();
-
         JPanel panel_1 = new JPanel();
-
         JPanel panel_2 = new JPanel();
-
         JPanel panel_3 = new JPanel();
-
         JPanel panel_4 = new JPanel();
+        
+        jpanels.add(panel);
+        jpanels.add(panel_1);
+        jpanels.add(panel_2);
+        jpanels.add(panel_3);
+        jpanels.add(panel_4);
+        
+        
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout
                 .setHorizontalGroup(groupLayout
