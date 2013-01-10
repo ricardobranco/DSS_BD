@@ -2,6 +2,7 @@ package Presentation_Layer.Tabbed;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
+import Business_Layer.Categoria;
 import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.UtilizadorRegistado;
 import java.awt.CardLayout;
@@ -13,6 +14,9 @@ import javax.swing.JTabbedPane;
 
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Produtos_Coluna;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -67,14 +71,23 @@ public class Tabbed_Sugestoes extends JPanel {
 		
                 panel.add(new Produtos_Coluna(root, anuncios), "Do vendedor");
 
-		
+		Map<String,Categoria> categorias = this.anuncio.getCategorias();
+                List<String> catchaves = new ArrayList<>();
+                for(String s : categorias.keySet()){
+                   catchaves.add(s); 
+                }
                 String[] uservt = {"c"};
-                Object[] campos = {};//ACABAR
+                Object[] campos = new Object[categorias.size()];
                 
-                 Set<Anuncio> pvtanuncios = root.getSistema().procurarAnuncAvanc(user, nome);
+                for(int i = 0; i<categorias.size();i++){
+                    campos[i]=catchaves.get(i);
+                }
+                
+                
+                Set<Anuncio> pvtanuncios = root.getSistema().procurarAnuncAvanc(uservt, campos);
                 Set<AnuncioVenda> vtanuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
-                for(Anuncio a : panuncios){
-                    anuncios.add((AnuncioVenda) a);
+                for(Anuncio a : pvtanuncios){
+                    vtanuncios.add((AnuncioVenda) a);
                 }
                 
                 

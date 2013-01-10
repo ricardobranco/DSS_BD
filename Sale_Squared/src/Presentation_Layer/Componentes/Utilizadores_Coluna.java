@@ -19,8 +19,8 @@ public class Utilizadores_Coluna extends JPanel {
      */
     private static final long serialVersionUID = 1L;
     private final Sale_Squared root;
-    private final Collection<UtilizadorRegistado> users;
     private List<JPanel> jpanels;
+    private List<UtilizadorRegistado> users;
 
     /**
      * Create the panel.
@@ -28,22 +28,29 @@ public class Utilizadores_Coluna extends JPanel {
     public Utilizadores_Coluna(final Sale_Squared root, Collection<UtilizadorRegistado> users) {
 
         this.root = root;
-        this.users = users;
         this.jpanels = new ArrayList<>();
-
+        this.users = new ArrayList<>();
         JPanel panel = new JPanel();
         JPanel panel_1 = new JPanel();
         JPanel panel_2 = new JPanel();
         JPanel panel_3 = new JPanel();
         JPanel panel_4 = new JPanel();
-        
+
         jpanels.add(panel);
         jpanels.add(panel_1);
         jpanels.add(panel_2);
         jpanels.add(panel_3);
         jpanels.add(panel_4);
-        
-        
+
+        for (JPanel jp : jpanels) {
+            jp.setVisible(false);
+        }
+
+        for (UtilizadorRegistado ur : users) {
+            users.add(ur);
+        }
+
+
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout
                 .setHorizontalGroup(groupLayout
@@ -106,16 +113,19 @@ public class Utilizadores_Coluna extends JPanel {
                 .addPreferredGap(ComponentPlacement.RELATED)
                 .addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 81,
                 Short.MAX_VALUE).addGap(2)));
-        panel_4.setLayout(new CardLayout(0, 0));
-        panel_4.add(new Utilizador_Base(), "User5");
-        panel_3.setLayout(new CardLayout(0, 0));
-        panel_3.add(new Utilizador_Base(), "User4");
-        panel_2.setLayout(new CardLayout(0, 0));
-        panel_2.add(new Utilizador_Base(), "User3");
-        panel_1.setLayout(new CardLayout(0, 0));
-        panel_1.add(new Utilizador_Base(), "User2");
-        panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Utilizador_Base(), "User1");
+
+        for (JPanel jp : jpanels) {
+            jp.setLayout(new CardLayout(0, 0));
+        }
+
+        for (int i = 0; i < jpanels.size() && i < this.users.size(); i++) {
+            this.jpanels.get(i).add(new Utilizador_Base(root, this.users.get(i).getUsername()));
+
+        }
+
+
+
+
         setLayout(groupLayout);
 
     }

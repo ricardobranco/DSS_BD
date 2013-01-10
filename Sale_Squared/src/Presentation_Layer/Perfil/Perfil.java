@@ -69,7 +69,7 @@ public class Perfil extends JPanel {
         lblNewLabel_1.setIcon(new ImageIcon(Perfil.class
                 .getResource("/Imagens/top_cliente.png")));
 
-        JLabel lblRegistadoDesde = new JLabel("Registado desde "); //FALTA DATA DE REGISTO
+        JLabel lblRegistadoDesde = new JLabel("Registado desde " + showdata(this.ur.getDataRegisto()));
 
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 

@@ -57,7 +57,7 @@ public class Ler_mensagem extends JPanel {
 		from.setUnclickedColor(new Color(0, 102, 204));
 		from.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				root.setBody(new Perfil(root, msg.getEmissor()), msg.getEmissor().getUsername());
+				root.setBody(new Perfil(root, msg.getEmissor().getUsername()), msg.getEmissor().getUsername());
 			}
 		});
 		from.setText(msg.getEmissor().getUsername());

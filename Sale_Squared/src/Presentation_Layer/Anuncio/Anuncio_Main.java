@@ -2,6 +2,7 @@ package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
+import Business_Layer.Imagem;
 import Business_Layer.ModoVenda;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -15,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Tabbed.Tabbed_Anuncio;
 import Presentation_Layer.Tabbed.Tabbed_Sugestoes;
+import java.util.List;
 
 public class Anuncio_Main extends JPanel {
 
@@ -165,6 +167,11 @@ public class Anuncio_Main extends JPanel {
         panel.setLayout(new CardLayout(0, 0));
         panel.add(new Anuncio_Info(root, this.idanuncio), "Compra");
         setLayout(groupLayout);
+        
+        if(!this.anuncio.getImagens().isEmpty()){
+            List<Imagem> imagens =  (List<Imagem>) this.anuncio.getImagens().values();
+            this.imagepanel.setImage(imagens.get(0));
+        }
 
     }
 
