@@ -187,15 +187,15 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			if (existe)
 				sql = "UPDATE "
 						+ U_R_T
-						+ " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ? WHERE ur.username = '"
+						+ " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ?, ur.dataRegisto = ? WHERE ur.username = '"
 						+ key + "'";
 			else
 				sql = "INSERT INTO "
 						+ U_R_T
-						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			File f = new File(value.getImagem().getPath());
 			Timestamp dataNasc = new Timestamp(value.getDataNasc()
-					.getTimeInMillis());
+					.getTimeInMillis()), dataRegisto = new Timestamp(value.getDataRegisto().getTimeInMillis());
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			int estado = value.getEstado(); 
@@ -223,6 +223,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
 			stm.setString(CONTACTO, value.getContacto());
 			stm.setString(NOME, value.getNome());
 			stm.setTimestamp(DATA_NASC, dataNasc);
+                        stm.setTimestamp(DATA_REG, dataRegisto) ;
 			stm.execute();
                         ConexaoBD.fecharCursor(null, stm);
 			return res;

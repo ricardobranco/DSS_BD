@@ -63,6 +63,7 @@ CREATE TABLE Avaliacao (
 CREATE TABLE AnuncioVisitado (
   utilizador number(10) NOT NULL, 
   anuncio    number(10) NOT NULL, 
+  dataVisualizacao date NOT NULL,
   PRIMARY KEY (utilizador, 
   anuncio));
 CREATE TABLE VendaDirecta (
@@ -164,7 +165,7 @@ CREATE TABLE UtilizadorRegistado (
   nome       varchar2(50) NOT NULL, 
   dataNasc   date NOT NULL, 
   nomeImagem varchar2(30), 
-  dataRegisto date,
+  dataRegisto date NOT NULL,
   PRIMARY KEY (username));
 CREATE TABLE Utilizador (
   id   number(10) NOT NULL, 
