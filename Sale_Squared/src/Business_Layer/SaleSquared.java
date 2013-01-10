@@ -18,6 +18,7 @@ import Data_Layer.CategoriaDAO;
 import Data_Layer.ConexaoBD;
 import Data_Layer.Registo;
 import Data_Layer.UtilizadorRegistadoDAO;
+import java.util.HashSet;
 
 
 

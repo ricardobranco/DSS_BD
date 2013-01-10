@@ -88,6 +88,7 @@ public class Registo_Main extends JPanel {
 
 					sistema.setEmSessao(ur);
 					Sale_Squared.REGISTADO = true;
+                                        Sale_Squared.UTILIZADOR = ur.getUsername();
 					root.reloadHeader();
 					root.setBody(new Home(root), ur.getUsername());
 				}

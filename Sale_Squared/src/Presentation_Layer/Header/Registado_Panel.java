@@ -33,7 +33,8 @@ public class Registado_Panel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				Sale_Squared.REGISTADO = false;
 				Sale_Squared.UTILIZADOR = null;
-				root.reloadHeader();
+				root.getSistema().logout();
+                                root.reloadHeader();
 				root.setBody(new Home(root), "Home");
 			}
 		});
