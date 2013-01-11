@@ -23,3 +23,7 @@ nbproject/private/
 *.swp
 *.out
 
+./Sale_Squared/build/
+./Sale_Squared/.settings
+./Sale_Squared/.DS_Store
+./Sale_Squared/dist/
