@@ -286,3 +286,17 @@ CREATE INDEX UtilizadorRegistado_username
 CREATE INDEX Categoria_nome 
   ON Categoria (nome);
 INSERT INTO Sistema VALUES (1, 1, 1, 1, 1, 1) ;
+
+CREATE OR REPLACE FUNCTION MD5 (
+    CADENA IN VARCHAR2
+) RETURN DBMS_OBFUSCATION_TOOLKIT.VARCHAR2_CHECKSUM
+AS
+BEGIN
+    RETURN LOWER(
+        RAWTOHEX(
+            UTL_RAW.CAST_TO_RAW(
+                DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => CADENA)
+            )
+        )
+    );
+END;
