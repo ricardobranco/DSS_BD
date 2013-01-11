@@ -72,13 +72,13 @@ public class Pesquisa_Ferramentas extends JPanel {
         JLabel lblNewLabel_1 = new JLabel("€");
         
         min = new JTextField();
-        min.setText("" + anuncios.first().getPreco());
+        min.setText(anuncios.isEmpty()?"":"" + anuncios.first().getPreco());
         min.setColumns(10);
         
         JLabel lblNewLabel_2 = new JLabel("até €");
         
         max = new JTextField();
-        max.setText("" + anuncios.last().getPreco());
+        max.setText(anuncios.isEmpty()?"":"" + anuncios.last().getPreco());
         max.setColumns(10);
         
         JButton btnNewButton = new JButton("Filtrar");
@@ -363,7 +363,7 @@ public class Pesquisa_Ferramentas extends JPanel {
             throw new Exception("Insira um minimo válido");
         }
         if (dmin < anuncios.first().getPreco()) {
-            min.setText("" + anuncios.first().getPreco());
+            min.setText(anuncios.isEmpty()?"":"" + anuncios.first().getPreco());
             dmin = anuncios.first().getPreco();
         }
         return dmin;
@@ -377,7 +377,7 @@ public class Pesquisa_Ferramentas extends JPanel {
             throw new Exception("Insira um maximo válido");
         }
         if (dmax < anuncios.first().getPreco()) {
-            max.setText("" + anuncios.last().getPreco());
+            max.setText(anuncios.isEmpty()?"":"" + anuncios.last().getPreco());
             dmax = anuncios.last().getPreco();
         }
         return dmax;

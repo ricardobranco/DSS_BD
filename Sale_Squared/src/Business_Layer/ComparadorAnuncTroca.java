@@ -16,7 +16,7 @@ public class ComparadorAnuncTroca implements Comparator<Anuncio> {
 	}
 
 	public boolean equals(Object obj) {
-		return this.equals(obj);
+		return super.equals(obj);
 	}
 
 }

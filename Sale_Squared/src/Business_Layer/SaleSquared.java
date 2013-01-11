@@ -18,6 +18,7 @@ import Data_Layer.CategoriaDAO;
 import Data_Layer.ConexaoBD;
 import Data_Layer.Registo;
 import Data_Layer.UtilizadorRegistadoDAO;
+import java.util.HashSet;
 
 
 
@@ -780,7 +781,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			exitFlag = true;
 			for (int i = 0; i < campos.length && exitFlag; i++) {
 				switch (campos[i]) {
-                                case "tit": { exitFlag = exitFlag && a.getTitulo().contains((String)valores[i]) ; break;}    
+                                case "tit": { exitFlag = exitFlag && a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()) ; break;}    
                                 case "desc" : {exitFlag = exitFlag && a.getDescricao().contains((String)valores[i]) ; break ;}
 				case "pMenorI": {
 					exitFlag = exitFlag && a.getPreco() <= (Double) valores[i];
@@ -999,7 +1000,6 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 		TreeSet<Anuncio> res = new TreeSet<Anuncio>(
 				new ComparadorUltimosAnunc());
-		ComparadorUltimosAnunc.tempoActual = new GregorianCalendar();
 		res.addAll(this.anuncios.values());
 		return res.iterator();
 	}

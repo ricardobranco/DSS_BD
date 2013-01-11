@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 public class ComparadorATerminar
         implements Comparator<Anuncio> {
     
-    public static GregorianCalendar tempoActual = new GregorianCalendar();
+    private GregorianCalendar tempoActual = new GregorianCalendar();
 
 	public int compare(Anuncio a, Anuncio b) {
 
@@ -29,7 +29,7 @@ public class ComparadorATerminar
 	}
 
 	public boolean equals(Object obj) {
-		return this.equals(obj);
+		return super.equals(obj);
 	}
     
     

@@ -356,14 +356,19 @@ public class Resultados_Panel extends JPanel {
         ordena();
 
     }
-    
-    
 
     @SuppressWarnings("empty-statement")
     public void ordena() {
         String criterio = (String) comboBox.getModel().getElementAt(comboBox.getSelectedIndex());
         TreeSet<AnuncioVenda> ordenado = null;
-        int numeroPag = new Integer((String) this.comboBox_1.getModel().getElementAt(this.comboBox_1.getSelectedIndex())).intValue();
+        int numeroPag;
+        if ((String) this.comboBox_1.getModel().getElementAt(this.comboBox_1.getSelectedIndex()) == null) {
+            numeroPag = 0;
+        } else {
+            numeroPag = new Integer((String) this.comboBox_1.getModel().getElementAt(this.comboBox_1.getSelectedIndex())).intValue();
+        }
+
+
 
         for (JPanel j : this.jpanels) {
             j.setVisible(false);
@@ -373,39 +378,40 @@ public class Resultados_Panel extends JPanel {
             case "Mais Recentes":
 
                 ordenado = new TreeSet<>(new ComparadorUltimosAnunc());
-                
+
                 break;
 
             case "Popularidade":
 
                 ordenado = new TreeSet<>(new ComparadorAnuncNVis());
-                
+
                 break;
 
             case "A fechar":
                 ordenado = new TreeSet<>(new ComparadorATerminar());
-                
+
                 break;
             case "Preço: Mais baixo":
                 ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
-                
+
                 break;
             case "Preço + portes: Mais baixo":
                 ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.CRESCENTE));
-                
+
                 break;
 
             case "Preço: Mais alto":
                 ordenado = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.DECRESCENTE));
-                
+
                 break;
             case "Preço + portes: Mais alto":
                 ordenado = new TreeSet<>(new ComparatorPrecoPortes(ComparatorPrecoPortes.DECRESCENTE));
-                
+
                 break;
         }
-        for(AnuncioVenda av : this.anuncios)
-                    ordenado.add(av);
+        for (AnuncioVenda av : this.anuncios) {
+            ordenado.add(av);
+        }
 
         Iterator<AnuncioVenda> it = ordenado.iterator();
         List<AnuncioVenda> la = new ArrayList<>();
@@ -415,12 +421,14 @@ public class Resultados_Panel extends JPanel {
 
         int i = 0;
         int start = (numeroPag - 1) * 10;
-        for (; start < this.anuncios.size() && i < 10; i++, start++) {
-            this.jpanels.get(i).removeAll();
-            this.jpanels.get(i).add(new Resultado_Label(root, la.get(start).getCodigo()));
-            this.jpanels.get(i).updateUI();
-            this.jpanels.get(i).validate();
-            this.jpanels.get(i).setVisible(true);
+        if (numeroPag != 0) {
+            for (; start < this.anuncios.size() && i < 10; i++, start++) {
+                this.jpanels.get(i).removeAll();
+                this.jpanels.get(i).add(new Resultado_Label(root, la.get(start).getCodigo()));
+                this.jpanels.get(i).updateUI();
+                this.jpanels.get(i).validate();
+                this.jpanels.get(i).setVisible(true);
+            }
         }
 
 

@@ -17,6 +17,6 @@ public class ComparadorAnuncioTag implements Comparator<Tag> {
 	}
 
 	public boolean equals(Object obj) {
-		return this.equals(obj);
+		return super.equals(obj);
 	}
 }

@@ -4,7 +4,7 @@ import java.util.* ;
 
 public class ComparadorUltimosAnunc implements Comparator<Anuncio> {
 
-	public static GregorianCalendar tempoActual;
+	private GregorianCalendar tempoActual = new GregorianCalendar();
 
         
         
@@ -21,6 +21,6 @@ public class ComparadorUltimosAnunc implements Comparator<Anuncio> {
 	}
 
 	public boolean equals(Object obj) {
-		return this.equals(obj);
+		return super.equals(obj);
 	}
 }
