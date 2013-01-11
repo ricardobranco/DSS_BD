@@ -4,6 +4,7 @@
 REM INSERTING into PEDRO.CATEGORIA
 SET DEFINE OFF;
 Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Todos',null);
+Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Outros',null);
 Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Auto','Todos');
 Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Livros e Revistas','Todos');
 Insert into PEDRO.CATEGORIA (NOME,PAI) values ('Casa e Jardim','Todos');
