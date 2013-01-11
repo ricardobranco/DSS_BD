@@ -1,6 +1,6 @@
 #java specific
-*/.class
 
+Sale_Squared/cache/*
 #netbeans ignore personal stuff 
 nbproject/private/
 
@@ -8,8 +8,10 @@ nbproject/private/
 ## generic files to ignore
 *~
 *.lock
-*/.DS_Store
+.DS_Store
 *.swp
 *.out
-/Sale_Squared/build/
-/Sale_Squared/dist/
+./Sale_Squared/build/
+./Sale_Squared/.settings
+./Sale_Squared/.DS_Store
+./Sale_Squared/dist/
