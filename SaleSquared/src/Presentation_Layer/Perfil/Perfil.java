@@ -1,186 +1,48 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Perfil;
-
-import java.awt.CardLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.GregorianCalendar;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.Imagem;
 import Business_Layer.UtilizadorRegistado;
-import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Componentes.Avatar;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import Presentation_Layer.Sale_Squared;
+import java.util.GregorianCalendar;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.ImageIcon;
 
-public class Perfil extends JPanel {
+/**
+ *
+ * @author ricardobranco
+ */
+public class Perfil extends javax.swing.JPanel {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    private UtilizadorRegistado ur;
-    private String username;
+    private final String username;
+    private final UtilizadorRegistado ur;
     private final Sale_Squared root;
-    private final JButton btnSeguirUtilizador;
 
     /**
-     * Create the panel.
+     * Creates new form Perfil
      */
     public Perfil(final Sale_Squared root, String username) {
-
+        initComponents();
         this.username = username;
         this.ur = root.getSistema().encontrarUtilizadorReg(username);
         this.root = root;
-
-        JLabel label = new JLabel("");
-
         Imagem img = this.ur.getImagem();
-
-        label.setIcon(new Avatar(new ImageIcon(img.getPath()).getImage()));
-
-        final JLabel lblNewLabel = new JLabel(this.username);
-        lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setVisible(root.getSistema().eUserConfiavel(this.username));
-
-       
-        lblNewLabel_1.setIcon(new ImageIcon(Perfil.class
-                .getResource("/Imagens/top_cliente.png")));
-
-        JLabel lblRegistadoDesde = new JLabel("Registado desde " + showdata(this.ur.getDataRegisto()));
-
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-
-        btnSeguirUtilizador = new JButton("Seguir Utilizador");
-        btnSeguirUtilizador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                seguirutilizador();
-            }
-        });
-
-        btnSeguirUtilizador.setVisible(false);
-        if (Sale_Squared.REGISTADO) {
-            btnSeguirUtilizador.setVisible(true);
+        if (!img.getPath().isEmpty()) {
+            avatar.setIcon(new Avatar(new ImageIcon(img.getPath()).getImage()));
         }
-
-        GroupLayout groupLayout = new GroupLayout(this);
-        groupLayout
-                .setHorizontalGroup(groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                Alignment.TRAILING,
-                groupLayout
-                .createSequentialGroup()
-                .addGap(14)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                tabbedPane,
-                GroupLayout.DEFAULT_SIZE,
-                430,
-                Short.MAX_VALUE)
-                .addContainerGap())
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                label)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                lblNewLabel)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                lblNewLabel_1))
-                .addComponent(
-                lblRegistadoDesde))
-                .addGap(157))))
-                .addGroup(
-                Alignment.TRAILING,
-                groupLayout.createSequentialGroup()
-                .addContainerGap(327, Short.MAX_VALUE)
-                .addComponent(btnSeguirUtilizador)
-                .addContainerGap()));
-        groupLayout
-                .setVerticalGroup(groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGap(15)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addComponent(
-                lblNewLabel_1)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                lblNewLabel)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                lblRegistadoDesde))
-                .addComponent(label))
-                .addGap(18)
-                .addComponent(tabbedPane,
-                GroupLayout.DEFAULT_SIZE, 363,
-                Short.MAX_VALUE)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(btnSeguirUtilizador)
-                .addGap(12)));
-
-        JPanel panel = new JPanel();
-        tabbedPane.addTab("Reputação", null, panel, null);
-        panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Perfil_Reputacao(), "perfil_rep");
-
-        JPanel panel_1 = new JPanel();
-        tabbedPane.addTab("Negócios", null, panel_1, null);
-        panel_1.setLayout(new CardLayout(0, 0));
-        String[] user = {"user"};
-        Object[] nome = {this.username};
-        Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(user, nome);
-        Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
-        for (Anuncio a : panuncios) {
-            anuncios.add((AnuncioVenda) a);
-        }
-
-        panel_1.add(new Pesquisa_Resultado(root, anuncios), "Negócios");
-        setLayout(groupLayout);
+        this.nick.setText(username);
+        this.registo.setText("Registado desde " + showdata(this.ur.getDataRegisto()));
+        this.top.setVisible(root.getSistema().eUserConfiavel(this.username));
+        this.seguir.setVisible(Sale_Squared.REGISTADO);
 
     }
 
@@ -194,13 +56,150 @@ public class Perfil extends JPanel {
     }
 
     public void seguirutilizador() {
-        if (btnSeguirUtilizador.getText().equals("Seguir Utilizador")) {
-            btnSeguirUtilizador.setText("Deixar Utilizador");
+        if (seguir.getText().equals("Seguir Utilizador")) {
+            seguir.setText("Deixar Utilizador");
             this.root.getSistema().deixarSegUser(Sale_Squared.UTILIZADOR, this.username);
-        }
-        else{
-            btnSeguirUtilizador.setText("Seguir Utilizador");
+        } else {
+            seguir.setText("Seguir Utilizador");
             this.root.getSistema().seguirUser(Sale_Squared.UTILIZADOR, this.ur);
         }
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        avatar = new javax.swing.JLabel();
+        nick = new javax.swing.JLabel();
+        registo = new javax.swing.JLabel();
+        top = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        seguir = new javax.swing.JButton();
+
+        avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/avatar.jpg"))); // NOI18N
+
+        nick.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        nick.setText("jLabel2");
+
+        registo.setText("jLabel3");
+
+        top.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/top_cliente.png"))); // NOI18N
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+
+        jPanel1.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Reputação", jPanel1);
+
+        jPanel2.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Anúncios", jPanel2);
+
+        jPanel3.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Sobre", jPanel3);
+
+        seguir.setText("Seguir Utilizador");
+        seguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seguirActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jTabbedPane1)
+                    .add(layout.createSequentialGroup()
+                        .add(avatar)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(nick)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(top))
+                            .add(registo))
+                        .add(0, 161, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(seguir)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(top)
+                            .add(nick))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(registo))
+                    .add(avatar))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(seguir)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void seguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seguirActionPerformed
+        // TODO add your handling code here:
+        seguirutilizador();
+    }//GEN-LAST:event_seguirActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        // TODO add your handling code here:
+        switch (this.jTabbedPane1.getSelectedIndex()) {
+            case 0:
+                jPanel1.removeAll();
+                jPanel1.add(new Perfil_Reputacao(), "perfil_rep");
+                jPanel1.updateUI();
+                jPanel1.validate();
+                break;
+            case 1:
+                String[] user = {"user"};
+                Object[] nome = {this.username};
+                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(user, nome);
+                Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
+                for (Anuncio a : panuncios) {
+                    anuncios.add((AnuncioVenda) a);
+                }
+                jPanel2.removeAll();
+                jPanel2.add(new Pesquisa_Resultado(root, anuncios), "Negócios");
+                jPanel2.updateUI();
+                jPanel2.validate();
+                break;
+            case 2:
+                break;
+
+        }
+
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avatar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel nick;
+    private javax.swing.JLabel registo;
+    private javax.swing.JButton seguir;
+    private javax.swing.JLabel top;
+    // End of variables declaration//GEN-END:variables
 }
