@@ -1,7 +1,7 @@
-*/.DS_Store
-./SaleSquared/bin/*
-./SaleSquared/build/*
-./SaleSquared/dist/*
-./SaleSquared/nbproject/private/*
+.DS_Store
+SaleSquared/bin/*
+SaleSquared/build/*
+SaleSquared/dist/*
+SaleSquared/nbproject/private/*
 
 
