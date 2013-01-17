@@ -1,6 +1,6 @@
 */.DS_Store
-./SaleSquared/bin
-./SaleSquared/build
-./SaleSquared/dist
+./SaleSquared/bin/*
+./SaleSquared/build/*
+./SaleSquared/dist/*
 
 
