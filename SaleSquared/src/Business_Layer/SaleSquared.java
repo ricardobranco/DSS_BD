@@ -771,41 +771,41 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	// dimensão dos dois arrays é a mesma; valores correspondem ao esperado no
 	// case;
-	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores) {
+	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores, int op) {
 
 		Set<Anuncio> res = new TreeSet<Anuncio>(new ComparadorUltimosAnunc());
-		boolean exitFlag;
+		boolean exitFlag, e, ou;
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
 			exitFlag = true;
 			for (int i = 0; i < campos.length && exitFlag; i++) {
 				switch (campos[i]) {
-                                case "tit": { exitFlag = exitFlag && a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()) ; break;}    
-                                case "desc" : {exitFlag = exitFlag && a.getDescricao().contains((String)valores[i]) ; break ;}
+                                case "tit": { exitFlag = aux(exitFlag, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase(), op) ; break;}    
+                                case "desc" : {exitFlag = aux(exitFlag, a.getDescricao().contains((String)valores[i], op) ; break ;}
 				case "pMenorI": {
-					exitFlag = exitFlag && a.getPreco() <= (Double) valores[i];
+					exitFlag = aux(exitFlag, a.getPreco() <= (Double) valores[i], op);
 					break;
 				}
 				case "pMaiorI": {
-					exitFlag = exitFlag && a.getPreco() >= (Double) valores[i];
+					exitFlag = aux(exitFlag, a.getPreco() >= (Double) valores[i], op);
 					break;
 				}
 				case "c": {
-					exitFlag = exitFlag
-							&& (a.getCategorias().containsKey(
-									(String) valores[i]) || (a.eFilho((String)valores[i])));
+					exitFlag = aux(exitFlag,
+							(a.getCategorias().containsKey(
+									(String) valores[i]) || (a.eFilho((String)valores[i]))), op);
 					break;
 				}
 				case "t": {
-					exitFlag = exitFlag
-							&& a.getTags().containsKey((String) valores[i]);
+					exitFlag = aux(exitFlag
+							,a.getTags().containsKey((String) valores[i]), op);
 					break;
 				}
 				case "l": {
-					exitFlag = exitFlag
-							&& a.getClass().getName()
-									.equals((String) valores[i]);
+					exitFlag = aux(exitFlag
+							,a.getClass().getName()
+									.equals((String) valores[i]), op);
 					break;
 				}
 				/*case "rMaiorI": {
@@ -816,32 +816,39 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 					break;
 				}*/
 				case "e": {
-					exitFlag = exitFlag
-							&& a.isEstadoProduto() == (Boolean) valores[i];
+					exitFlag = aux(exitFlag
+							,a.isEstadoProduto() == (Boolean) valores[i], op);
 					break;
 				}
 				case "n": {
-					exitFlag = exitFlag
-							&& a.getnVisitas() >= (Integer) valores[i];
+					exitFlag = aux(exitFlag
+							,a.getnVisitas() >= (Integer) valores[i], op);
 					break;
 				}
                                 case "mp": {
-                                    exitFlag = exitFlag && ((AnuncioVenda)a).getModosPagamento().contains((String)valores[i]) ; break ;
+                                    exitFlag = aux(exitFlag, ((AnuncioVenda)a).getModosPagamento().contains((String)valores[i]), op) ; break ;
                                 }
                                 case "me": {
-                                    exitFlag = exitFlag && ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]) ; break ;
+                                    exitFlag = aux(exitFlag, ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]), op) ; break ;
                                 }    
                                 case "user": {
-                                    exitFlag = exitFlag && a.getAnunciante().getUsername().equals((String)valores[i]) ; break ;
+                                    exitFlag = aux(exitFlag, a.getAnunciante().getUsername().equals((String)valores[i]), op) ; break ;
                                 }
 				default: {
 				}
-				}
-				if (exitFlag == true)
-					res.add(a);
+				}				
 			}
+			if (exitFlag == true)
+				res.add(a);
 		}
 		return res;
+	}
+	
+	// 0: &&
+	// 1: ||
+	public boolean aux (boolean b1, boolean b2, int op) { return (op==0) ? b1 && b2 : b1 || b2 ;}
+		
+		
 	}
 
 	// pré-condição: classificação entre 0 e 100
