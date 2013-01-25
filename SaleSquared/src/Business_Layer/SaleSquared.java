@@ -771,12 +771,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 	// dimensão dos dois arrays é a mesma; valores correspondem ao esperado no
 	// case;
-	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores, int op) {
+	public Set<Anuncio> procurarAnuncAvanc(Collection<Anuncio> anuncs, String[] campos, Object[] valores, int op) {
 
 		Set<Anuncio> res = new TreeSet<Anuncio>(new ComparadorUltimosAnunc());
 		Boolean exitFlag ;
                 Bool e = new Bool(true), ou = new Bool(false);
-		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
+		for (Iterator<Anuncio> it = anuncs.iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
 			exitFlag = true;                        
