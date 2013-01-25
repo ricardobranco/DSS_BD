@@ -774,36 +774,38 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores, int op) {
 
 		Set<Anuncio> res = new TreeSet<Anuncio>(new ComparadorUltimosAnunc());
-		boolean exitFlag, e, ou;
+		Boolean exitFlag, e, ou;
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
 			exitFlag = true;
-			for (int i = 0; i < campos.length && exitFlag; i++) {
+                        e = true ;
+                        ou = false ;
+			for (int i = 0; i < campos.length && (op==0 ? e : !ou); i++) {
 				switch (campos[i]) {
-                                case "tit": { exitFlag = aux(exitFlag, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()), op) ; break;}    
-                                case "desc" : {exitFlag = aux(exitFlag, a.getDescricao().contains((String)valores[i]), op) ; break ;}
+                                case "tit": { aux(e, ou, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()), op) ; break;}    
+                                case "desc" : {aux(e, ou, a.getDescricao().contains((String)valores[i]), op) ; break ;}
 				case "pMenorI": {
-					exitFlag = aux(exitFlag, a.getPreco() <= (Double) valores[i], op);
+					aux(e, ou, a.getPreco() <= (Double) valores[i], op);
 					break;
 				}
 				case "pMaiorI": {
-					exitFlag = aux(exitFlag, a.getPreco() >= (Double) valores[i], op);
+					aux(e, ou, a.getPreco() >= (Double) valores[i], op);
 					break;
 				}
 				case "c": {
-					exitFlag = aux(exitFlag,
+					aux(e, ou,
 							(a.getCategorias().containsKey(
 									(String) valores[i]) || (a.eFilho((String)valores[i]))), op);
 					break;
 				}
 				case "t": {
-					exitFlag = aux(exitFlag
-							,a.getTags().containsKey((String) valores[i]), op);
+					aux(e, ou,
+							a.getTags().containsKey((String) valores[i]), op);
 					break;
 				}
 				case "l": {
-					exitFlag = aux(exitFlag
+					aux(e, ou
 							,a.getClass().getName()
 									.equals((String) valores[i]), op);
 					break;
@@ -816,29 +818,29 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 					break;
 				}*/
 				case "e": {
-					exitFlag = aux(exitFlag
+					aux(e, ou
 							,a.isEstadoProduto() == (Boolean) valores[i], op);
 					break;
 				}
 				case "n": {
-					exitFlag = aux(exitFlag
+					aux(e, ou
 							,a.getnVisitas() >= (Integer) valores[i], op);
 					break;
 				}
                                 case "mp": {
-                                    exitFlag = aux(exitFlag, ((AnuncioVenda)a).getModosPagamento().contains((String)valores[i]), op) ; break ;
+                                    aux(e, ou, ((AnuncioVenda)a).getModosPagamento().contains((String)valores[i]), op) ; break ;
                                 }
                                 case "me": {
-                                    exitFlag = aux(exitFlag, ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]), op) ; break ;
+                                    aux(e, ou, ((AnuncioVenda)a).getMetodoEnvio().contains((String)valores[i]), op) ; break ;
                                 }    
                                 case "user": {
-                                    exitFlag = aux(exitFlag, a.getAnunciante().getUsername().equals((String)valores[i]), op) ; break ;
+                                    aux(e, ou, a.getAnunciante().getUsername().equals((String)valores[i]), op) ; break ;
                                 }
 				default: {
 				}
 				}				
 			}
-			if (exitFlag == true)
+			if (op==0 ? e : ou)
 				res.add(a);
 		}
 		return res;
@@ -846,9 +848,13 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	
 	// 0: &&
 	// 1: ||
-	public boolean aux (boolean b1, boolean b2, int op) { return (op==0) ? b1 && b2 : b1 || b2 ;}
-		
-		
+	public void aux (Boolean e, Boolean ou, boolean b2, int op) { 
+            
+            if(op==0) 
+                e = e && b2 ; 
+            else 
+                ou = ou || b2 ;
+        }		
 	
 
 	// pré-condição: classificação entre 0 e 100
