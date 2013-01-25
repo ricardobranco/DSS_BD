@@ -22,10 +22,10 @@ import Business_Layer.Tag;
 import Business_Layer.VendaDirecta;
 import Presentation_Layer.Anuncio.Anuncio_Main;
 import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.Mensagem_Erro;
 import Presentation_Layer.Home.Categorias;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.swing.JOptionPane;
 
 public class Inserir extends JPanel {
 
@@ -266,10 +266,9 @@ public class Inserir extends JPanel {
 
         } catch (Exception e2) {
             System.out.println(e2.getMessage());
-            Mensagem_Erro frame = new Mensagem_Erro(root, e2
-                    .getMessage());
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
+            String html1 = "<html><body style='width: ";
+            String html2 = "px'>";
+            JOptionPane.showMessageDialog(null, new JLabel(html1 + "300" + html2 + e2.getMessage()));
         }
 
         if (inserefinal) {

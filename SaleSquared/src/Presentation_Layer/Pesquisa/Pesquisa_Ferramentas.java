@@ -5,7 +5,6 @@ import Business_Layer.AnuncioVenda;
 import Business_Layer.ComparadorAnuncPreco;
 import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.SaleSquared;
-import Presentation_Layer.Componentes.Mensagem_Erro;
 import Presentation_Layer.Sale_Squared;
 import java.awt.Font;
 
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.swing.JOptionPane;
 
 public class Pesquisa_Ferramentas extends JPanel {
 
@@ -57,36 +57,36 @@ public class Pesquisa_Ferramentas extends JPanel {
      * Create the panel.
      */
     public Pesquisa_Ferramentas(final Sale_Squared root, Pesquisa_Resultado pr) {
-        
-        
+
+
         anuncios = new TreeSet<>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE));
         anuncios.addAll(pr.getAnuncios());
         this.pagamentos = new ArrayList<>();
         this.envios = new ArrayList<>();
-        
-        
-        
+
+
+
         JLabel lblNewLabel = new JLabel("Refinar Pesquisa");
         lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-        
+
         JLabel lblNewLabel_1 = new JLabel("€");
-        
+
         min = new JTextField();
-        min.setText(anuncios.isEmpty()?"":"" + anuncios.first().getPreco());
+        min.setText(anuncios.isEmpty() ? "" : "" + anuncios.first().getPreco());
         min.setColumns(10);
-        
+
         JLabel lblNewLabel_2 = new JLabel("até €");
-        
+
         max = new JTextField();
-        max.setText(anuncios.isEmpty()?"":"" + anuncios.last().getPreco());
+        max.setText(anuncios.isEmpty() ? "" : "" + anuncios.last().getPreco());
         max.setColumns(10);
-        
+
         JButton btnNewButton = new JButton("Filtrar");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SaleSquared sistema = root.getSistema();
                 Set<AnuncioVenda> res = new TreeSet<>(new ComparadorUltimosAnunc());
-                
+
                 try {
                     String[] crit = {"pMenorI", "pMaiorI"};
                     Object[] values = {getMin(), getMax()};
@@ -100,7 +100,7 @@ public class Pesquisa_Ferramentas extends JPanel {
                             if (av.getPrecoEnvio() == 0) {
                                 res.add(av);
                             }
-                            
+
                         }
 
                         //Portes Pagos
@@ -108,51 +108,54 @@ public class Pesquisa_Ferramentas extends JPanel {
                             if (av.getPrecoEnvio() != 0) {
                                 res.add(av);
                             }
-                            
+
                         }
-                        
-                       for(JCheckBox j : pagamentos){
-                           if(j.isSelected()){
-                               if(av.getModosPagamento().contains(j.getText()))
-                                  res.add(av);
-                           }
-                       }
-                       
-                       for(JCheckBox j : envios){
-                           if(j.isSelected()){
-                               if(av.getMetodoEnvio().contains(j.getText()))
-                                  res.add(av);
-                           }
-                       }
-                       
-                       if(novo.isSelected()){
-                           if(av.isEstadoProduto()==AnuncioVenda.NOVO)
-                               res.add(av);
-                       }
-                       
-                        if(usado.isSelected()){
-                           if(av.isEstadoProduto()==AnuncioVenda.USADO)
-                               res.add(av);
-                       }
+
+                        for (JCheckBox j : pagamentos) {
+                            if (j.isSelected()) {
+                                if (av.getModosPagamento().contains(j.getText())) {
+                                    res.add(av);
+                                }
+                            }
+                        }
+
+                        for (JCheckBox j : envios) {
+                            if (j.isSelected()) {
+                                if (av.getMetodoEnvio().contains(j.getText())) {
+                                    res.add(av);
+                                }
+                            }
+                        }
+
+                        if (novo.isSelected()) {
+                            if (av.isEstadoProduto() == AnuncioVenda.NOVO) {
+                                res.add(av);
+                            }
+                        }
+
+                        if (usado.isSelected()) {
+                            if (av.isEstadoProduto() == AnuncioVenda.USADO) {
+                                res.add(av);
+                            }
+                        }
                     }
-                    
-                    
+
+
                 } catch (Exception e2) {
-                    
-                    Mensagem_Erro frame = new Mensagem_Erro(root, e2
-                            .getMessage());
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-                 }
-                
+
+                    String html1 = "<html><body style='width: ";
+                    String html2 = "px'>";
+                    JOptionPane.showMessageDialog(null, new JLabel(html1 + "300" + html2 + e2.getMessage()));
+                }
+
             }
         });
-        
+
         JSeparator separator = new JSeparator();
-        
+
         JLabel lblNewLabel_3 = new JLabel("Preferências");
         lblNewLabel_3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-        
+
         JPanel panel = new JPanel();
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
@@ -203,80 +206,80 @@ public class Pesquisa_Ferramentas extends JPanel {
                 .addPreferredGap(ComponentPlacement.RELATED)
                 .addComponent(btnNewButton)
                 .addContainerGap(53, Short.MAX_VALUE)));
-        
+
         JLabel lblNewLabel_4 = new JLabel("Portes de Envio");
         lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        
+
         portesgratis = new JCheckBox("Portes Grátis");
         portesgratis.setSelected(true);
-        
+
         portespagos = new JCheckBox("Portes Pagos");
         portespagos.setSelected(true);
-        
+
         JLabel lblNewLabel_5 = new JLabel("Modos de Pagamento");
         lblNewLabel_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        
+
         tb = new JCheckBox(
                 "Transferêcia Bancária");
         tb.setSelected(true);
         pagamentos.add(tb);
-        
+
         pp = new JCheckBox("PayPal");
         pp.setSelected(true);
         pagamentos.add(pp);
-        
+
         dinheiro = new JCheckBox("Dinheiro");
         dinheiro.setSelected(true);
         pagamentos.add(dinheiro);
-        
+
         envicob = new JCheckBox(
                 "Envia à Cobrança");
         envicob.setSelected(true);
-        
+
         pagamentos.add(envicob);
-        
+
         cheque = new JCheckBox("Cheque");
         cheque.setSelected(true);
         pagamentos.add(cheque);
-        
+
         JLabel lblNewLabel_6 = new JLabel("Modo de Envio");
         lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        
+
         normal = new JCheckBox("Normal");
         normal.setSelected(true);
         envios.add(normal);
-        
-        
-        
+
+
+
         reg = new JCheckBox("Registado");
         reg.setSelected(true);
         envios.add(reg);
-        
+
         transp = new JCheckBox("Transportadora");
         transp.setSelected(true);
         envios.add(transp);
-        
+
         entmao = new JCheckBox("Entrega em mão");
         entmao.setSelected(true);
         envios.add(entmao);
-        
+
         seguro = new JCheckBox("Registado com Seguro");
         seguro.setSelected(true);
         envios.add(seguro);
-        
-        
+
+
         JLabel lblNewLabel_7 = new JLabel("Estado");
         lblNewLabel_7.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        
+
         novo = new JCheckBox("Novo");
         novo.setSelected(true);
-        
+
         usado = new JCheckBox("Usado");
         usado.setSelected(true);
-        
+
         azul = new JCheckBox("Correio Azul");
         azul.setSelected(true);
-        
+
         verde = new JCheckBox("Correio Verde");
         verde.setSelected(true);
         GroupLayout gl_panel = new GroupLayout(panel);
@@ -352,9 +355,9 @@ public class Pesquisa_Ferramentas extends JPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         panel.setLayout(gl_panel);
         setLayout(groupLayout);
-        
+
     }
-    
+
     public double getMin() throws Exception {
         double dmin;
         try {
@@ -363,12 +366,12 @@ public class Pesquisa_Ferramentas extends JPanel {
             throw new Exception("Insira um minimo válido");
         }
         if (dmin < anuncios.first().getPreco()) {
-            min.setText(anuncios.isEmpty()?"":"" + anuncios.first().getPreco());
+            min.setText(anuncios.isEmpty() ? "" : "" + anuncios.first().getPreco());
             dmin = anuncios.first().getPreco();
         }
         return dmin;
     }
-    
+
     public double getMax() throws Exception {
         double dmax;
         try {
@@ -377,7 +380,7 @@ public class Pesquisa_Ferramentas extends JPanel {
             throw new Exception("Insira um maximo válido");
         }
         if (dmax < anuncios.first().getPreco()) {
-            max.setText(anuncios.isEmpty()?"":"" + anuncios.last().getPreco());
+            max.setText(anuncios.isEmpty() ? "" : "" + anuncios.last().getPreco());
             dmax = anuncios.last().getPreco();
         }
         return dmax;

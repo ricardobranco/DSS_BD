@@ -1,61 +1,40 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Inserir;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Presentation_Layer.Componentes.Horas;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
-import Presentation_Layer.Componentes.Horas;
+/**
+ *
+ * @author ricardobranco
+ */
+public class Inserir_preco extends javax.swing.JPanel {
 
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JCheckBox;
-
-public class Inserir_preco extends JPanel {
+    private final Icon ERRADO = new ImageIcon(getClass().getResource("/Imagens/errado.png"));
+    private final Icon CERTO = new ImageIcon(getClass().getResource("/Imagens/certo.png"));
+    private final Horas horas;
 
     /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    private JTextField inipreco;
-    private JTextField preco;
-    private JComboBox<String> incpreco;
-    private JDateChooser data;
-    private Horas horas;
-    private final ButtonGroup buttonGroup = new ButtonGroup();
-    private JRadioButton leilao;
-    private JRadioButton comprarja;
-    private JTextField quantidade;
-    private JCheckBox trocas;
-
-    /**
-     * Create the panel.
+     * Creates new form Inserir_preco2
      */
     public Inserir_preco() {
-
-        final JPanel panel_2 = new JPanel();
-        final JPanel panel_3 = new JPanel();
-        panel_3.setVisible(false);
-        JLabel lblDurao = new JLabel("Validade");
-        lblDurao.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel lblData = new JLabel("Data");
-        lblData.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        data = new com.toedter.calendar.JDateChooser();
-        data.setDate(new Date());
+        initComponents();
+        this.buttonGroup1.add(jRadioButton1);
+        this.buttonGroup1.add(jRadioButton2);
+        this.lp.setVisible(false);
+        this.lpi.setVisible(false);
+        this.lq.setVisible(false);
+        this.lv.setVisible(false);
+        horas = new Horas();
+        date.setDate(new Date());
 
         GregorianCalendar gc = new GregorianCalendar();
         Calendar min = Calendar.getInstance();
@@ -63,319 +42,24 @@ public class Inserir_preco extends JPanel {
         min.set(Calendar.MONTH, gc.get(GregorianCalendar.MONTH));
         min.set(Calendar.DATE, gc.get(GregorianCalendar.DATE));
 
-        data.setMinSelectableDate(min.getTime());
-        horas = new Horas();
-
-        leilao = new JRadioButton("Leilão");
-        leilao.setSelected(true);
-        leilao.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panel_2.setVisible(true);
-                panel_3.setVisible(false);
-
-            }
-        });
-        buttonGroup.add(leilao);
-
-        comprarja = new JRadioButton("Comprar já");
-        comprarja.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panel_2.setVisible(false);
-                panel_3.setVisible(true);
-
-            }
-        });
-        buttonGroup.add(comprarja);
-
-        trocas = new JCheckBox("Aceitar Trocas");
-        trocas.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        GroupLayout groupLayout = new GroupLayout(this);
-        groupLayout
-                .setHorizontalGroup(groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                groupLayout.createSequentialGroup()
-                .addContainerGap().addComponent(leilao)
-                .addContainerGap(256, Short.MAX_VALUE))
-                .addGroup(
-                groupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comprarja)
-                .addContainerGap(224, Short.MAX_VALUE))
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGap(29)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.TRAILING)
-                .addComponent(
-                panel_3,
-                Alignment.LEADING,
-                GroupLayout.DEFAULT_SIZE,
-                289,
-                Short.MAX_VALUE)
-                .addComponent(
-                panel_2,
-                Alignment.LEADING,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE))
-                .addGap(145))
-                .addGroup(
-                groupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblDurao)
-                .addContainerGap(398, Short.MAX_VALUE))
-                .addGroup(
-                groupLayout.createSequentialGroup()
-                .addContainerGap().addComponent(trocas)
-                .addContainerGap(335, Short.MAX_VALUE))
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGap(38)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.TRAILING)
-                .addComponent(
-                horas,
-                GroupLayout.PREFERRED_SIZE,
-                206,
-                GroupLayout.PREFERRED_SIZE)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                lblData)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                data,
-                GroupLayout.PREFERRED_SIZE,
-                169,
-                GroupLayout.PREFERRED_SIZE)))
-                .addGap(105)));
-        groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
-                Alignment.LEADING).addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addContainerGap()
-                .addComponent(leilao)
-                .addGap(6)
-                .addComponent(panel_2, GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(comprarja)
-                .addGap(1)
-                .addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 71,
-                GroupLayout.PREFERRED_SIZE)
-                .addGap(18)
-                .addComponent(lblDurao)
-                .addGap(4)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addComponent(lblData)
-                .addComponent(data,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE))
-                .addGap(12)
-                .addComponent(horas, GroupLayout.PREFERRED_SIZE, 70,
-                GroupLayout.PREFERRED_SIZE).addGap(18)
-                .addComponent(trocas).addGap(12)));
-        data.setDateFormatString("dd/MM/yyyy");
-
-        JLabel lblPreo = new JLabel("Preço   €");
-        lblPreo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        preco = new JTextField();
-        preco.setColumns(10);
-
-        JLabel lblQuantidade = new JLabel("Quantidade");
-        lblQuantidade.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        quantidade = new JTextField();
-        quantidade.setColumns(10);
-        GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-        gl_panel_3
-                .setHorizontalGroup(gl_panel_3
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                gl_panel_3
-                .createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                gl_panel_3
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                gl_panel_3
-                .createSequentialGroup()
-                .addComponent(
-                lblPreo)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                preco,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE))
-                .addGroup(
-                gl_panel_3
-                .createSequentialGroup()
-                .addComponent(
-                lblQuantidade)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                quantidade,
-                GroupLayout.PREFERRED_SIZE,
-                49,
-                GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(85, Short.MAX_VALUE)));
-        gl_panel_3
-                .setVerticalGroup(gl_panel_3
-                .createParallelGroup(Alignment.TRAILING)
-                .addGroup(
-                Alignment.LEADING,
-                gl_panel_3
-                .createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                gl_panel_3
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addComponent(
-                preco,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE)
-                .addComponent(lblPreo))
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addGroup(
-                gl_panel_3
-                .createParallelGroup(
-                Alignment.BASELINE)
-                .addComponent(
-                quantidade,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE)
-                .addComponent(
-                lblQuantidade))
-                .addContainerGap(9, Short.MAX_VALUE)));
-        panel_3.setLayout(gl_panel_3);
-
-        JLabel label = new JLabel("Pre\u00E7o inicial   \u20AC");
-        label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        inipreco = new JTextField();
-        inipreco.setColumns(10);
-
-        JLabel lblIncrementoMnimo = new JLabel(
-                "Incremento m\u00EDnimo    \u20AC");
-        lblIncrementoMnimo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        incpreco = new JComboBox<String>();
-        incpreco.setModel(new DefaultComboBoxModel<String>(new String[]{
+        date.setMinSelectableDate(min.getTime());
+        horasp.add(horas, "Horas");
+        incremento.setModel(new DefaultComboBoxModel<String>(new String[]{
                     "0.01", "0.05", "0.10", "0.50", "1.00", "5.00", "10.00",
                     "50.00", "100.00", "500.00", "1000.00", "5000.00", "10000.00"}));
-        GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-        gl_panel_2
-                .setHorizontalGroup(gl_panel_2
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                gl_panel_2
-                .createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                gl_panel_2
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                gl_panel_2
-                .createSequentialGroup()
-                .addComponent(
-                label,
-                GroupLayout.PREFERRED_SIZE,
-                102,
-                GroupLayout.PREFERRED_SIZE)
-                .addGap(6)
-                .addComponent(
-                inipreco,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE))
-                .addGroup(
-                gl_panel_2
-                .createSequentialGroup()
-                .addComponent(
-                lblIncrementoMnimo)
-                .addGap(6)
-                .addComponent(
-                incpreco,
-                GroupLayout.PREFERRED_SIZE,
-                120,
-                GroupLayout.PREFERRED_SIZE)
-                .addGap(0,
-                0,
-                Short.MAX_VALUE)))
-                .addContainerGap()));
-        gl_panel_2
-                .setVerticalGroup(gl_panel_2
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                gl_panel_2
-                .createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                gl_panel_2
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                gl_panel_2
-                .createSequentialGroup()
-                .addGap(6)
-                .addComponent(
-                label))
-                .addComponent(
-                inipreco,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE))
-                .addGap(10)
-                .addGroup(
-                gl_panel_2
-                .createParallelGroup(
-                Alignment.BASELINE)
-                .addComponent(
-                lblIncrementoMnimo)
-                .addComponent(
-                incpreco,
-                GroupLayout.PREFERRED_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE)));
-        panel_2.setLayout(gl_panel_2);
-        setLayout(groupLayout);
+
+
 
     }
 
     public boolean eLeilao() {
-        return leilao.isSelected();
+        return jRadioButton1.isSelected();
     }
 
     public GregorianCalendar validade() throws Exception {
         GregorianCalendar hoje = new GregorianCalendar();
-        int dia, mes, ano, hora, minutos;
-        Calendar c = data.getCalendar();
+        int dia, mes, ano, hora = 0, minutos;
+        Calendar c = date.getCalendar();
         dia = c.get(Calendar.DAY_OF_MONTH);
         mes = c.get(Calendar.MONTH);
         ano = c.get(Calendar.YEAR);
@@ -385,9 +69,456 @@ public class Inserir_preco extends JPanel {
         GregorianCalendar res = new GregorianCalendar(ano, mes, dia, hora,
                 minutos);
 
-        if (res.before(hoje)) {
-            throw new Exception("Insira uma data válida");
+        long lhoje = hoje.getTimeInMillis();
+        long lres = res.getTimeInMillis();
+        long diff = lres - lhoje;
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+
+        if (diffDays < 7) {
+            this.lv.setVisible(true);
+            this.lv.setIcon(ERRADO);
+            throw new Exception("O anúncio tem que estar no min. 7 dias online");
         }
+        this.lv.setVisible(true);
+        this.lv.setIcon(CERTO);
+
+        return res;
+    }
+
+    public double getLicMin() throws Exception {
+        String slicmin = preco_ini.getText();
+        if (slicmin.isEmpty()) {
+            this.lpi.setVisible(true);
+            this.lpi.setIcon(ERRADO);
+            throw new Exception("Insira um preço inicial");
+        }
+        double res;
+        try {
+            res = new Double(slicmin).doubleValue();
+        } catch (Exception e) {
+            this.lpi.setVisible(true);
+            this.lpi.setIcon(ERRADO);
+            throw new Exception("Insira um preço inicial válido");
+        }
+        if (res <= 0) {
+            this.lpi.setVisible(true);
+            this.lpi.setIcon(ERRADO);
+            throw new Exception("Insira um preço inical positivo");
+        }
+        this.lpi.setVisible(true);
+        this.lpi.setIcon(CERTO);
+
+        return res;
+    }
+
+    public double getPreco() throws Exception {
+        String spreco = preco.getText();
+        if (spreco.isEmpty()) {
+            this.lp.setVisible(true);
+            this.lp.setIcon(ERRADO);
+            throw new Exception("Insira um preço");
+        }
+        double res;
+        try {
+            res = new Double(spreco).doubleValue();
+        } catch (Exception e) {
+            this.lp.setVisible(true);
+            this.lp.setIcon(ERRADO);
+            throw new Exception("Insira um preço válido");
+        }
+        if (res <= 0) {
+            this.lp.setVisible(true);
+            this.lp.setIcon(ERRADO);
+            throw new Exception("Insira um preço positivo");
+        }
+        this.lp.setVisible(true);
+        this.lp.setIcon(CERTO);
+        return res;
+    }
+
+    public double getInc() {
+        String sinc = (String) incremento.getModel().getElementAt(
+                incremento.getSelectedIndex());
+        return new Double(sinc).doubleValue();
+    }
+
+    public int getQuantidade() throws Exception {
+        String squantidade = quantidade.getText();
+        if (squantidade.isEmpty()) {
+            this.lq.setVisible(true);
+            this.lq.setIcon(ERRADO);
+            throw new Exception("Insira uma quantidade");
+        }
+        int res;
+        try {
+            res = new Integer(squantidade).intValue();
+        } catch (Exception e) {
+            this.lq.setVisible(true);
+            this.lq.setIcon(ERRADO);
+            throw new Exception("Insira uma quantidade válida");
+        }
+        if (res < 1) {
+            this.lq.setVisible(true);
+            this.lq.setIcon(ERRADO);
+            throw new Exception("Insira uma quantidade positiva");
+        }
+        this.lp.setVisible(true);
+        this.lp.setIcon(CERTO);
+        return res;
+    }
+
+    public boolean trocas() {
+        return trocas.isSelected();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        leilao_panel = new javax.swing.JPanel();
+        preco_ini = new org.jdesktop.swingx.JXTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        incremento = new javax.swing.JComboBox();
+        lpi = new javax.swing.JLabel();
+        comprar_panel = new javax.swing.JPanel();
+        preco = new org.jdesktop.swingx.JXTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        quantidade = new org.jdesktop.swingx.JXTextField();
+        lq = new javax.swing.JLabel();
+        lp = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lv = new javax.swing.JLabel();
+        horasp = new javax.swing.JPanel();
+        trocas = new javax.swing.JCheckBox();
+        date = new com.toedter.calendar.JDateChooser();
+
+        jRadioButton1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jRadioButton1.setText("Leilão");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jRadioButton2.setText("Comprar Já");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        preco_ini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                preco_iniActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel1.setText("Preço inicial  €");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setText("Incremento Mínimo   €");
+
+        lpi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/errado.png"))); // NOI18N
+
+        org.jdesktop.layout.GroupLayout leilao_panelLayout = new org.jdesktop.layout.GroupLayout(leilao_panel);
+        leilao_panel.setLayout(leilao_panelLayout);
+        leilao_panelLayout.setHorizontalGroup(
+            leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(leilao_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(leilao_panelLayout.createSequentialGroup()
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(preco_ini, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(leilao_panelLayout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(incremento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lpi)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        leilao_panelLayout.setVerticalGroup(
+            leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(leilao_panelLayout.createSequentialGroup()
+                .add(leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(preco_ini, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1)
+                    .add(lpi))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(incremento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        preco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel3.setText("Preço  €");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel4.setText("Quantidade");
+
+        quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quantidadeActionPerformed(evt);
+            }
+        });
+
+        lq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/errado.png"))); // NOI18N
+
+        lp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
+
+        org.jdesktop.layout.GroupLayout comprar_panelLayout = new org.jdesktop.layout.GroupLayout(comprar_panel);
+        comprar_panel.setLayout(comprar_panelLayout);
+        comprar_panelLayout.setHorizontalGroup(
+            comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(comprar_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(comprar_panelLayout.createSequentialGroup()
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(preco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(comprar_panelLayout.createSequentialGroup()
+                        .add(jLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(quantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lq)
+                    .add(lp))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        comprar_panelLayout.setVerticalGroup(
+            comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(comprar_panelLayout.createSequentialGroup()
+                .add(comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(preco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(quantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel4)))
+            .add(comprar_panelLayout.createSequentialGroup()
+                .add(lp)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lq))
+        );
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel6.setText("Validade");
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setText("Data");
+
+        jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel10.setText("Hora");
+
+        lv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
+
+        horasp.setLayout(new java.awt.CardLayout());
+
+        trocas.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        trocas.setText("Aceitar trocas");
+
+        date.setDateFormatString("dd/MMMM/yyyy");
+        date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                datePropertyChange(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(29, 29, 29)
+                        .add(comprar_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                .add(29, 29, 29)
+                                .add(leilao_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(layout.createSequentialGroup()
+                                .add(jRadioButton1)
+                                .add(0, 316, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jRadioButton2)
+                            .add(jLabel6))
+                        .add(0, 0, Short.MAX_VALUE))))
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(71, 71, 71)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel10)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(horasp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel9)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lv))))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(trocas)))
+                .add(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jRadioButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(leilao_panel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRadioButton2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(comprar_panel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel6)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel9)
+                            .add(lv))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(horasp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel10))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(trocas))
+                    .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        this.leilao_panel.setVisible(false);
+        this.comprar_panel.setVisible(true);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        this.leilao_panel.setVisible(true);
+        this.comprar_panel.setVisible(false);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void preco_iniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preco_iniActionPerformed
+        // TODO add your handling code here:
+        String slicmin = preco_ini.getText();
+        if (slicmin.isEmpty()) {
+            this.lpi.setVisible(true);
+            this.lpi.setIcon(ERRADO);
+        } else {
+            double res = 0;
+            try {
+                res = new Double(slicmin).doubleValue();
+            } catch (Exception e) {
+                res = 0;
+            }
+            if (res <= 0) {
+                this.lpi.setVisible(true);
+                this.lpi.setIcon(ERRADO);
+
+            } else {
+                this.lpi.setVisible(true);
+                this.lpi.setIcon(CERTO);
+            }
+        }
+    }//GEN-LAST:event_preco_iniActionPerformed
+
+    private void precoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoActionPerformed
+        // TODO add your handling code here:
+        String slicmin = preco.getText();
+        if (slicmin.isEmpty()) {
+            this.lp.setVisible(true);
+            this.lp.setIcon(ERRADO);
+        } else {
+            double res = 0;
+            try {
+                res = new Double(slicmin).doubleValue();
+            } catch (Exception e) {
+                res = 0;
+            }
+            if (res <= 0) {
+                this.lp.setVisible(true);
+                this.lp.setIcon(ERRADO);
+
+            } else {
+                this.lp.setVisible(true);
+                this.lp.setIcon(CERTO);
+            }
+        }
+    }//GEN-LAST:event_precoActionPerformed
+
+    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
+        // TODO add your handling code here:
+         String slicmin = quantidade.getText();
+        if (slicmin.isEmpty()) {
+            this.lq.setVisible(true);
+            this.lq.setIcon(ERRADO);
+        } else {
+            double res = 0;
+            try {
+                res = new Double(slicmin).doubleValue();
+            } catch (Exception e) {
+                res = 0;
+            }
+            if (res <= 0) {
+                this.lq.setVisible(true);
+                this.lq.setIcon(ERRADO);
+
+            } else {
+                this.lq.setVisible(true);
+                this.lq.setIcon(CERTO);
+            }
+        }
+    }//GEN-LAST:event_quantidadeActionPerformed
+
+    private void datePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_datePropertyChange
+        // TODO add your handling code here:
+        GregorianCalendar hoje = new GregorianCalendar();
+        int dia, mes, ano, hora = 0, minutos;
+        Calendar c = date.getCalendar();
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        mes = c.get(Calendar.MONTH);
+        ano = c.get(Calendar.YEAR);
+        hora = horas.getHora();
+        minutos = horas.getMinutos();
+
+        GregorianCalendar res = new GregorianCalendar(ano, mes, dia, hora,
+                minutos);
 
         long lhoje = hoje.getTimeInMillis();
         long lres = res.getTimeInMillis();
@@ -395,69 +526,37 @@ public class Inserir_preco extends JPanel {
         long diffDays = diff / (24 * 60 * 60 * 1000);
 
         if (diffDays < 7) {
-            throw new Exception("O anúncio tem que estar no min. 7 dias online");
-        }
-        return res;
-    }
+            this.lv.setVisible(true);
+            this.lv.setIcon(ERRADO);
 
-    public double getLicMin() throws Exception {
-        String slicmin = inipreco.getText();
-        if (slicmin.isEmpty()) {
-            throw new Exception("Insira um preço inicial");
+        } else {
+            this.lv.setVisible(true);
+            this.lv.setIcon(CERTO);
         }
-        double res;
-        try {
-            res = new Double(slicmin).doubleValue();
-        } catch (Exception e) {
-            throw new Exception("Insira um preço inicial válido");
-        }
-        if (res <= 0) {
-            throw new Exception("Insira um preço inical positivo");
-        }
-        return res;
-    }
-
-    public double getPreco() throws Exception {
-        String spreco = preco.getText();
-        if (spreco.isEmpty()) {
-            throw new Exception("Insira um preço");
-        }
-        double res;
-        try {
-            res = new Double(spreco).doubleValue();
-        } catch (Exception e) {
-            throw new Exception("Insira um preço");
-        }
-        if (res <= 0) {
-            throw new Exception("Insira um preço");
-        }
-        return res;
-    }
-
-    public double getInc() {
-        String sinc = (String) incpreco.getModel().getElementAt(
-                incpreco.getSelectedIndex());
-        return new Double(sinc).doubleValue();
-    }
-
-    public int getQuantidade() throws Exception {
-        String squantidade = quantidade.getText();
-        if (squantidade.isEmpty()) {
-            throw new Exception("Insira uma quantidade");
-        }
-        int res;
-        try {
-            res = new Integer(squantidade).intValue();
-        } catch (Exception e) {
-            throw new Exception("Insira uma quantidade válida");
-        }
-        if (res < 1) {
-            throw new Exception("Insira uma quantidade positiva");
-        }
-        return res;
-    }
-
-    public boolean trocas() {
-        return trocas.isSelected();
-    }
+    }//GEN-LAST:event_datePropertyChange
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel comprar_panel;
+    private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JPanel horasp;
+    private javax.swing.JComboBox incremento;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel leilao_panel;
+    private javax.swing.JLabel lp;
+    private javax.swing.JLabel lpi;
+    private javax.swing.JLabel lq;
+    private javax.swing.JLabel lv;
+    private org.jdesktop.swingx.JXTextField preco;
+    private org.jdesktop.swingx.JXTextField preco_ini;
+    private org.jdesktop.swingx.JXTextField quantidade;
+    private javax.swing.JCheckBox trocas;
+    // End of variables declaration//GEN-END:variables
 }

@@ -1,172 +1,55 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Componentes;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.jdesktop.swingx.JXHyperlink;
-
-import Presentation_Layer.Sale_Squared;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.Imagem;
+import Business_Layer.Leilao;
+import Business_Layer.ModoVenda;
+import Business_Layer.VendaDirecta;
 import Presentation_Layer.Anuncio.Anuncio_Main;
-
-import Business_Layer.*;
-import java.util.Collection;
+import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-public class Produto_Base extends JPanel {
+/**
+ *
+ * @author ricardobranco
+ */
+public class Produto_Base extends javax.swing.JPanel {
 
-    /**
-     *
-     */
-    private AnuncioVenda anuncio;
-    private int idanuncio;
-    private static final long serialVersionUID = 1L;
     private final Sale_Squared root;
-    
+    private final int idanuncio;
+    private AnuncioVenda anuncio;
 
     /**
-     * Create the panel.
+     * Creates new form Produto_Base
      */
     public Produto_Base(final Sale_Squared root, int idanuncio) {
-
-       this.root = root;
-       this.idanuncio = idanuncio;
-       this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio); 
-        JButton button = new JButton("");
-        button.addActionListener(new ActionListener() {
-            private AnuncioVenda anuncio;
-
-            public void actionPerformed(ActionEvent e) {
-               abrir();
-
-            }
-        });
-
+        initComponents();
+        this.root = root;
+        this.idanuncio = idanuncio;
+        this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio);
 
         List<Imagem> ci = (List<Imagem>) anuncio.getImagens().values();
-        Icon i = ci.isEmpty() ? new ImageIcon(Produto_Base.class
-                .getResource("/Imagens/Sem_Imagem.png")) : new Avatar(new ImageIcon(ci.get(0).getPath()).getImage());
-
-
-
-        button.setIcon(i);
-        JLabel lblMin = new JLabel("50");
+        if (!ci.isEmpty()) {
+            thumb.setIcon(new Avatar(new ImageIcon(ci.get(0).getPath()).getImage()));
+        }
 
         ModoVenda mv = anuncio.getTipoVenda();
         boolean leilao = mv.getClass().getSimpleName().equals("Leilao");
-
-        JLabel label = new JLabel("");
-
-
         if (leilao) {
-            label.setVisible(false);
-            lblMin.setText("€ " + ((Leilao) mv).getPrecoActual());
+            preco.setText("€ " + ((Leilao) mv).getPrecoActual());
         } else {
-            lblMin.setVisible(false);
-            label.setText("€ " + ((VendaDirecta) mv).getPreco());
+            preco.setText("€ " + ((VendaDirecta) mv).getPreco());
         }
-
-
-
-
-        label.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel label_1 = new JLabel(temporestante(new GregorianCalendar(), anuncio.getDataExpir()));
-        label_1.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 13));
-
-        JXHyperlink hprlnkNegcio = new JXHyperlink();
-        hprlnkNegcio.setForeground(new Color(0, 102, 204));
-        hprlnkNegcio.setText(anuncio.getTitulo());
-        GroupLayout groupLayout = new GroupLayout(this);
-        groupLayout
-                .setHorizontalGroup(groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(button)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addComponent(
-                lblMin,
-                Alignment.TRAILING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.TRAILING,
-                false)
-                .addComponent(
-                hprlnkNegcio,
-                Alignment.LEADING,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-                .addComponent(
-                label_1,
-                Alignment.LEADING,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE))
-                .addPreferredGap(
-                ComponentPlacement.RELATED,
-                237,
-                Short.MAX_VALUE)
-                .addComponent(
-                label)))
-                .addContainerGap()));
-        groupLayout
-                .setVerticalGroup(groupLayout
-                .createParallelGroup(Alignment.LEADING)
-                .addComponent(button, GroupLayout.PREFERRED_SIZE, 79,
-                GroupLayout.PREFERRED_SIZE)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addContainerGap()
-                .addComponent(hprlnkNegcio,
-                GroupLayout.PREFERRED_SIZE, 13,
-                GroupLayout.PREFERRED_SIZE)
-                .addGap(10)
-                .addComponent(lblMin,
-                GroupLayout.PREFERRED_SIZE, 21,
-                Short.MAX_VALUE)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.BASELINE)
-                .addComponent(
-                label,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-                .addComponent(
-                label_1,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE))
-                .addGap(13)));
-        setLayout(groupLayout);
-
+        jXHyperlink1.setText(anuncio.getTitulo());
+        tempo.setText(temporestante(new GregorianCalendar(), this.anuncio.getDataExpir()));
     }
 
     private String temporestante(GregorianCalendar in, GregorianCalendar end) {
@@ -175,7 +58,6 @@ public class Produto_Base extends JPanel {
         long lend = end.getTimeInMillis();
         long diff = lend - lin;
         long segundos = diff / 1000;
-        long msres = diff % 1000;
 
         long minutos = segundos / 60;
         long sres = segundos % 60;
@@ -205,13 +87,100 @@ public class Produto_Base extends JPanel {
 
 
     }
-    
-    
-    public void abrir(){
-         this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
-                JPanel anuncio = new Anuncio_Main(root, this.idanuncio);
-                
-                root.setBody(anuncio, this.anuncio.getTitulo());
-        
+
+    public void abrir() {
+        this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
+        JPanel anuncio = new Anuncio_Main(root, this.idanuncio);
+
+        root.setBody(anuncio, this.anuncio.getTitulo());
+
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        thumb = new javax.swing.JButton();
+        jXHyperlink1 = new org.jdesktop.swingx.JXHyperlink();
+        preco = new javax.swing.JLabel();
+        tempo = new javax.swing.JLabel();
+
+        thumb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png"))); // NOI18N
+        thumb.setContentAreaFilled(false);
+        thumb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thumbActionPerformed(evt);
+            }
+        });
+
+        jXHyperlink1.setForeground(new java.awt.Color(0, 102, 204));
+        jXHyperlink1.setText("jXHyperlink1");
+        jXHyperlink1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXHyperlink1ActionPerformed(evt);
+            }
+        });
+
+        preco.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        preco.setText("jLabel1");
+
+        tempo.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        tempo.setText("jLabel2");
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(thumb)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jXHyperlink1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(tempo))
+                        .addContainerGap(109, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(preco)
+                        .addContainerGap())))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(jXHyperlink1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(preco)
+                        .add(2, 2, 2)
+                        .add(tempo))
+                    .add(thumb))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jXHyperlink1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXHyperlink1ActionPerformed
+        // TODO add your handling code here:
+        abrir();
+    }//GEN-LAST:event_jXHyperlink1ActionPerformed
+
+    private void thumbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thumbActionPerformed
+        // TODO add your handling code here:
+        abrir();
+    }//GEN-LAST:event_thumbActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXHyperlink jXHyperlink1;
+    private javax.swing.JLabel preco;
+    private javax.swing.JLabel tempo;
+    private javax.swing.JButton thumb;
+    // End of variables declaration//GEN-END:variables
 }
