@@ -4,13 +4,13 @@
  */
 package Presentation_Layer.Inserir;
 
-import Presentation_Layer.Componentes.Horas;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -20,8 +20,7 @@ public class Inserir_preco extends javax.swing.JPanel {
 
     private final Icon ERRADO = new ImageIcon(getClass().getResource("/Imagens/errado.png"));
     private final Icon CERTO = new ImageIcon(getClass().getResource("/Imagens/certo.png"));
-    private final Horas horas;
-
+    
     /**
      * Creates new form Inserir_preco2
      */
@@ -33,7 +32,6 @@ public class Inserir_preco extends javax.swing.JPanel {
         this.lpi.setVisible(false);
         this.lq.setVisible(false);
         this.lv.setVisible(false);
-        horas = new Horas();
         date.setDate(new Date());
 
         GregorianCalendar gc = new GregorianCalendar();
@@ -43,12 +41,12 @@ public class Inserir_preco extends javax.swing.JPanel {
         min.set(Calendar.DATE, gc.get(GregorianCalendar.DATE));
 
         date.setMinSelectableDate(min.getTime());
-        horasp.add(horas, "Horas");
-        incremento.setModel(new DefaultComboBoxModel<String>(new String[]{
+       incremento.setModel(new DefaultComboBoxModel<String>(new String[]{
                     "0.01", "0.05", "0.10", "0.50", "1.00", "5.00", "10.00",
                     "50.00", "100.00", "500.00", "1000.00", "5000.00", "10000.00"}));
-
-
+       horas.setModel(new SpinnerNumberModel(new GregorianCalendar().get(GregorianCalendar.HOUR_OF_DAY), 0, 23, 1));
+       minutos.setModel(new SpinnerNumberModel(new GregorianCalendar().get(GregorianCalendar.MINUTE), 0, 59, 1));
+     
 
     }
 
@@ -63,8 +61,8 @@ public class Inserir_preco extends javax.swing.JPanel {
         dia = c.get(Calendar.DAY_OF_MONTH);
         mes = c.get(Calendar.MONTH);
         ano = c.get(Calendar.YEAR);
-        hora = horas.getHora();
-        minutos = horas.getMinutos();
+        hora = getHora();
+        minutos = getMinutos();
 
         GregorianCalendar res = new GregorianCalendar(ano, mes, dia, hora,
                 minutos);
@@ -170,6 +168,14 @@ public class Inserir_preco extends javax.swing.JPanel {
     public boolean trocas() {
         return trocas.isSelected();
     }
+    
+    public int getHora() {
+        return ((Integer) horas.getValue()).intValue();
+    }
+
+    public int getMinutos() {
+        return ((Integer) minutos.getValue()).intValue();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,9 +205,12 @@ public class Inserir_preco extends javax.swing.JPanel {
         lp = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lv = new javax.swing.JLabel();
-        horasp = new javax.swing.JPanel();
         trocas = new javax.swing.JCheckBox();
         date = new com.toedter.calendar.JDateChooser();
+        horas = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        minutos = new javax.swing.JSpinner();
+        jLabel7 = new javax.swing.JLabel();
 
         jRadioButton1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jRadioButton1.setText("Leilão");
@@ -250,7 +259,7 @@ public class Inserir_preco extends javax.swing.JPanel {
                         .add(incremento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lpi)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         leilao_panelLayout.setVerticalGroup(
             leilao_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -309,7 +318,7 @@ public class Inserir_preco extends javax.swing.JPanel {
                 .add(comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lq)
                     .add(lp))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         comprar_panelLayout.setVerticalGroup(
             comprar_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -332,10 +341,13 @@ public class Inserir_preco extends javax.swing.JPanel {
 
         lv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
 
-        horasp.setLayout(new java.awt.CardLayout());
-
         trocas.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         trocas.setText("Aceitar trocas");
+        trocas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trocasActionPerformed(evt);
+            }
+        });
 
         date.setDateFormatString("dd/MMMM/yyyy");
         date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -343,6 +355,12 @@ public class Inserir_preco extends javax.swing.JPanel {
                 datePropertyChange(evt);
             }
         });
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel5.setText("Hora");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel7.setText("Minutos");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -352,27 +370,40 @@ public class Inserir_preco extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(29, 29, 29)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(comprar_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, leilao_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(layout.createSequentialGroup()
+                                .add(29, 29, 29)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(comprar_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, leilao_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jRadioButton1)
+                                    .add(jRadioButton2)
+                                    .add(layout.createSequentialGroup()
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(jLabel6)
+                                            .add(jLabel9))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(lv))
+                                    .add(layout.createSequentialGroup()
+                                        .add(28, 28, 28)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(layout.createSequentialGroup()
+                                                .add(60, 60, 60)
+                                                .add(horas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                            .add(jLabel5)
+                                            .add(layout.createSequentialGroup()
+                                                .add(jLabel7)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(minutos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                                .add(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(horasp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jRadioButton1)
-                                .add(jRadioButton2)
-                                .add(trocas)
-                                .add(layout.createSequentialGroup()
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                        .add(jLabel9)
-                                        .add(jLabel6))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(lv))))
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .add(trocas)
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -388,12 +419,20 @@ public class Inserir_preco extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel6)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lv)
-                    .add(jLabel9)
-                    .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 7, Short.MAX_VALUE)
-                .add(horasp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lv)
+                            .add(jLabel9)
+                            .add(date, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(28, 28, 28))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(horas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel5)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(minutos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(trocas)
                 .addContainerGap())
@@ -492,8 +531,8 @@ public class Inserir_preco extends javax.swing.JPanel {
         dia = c.get(Calendar.DAY_OF_MONTH);
         mes = c.get(Calendar.MONTH);
         ano = c.get(Calendar.YEAR);
-        hora = horas.getHora();
-        minutos = horas.getMinutos();
+        hora = getHora();
+        minutos = getMinutos();
 
         GregorianCalendar res = new GregorianCalendar(ano, mes, dia, hora,
                 minutos);
@@ -512,17 +551,24 @@ public class Inserir_preco extends javax.swing.JPanel {
             this.lv.setIcon(CERTO);
         }
     }//GEN-LAST:event_datePropertyChange
+
+    private void trocasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trocasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_trocasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel comprar_panel;
     private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JPanel horasp;
+    private javax.swing.JSpinner horas;
     private javax.swing.JComboBox incremento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
@@ -531,6 +577,7 @@ public class Inserir_preco extends javax.swing.JPanel {
     private javax.swing.JLabel lpi;
     private javax.swing.JLabel lq;
     private javax.swing.JLabel lv;
+    private javax.swing.JSpinner minutos;
     private org.jdesktop.swingx.JXTextField preco;
     private org.jdesktop.swingx.JXTextField preco_ini;
     private org.jdesktop.swingx.JXTextField quantidade;

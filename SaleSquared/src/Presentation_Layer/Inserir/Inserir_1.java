@@ -48,7 +48,7 @@ public class Inserir_1 extends JPanel {
 		imagens = new Tabela_Imagens(codigo);
 		categorias = new Inserir_Categorias();
 		preco = new Inserir_preco();
-		JLabel lblNewLabel = new JLabel("1 - Definiç\u00F5es");
+		JLabel lblNewLabel = new JLabel("1 - Definições");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 
 		titulo = new JTextField();

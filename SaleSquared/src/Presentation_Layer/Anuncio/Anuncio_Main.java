@@ -1,179 +1,116 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
-import Business_Layer.AnuncioVenda;
 import Business_Layer.Imagem;
-import Business_Layer.ModoVenda;
-import java.awt.CardLayout;
-import java.awt.Font;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
 import Presentation_Layer.Sale_Squared;
 import Presentation_Layer.Tabbed.Tabbed_Anuncio;
 import Presentation_Layer.Tabbed.Tabbed_Sugestoes;
 import java.util.List;
 
-public class Anuncio_Main extends JPanel {
+/**
+ *
+ * @author ricardobranco
+ */
+public class Anuncio_Main extends javax.swing.JPanel {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    /**
-     * Create the panel.
-     */
-    private Anuncio anuncio;
-    private int idanuncio;
+    private final int idanuncio;
+    private final Anuncio anuncio;
     private final ImagePanel imagepanel;
-    
 
+    /**
+     * Creates new form Anuncio_Main2
+     */
     public Anuncio_Main(final Sale_Squared root, int idAnuncio) {
-
-       
+        initComponents();
         this.idanuncio = idAnuncio;
         this.anuncio = root.getSistema().encontrarAnuncio(this.idanuncio);
-        JLabel lblNewLabel = new JLabel(anuncio.getTitulo());
+        this.titulo.setText(this.anuncio.getTitulo());
+        imagepanel = new ImagePanel();
+
+        this.imagem.add(imagepanel,"Imagem");
+        this.info.add(new Tabbed_Anuncio(root, idanuncio, imagepanel),"Info");
+        this.compra.add(new Anuncio_Info(root, idanuncio),"Compra");
+        this.sugestoes.add(new Tabbed_Sugestoes(root, idanuncio),"Sugestoes");
         
-        
-        lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 35));
-        
-        
-         imagepanel = new ImagePanel();
-        JPanel panel = new JPanel();
-        JPanel panel_1 = new JPanel();
-        JPanel panel_2 = new JPanel();
-        JPanel panel_3 = new JPanel();
-       
-        
-        
-        
-        
-        
-        
-        GroupLayout groupLayout = new GroupLayout(this);
-        groupLayout
-                .setHorizontalGroup(groupLayout
-                .createParallelGroup(Alignment.TRAILING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGap(22)
-                .addComponent(
-                lblNewLabel,
-                GroupLayout.DEFAULT_SIZE,
-                903,
-                Short.MAX_VALUE))
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addComponent(
-                panel_3,
-                GroupLayout.DEFAULT_SIZE,
-                496,
-                Short.MAX_VALUE)
-                .addComponent(
-                panel_1,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE))
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.LEADING)
-                .addComponent(
-                panel,
-                GroupLayout.PREFERRED_SIZE,
-                436,
-                Short.MAX_VALUE)
-                .addComponent(
-                panel_2,
-                GroupLayout.DEFAULT_SIZE,
-                423,
-                Short.MAX_VALUE))))
-                .addContainerGap()));
-        groupLayout
-                .setVerticalGroup(groupLayout
-                .createParallelGroup(Alignment.TRAILING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addGap(24)
-                .addComponent(lblNewLabel)
-                .addGap(6)
-                .addGroup(
-                groupLayout
-                .createParallelGroup(
-                Alignment.TRAILING)
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                panel_3,
-                GroupLayout.DEFAULT_SIZE,
-                218,
-                Short.MAX_VALUE)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                panel_1,
-                GroupLayout.DEFAULT_SIZE,
-                408,
-                Short.MAX_VALUE))
-                .addGroup(
-                groupLayout
-                .createSequentialGroup()
-                .addComponent(
-                panel,
-                GroupLayout.DEFAULT_SIZE,
-                410,
-                Short.MAX_VALUE)
-                .addPreferredGap(
-                ComponentPlacement.RELATED)
-                .addComponent(
-                panel_2,
-                GroupLayout.DEFAULT_SIZE,
-                216,
-                Short.MAX_VALUE)))
-                .addGap(15)));
-        
-        
-        
-        panel_2.setLayout(new CardLayout(0, 0));
-        panel_3.setLayout(new CardLayout(0, 0));
-        panel_1.setLayout(new CardLayout(0, 0));
-        
-        panel_2.add(new Tabbed_Sugestoes(root,this.idanuncio), "Mais sugestoes");
-        panel_3.add(imagepanel, "Imagem");
-        panel_1.add(new Tabbed_Anuncio(root,this.idanuncio, this.imagepanel), "Info");
-        panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Anuncio_Info(root, this.idanuncio), "Compra");
-        setLayout(groupLayout);
-        
-        if(!this.anuncio.getImagens().isEmpty()){
-            List<Imagem> imagens =  (List<Imagem>) this.anuncio.getImagens().values();
+        if (!this.anuncio.getImagens().isEmpty()) {
+            List<Imagem> imagens = (List<Imagem>) this.anuncio.getImagens().values();
             this.imagepanel.setImage(imagens.get(0));
         }
 
     }
 
-  
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        titulo = new javax.swing.JLabel();
+        imagem = new javax.swing.JPanel();
+        info = new javax.swing.JPanel();
+        compra = new javax.swing.JPanel();
+        sugestoes = new javax.swing.JPanel();
+
+        titulo.setFont(new java.awt.Font("Lucida Grande", 1, 35)); // NOI18N
+        titulo.setText("jLabel1");
+
+        imagem.setLayout(new java.awt.CardLayout());
+
+        info.setLayout(new java.awt.CardLayout());
+
+        compra.setLayout(new java.awt.CardLayout());
+
+        sugestoes.setLayout(new java.awt.CardLayout());
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(titulo)
+                    .add(layout.createSequentialGroup()
+                        .add(imagem, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(compra, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(info, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(sugestoes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .add(6, 6, 6)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(layout.createSequentialGroup()
+                        .add(titulo)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(imagem, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(48, 48, 48)
+                        .add(compra, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(info, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .add(sugestoes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel compra;
+    private javax.swing.JPanel imagem;
+    private javax.swing.JPanel info;
+    private javax.swing.JPanel sugestoes;
+    private javax.swing.JLabel titulo;
+    // End of variables declaration//GEN-END:variables
 }

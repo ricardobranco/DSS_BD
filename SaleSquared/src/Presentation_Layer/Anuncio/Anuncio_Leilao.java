@@ -1,10 +1,7 @@
 package Presentation_Layer.Anuncio;
 
-import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.Leilao;
-import Business_Layer.SaleSquared;
-import Business_Layer.Transaccao;
 import Presentation_Layer.Sale_Squared;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -13,7 +10,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.GregorianCalendar;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
