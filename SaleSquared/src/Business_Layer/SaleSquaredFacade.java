@@ -153,7 +153,7 @@ public interface SaleSquaredFacade {
 
 	public Set<Anuncio> procurarAnuncCat(String nome);
 
-	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores);
+	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores,int op);
 
 	public SortedSet<Anuncio> procurarAnuncMaisVis();
 

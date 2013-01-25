@@ -781,8 +781,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 			exitFlag = true;
 			for (int i = 0; i < campos.length && exitFlag; i++) {
 				switch (campos[i]) {
-                                case "tit": { exitFlag = aux(exitFlag, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase(), op) ; break;}    
-                                case "desc" : {exitFlag = aux(exitFlag, a.getDescricao().contains((String)valores[i], op) ; break ;}
+                                case "tit": { exitFlag = aux(exitFlag, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()), op) ; break;}    
+                                case "desc" : {exitFlag = aux(exitFlag, a.getDescricao().contains((String)valores[i]), op) ; break ;}
 				case "pMenorI": {
 					exitFlag = aux(exitFlag, a.getPreco() <= (Double) valores[i], op);
 					break;
@@ -849,7 +849,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	public boolean aux (boolean b1, boolean b2, int op) { return (op==0) ? b1 && b2 : b1 || b2 ;}
 		
 		
-	}
+	
 
 	// pré-condição: classificação entre 0 e 100
 	public void avaliarAnuncio(int codAnunc, Avaliacao avaliacao) {
@@ -1101,4 +1101,6 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                 res.add(a) ;
             return res ;
         }
+
+   
 }

@@ -118,7 +118,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
         Object[] valores = {critpesq, critpesq, critpesq, categoria
         };
 
-        Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(campos, valores);
+        Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(campos, valores,1);
         Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
         for (Anuncio a : panuncios) {
             anuncios.add((AnuncioVenda) a);
