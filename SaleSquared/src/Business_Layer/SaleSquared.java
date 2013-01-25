@@ -774,14 +774,13 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	public Set<Anuncio> procurarAnuncAvanc(String[] campos, Object[] valores, int op) {
 
 		Set<Anuncio> res = new TreeSet<Anuncio>(new ComparadorUltimosAnunc());
-		Boolean exitFlag, e, ou;
+		Boolean exitFlag ;
+                Bool e = new Bool(true), ou = new Bool(false);
 		for (Iterator<Anuncio> it = this.anuncios.values().iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
-			exitFlag = true;
-                        e = true ;
-                        ou = false ;
-			for (int i = 0; i < campos.length && (op==0 ? e : !ou); i++) {
+			exitFlag = true;                        
+			for (int i = 0; i < campos.length && (op==0 ? e.getB() : !ou.getB()); i++) {
 				switch (campos[i]) {
                                 case "tit": { aux(e, ou, a.getTitulo().toLowerCase().contains(((String)valores[i]).toLowerCase()), op) ; break;}    
                                 case "desc" : {aux(e, ou, a.getDescricao().contains((String)valores[i]), op) ; break ;}
@@ -840,7 +839,7 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 				}
 				}				
 			}
-			if (op==0 ? e : ou)
+			if (op==0 ? e.getB() : ou.getB())
 				res.add(a);
 		}
 		return res;
@@ -848,12 +847,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	
 	// 0: &&
 	// 1: ||
-	public void aux (Boolean e, Boolean ou, boolean b2, int op) { 
+	public void aux (Bool e, Bool ou, boolean b2, int op) { 
             
             if(op==0) 
-                e = e && b2 ; 
+                e.setB(e.getB() && b2) ; 
             else 
-                ou = ou || b2 ;
+                ou.setB(ou.getB() || b2) ;
         }		
 	
 
@@ -1109,4 +1108,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         }
 
    
+}
+
+class Bool {
+    
+    private boolean b ;
+    
+    public Bool (boolean b) { this.b = b ;}
+    
+    public boolean getB () {return this.b ;}
+    public void setB (boolean bol) {this.b = bol ;}
 }
