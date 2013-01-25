@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.math.* ;
 
 import Data_Layer.AnuncioSeguidoDAO;
 import Data_Layer.CategoriaSeguidaDAO;
@@ -12,6 +13,7 @@ import Data_Layer.MsgEnviadaDAO;
 import Data_Layer.MsgRecebidaDAO;
 import Data_Layer.TransaccaoDAO;
 import Data_Layer.UserSeguidoDAO;
+import java.security.MessageDigest;
 
 
 
@@ -487,7 +489,10 @@ public class UtilizadorRegistado extends Utilizador {
 	 */
 
 	public boolean passwordCorresponde(String pw) {
-		return this.password.equals(pw);
+                
+                System.out.println("pw login :" + encriptarPassword(pw)) ;
+                System.out.println("pw user :" + this.password) ;
+		return this.password.equals(encriptarPassword(pw));
 	}
 
 	/*
@@ -543,6 +548,20 @@ public class UtilizadorRegistado extends Utilizador {
 		}
 		return res;
 	}
+        
+        public static String encriptarPassword (String pw) {
+        
+        byte[] pwB = pw.getBytes() ;
+        byte[] pwEnc = null ;
+        String res = null ;        
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5") ;
+            pwEnc = md.digest(pwB) ;
+            BigInteger big = new BigInteger(1, pwEnc) ;
+            res = big.toString(16) ;            
+        } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
+        return res ;
+    }
 
 	/*
 	 * public static boolean validaContacto (String contacto) {
