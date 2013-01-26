@@ -110,15 +110,18 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
 
     public void pesquisar() {
 
-        String[] campos = {"tit", "desc", "t", "c"};
-
+        String[] campostext = {"tit", "desc", "t"};
+        String[] camposcat = {"c"};
         String categoria = (String) this.jComboBox1.getModel().getElementAt(jComboBox1.getSelectedIndex());
         String critpesq = jXSearchField1.getText();
 
-        Object[] valores = {critpesq, critpesq, critpesq, categoria
+        Object[] valorestext = {critpesq, critpesq, critpesq
         };
+        Object[] valorescat = {noSpaceBegin(categoria)};
 
-        Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(campos, valores,1);
+        Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(
+                root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campostext, valorestext, 1),
+                camposcat, valorescat, 0);
         Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
         for (Anuncio a : panuncios) {
             anuncios.add((AnuncioVenda) a);
@@ -127,6 +130,14 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
 
         root.setBody(new Pesquisa_Resultado(root, anuncios), "Resultados");
     }
+    
+    private String noSpaceBegin(String s){
+        int i = 0;
+        for(;i<s.length() && s.charAt(i)==' ';i++);
+        return s.substring(i); 
+        
+    }
+    
     private void jXSearchField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXSearchField1ActionPerformed
         // TODO add your handling code here:
         pesquisar();
