@@ -1,265 +1,331 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Registo;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Set;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Business_Layer.SaleSquared;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Sale_Squared;
+import java.util.Arrays;
+import java.util.Set;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+/**
+ *
+ * @author ricardobranco
+ */
+public class Registo_1 extends javax.swing.JPanel {
+
+    public final Icon VALIDO = new ImageIcon(Registo_1.class.getResource("/Imagens/certo.png"));
+    public final Icon INVALIDO = new ImageIcon(Registo_1.class.getResource("/Imagens/errado.png"));
+    private final Sale_Squared root;
+
+    /**
+     * Creates new form Registo_11
+     */
+    public Registo_1(final Sale_Squared root) {
+        initComponents();
+        this.root = root;
+    }
+
+    public String getUser(final Sale_Squared root) throws Exception {
+        String susername = username.getText();
+        if (root.getSistema().existeUtilizadorReg(susername)) {
+            uv.setIcon(INVALIDO);
+            throw new Exception("Já existe um utilizador com esse username");
+        } else if (susername.isEmpty()) {
+            uv.setIcon(INVALIDO);
+            throw new Exception("Insira um username");
+        } else if (susername.length() > 15) {
+            uv.setIcon(INVALIDO);
+            throw new Exception("O username tem que ter no max. 8 caracteres");
+        } else {
+            uv.setIcon(VALIDO);
+        }
+
+        return susername;
+
+    }
+
+    public String getPassword(final Sale_Squared root) throws Exception {
+        pv.setVisible(true);
+        if (!coincidePassword()) {
+            pv.setIcon(INVALIDO);
+            throw new Exception("As passwords não são iguais");
+        }
+
+        String pass = new String(password.getPassword());
+
+        if (!root.getSistema().eValidaPassword(pass)) {
+            pv.setIcon(INVALIDO);
+            System.out.println(root.getSistema().eValidaPassword("password"));
+            throw new Exception("Insira uma Password válida");
+        }
+
+        if (pass.isEmpty()) {
+            pv.setIcon(INVALIDO);
+            throw new Exception("Insira uma password");
+        }
+        pv.setIcon(VALIDO);	
+        return pass;
+
+    }
+
+    public String getEmail(final Sale_Squared root) throws Exception {
+        ev.setVisible(true);
+        if (!coincideEmail()) {
+            throw new Exception("Os emails não são iguais");
+        }
+
+        String semail = email.getText();
+
+        if (semail.isEmpty()) {
+            ev.setIcon(INVALIDO);
+            throw new Exception("Insira um Email");
+        }
 
 
-public class Registo_1 extends JPanel {
+        SaleSquared sistema = root.getSistema();
+        if (!sistema.eValidoEmail(semail)) {
+             ev.setIcon(INVALIDO);
+            throw new Exception("Insira um email válido");
+        }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public final Icon VALIDO = new ImageIcon(Registo_1.class.getResource("/Imagens/certo.png"));
-	public final Icon INVALIDO = new ImageIcon(Registo_1.class.getResource("/Imagens/errado.png"));
-	private JTextField email2;
-	private JTextField email1;
-	private JPasswordField pass2;
-	private JPasswordField pass1;
-	private JTextField username;
-	private final JLabel label;
-	
-	/**
-	 * Create the panel.
-	 */
-	public Registo_1(final Sale_Squared root) {
+        Set<UtilizadorRegistado> users = sistema.procurarUserMail(semail);
 
-		
-		JLabel lblNewLabel = new JLabel("1 - Dados Básicos");
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		label = new JLabel("");
-		label.setVisible(false);
-		JButton btnNewButton = new JButton("Verificar Username");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean existe;
-				String nome = username.getText();
-				existe=root.getSistema().existeUtilizadorReg(nome);
-				
-				label.setVisible(true);
-				
-				if(existe || nome.equals(""))
-					label.setIcon(INVALIDO);
-				else
-					label.setIcon(VALIDO);
-					
-			}
-		});
+        if (!users.isEmpty()) {
+             ev.setIcon(INVALIDO);
+            throw new Exception("Já existe um utilizador com esse email");
+        }
+         ev.setIcon(VALIDO);
+        return semail;
+    }
 
-		JSeparator separator = new JSeparator();
-		
-		JPanel panel = new JPanel();
-		
-	
-		
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 977, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(58)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(label)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton)
-							.addPreferredGap(ComponentPlacement.RELATED, 384, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(label)
-							.addComponent(btnNewButton)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		
-		JLabel label_1 = new JLabel("Password");
-		label_1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		
-		JLabel label_2 = new JLabel("Username");
-		label_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		
-		JLabel label_3 = new JLabel("Confirmar Password");
-		label_3.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		
-		JLabel label_4 = new JLabel("Email");
-		label_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		
-		JLabel label_5 = new JLabel("Confirmar Email");
-		label_5.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		
-		email2 = new JTextField();
-		email2.setColumns(10);
-		
-		email1 = new JTextField();
-		email1.setColumns(10);
-		
-		pass2 = new JPasswordField();
-		pass2.setToolTipText("Min. 6 caracteres");
-		
-		pass1 = new JPasswordField();
-		pass1.setToolTipText("Min. 6 caracteres");
-			
-		
-		username = new JTextField();
-		username.setColumns(10);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-							.addGap(73)
-							.addComponent(username, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-							.addComponent(pass1, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(pass2, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-							.addComponent(email1, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(email2, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(label_2)
-						.addComponent(username, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(24)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_1)
-						.addComponent(pass1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_3)
-						.addComponent(pass2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_4)
-						.addComponent(email1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_5)
-						.addComponent(email2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
-		setLayout(groupLayout);
+    private boolean coincidePassword() {
+        return Arrays.equals(password.getPassword(), cpassword.getPassword());
+    }
 
-	}
-	
-	public String getUser(final Sale_Squared root) throws Exception{
-		String susername = username.getText();
-		if(root.getSistema().existeUtilizadorReg(susername)){
-			label.setIcon(INVALIDO);
-			throw new Exception("Já existe um utilizador com esse username");
-		}
-		else if(susername.isEmpty()){
-			label.setIcon(INVALIDO);
-			throw new Exception("Insira um username");
-		}
-		else if(susername.length()>15){
-			label.setIcon(INVALIDO);
-			throw new Exception("O username tem que ter no max. 8 caracteres");}
-		else
-			label.setIcon(VALIDO);
+    private boolean coincideEmail() {
+        return cemail.getText().equals(email.getText());
+    }
 
-			return susername;
-			
-	}
-	
-	public String getPassword(final Sale_Squared root) throws Exception{
-		if(!coincidePassword())
-			throw new Exception("As passwords não são iguais");
-		
-			String pass = new String(pass1.getPassword());
-			
-			if(!root.getSistema().eValidaPassword(pass)){
-				System.out.println(root.getSistema().eValidaPassword("password"));
-				throw new Exception("Insira uma Password válida");}
-			
-			if(pass.isEmpty())
-				throw new Exception("Insira uma password");
-			return pass;
-			
-		}
-	
-	public String getEmail(final Sale_Squared root) throws Exception{
-		if(!coincideEmail())
-			throw new Exception("Os emails não são iguais");
-		
-			String email = email1.getText();
-		
-			if(email.isEmpty())
-				throw new Exception("Insira um Email");
-			
-			
-			SaleSquared sistema = root.getSistema();
-			if(!sistema.eValidoEmail(email))
-				throw new Exception("Insira um email válido");
-				
-			Set<UtilizadorRegistado> users = sistema.procurarUserMail(email);
-			
-			if(!users.isEmpty())
-				throw new Exception("Já existe um utilizador com esse email");
-			
-			return email;
-			}
-	
-	private boolean coincidePassword(){
-		return Arrays.equals(pass1.getPassword(),pass2.getPassword());
-	}
-	
-	private boolean coincideEmail(){
-		return email1.getText().equals(email2.getText());
-	}
-	
-	
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        username = new org.jdesktop.swingx.JXTextField();
+        email = new org.jdesktop.swingx.JXTextField();
+        cemail = new org.jdesktop.swingx.JXTextField();
+        password = new javax.swing.JPasswordField();
+        cpassword = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        uv = new javax.swing.JLabel();
+        pv = new javax.swing.JLabel();
+        ev = new javax.swing.JLabel();
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
+        jLabel1.setText("1- Dados Básicos");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setText("Username");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel3.setText("Password");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel4.setText("Confirmar password");
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel5.setText("Email");
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel6.setText("Confirmar email");
+
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+        username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usernameKeyTyped(evt);
+            }
+        });
+
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailKeyTyped(evt);
+            }
+        });
+
+        cemail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cemailKeyTyped(evt);
+            }
+        });
+
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordKeyTyped(evt);
+            }
+        });
+
+        cpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpasswordActionPerformed(evt);
+            }
+        });
+
+        uv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
+
+        pv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
+
+        ev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel1))
+                    .add(layout.createSequentialGroup()
+                        .add(42, 42, 42)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel2)
+                                    .add(jLabel3))
+                                .add(80, 80, 80)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(username, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .add(password)))
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel4)
+                                    .add(jLabel5)
+                                    .add(jLabel6))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(cpassword)
+                                    .add(email, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(cemail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(uv)
+                            .add(pv)
+                            .add(ev))))
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(username, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(uv))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(password, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(pv))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(cpassword, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(email, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(ev))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6)
+                    .add(cemail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+    private void cpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpasswordActionPerformed
+        // TODO add your handling code here:
+        try {
+            getPassword(root);
+        } catch (Exception e) {
+            
+        }
+    }//GEN-LAST:event_cpasswordActionPerformed
+
+    private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
+        // TODO add your handling code here:
+        try {
+            getUser(root);
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_usernameKeyTyped
+
+    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+        // TODO add your handling code here:
+        try {
+            getPassword(root);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_passwordKeyTyped
+
+    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+        // TODO add your handling code here:
+        try {
+            getEmail(root);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_emailKeyTyped
+
+    private void cemailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cemailKeyTyped
+        // TODO add your handling code here:
+        try {
+            getEmail(root);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cemailKeyTyped
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXTextField cemail;
+    private javax.swing.JPasswordField cpassword;
+    private org.jdesktop.swingx.JXTextField email;
+    private javax.swing.JLabel ev;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JLabel pv;
+    private org.jdesktop.swingx.JXTextField username;
+    private javax.swing.JLabel uv;
+    // End of variables declaration//GEN-END:variables
 }
