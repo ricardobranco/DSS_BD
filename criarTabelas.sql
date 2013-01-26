@@ -1,3 +1,5 @@
+CREATE SEQUENCE seq_Localidade;
+CREATE SEQUENCE seq_Pais;
 CREATE SEQUENCE seq_Transaccao;
 CREATE SEQUENCE seq_Avaliacao;
 CREATE SEQUENCE seq_ModoVenda;
@@ -6,15 +8,17 @@ CREATE SEQUENCE seq_Mensagem;
 CREATE SEQUENCE seq_Utilizador;
 CREATE TABLE CodigoPostal (
   codPostal  varchar2(15) NOT NULL, 
-  localidade varchar2(30) NOT NULL, 
+  localidade number(10) NOT NULL, 
   PRIMARY KEY (codPostal));
 CREATE TABLE Localidade (
+  id         number(10) NOT NULL, 
   localidade varchar2(30) NOT NULL, 
-  pais       varchar2(30) NOT NULL, 
-  PRIMARY KEY (localidade));
+  pais       number(10) NOT NULL, 
+  PRIMARY KEY (id));
 CREATE TABLE Pais (
+  id   number(10) NOT NULL, 
   nome varchar2(30) NOT NULL, 
-  PRIMARY KEY (nome));
+  PRIMARY KEY (id));
 CREATE TABLE Sistema (
   idUtilizador number(10) NOT NULL, 
   idMensagem   number(10) NOT NULL, 
@@ -22,7 +26,9 @@ CREATE TABLE Sistema (
   idAnuncio    number(10) NOT NULL, 
   idModoVenda  number(10) NOT NULL, 
   idAvaliacao  number(10) NOT NULL, 
-  idImagem     number(10) NOT NULL);
+  idImagem     number(10) NOT NULL, 
+  idLocalidade number(10) NOT NULL, 
+  idPais       number(10) NOT NULL);
 CREATE TABLE AnuncioSeguido (
   username varchar2(30) NOT NULL, 
   anuncio  number(10) NOT NULL, 
@@ -61,9 +67,9 @@ CREATE TABLE Avaliacao (
   data          date NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE AnuncioVisitado (
-  utilizador number(10) NOT NULL, 
-  anuncio    number(10) NOT NULL, 
-  dataVisualizacao date NOT NULL,
+  utilizador       number(10) NOT NULL, 
+  anuncio          number(10) NOT NULL, 
+  dataVisualizacao date NOT NULL, 
   PRIMARY KEY (utilizador, 
   anuncio));
 CREATE TABLE VendaDirecta (
@@ -125,7 +131,6 @@ CREATE TABLE Anuncio (
   dataExp       date NOT NULL, 
   descricao     varchar2(4000) NOT NULL, 
   quantidade    number(10) NOT NULL, 
-  nVisitas      number(10) NOT NULL, 
   estadoProduto varchar2(1) NOT NULL, 
   estadoAnuncio number(10) NOT NULL, 
   anunciante    varchar2(30) NOT NULL, 
@@ -152,20 +157,21 @@ CREATE TABLE Mensagem (
   pertence  number(10) NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE UtilizadorRegistado (
-  id         number(10) NOT NULL UNIQUE, 
-  username   varchar2(30) NOT NULL, 
-  password   varchar2(50) NOT NULL, 
-  estado     number(10) NOT NULL, 
-  email      varchar2(30) NOT NULL UNIQUE, 
-  morada     varchar2(50), 
-  codPostal  varchar2(15), 
-  infPessoal varchar2(1000), 
-  imagem     blob, 
-  contacto   varchar2(20), 
-  nome       varchar2(50) NOT NULL, 
-  dataNasc   date NOT NULL, 
-  nomeImagem varchar2(30), 
-  dataRegisto date NOT NULL,
+  id          number(10) NOT NULL UNIQUE, 
+  username    varchar2(30) NOT NULL, 
+  password    varchar2(50) NOT NULL, 
+  estado      number(10) NOT NULL, 
+  email       varchar2(30) NOT NULL UNIQUE, 
+  morada      varchar2(50), 
+  codPostal   varchar2(15), 
+  infPessoal  varchar2(1000), 
+  imagem      blob, 
+  contacto    varchar2(20), 
+  nome        varchar2(50) NOT NULL, 
+  dataNasc    date NOT NULL, 
+  nomeImagem  varchar2(30), 
+  dataRegisto date NOT NULL, 
+  permissao   varchar2(1) NOT NULL, 
   PRIMARY KEY (username));
 CREATE TABLE Utilizador (
   id   number(10) NOT NULL, 
@@ -175,8 +181,18 @@ CREATE TABLE Categoria (
   nome varchar2(30) NOT NULL, 
   pai  varchar2(30), 
   PRIMARY KEY (nome));
-ALTER TABLE Localidade ADD CONSTRAINT FKLocalidade739048 FOREIGN KEY (pais) REFERENCES Pais (nome);
-ALTER TABLE CodigoPostal ADD CONSTRAINT FKCodigoPost605162 FOREIGN KEY (localidade) REFERENCES Localidade (localidade);
+CREATE TABLE VisitaAnuncio (
+  username varchar2(30) NOT NULL, 
+  id       number(10) NOT NULL, 
+  data     date NOT NULL, 
+  PRIMARY KEY (username, 
+  id, 
+  data));
+CREATE TABLE Login (
+  username varchar2(30) NOT NULL, 
+  data     date NOT NULL, 
+  PRIMARY KEY (username, 
+  data));
 ALTER TABLE Transaccao ADD CONSTRAINT FKTransaccao14864 FOREIGN KEY (codPostalFact) REFERENCES CodigoPostal (codPostal);
 ALTER TABLE UtilizadorRegistado ADD CONSTRAINT FKUtilizador727750 FOREIGN KEY (codPostal) REFERENCES CodigoPostal (codPostal);
 ALTER TABLE Categoria ADD CONSTRAINT FKCategoria814671 FOREIGN KEY (pai) REFERENCES Categoria (nome);
@@ -211,14 +227,15 @@ ALTER TABLE Troca ADD CONSTRAINT FKTroca94310 FOREIGN KEY (anuncio) REFERENCES A
 ALTER TABLE AnuncioSeguido ADD CONSTRAINT FKAnuncioSeg481781 FOREIGN KEY (username) REFERENCES UtilizadorRegistado (username);
 ALTER TABLE AnuncioSeguido ADD CONSTRAINT FKAnuncioSeg416539 FOREIGN KEY (anuncio) REFERENCES Anuncio (id);
 ALTER TABLE AnuncioVenda ADD CONSTRAINT FKAnuncioVen283560 FOREIGN KEY (modoVenda) REFERENCES ModoVenda (id);
+ALTER TABLE VisitaAnuncio ADD CONSTRAINT FKVisitaAnun378954 FOREIGN KEY (username) REFERENCES UtilizadorRegistado (username);
+ALTER TABLE VisitaAnuncio ADD CONSTRAINT FKVisitaAnun131962 FOREIGN KEY (id) REFERENCES Anuncio (id);
+ALTER TABLE Login ADD CONSTRAINT FKLogin682542 FOREIGN KEY (username) REFERENCES UtilizadorRegistado (username);
+ALTER TABLE Localidade ADD CONSTRAINT FKLocalidade122858 FOREIGN KEY (pais) REFERENCES Pais (id);
+ALTER TABLE CodigoPostal ADD CONSTRAINT FKCodigoPost143049 FOREIGN KEY (localidade) REFERENCES Localidade (id);
 CREATE INDEX CodigoPostal_codPostal 
   ON CodigoPostal (codPostal);
-CREATE INDEX CodigoPostal_localidade 
-  ON CodigoPostal (localidade);
 CREATE INDEX Localidade_localidade 
   ON Localidade (localidade);
-CREATE INDEX Localidade_pais 
-  ON Localidade (pais);
 CREATE INDEX AnuncioSeguido_username 
   ON AnuncioSeguido (username);
 CREATE INDEX Transaccao_id 
@@ -285,18 +302,6 @@ CREATE INDEX UtilizadorRegistado_username
   ON UtilizadorRegistado (username);
 CREATE INDEX Categoria_nome 
   ON Categoria (nome);
-INSERT INTO Sistema VALUES (1, 1, 1, 1, 1, 1) ;
+  
+  INSERT INTO Sistema VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1) ;
 
-CREATE OR REPLACE FUNCTION MD5 (
-    CADENA IN VARCHAR2
-) RETURN DBMS_OBFUSCATION_TOOLKIT.VARCHAR2_CHECKSUM
-AS
-BEGIN
-    RETURN LOWER(
-        RAWTOHEX(
-            UTL_RAW.CAST_TO_RAW(
-                DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => CADENA)
-            )
-        )
-    );
-END;
