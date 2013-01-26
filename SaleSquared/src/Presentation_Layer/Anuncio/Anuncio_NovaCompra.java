@@ -42,6 +42,7 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
 
         switch (step) {
             case 1: {
+                this.setBounds(0, 0, step1.getWidth()>this.getWidth()?step1.getWidth():this.getWidth(), step1.getHeight()+this.getHeight());
                 jPanel2.add(step1,"1");
                 voltar.setVisible(false);
                 next.setText("Seguinte");
