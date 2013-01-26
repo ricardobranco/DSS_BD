@@ -42,7 +42,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
     public static final int DATA_NASC = 12;
     public static final int NOME_IMAGEM = 13;
     public static final int DATA_REG = 14;
-    public static final int PERMISSAO = 14;
+    public static final int PERMISSAO = 15;
     public static final int LOCALIDADE = 0;
     public static final int PAIS = 1;
     
