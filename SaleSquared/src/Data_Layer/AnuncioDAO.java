@@ -50,11 +50,11 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
     public static final int DESCRICAO = 5, METODO_E = 6;
     public static final int INC_MINIMO = 6;
     public static final int QUANTIDADE = 6, PROPOSTA_T = 7;
-    public static final int N_VISITAS = 7, MODO_V = 8;
-    public static final int ESTADO_PROD = 8;
-    public static final int ESTADO_ANUNC = 9;
-    public static final int ANUNCIANTE = 10;
-    public static final int TIPO_A = 11;
+    public static final int /*N_VISITAS = 7,*/ MODO_V = 8;
+    public static final int ESTADO_PROD = 7;
+    public static final int ESTADO_ANUNC = 8;
+    public static final int ANUNCIANTE = 9;
+    public static final int TIPO_A = 10;
 
     // construtor
     public AnuncioDAO() {
@@ -179,7 +179,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                     res = new AnuncioVenda(chave, rs.getString(TITULO),
                             dataInser, dataExp,
                             rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
-                            rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
+                            -1, estadoProduto, estadoAnuncio,
                             u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro,
                             rsV.getString(COND_E), rsV.getDouble(PRECO_E),
                             rsV.getDouble(SEGURO), rsV.getString(METODO_E),
@@ -195,7 +195,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                     res = new AnuncioCompra(chave, rs.getString(TITULO),
                             dataInser, dataExp,
                             rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
-                            rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
+                            -1, estadoProduto, estadoAnuncio,
                             u.get(rs.getString(ANUNCIANTE)), rsC.getDouble(PRECO_SUGERIDO));
                     rsC.close() ;
                     stmC.close() ;
@@ -288,7 +288,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             //stmA.setDouble(PRECO, value.getPreco());
             stmA.setString(DESCRICAO, value.getDescricao());
             stmA.setInt(QUANTIDADE, value.getQuantidade());
-            stmA.setInt(N_VISITAS, value.getnVisitas());
+            /*stmA.setInt(N_VISITAS, value.getnVisitas());*/
             stmA.setString(ESTADO_PROD, estadoProduto);
             stmA.setInt(ESTADO_ANUNC, value.getEstadoAnuncio());
             stmA.setString(ANUNCIANTE, value.getAnunciante().getUsername());
@@ -490,7 +490,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                     a = new AnuncioVenda(chave, rs.getString(TITULO),
                             dataInser, dataExp, //rs.getDouble(PRECO),
                             rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
-                            rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
+                            -1, estadoProduto, estadoAnuncio,
                             u.get(rs.getString(ANUNCIANTE)), envioEstrangeiro,
                             rsV.getString(COND_E), rsV.getDouble(PRECO_E),
                             rsV.getDouble(SEGURO), rsV.getString(METODO_E),
@@ -505,7 +505,7 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
                     a = new AnuncioCompra(chave, rs.getString(TITULO),
                             dataInser, dataExp, //rs.getDouble(PRECO),
                             rs.getString(DESCRICAO), rs.getInt(QUANTIDADE),
-                            rs.getInt(N_VISITAS), estadoProduto, estadoAnuncio,
+                            -1, estadoProduto, estadoAnuncio,
                             u.get(rs.getString(ANUNCIANTE)), rsC.getDouble(PRECO_SUGERIDO));
                     rsC.close();
                     stmC.close() ;

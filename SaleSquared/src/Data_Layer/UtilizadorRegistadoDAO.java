@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+
 import Business_Layer.Imagem;
 import Business_Layer.UtilizadorRegistado;
 
@@ -41,8 +42,12 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
     public static final int DATA_NASC = 12;
     public static final int NOME_IMAGEM = 13;
     public static final int DATA_REG = 14;
+    public static final int PERMISSAO = 14;
     public static final int LOCALIDADE = 0;
     public static final int PAIS = 1;
+    
+    public static final String USER = "U" ;
+    public static final String ADMIN = "A" ;
 
     /*
      * public static final String NORMAL = "N" ; public static final String
@@ -64,7 +69,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             String chave = (String) key;
             Statement stm = ConexaoBD.getConexao().createStatement();
             String sql = "SELECT username FROM " + U_R_T
-                    + " WHERE ur.username = '" + chave + "'";
+                    + " WHERE ur.username = '" + chave + "' AND ur.permissao = '" + USER + "'";
             ResultSet rs = stm.executeQuery(sql);
             boolean res = rs.next();
             ConexaoBD.fecharCursor(rs, stm);
@@ -91,10 +96,11 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         try {
             String chave = (String) key;
             UtilizadorRegistado res = null;
-            String sql = "SELECT * FROM " + U_R_T + " WHERE ur.username = ?";
+            String sql = "SELECT * FROM " + U_R_T + " WHERE ur.username = ? AND ur.permissao = ?";
             PreparedStatement stm = ConexaoBD.getConexao()
                     .prepareStatement(sql);
             stm.setString(1, chave);
+            stm.setString(2, USER) ;
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 int estado = rs.getInt(ESTADO);
@@ -152,7 +158,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
     public boolean isEmpty() {
         try {
             Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
+            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T + " WHERE ur.permissao = '" + USER + "'");
             boolean res = !rs.next();
             ConexaoBD.fecharCursor(rs, stm);
             return res;
@@ -166,7 +172,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         try {
             Set<String> res = new TreeSet<String>();
             Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
+            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T + " WHERE ur.permissao = '" + USER + "'");
             while (rs.next()) {
                 res.add(rs.getString(1));
             }
@@ -186,12 +192,12 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             if (existe) {
                 sql = "UPDATE "
                         + U_R_T
-                        + " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ?, ur.dataRegisto = ? WHERE ur.username = '"
+                        + " SET ur.id = ?, ur.username = ?, ur.password = ?, ur.estado = ?, ur.email = ?, ur.morada = ?, ur.codPostal = ?, ur.infPessoal = ?, ur.imagem = ?, ur.contacto = ?, ur.nome = ?, ur.dataNasc = ?, ur.nomeImagem = ?, ur.dataRegisto = ?, ur.permissao = ? WHERE ur.username = '"
                         + key + "'";
             } else {
                 sql = "INSERT INTO "
                         + U_R_T
-                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
             File f = new File(value.getImagem().getPath());
             Timestamp dataNasc = new Timestamp(value.getDataNasc()
@@ -202,7 +208,12 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             Registo.validarMorada(value.getCodPostal(), value.getLocalidade(), value.getPais());
             stm.setInt(ID, value.getId());
             stm.setString(USERNAME, value.getUsername());
-            stm.setString(PASSWORD, value.getPassword());
+            if(existe)
+                stm.setString(PASSWORD, value.getPassword());
+            else {
+                //System.out.println("pw inserir :" + UtilizadorRegistado.encriptarPassword(value.getPassword())) ;
+                stm.setString(PASSWORD, UtilizadorRegistado.encriptarPassword(value.getPassword()));
+            }                
             stm.setInt(ESTADO, estado);
             stm.setString(EMAIL, value.getEmail());
             stm.setString(MORADA, value.getMorada());
@@ -224,6 +235,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             stm.setString(NOME, value.getNome());
             stm.setTimestamp(DATA_NASC, dataNasc);
             stm.setTimestamp(DATA_REG, dataRegisto);
+            stm.setString(PERMISSAO, USER) ;
             stm.execute();
             ConexaoBD.fecharCursor(null, stm);
             return res;
@@ -244,7 +256,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         try {
             int i = 0;
             Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T);
+            ResultSet rs = stm.executeQuery("SELECT username FROM " + U_R_T + " WHERE ur.permissao = '" + USER + "'");
             for (; rs.next(); i++)
 				;
             ConexaoBD.fecharCursor(rs, stm);
@@ -258,7 +270,7 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
         try {
             Collection<UtilizadorRegistado> res = new ArrayList<UtilizadorRegistado>();
             Statement stm = ConexaoBD.getConexao().createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM " + U_R_T);
+            ResultSet rs = stm.executeQuery("SELECT * FROM " + U_R_T + " WHERE ur.permissao = '" + USER + "'");
             while (rs.next()) {
                 UtilizadorRegistado u = null;
                 int estado = rs.getInt(ESTADO);
@@ -285,4 +297,6 @@ public class UtilizadorRegistadoDAO implements Map<String, UtilizadorRegistado> 
             throw new NullPointerException(e.getMessage());
         }
     }
+    
+    
 }
