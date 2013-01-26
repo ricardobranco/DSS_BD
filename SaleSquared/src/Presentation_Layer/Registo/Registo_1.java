@@ -44,7 +44,7 @@ public class Registo_1 extends javax.swing.JPanel {
             throw new Exception("Insira um username");
         } else if (susername.length() > 15) {
             uv.setIcon(INVALIDO);
-            throw new Exception("O username tem que ter no max. 8 caracteres");
+            throw new Exception("O username tem que ter no max. 15 caracteres");
         } else {
             uv.setIcon(VALIDO);
         }
@@ -80,6 +80,7 @@ public class Registo_1 extends javax.swing.JPanel {
     public String getEmail(final Sale_Squared root) throws Exception {
         ev.setVisible(true);
         if (!coincideEmail()) {
+            ev.setIcon(INVALIDO);
             throw new Exception("Os emails não são iguais");
         }
 

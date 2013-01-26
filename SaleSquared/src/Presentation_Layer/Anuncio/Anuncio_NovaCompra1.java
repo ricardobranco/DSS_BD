@@ -129,8 +129,18 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         jLabel4.setText("Morada");
 
         moradaperfil.setText("Morada do perfil");
+        moradaperfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moradaperfilActionPerformed(evt);
+            }
+        });
 
         novamorada.setText("Alterar morada de entrega");
+        novamorada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novamoradaActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("País");
@@ -286,6 +296,18 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private void enviocobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviocobActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enviocobActionPerformed
+
+    private void novamoradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novamoradaActionPerformed
+        // TODO add your handling code here:
+        jPanel1.setVisible(true);
+        
+    }//GEN-LAST:event_novamoradaActionPerformed
+
+    private void moradaperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moradaperfilActionPerformed
+        // TODO add your handling code here:
+        jPanel1.setVisible(false);
+    }//GEN-LAST:event_moradaperfilActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
