@@ -16,7 +16,6 @@ import Data_Layer.UserSeguidoDAO;
 import java.security.MessageDigest;
 
 
-
 public class UtilizadorRegistado extends Utilizador {
 
 	// v. c.
