@@ -20,7 +20,6 @@ import javax.swing.SpinnerNumberModel;
  */
 public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
 
-    
     /**
      * Creates new form Anuncio_NovaCompra1
      */
@@ -30,8 +29,6 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private final AnuncioVenda anuncio;
     private final Icon certo = new ImageIcon(getClass().getResource("/Imagens/certo.png"));
     private final Icon errado = new ImageIcon(getClass().getResource("/Imagens/errado.png"));
-    
-   
 
     public Anuncio_NovaCompra1(final Sale_Squared root, int idanuncio) {
         initComponents();
@@ -49,14 +46,14 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
             buttonGroup1.add(pagamentos.get(s));
             if (!anuncio.getModosPagamento().contains(s)) {
                 pagamentos.get(s).setEnabled(false);
-            }
-            else{
+            } else {
                 buttonGroup1.clearSelection();
-                pagamentos.get(s).setSelected(true);}
+                pagamentos.get(s).setSelected(true);
+            }
         }
-        
+
         this.jSpinner1.setModel(new SpinnerNumberModel(1, 1, anuncio.getQuantidade(), 1));
-        
+
         buttonGroup2.add(novamorada);
         buttonGroup2.add(moradaperfil);
         jPanel1.setVisible(false);
@@ -64,8 +61,79 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         mv.setVisible(false);
         cpv.setVisible(false);
         lv.setVisible(false);
-        
+
     }
+
+    public String getPagamento() {
+        String res = null;
+        for (String s : pagamentos.keySet()) {
+            if (pagamentos.get(s).isSelected()) {
+                res = s;
+                break;
+            }
+        }
+        return res;
+    }
+
+    public int quantidade() {
+        return new Integer((String) this.jSpinner1.getModel().getValue()).intValue();
+    }
+
+    public boolean moradaPerfil() {
+        return this.moradaperfil.isSelected();
+    }
+
+    public String getPais() {
+        return (String) pais.getSelectedItem();
+    }
+
+    public String getMorada() throws Exception {
+        String smorada = morada.getText();
+         mv.setVisible(true);
+        if (smorada.isEmpty()) {
+            mv.setIcon(errado);
+            throw new Exception("Insira uma morada");
+        }
+        if (smorada.length() > 49) {
+            mv.setIcon(errado);
+            throw new Exception("Insira uma morada com menos de 50 caracteres");
+        }
+        mv.setIcon(certo);
+        return smorada;
+
+    }
+    
+     public String getLocalidade() throws Exception {
+        String sloc = morada.getText();
+        lv.setVisible(true);
+        if (sloc.isEmpty()) {
+            lv.setIcon(errado);
+            throw new Exception("Insira uma Localidade");
+        }
+        if (sloc.length() > 29) {
+            lv.setIcon(errado);
+            throw new Exception("Insira uma Localidade com menos de 30 caracteres");
+        }
+        lv.setIcon(certo);
+        return sloc;
+
+    }
+
+    public String getCodPostal() throws Exception {
+        String scp1 = cp1.getText();
+        String scp2 = cp2.getText();
+        cpv.setVisible(true);
+        if (scp1.isEmpty() || scp2.isEmpty() || scp1.length() > 4 || scp2.length() > 3) {
+            cpv.setIcon(errado);
+            throw new Exception("Insira um Código Postal válido");
+        }
+        cpv.setIcon(certo);
+        return scp1 + "-" + scp2;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,12 +162,12 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jXTextField1 = new org.jdesktop.swingx.JXTextField();
-        jXTextField2 = new org.jdesktop.swingx.JXTextField();
+        pais = new javax.swing.JComboBox();
+        morada = new org.jdesktop.swingx.JXTextField();
+        cp1 = new org.jdesktop.swingx.JXTextField();
         jLabel9 = new javax.swing.JLabel();
-        jXTextField3 = new org.jdesktop.swingx.JXTextField();
-        jXTextField4 = new org.jdesktop.swingx.JXTextField();
+        cp2 = new org.jdesktop.swingx.JXTextField();
+        loc = new org.jdesktop.swingx.JXTextField();
         mv = new javax.swing.JLabel();
         lv = new javax.swing.JLabel();
         cpv = new javax.swing.JLabel();
@@ -154,7 +222,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel8.setText("Localidade");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("-");
 
@@ -178,15 +246,15 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
                         .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(jXTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(cp1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jLabel9)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jXTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(cp2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(cpv)
                                 .add(0, 38, Short.MAX_VALUE))
-                            .add(jXTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(loc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel5)
@@ -194,9 +262,9 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
                         .add(56, 56, 56)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(pais, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(0, 0, Short.MAX_VALUE))
-                            .add(jXTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .add(morada, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .add(6, 6, 6)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(mv)
@@ -208,26 +276,26 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(pais, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
-                    .add(jXTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(morada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(mv))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel7)
-                        .add(jXTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(cp1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel9)
-                        .add(jXTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(cp2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(cpv))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lv)
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel8)
-                        .add(jXTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(loc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -300,21 +368,27 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private void novamoradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novamoradaActionPerformed
         // TODO add your handling code here:
         jPanel1.setVisible(true);
-        
+        if (!this.anuncio.isEnvioEstrangeiro()) {
+            pais.setVisible(false);
+            jLabel5.setVisible(false);
+        }
+
+
+
     }//GEN-LAST:event_novamoradaActionPerformed
 
     private void moradaperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moradaperfilActionPerformed
         // TODO add your handling code here:
         jPanel1.setVisible(false);
     }//GEN-LAST:event_moradaperfilActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private org.jdesktop.swingx.JXTextField cp1;
+    private org.jdesktop.swingx.JXTextField cp2;
     private javax.swing.JLabel cpv;
     private javax.swing.JRadioButton dinheiro;
     private javax.swing.JRadioButton enviocob;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -326,14 +400,13 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JSpinner jSpinner1;
-    private org.jdesktop.swingx.JXTextField jXTextField1;
-    private org.jdesktop.swingx.JXTextField jXTextField2;
-    private org.jdesktop.swingx.JXTextField jXTextField3;
-    private org.jdesktop.swingx.JXTextField jXTextField4;
+    private org.jdesktop.swingx.JXTextField loc;
     private javax.swing.JLabel lv;
+    private org.jdesktop.swingx.JXTextField morada;
     private javax.swing.JRadioButton moradaperfil;
     private javax.swing.JLabel mv;
     private javax.swing.JRadioButton novamorada;
+    private javax.swing.JComboBox pais;
     private javax.swing.JRadioButton paypal;
     private javax.swing.JRadioButton transf;
     // End of variables declaration//GEN-END:variables
