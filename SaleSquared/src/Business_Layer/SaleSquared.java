@@ -206,6 +206,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	 * this.emSessao = new Utilizador() ; }
 	 */
 
+        
+        public void login (String username) {
+            
+            GregorianCalendar agora = new GregorianCalendar() ;
+            Registo.adicionarLogin(username, agora) ;
+        }
+        
+        
 	// pre-condição: user existe e não é seguido
 	public void seguirUser(String uNameSeguidor, UtilizadorRegistado u) {
 		this.users.get(uNameSeguidor).inserirUserSeguido(u);
@@ -1106,6 +1114,14 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                 res.add(a) ;
             return res ;
         }
+        
+        public void consultarAnuncio (String username, int anuncio) {
+            
+            GregorianCalendar agora = new GregorianCalendar() ;
+            Registo.adicionarVisitaAnuncio(username, anuncio, agora) ;
+        }
+        
+        
 
    
 }
