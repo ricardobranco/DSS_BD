@@ -1,10 +1,13 @@
 package Presentation_Layer;
 
+import Business_Layer.SaleSquared;
+import Business_Layer.Utilizador;
+import Presentation_Layer.Header.Header;
+import Presentation_Layer.Home.Home;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.Window;
 import java.lang.reflect.Method;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
@@ -12,11 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
-
-import Business_Layer.SaleSquared;
-import Business_Layer.Utilizador;
-import Presentation_Layer.Header.Header;
-import Presentation_Layer.Home.Home;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class Sale_Squared extends JFrame {
@@ -45,6 +44,7 @@ public class Sale_Squared extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+                    @Override
 			public void run() {
 				try {
 					final Sale_Squared frame = new Sale_Squared();
@@ -54,8 +54,7 @@ public class Sale_Squared extends JFrame {
 						enableOSXFullscreen(frame);
 					}
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 				}
 			}
 		});
@@ -74,9 +73,7 @@ public class Sale_Squared extends JFrame {
 			Method method = util.getMethod("setWindowCanFullScreen", params);
 			method.invoke(util, window, true);
 		} catch (ClassNotFoundException exp) {
-			exp.printStackTrace();
 		} catch (Exception exp) {
-			exp.printStackTrace();
 		}
 	}
 
