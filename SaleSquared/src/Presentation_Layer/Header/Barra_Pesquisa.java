@@ -10,6 +10,7 @@ import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.SaleSquared;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
 import Presentation_Layer.Sale_Squared;
+import java.awt.event.KeyEvent;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultComboBoxModel;
@@ -155,7 +156,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
 
     private void jXSearchField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jXSearchField1KeyPressed
         // TODO add your handling code here:
-        if (evt.isActionKey()) {
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
             pesquisar();
         }
     }//GEN-LAST:event_jXSearchField1KeyPressed
