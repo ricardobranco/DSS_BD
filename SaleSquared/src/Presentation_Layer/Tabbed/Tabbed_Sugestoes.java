@@ -59,7 +59,7 @@ public class Tabbed_Sugestoes extends JPanel {
                 
                 String[] user = {"user"};
                 Object[] nome = {ur.getUsername()};
-                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(user, nome,0);
+                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(),user, nome,0);
                 Set<AnuncioVenda> anuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
                 for(Anuncio a : panuncios){
                     anuncios.add((AnuncioVenda) a);
@@ -84,7 +84,7 @@ public class Tabbed_Sugestoes extends JPanel {
                 }
                 
                 
-                Set<Anuncio> pvtanuncios = root.getSistema().procurarAnuncAvanc(uservt, campos,0);
+                Set<Anuncio> pvtanuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(),uservt, campos,0);
                 Set<AnuncioVenda> vtanuncios =  new TreeSet<>(new ComparadorUltimosAnunc());
                 for(Anuncio a : pvtanuncios){
                     vtanuncios.add((AnuncioVenda) a);

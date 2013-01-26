@@ -185,7 +185,7 @@ public class Anuncio_Info extends JPanel {
         if (mv.getClass().getSimpleName().equals("Leilao")) {
             panel.add(new Anuncio_Leilao(root, this.anuncio));
         } else {
-            panel.add(new Anuncio_Compra(root, this.anuncio));
+            panel.add(new Anuncio_Compra(root, idanuncio));
         }
 
         setLayout(groupLayout);

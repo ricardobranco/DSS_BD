@@ -28,6 +28,7 @@ public class Anuncio_Main extends javax.swing.JPanel {
         initComponents();
         this.idanuncio = idAnuncio;
         this.anuncio = root.getSistema().encontrarAnuncio(this.idanuncio);
+        
         this.titulo.setText(this.anuncio.getTitulo());
         imagepanel = new ImagePanel();
 

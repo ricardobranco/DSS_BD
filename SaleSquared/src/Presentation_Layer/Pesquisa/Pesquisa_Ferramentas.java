@@ -90,7 +90,7 @@ public class Pesquisa_Ferramentas extends JPanel {
                 try {
                     String[] crit = {"pMenorI", "pMaiorI"};
                     Object[] values = {getMin(), getMax()};
-                    Set<Anuncio> res1 = sistema.procurarAnuncAvanc(crit, values,0);
+                    Set<Anuncio> res1 = sistema.procurarAnuncAvanc(root.getSistema().getAnuncios().values(),crit, values,0);
                     //Portes Gratis
                     for (Anuncio a : res1) {
                         AnuncioVenda av = (AnuncioVenda) a;
