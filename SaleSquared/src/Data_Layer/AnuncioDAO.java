@@ -254,11 +254,11 @@ public class AnuncioDAO implements Map<Integer, Anuncio> {
             if ((existe = this.containsKey(key)) == true) {
                 sqlA = "UPDATE "
                         + ANUNCIO_T
-                        + " SET a.id = ?, a.titulo = ?, a.dataInsercao = ?, a.dataExp = ?, a.descricao = ?, a.quantidade = ?, a.nVisitas = ?, a.estadoProduto = ?, a.estadoAnuncio = ?, a.anunciante = ?, a.tipo = ? WHERE a.id = "
+                        + " SET a.id = ?, a.titulo = ?, a.dataInsercao = ?, a.dataExp = ?, a.descricao = ?, a.quantidade = ?, a.estadoProduto = ?, a.estadoAnuncio = ?, a.anunciante = ?, a.tipo = ? WHERE a.id = "
                         + key;
             } else {
                 sqlA = "INSERT INTO " + ANUNCIO_T
-                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
             Timestamp tsDI = new Timestamp(value.getDataInser()
                     .getTimeInMillis()), tsDE = new Timestamp(value
