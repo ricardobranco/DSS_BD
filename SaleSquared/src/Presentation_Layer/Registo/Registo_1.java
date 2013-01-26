@@ -34,6 +34,7 @@ public class Registo_1 extends javax.swing.JPanel {
     }
 
     public String getUser(final Sale_Squared root) throws Exception {
+        uv.setVisible(true);
         String susername = username.getText();
         if (root.getSistema().existeUtilizadorReg(susername)) {
             uv.setIcon(INVALIDO);
