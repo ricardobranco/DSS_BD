@@ -358,7 +358,7 @@ public class Registo {
             
             try {
                 String res[] = new String[2] ;
-                String sql = "SELECT loc.localidade, loc.pais FROM " + C_P_T + ", " + LOC_T + " WHERE cp.codPostal = ? AND cp.localidade = loc.localidade" ;
+                String sql = "SELECT loc.localidade, p.nome FROM " + C_P_T + ", " + LOC_T + ", " + PAIS_T + " WHERE cp.codPostal = ? AND cp.localidade = loc.id AND loc.pais = p.id" ;
                 PreparedStatement stm = ConexaoBD.getConexao().prepareStatement(sql) ;
                 stm.setString(1, codPostal) ;
                 ResultSet rs = stm.executeQuery() ;
