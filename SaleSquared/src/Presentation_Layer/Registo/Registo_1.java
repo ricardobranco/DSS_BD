@@ -28,9 +28,13 @@ public class Registo_1 extends javax.swing.JPanel {
     public Registo_1(final Sale_Squared root) {
         initComponents();
         this.root = root;
+        this.uv.setVisible(false);
+        this.pv.setVisible(false);
+        this.ev.setVisible(false);
     }
 
     public String getUser(final Sale_Squared root) throws Exception {
+        uv.setVisible(true);
         String susername = username.getText();
         if (root.getSistema().existeUtilizadorReg(susername)) {
             uv.setIcon(INVALIDO);
@@ -68,7 +72,7 @@ public class Registo_1 extends javax.swing.JPanel {
             pv.setIcon(INVALIDO);
             throw new Exception("Insira uma password");
         }
-        pv.setIcon(VALIDO);	
+        pv.setIcon(VALIDO);
         return pass;
 
     }
@@ -89,17 +93,17 @@ public class Registo_1 extends javax.swing.JPanel {
 
         SaleSquared sistema = root.getSistema();
         if (!sistema.eValidoEmail(semail)) {
-             ev.setIcon(INVALIDO);
+            ev.setIcon(INVALIDO);
             throw new Exception("Insira um email válido");
         }
 
         Set<UtilizadorRegistado> users = sistema.procurarUserMail(semail);
 
         if (!users.isEmpty()) {
-             ev.setIcon(INVALIDO);
+            ev.setIcon(INVALIDO);
             throw new Exception("Já existe um utilizador com esse email");
         }
-         ev.setIcon(VALIDO);
+        ev.setIcon(VALIDO);
         return semail;
     }
 
@@ -159,24 +163,47 @@ public class Registo_1 extends javax.swing.JPanel {
                 usernameActionPerformed(evt);
             }
         });
+        username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usernameFocusLost(evt);
+            }
+        });
         username.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 usernameKeyTyped(evt);
             }
         });
 
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailFocusLost(evt);
+            }
+        });
         email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 emailKeyTyped(evt);
             }
         });
 
+        cemail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cemailFocusLost(evt);
+            }
+        });
         cemail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cemailKeyTyped(evt);
             }
         });
 
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
         password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordKeyTyped(evt);
@@ -186,6 +213,11 @@ public class Registo_1 extends javax.swing.JPanel {
         cpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpasswordActionPerformed(evt);
+            }
+        });
+        cpassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cpasswordFocusLost(evt);
             }
         });
 
@@ -271,46 +303,67 @@ public class Registo_1 extends javax.swing.JPanel {
     }//GEN-LAST:event_usernameActionPerformed
     private void cpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpasswordActionPerformed
         // TODO add your handling code here:
-        try {
-            getPassword(root);
-        } catch (Exception e) {
-            
-        }
     }//GEN-LAST:event_cpasswordActionPerformed
 
     private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameKeyTyped
+
+    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordKeyTyped
+
+    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailKeyTyped
+
+    private void cemailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cemailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cemailKeyTyped
+
+    private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
         // TODO add your handling code here:
         try {
             getUser(root);
         } catch (Exception e) {
         }
+    }//GEN-LAST:event_usernameFocusLost
 
-    }//GEN-LAST:event_usernameKeyTyped
-
-    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
         // TODO add your handling code here:
         try {
             getPassword(root);
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_passwordKeyTyped
+    }//GEN-LAST:event_passwordFocusLost
 
-    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+    private void cpasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cpasswordFocusLost
+        // TODO add your handling code here:
+        try {
+            getPassword(root);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cpasswordFocusLost
+
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFocusGained
+
+    private void cemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cemailFocusLost
         // TODO add your handling code here:
         try {
             getEmail(root);
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_emailKeyTyped
+    }//GEN-LAST:event_cemailFocusLost
 
-    private void cemailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cemailKeyTyped
+    private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
         // TODO add your handling code here:
         try {
             getEmail(root);
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_cemailKeyTyped
-
+    }//GEN-LAST:event_emailFocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXTextField cemail;
     private javax.swing.JPasswordField cpassword;
