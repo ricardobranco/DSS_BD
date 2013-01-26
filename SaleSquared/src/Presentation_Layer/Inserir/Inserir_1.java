@@ -23,6 +23,7 @@ import javax.swing.UIManager;
 import Business_Layer.Categoria;
 import Business_Layer.Imagem;
 import Business_Layer.Tag;
+import Presentation_Layer.Header.Barra_Pesquisa;
 import Presentation_Layer.Tabelas.Tabela_Imagens;
 
 public class Inserir_1 extends JPanel {
@@ -209,7 +210,7 @@ public class Inserir_1 extends JPanel {
 		
 		StringTokenizer st =  new StringTokenizer(stags, ";");
 		while(st.hasMoreTokens()){
-			Tag t = new Tag(st.nextToken());
+			Tag t = new Tag(Barra_Pesquisa.noSpaceBegin(st.nextToken()));
 			res.put(t.getNome(),t);
 		}
 		

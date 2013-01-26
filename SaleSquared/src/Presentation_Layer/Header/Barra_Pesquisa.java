@@ -131,7 +131,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
         root.setBody(new Pesquisa_Resultado(root, anuncios), "Resultados");
     }
     
-    private String noSpaceBegin(String s){
+    public static String noSpaceBegin(String s){
         int i = 0;
         for(;i<s.length() && s.charAt(i)==' ';i++);
         return s.substring(i); 
