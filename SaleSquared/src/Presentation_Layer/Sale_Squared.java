@@ -6,6 +6,7 @@ import Presentation_Layer.Header.Header;
 import Presentation_Layer.Home.Home;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.lang.reflect.Method;
 import javax.swing.GroupLayout;
@@ -42,13 +43,17 @@ public class Sale_Squared extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+        
+      
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+                
+            EventQueue.invokeLater(new Runnable() {
                     @Override
 			public void run() {
 				try {
 					final Sale_Squared frame = new Sale_Squared();
-					UIManager.setLookAndFeel(UIManager
+					
+                                        UIManager.setLookAndFeel(UIManager
 							.getSystemLookAndFeelClassName());
 					if (isMac()) {
 						enableOSXFullscreen(frame);

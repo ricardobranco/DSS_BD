@@ -9,6 +9,8 @@ import Business_Layer.AnuncioVenda;
 import Presentation_Layer.Sale_Squared;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
@@ -29,7 +31,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private final AnuncioVenda anuncio;
     private final Icon certo = new ImageIcon(getClass().getResource("/Imagens/certo.png"));
     private final Icon errado = new ImageIcon(getClass().getResource("/Imagens/errado.png"));
-
+    
     public Anuncio_NovaCompra1(final Sale_Squared root, int idanuncio) {
         initComponents();
         this.idanuncio = idanuncio;
@@ -57,7 +59,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         buttonGroup2.add(novamorada);
         buttonGroup2.add(moradaperfil);
         jPanel1.setVisible(false);
-        moradaperfil.setEnabled(true);
+        moradaperfil.setSelected(true);
         mv.setVisible(false);
         cpv.setVisible(false);
         lv.setVisible(false);
@@ -75,11 +77,11 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         return res;
     }
 
-    public int quantidade() {
-        return new Integer((String) this.jSpinner1.getModel().getValue()).intValue();
+    public int getQuantidade() {
+        return (int) jSpinner1.getValue();
     }
 
-    public boolean moradaPerfil() {
+    public boolean getMoradaPerfil() {
         return this.moradaperfil.isSelected();
     }
 
@@ -89,7 +91,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
 
     public String getMorada() throws Exception {
         String smorada = morada.getText();
-         mv.setVisible(true);
+        mv.setVisible(true);
         if (smorada.isEmpty()) {
             mv.setIcon(errado);
             throw new Exception("Insira uma morada");
@@ -102,8 +104,8 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         return smorada;
 
     }
-    
-     public String getLocalidade() throws Exception {
+
+    public String getLocalidade() throws Exception {
         String sloc = morada.getText();
         lv.setVisible(true);
         if (sloc.isEmpty()) {
@@ -130,10 +132,6 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         cpv.setIcon(certo);
         return scp1 + "-" + scp2;
     }
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -224,7 +222,31 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
 
         pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        morada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                moradaFocusLost(evt);
+            }
+        });
+
+        cp1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cp1FocusLost(evt);
+            }
+        });
+
         jLabel9.setText("-");
+
+        cp2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cp2FocusLost(evt);
+            }
+        });
+
+        loc.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                locFocusLost(evt);
+            }
+        });
 
         mv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/certo.png"))); // NOI18N
 
@@ -304,7 +326,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel2)
                     .add(layout.createSequentialGroup()
@@ -324,12 +346,10 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
                         .add(jSpinner1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jLabel4)
                     .add(moradaperfil)
-                    .add(novamorada))
-                .addContainerGap(50, Short.MAX_VALUE))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(novamorada)
+                    .add(layout.createSequentialGroup()
+                        .add(29, 29, 29)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -381,6 +401,38 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         // TODO add your handling code here:
         jPanel1.setVisible(false);
     }//GEN-LAST:event_moradaperfilActionPerformed
+
+    private void moradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_moradaFocusLost
+        try {
+            // TODO add your handling code here:
+            getMorada();
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_moradaFocusLost
+
+    private void cp1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cp1FocusLost
+        // TODO add your handling code here:
+        try {
+            getCodPostal();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cp1FocusLost
+
+    private void cp2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cp2FocusLost
+        // TODO add your handling code here:
+          try {
+            getCodPostal();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cp2FocusLost
+
+    private void locFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_locFocusLost
+        // TODO add your handling code here:
+        try {
+            getLocalidade();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_locFocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

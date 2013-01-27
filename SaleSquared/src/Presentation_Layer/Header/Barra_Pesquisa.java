@@ -10,6 +10,7 @@ import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.SaleSquared;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
 import Presentation_Layer.Sale_Squared;
+import java.awt.event.KeyEvent;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultComboBoxModel;
@@ -65,6 +66,11 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
         jXSearchField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jXSearchField1ActionPerformed(evt);
+            }
+        });
+        jXSearchField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jXSearchField1KeyPressed(evt);
             }
         });
 
@@ -130,23 +136,30 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
 
         root.setBody(new Pesquisa_Resultado(root, anuncios), "Resultados");
     }
-    
-    public static String noSpaceBegin(String s){
+
+    public static String noSpaceBegin(String s) {
+
         int i = 0;
-        for(;i<s.length() && s.charAt(i)==' ';i++);
-        return s.substring(i); 
-        
+        for (; i < s.length() && s.charAt(i) == ' '; i++);
+        return s.substring(i);
+
     }
-    
+
     private void jXSearchField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXSearchField1ActionPerformed
         // TODO add your handling code here:
-        pesquisar();
     }//GEN-LAST:event_jXSearchField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         pesquisar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jXSearchField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jXSearchField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_jXSearchField1KeyPressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

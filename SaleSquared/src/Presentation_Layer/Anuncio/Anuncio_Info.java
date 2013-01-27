@@ -1,197 +1,66 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ModoVenda;
+import Presentation_Layer.Perfil.Perfil;
 import Presentation_Layer.Sale_Squared;
-import java.awt.CardLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import java.util.Map;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Anuncio_Info extends JPanel {
+/**
+ *
+ * @author ricardobranco
+ */
+public class Anuncio_Info extends javax.swing.JPanel {
+
+    private final Sale_Squared root;
+    private final int idanuncio;
+    private final AnuncioVenda anuncio;
+    private final String username;
 
     /**
-     *
+     * Creates new form Anuncio_Info2
      */
-    private static final long serialVersionUID = 1L;
-    /**
-     * Create the panel.
-     */
-    private AnuncioVenda anuncio;
-    private int idanuncio;
-    private final JButton btnNewButton_2;
-    private Sale_Squared root;
-    private String username;
-
     public Anuncio_Info(final Sale_Squared root, int idanuncio) {
-
+        initComponents();
         this.root = root;
         this.idanuncio = idanuncio;
-        this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio); 
+        this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(this.idanuncio);
         this.username = this.anuncio.getAnunciante().getUsername();
 
-        JLabel lblNewLabel = new JLabel("Início:");
-        lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel lblNewLabel_1 = new JLabel(showdata(anuncio.getDataInser()));
-
-        JLabel lblNewLabel_2 = new JLabel("Fim:");
-        lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel lblNewLabel_3 = new JLabel(temporestante(new GregorianCalendar(), anuncio.getDataExpir()) + " (" + showdata(anuncio.getDataExpir()) + ")");
-
-
-        JLabel lblNewLabel_4 = new JLabel("Quantidade:");
-        lblNewLabel_4.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel lblNewLabel_5 = new JLabel("" + anuncio.getQuantidade());
-
-        JSeparator separator = new JSeparator();
-
-        JLabel lblLocalizo = new JLabel("Localizão:");
-        lblLocalizo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-
+        inicio.setText(showdata(anuncio.getDataInser()));
+        fim.setText(temporestante(new GregorianCalendar(), anuncio.getDataExpir()) + " (" + showdata(anuncio.getDataExpir()) + ")");
+        quantidade.setText("" + anuncio.getQuantidade());
+        
+        envioEst.setText("(Envio para o estrangeiro: " + (anuncio.isEnvioEstrangeiro() ? "Sim" : "Não"));
         String codPostal = this.root.getSistema().encontrarUtilizadorReg(username).getCodPostal();
         String localidade = this.root.getSistema().encontrarUtilizadorReg(username).getLocalidade();
-        JLabel lblNewLabel_13 = new JLabel(codPostal+", "+localidade);
-
-        JLabel lblNewLabel_14 = new JLabel(
-                "(Envio para o estrangeiro: " + (anuncio.isEnvioEstrangeiro() ? "Sim" : "Não"));
-        lblNewLabel_14.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-
-        
-        
-        btnNewButton_2 = new JButton("Seguir Negócio");
-        btnNewButton_2.setVisible(Sale_Squared.REGISTADO);
-        if(Sale_Squared.REGISTADO){
-            Map<Integer,Anuncio> anunciosseguidos = root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getAnuncSeguidos();
-            if(anunciosseguidos.containsKey(new Integer(this.idanuncio)))
-                btnNewButton_2.setText("Deixar Negócio");
-        }
-        
-        btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                removerSeguir();
+        seguir.setVisible(Sale_Squared.REGISTADO);
+        reportar.setVisible(Sale_Squared.REGISTADO);
+        if (Sale_Squared.REGISTADO) {
+            Map<Integer, Anuncio> anunciosseguidos = root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getAnuncSeguidos();
+            if (anunciosseguidos.containsKey(new Integer(this.idanuncio))) {
+                seguir.setText("Deixar Anúncio");
             }
-        });
-
-        JButton btnNewButton_3 = new JButton("Reportar");
-
-        JLabel lblNewLabel_15 = new JLabel("Utilizador:");
-        lblNewLabel_15.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        JLabel lblNewLabel_16 = new JLabel(username);
-
-        JButton btnNewButton_4 = new JButton("Ver Perfil");
-
-
-        JPanel panel = new JPanel();
-        GroupLayout groupLayout = new GroupLayout(this);
-        groupLayout.setHorizontalGroup(
-                groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGap(44)
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addComponent(lblNewLabel_15)
-                .addGap(18)
-                .addComponent(lblNewLabel_16)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(btnNewButton_4))
-                .addGroup(groupLayout.createSequentialGroup()
-                .addComponent(lblLocalizo)
-                .addGap(18)
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-                .addComponent(lblNewLabel_13)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGap(6)
-                .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-                .addComponent(lblNewLabel_14, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNewButton_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNewButton_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGap(43)
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addComponent(panel, GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addComponent(lblNewLabel)
-                .addComponent(lblNewLabel_4)
-                .addComponent(lblNewLabel_2))
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGap(9)
-                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                .addComponent(lblNewLabel_3)
-                .addComponent(lblNewLabel_1)))
-                .addGroup(groupLayout.createSequentialGroup()
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addComponent(lblNewLabel_5)))
-                .addGap(64))))
-                .addGroup(groupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(separator, GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)))
-                .addContainerGap()));
-        groupLayout.setVerticalGroup(
-                groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
-                .addGap(28)
-                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblNewLabel)
-                .addComponent(lblNewLabel_1))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblNewLabel_2)
-                .addComponent(lblNewLabel_3))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblNewLabel_4)
-                .addComponent(lblNewLabel_5))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(20)
-                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblNewLabel_15)
-                .addComponent(lblNewLabel_16)
-                .addComponent(btnNewButton_4))
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblLocalizo)
-                .addComponent(lblNewLabel_13))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(lblNewLabel_14)
-                .addGap(62)
-                .addComponent(btnNewButton_2)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(btnNewButton_3)
-                .addContainerGap(30, Short.MAX_VALUE)));
-        panel.setLayout(new CardLayout(0, 0));
+        }
+        loc.setText(codPostal+", "+localidade);
+        user.setText(username);
+        estado.setText((this.anuncio.isEstadoProduto()==AnuncioVenda.NOVO)?"Novo":"Usado");
         ModoVenda mv = anuncio.getTipoVenda();
         if (mv.getClass().getSimpleName().equals("Leilao")) {
-            panel.add(new Anuncio_Leilao(root, this.anuncio));
+            jPanel1.add(new Anuncio_Leilao(root, this.anuncio));
         } else {
-            panel.add(new Anuncio_Compra(root, idanuncio));
+            jPanel1.add(new Anuncio_Compra(root, idanuncio));
         }
-
-        setLayout(groupLayout);
-
+        
     }
-
+    
+    
     private String showdata(GregorianCalendar gc) {
         int dia, mes, ano, hora, minutos;
 
@@ -243,11 +112,11 @@ public class Anuncio_Info extends JPanel {
     public void removerSeguir() {
 
 
-        if (btnNewButton_2.getText().equals("Seguir Negócio")) {
-            btnNewButton_2.setText("Deixar Negócio");
+        if (seguir.getText().equals("Seguir Anúncio")) {
+            seguir.setText("Seguir Anúncio");
             root.getSistema().seguirAnuncio(Sale_Squared.UTILIZADOR, root.getSistema().encontrarAnuncio(this.idanuncio));
         } else {
-            btnNewButton_2.setText("Seguir Negócio");
+            seguir.setText("Seguir Anúncio");
             root.getSistema().deixarSegAnuncio(Sale_Squared.UTILIZADOR, this.idanuncio);
         }
 
@@ -257,4 +126,206 @@ public class Anuncio_Info extends JPanel {
 
 
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        inicio = new javax.swing.JLabel();
+        fim = new javax.swing.JLabel();
+        quantidade = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
+        perfil = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        loc = new javax.swing.JLabel();
+        seguir = new javax.swing.JButton();
+        reportar = new javax.swing.JButton();
+        envioEst = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        estado = new javax.swing.JLabel();
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel1.setText("Início:");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setText("Fim:");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel3.setText("Quantidade:");
+
+        inicio.setText("jLabel4");
+
+        fim.setText("jLabel5");
+
+        quantidade.setText("jLabel6");
+
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel7.setText("Utilizador:");
+
+        user.setText("jLabel4");
+
+        perfil.setText("Ver Perfil");
+        perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perfilActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setText("Localidade:");
+
+        loc.setText("jLabel4");
+
+        seguir.setText("Seguir Anúncio");
+        seguir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seguirActionPerformed(evt);
+            }
+        });
+
+        reportar.setText("Reportar");
+        reportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportarActionPerformed(evt);
+            }
+        });
+
+        envioEst.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        envioEst.setText("jLabel4");
+
+        jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel10.setText("Estado:");
+
+        estado.setText("jLabel4");
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jSeparator1)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel7)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(user)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(perfil))
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel3)
+                                    .add(jLabel2)
+                                    .add(jLabel1))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(inicio)
+                                    .add(fim)
+                                    .add(quantidade)))
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(reportar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jLabel9)
+                                        .add(jLabel10))
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(estado)
+                                        .add(envioEst)
+                                        .add(loc)
+                                        .add(seguir)))))
+                        .add(0, 0, Short.MAX_VALUE))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(inicio))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(fim))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(quantidade))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(user)
+                    .add(perfil))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel9)
+                    .add(loc))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(envioEst)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel10)
+                    .add(estado))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(seguir)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(reportar)
+                .add(28, 28, 28))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
+        // TODO add your handling code here:
+        root.setBody(new Perfil(root, username), username);
+       
+    }//GEN-LAST:event_perfilActionPerformed
+
+    private void seguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seguirActionPerformed
+        // TODO add your handling code here:
+         removerSeguir();
+    }//GEN-LAST:event_seguirActionPerformed
+
+    private void reportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportarActionPerformed
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel envioEst;
+    private javax.swing.JLabel estado;
+    private javax.swing.JLabel fim;
+    private javax.swing.JLabel inicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel loc;
+    private javax.swing.JButton perfil;
+    private javax.swing.JLabel quantidade;
+    private javax.swing.JButton reportar;
+    private javax.swing.JButton seguir;
+    private javax.swing.JLabel user;
+    // End of variables declaration//GEN-END:variables
 }

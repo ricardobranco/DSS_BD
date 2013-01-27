@@ -156,7 +156,7 @@ public class AnuncioVenda extends Anuncio {
 				this.seguro,
 				this.metodoEnvio,
 				this.propostaTrocar,
-				(this.tipoVenda.getClass().toString().equals("Leilao") ? ((Leilao) this.tipoVenda)
+				(this.tipoVenda.getClass().getSimpleName().equals("Leilao") ? ((Leilao) this.tipoVenda)
 						.clone() : ((VendaDirecta) this.tipoVenda).clone()));
 	}
 
