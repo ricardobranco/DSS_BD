@@ -198,12 +198,12 @@ public class TransaccaoDAO implements Map<Integer, Transaccao> {
 			if (existe) {
 				sql = "UPDATE "
 						+ TRANSACCAO_T
-						+ " SET tra.id = ?, tra.data = ?, tra.valor = ?, tra.modoPagamento = ?, tra.moradaFact = ?, tra.codPostalFact = ?, tra.localidadeFact = ?, tra.paisFact = ?, tra.estado = ?, tra.quantidade = ?, tra.anuncio = ?, tra.comprador = ?, tra.vendedor = ?, tra.tipo = ?, tra.pertence = ? WHERE tra.id = "
+						+ " SET tra.id = ?, tra.data = ?, tra.valor = ?, tra.modoPagamento = ?, tra.moradaFact = ?, tra.codPostalFact = ?, tra.estado = ?, tra.quantidade = ?, tra.anuncio = ?, tra.comprador = ?, tra.vendedor = ?, tra.tipo = ?, tra.pertence = ? WHERE tra.id = "
 						+ key;
 			} else
 				sql = "INSERT INTO "
 						+ TRANSACCAO_T
-						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			Timestamp t = new Timestamp(value.getData().getTimeInMillis());
