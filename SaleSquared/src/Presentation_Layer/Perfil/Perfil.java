@@ -10,19 +10,21 @@ import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.Imagem;
 import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Componentes.Avatar;
+import Presentation_Layer.Mensagens.Enviar_Mensagem;
 import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
 import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 
 /**
  *
  * @author ricardobranco
  */
 public class Perfil extends javax.swing.JPanel {
-
+    
     private final String username;
     private final UtilizadorRegistado ur;
     private final Sale_Squared root;
@@ -43,18 +45,23 @@ public class Perfil extends javax.swing.JPanel {
         this.registo.setText("Registado desde " + showdata(this.ur.getDataRegisto()));
         this.top.setVisible(root.getSistema().eUserConfiavel(this.username));
         this.seguir.setVisible(Sale_Squared.REGISTADO);
-
+        if (username.equals(Sale_Squared.REGISTADO)) {
+            seguir.setVisible(false);
+            enviar.setVisible(false);
+        }
+        
+        
     }
-
+    
     private String showdata(GregorianCalendar gc) {
         int dia, mes, ano, hora, minutos;
-
+        
         dia = gc.get(GregorianCalendar.DAY_OF_MONTH);
         mes = gc.get(GregorianCalendar.MONTH) + 1;
         ano = gc.get(GregorianCalendar.YEAR);
         return dia + "/" + mes + "/" + ano;
     }
-
+    
     public void seguirutilizador() {
         if (seguir.getText().equals("Seguir Utilizador")) {
             seguir.setText("Deixar Utilizador");
@@ -83,6 +90,7 @@ public class Perfil extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         seguir = new javax.swing.JButton();
+        enviar = new javax.swing.JButton();
 
         avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/avatar.jpg"))); // NOI18N
 
@@ -115,6 +123,13 @@ public class Perfil extends javax.swing.JPanel {
             }
         });
 
+        enviar.setText("Enviar Mensagem");
+        enviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,7 +149,8 @@ public class Perfil extends javax.swing.JPanel {
                             .add(registo))
                         .add(0, 161, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
+                        .add(enviar)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(seguir)))
                 .addContainerGap())
         );
@@ -153,7 +169,9 @@ public class Perfil extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(seguir)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(seguir)
+                    .add(enviar))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -162,7 +180,7 @@ public class Perfil extends javax.swing.JPanel {
         // TODO add your handling code here:
         seguirutilizador();
     }//GEN-LAST:event_seguirActionPerformed
-
+    
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
         switch (this.jTabbedPane1.getSelectedIndex()) {
@@ -175,7 +193,7 @@ public class Perfil extends javax.swing.JPanel {
             case 1:
                 String[] user = {"user"};
                 Object[] nome = {this.username};
-                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(),user, nome,0);
+                Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), user, nome, 0);
                 Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
                 for (Anuncio a : panuncios) {
                     anuncios.add((AnuncioVenda) a);
@@ -187,12 +205,20 @@ public class Perfil extends javax.swing.JPanel {
                 break;
             case 2:
                 break;
-
+            
         }
-
+        
     }//GEN-LAST:event_jTabbedPane1StateChanged
+    
+    private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
+        // TODO add your handling code here:
+        JDialog frame = new Enviar_Mensagem(root, username, "", "");
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }//GEN-LAST:event_enviarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel avatar;
+    private javax.swing.JButton enviar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
