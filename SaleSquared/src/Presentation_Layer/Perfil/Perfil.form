@@ -34,8 +34,7 @@
                       <EmptySpace min="0" pref="161" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="enviar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="seguir" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -61,10 +60,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTabbedPane1" pref="147" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="seguir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="enviar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="seguir" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -146,14 +142,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seguirActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="enviar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Enviar Mensagem"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
