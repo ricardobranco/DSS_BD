@@ -391,6 +391,7 @@ public class Registo {
                 Timestamp ts = new Timestamp(data.getTimeInMillis()) ;
                 stm.setString(USERNAME, username) ;
                 stm.setTimestamp(DATA_LOGIN, ts);
+                stm.execute() ;
             } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
         }
         
@@ -403,6 +404,7 @@ public class Registo {
                 stm.setString(USERNAME_V, username) ;
                 stm.setInt(ANUNCIO, anuncio) ;
                 stm.setTimestamp(DATA_V, ts);
+                stm.execute() ;
             } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
         }
 
