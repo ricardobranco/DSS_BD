@@ -751,6 +751,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		for (Iterator<Anuncio> itA = this.anuncios.values().iterator(); itA
 				.hasNext();) {
 			Anuncio a = itA.next();
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;   
 			for (Iterator<Tag> itT = a.getTags().values().iterator(); itT
 					.hasNext();)
 				if (itT.next().getNome().equals(nome)) {
@@ -767,6 +769,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		for (Iterator<Anuncio> itA = this.anuncios.values().iterator(); itA
 				.hasNext();) {
 			Anuncio a = itA.next();
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
 			for (Iterator<Categoria> itC = a.getCategorias().values()
 					.iterator(); itC.hasNext();)
 				if (itC.next().getNome().equals(nome)) {
@@ -787,6 +791,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		for (Iterator<Anuncio> it = anuncs.iterator(); it
 				.hasNext();) {
 			Anuncio a = it.next();
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
 			exitFlag = true;                        
 			for (int i = 0; i < campos.length && (op==0 ? e.getB() : !ou.getB()); i++) {
 				switch (campos[i]) {
@@ -905,8 +911,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	public SortedSet<Anuncio> procurarAnuncMaisVis() {
 
 		SortedSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncNVis());
-		for (Anuncio a : this.anuncios.values())
+		for (Anuncio a : this.anuncios.values()) {
+                    if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
+                    else
 			res.add(a);
+                }
 		return res;
 	}
 
@@ -939,6 +949,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		Set<String> categSeg = u.getCategSeguidas().keySet(), usersSeg = u
 				.getUsersSeguidos().keySet();
 		for (Anuncio a : this.anuncios.values()) {
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
 			boolean c = contemAlgumElem(categSeg, a.getCategorias().keySet()), us = u
 					.existeUserSeguido(a.getAnunciante().getUsername());
 			if (c && us) {
@@ -978,6 +990,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 		Collection<Anuncio> anuncs = this.anuncios.values();
 		for (Iterator<Anuncio> itA = anuncs.iterator(); itA.hasNext() && !res;) {
 			Anuncio a = itA.next();
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
 			if ((a.getEstadoAnuncio() == Anuncio.ABERTO)
 					&& (a.getQuantidade() > 0)
 					&& (a.getClass().getName().equals(VendaDirecta.class.getName()))
@@ -1006,6 +1020,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 				.getPreco();
 		for (Iterator<Anuncio> itA = anuncs.iterator(); itA.hasNext();) {
 			Anuncio a = itA.next();
+                        if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
 			if ((a.getEstadoAnuncio() == Anuncio.ABERTO)
 					&& (a.getQuantidade() > 0)
 					&& (a.getClass().getName().equals(VendaDirecta.class.getName()))
@@ -1020,7 +1036,12 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 
 		TreeSet<Anuncio> res = new TreeSet<Anuncio>(
 				new ComparadorUltimosAnunc());
-		res.addAll(this.anuncios.values());
+                for(Anuncio a: this.anuncios.values()) {
+                    if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
+                    else
+                        res.add(a) ;
+                }		
 		return res.iterator();
 	}
 
@@ -1032,7 +1053,15 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
 	}
 
 	public Collection<Anuncio> anunciosSeguidos(String username) {
-		return this.users.get(username).getAnuncSeguidos().values();
+		
+            ArrayList<Anuncio> res = new ArrayList<Anuncio>() ;
+            for(Anuncio a : this.users.get(username).getAnuncSeguidos().values()) {
+                if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
+                else
+                    res.add(a) ;
+            }
+            return res ;
 	}
 
 	// ordem decrescente de número de ocorrências
@@ -1102,16 +1131,24 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
         public SortedSet<Anuncio> anuncioOrdPreco() {
             
             TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorAnuncPreco(ComparadorAnuncPreco.CRESCENTE)) ;
-            for(Anuncio a : this.anuncios.values())
-                res.add(a) ;
+            for(Anuncio a : this.anuncios.values()) {
+                if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
+                else
+                    res.add(a) ;
+            }                
             return res ;
         }
         
         public SortedSet<Anuncio> anuncioOrdtempoRestante()  {
             
             TreeSet<Anuncio> res = new TreeSet<Anuncio>(new ComparadorATerminar()) ;
-            for(Anuncio a : this.anuncios.values())
-                res.add(a) ;
+            for(Anuncio a : this.anuncios.values()){
+                if(a.getEstadoAnuncio() != Anuncio.ABERTO)
+                            continue ;
+                else
+                    res.add(a) ;
+            }
             return res ;
         }
         
