@@ -1,16 +1,19 @@
 package Presentation_Layer.ContaPessoal;
 
-import Presentation_Layer.Sale_Squared;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import org.jdesktop.swingx.JXHyperlink;
+
+import Presentation_Layer.Sale_Squared;
 
 
 public class Conta_Pessoal extends JPanel {
