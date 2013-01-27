@@ -1,7 +1,6 @@
 package Presentation_Layer.Componentes;
 
 import java.awt.Component;
-import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -24,13 +23,4 @@ public class HyperLinkRenderer extends JXHyperlink implements TableCellRenderer 
 		setText((value == null) ? "" : value.toString());
 		return this;
 	}
-        
-          public void setBold(){
-            this.setFont(new Font(this.getFont().getName(), Font.BOLD, this.getFont().getSize()));
-        }
-        
-         public void setNormal(){
-            this.setFont(new Font(this.getFont().getName(), Font.PLAIN, this.getFont().getSize()));
-        }
-        
 }
