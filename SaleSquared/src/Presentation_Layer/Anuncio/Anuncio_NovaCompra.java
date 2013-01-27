@@ -5,7 +5,13 @@
 package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.Transaccao;
 import Presentation_Layer.Sale_Squared;
+import java.util.GregorianCalendar;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -21,36 +27,58 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
     int step;
     private final int idanuncio;
     private final Sale_Squared root;
-    private final Anuncio anuncio;
+    private AnuncioVenda anuncio;
+    private Transaccao t;
 
     public Anuncio_NovaCompra(final Sale_Squared root, int idanuncio) {
         super(root, true);
         initComponents();
         this.idanuncio = idanuncio;
         this.root = root;
-        this.anuncio = this.root.getSistema().encontrarAnuncio(idanuncio);
+        this.anuncio = (AnuncioVenda) this.root.getSistema().encontrarAnuncio(idanuncio);
         step = 1;
         step1 = new Anuncio_NovaCompra1(root, idanuncio);
-        step2 = new Anuncio_NovaCompra2();
-        jPanel1.add(step1,"1");
+        jPanel1.add(step1, "1");
         pack();
-        setResizable(false);
+
 
 
     }
 
     private void stepChange() {
         jPanel1.removeAll();
-
         switch (step) {
             case 1: {
-                jPanel1.add(step1,"1");
+
+                jPanel1.add(step1, "1");
                 voltar.setVisible(false);
                 next.setText("Seguinte");
                 break;
             }
             case 2: {
-                jPanel1.add(step2,"2");
+                try {
+                    double preco = this.anuncio.getPreco();
+                    double seguro = this.anuncio.getSeguro();
+                    double portes = this.anuncio.getPrecoEnvio();
+                    int quantidade = step1.getQuantidade();
+                    String pais = step1.getMoradaPerfil() ? root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getPais() : this.anuncio.isEnvioEstrangeiro() ? step1.getPais() : root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getPais();
+                    String localidade = step1.getMoradaPerfil() ? root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getLocalidade() : step1.getLocalidade();
+                    String cp = step1.getMoradaPerfil() ? root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getCodPostal() : step1.getCodPostal();
+                    String morada = step1.getMoradaPerfil() ? root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getMorada() : step1.getMorada();
+                    String pagamento = step1.getPagamento();
+                    step2 = new Anuncio_NovaCompra2(preco, quantidade, seguro, portes, pagamento, pais, cp, morada, localidade);
+                    this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
+                    this.t = new Transaccao(anuncio, anuncio.getAnunciante(), root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().registaIdTransac(),
+                            new GregorianCalendar(), step2.getVTotal(), step1.getPagamento(), morada, cp, localidade, pais, Transaccao.EU_AGUARDAR_ACEITACAO, quantidade);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    String html1 = "<html><body style='width: ";
+                    String html2 = "Dados Invalidos";
+                    JOptionPane.showMessageDialog(this, new JLabel(html1 + "300" + html2 + e.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
+
+                }
+
+                jPanel1.add(step2, "2");
                 voltar.setVisible(true);
                 next.setText("Confirmar");
                 break;
@@ -58,8 +86,9 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
         }
         jPanel1.updateUI();
         jPanel1.validate();
-        ;
-}
+        pack();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,8 +163,33 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
         // TODO add your handling code here:
-        step = 2;
-        stepChange();
+        try {
+            switch (step) {
+                case 1: {
+                    step = 2;
+                    stepChange();
+                    break;
+                }
+                case 2: {
+                    this.root.getSistema().encontrarAnuncio(idanuncio).getAnunciante().inserirTransaccao(t);
+                    this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).inserirTransaccao(t);
+                    String html1 = "<html><body style='width: ";
+                    String html2 = "";
+                    JOptionPane.showMessageDialog(this, new JLabel(html1 + "300" + html2 + "Proposta de compra efectuada com êxito"), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
+                    root.setBody(new Anuncio_Main(root, idanuncio), root.getSistema().encontrarAnuncio(idanuncio).getTitulo());
+                    dispose();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            String html1 = "<html><body style='width: ";
+            String html2 = "Dados Invalidos";
+            JOptionPane.showMessageDialog(this, new JLabel(html1 + "300" + html2 + e.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
+
+        }
+
+
     }//GEN-LAST:event_nextActionPerformed
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed

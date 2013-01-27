@@ -98,7 +98,7 @@ public class Registo_Main extends JPanel {
 
                     String html1 = "<html><body style='width: ";
                     String html2 = "Dados Invalidos";
-                    JOptionPane.showMessageDialog(null, new JLabel(html1 + "300" + html2 + e.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
+                    JOptionPane.showMessageDialog(root, new JLabel(html1 + "300" + html2 + e.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
                 }
 
             }
