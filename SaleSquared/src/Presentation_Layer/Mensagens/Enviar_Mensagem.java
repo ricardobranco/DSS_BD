@@ -1,167 +1,159 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Presentation_Layer.Mensagens;
 
-import Business_Layer.Anuncio;
-import Business_Layer.Mensagem;
-import Presentation_Layer.Sale_Squared;
-import java.util.GregorianCalendar;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import org.jdesktop.swingx.JXTextArea;
 
-/**
- *
- * @author ricardobranco
- */
-public class Enviar_Mensagem extends javax.swing.JDialog {
+import Presentation_Layer.Sale_Squared;
 
-    private final Sale_Squared root;
+public class Enviar_Mensagem extends JPanel {
+	private JTextField para;
+	private JTextField assunto;
+	private JXTextArea corpo;
+	private Sale_Squared root;
 
-    /**
-     * Creates new form Enviar_Mensagem2
-     */
-    public Enviar_Mensagem(final Sale_Squared root, String username, String assunto, String corpo) {
-        super(root, true);
-        initComponents();
-        this.root = root;
-        para.setText(username);
-        this.assunto.setText(assunto);
-        this.corpo.setText(corpo);
+	/**
+	 * Create the panel.
+	 */
+	public Enviar_Mensagem(final Sale_Squared root, String to, String sub,
+			String bdy) {
+		this.root = root;
+		JButton btnviar = new JButton("Enviar");
 
+		JLabel lblNewLabel = new JLabel("Para:");
 
-    }
+		JLabel lblAssunto = new JLabel("Assunto:");
 
-    public String getUsername() throws Exception {
-        String susername = para.getText();
-        if (susername.isEmpty()) {
-            throw new Exception("Insira um Destinatário");
-        }
-        if (!root.getSistema().existeUtilizadorReg(susername)) {
-            throw new Exception("Não existe nenhum utilizador com esse username");
-        }
-        return susername;
-    }
+		para = new JTextField();
+		para.setColumns(10);
+		para.setText(to);
 
-    public String getAssunto() throws Exception {
-        String sassunto = assunto.getText();
-        if (sassunto.isEmpty()) {
-            throw new Exception("Insira um assunto");
-        }
-        return sassunto;
-    }
+		assunto = new JTextField();
+		assunto.setColumns(10);
+		assunto.setText(sub);
 
-    public String getCorpo() {
-        String scorpo = corpo.getText();
-        return scorpo.isEmpty() ? "" : scorpo;
-    }
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(UIManager.getBorder("TextField.border"));
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout
+				.setHorizontalGroup(groupLayout
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				lblNewLabel)
+																		.addGap(21)
+																		.addComponent(
+																				para,
+																				GroupLayout.DEFAULT_SIZE,
+																				383,
+																				Short.MAX_VALUE))
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				lblAssunto)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED)
+																		.addComponent(
+																				assunto,
+																				GroupLayout.DEFAULT_SIZE,
+																				383,
+																				Short.MAX_VALUE))
+														.addComponent(
+																scrollPane,
+																Alignment.TRAILING,
+																GroupLayout.DEFAULT_SIZE,
+																430,
+																Short.MAX_VALUE)
+														.addComponent(
+																btnviar,
+																Alignment.TRAILING))
+										.addContainerGap()));
+		groupLayout
+				.setVerticalGroup(groupLayout
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addGap(18)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																lblNewLabel)
+														.addComponent(
+																para,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(
+																lblAssunto)
+														.addComponent(
+																assunto,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												ComponentPlacement.UNRELATED)
+										.addComponent(scrollPane,
+												GroupLayout.DEFAULT_SIZE, 175,
+												Short.MAX_VALUE).addGap(18)
+										.addComponent(btnviar).addGap(4)));
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+		corpo = new JXTextArea();
+		corpo.setBackground(new Color(255, 255, 255));
+		corpo.setText(bdy);
+		scrollPane.setViewportView(corpo);
+		setLayout(groupLayout);
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        para = new org.jdesktop.swingx.JXTextField();
-        assunto = new org.jdesktop.swingx.JXTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        corpo = new javax.swing.JTextArea();
-        enviar = new javax.swing.JButton();
+	}
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+	public String getUsername() throws Exception {
+		String susername = para.getText();
+		if (susername.isEmpty())
+			throw new Exception("Insira um destinatário");
+		if (!root.getSistema().existeUtilizadorReg(susername))
+			throw new Exception(
+					"Não existe nenhum utilizador registado com esse username");
+		return susername;
+	}
 
-        jLabel1.setText("Para:");
+	public String getAssunto() throws Exception {
+		String sassunto = para.getText();
+		if (sassunto.isEmpty())
+			throw new Exception("Insira um assunto");
+		return sassunto;
+	}
 
-        jLabel2.setText("Assunto:");
+	public String getCorpo() {
+		String scorpo = corpo.getText();
+		return scorpo.isEmpty() ? "" : scorpo;
+	}
 
-        corpo.setColumns(20);
-        corpo.setLineWrap(true);
-        corpo.setRows(5);
-        jScrollPane1.setViewportView(corpo);
-
-        enviar.setText("Enviar");
-        enviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarActionPerformed(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel2)
-                            .add(jLabel1))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, para, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(assunto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .add(layout.createSequentialGroup()
-                        .add(enviar)
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(enviar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(para, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(12, 12, 12)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(assunto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        // TODO add your handling code here:
-        try {
-            Mensagem mR = new Mensagem(root.getSistema().registaIdMsg(), root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(getUsername()), new GregorianCalendar(), getAssunto(), getCorpo(), Mensagem.NAO_LIDA);
-            Mensagem mE = new Mensagem(root.getSistema().registaIdMsg(), root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(getUsername()), new GregorianCalendar(), getAssunto(), getCorpo(), Mensagem.LIDA);
-
-            root.getSistema().enviarMensagem(mE, mR);
-            root.setBody(new Mensagem_Main(root), "Caixa de Mensagens");
-            dispose();
-
-
-
-        } catch (Exception e) {
-            String html1 = "<html><body style='width: ";
-            String html2 = "Dados Invalidos";
-            JOptionPane.showMessageDialog(this, new JLabel(html1 + "300" + html2 + e.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
-        }
-    }//GEN-LAST:event_enviarActionPerformed
-    /**
-     * @param args the command line arguments
-     */
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXTextField assunto;
-    private javax.swing.JTextArea corpo;
-    private javax.swing.JButton enviar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXTextField para;
-    // End of variables declaration//GEN-END:variables
 }
