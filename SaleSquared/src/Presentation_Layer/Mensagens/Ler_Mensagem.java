@@ -32,7 +32,6 @@ public class Ler_Mensagem extends javax.swing.JDialog {
         this.tipoMensagem = tipoMensagem;
 
         Mensagem m = tipoMensagem == ENVIADA ? this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgEnv(idmensagem) : this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(idmensagem);
-        m.setEstado(Mensagem.LIDA);
         de.setText(m.getEmissor().getUsername());
         para.setText(m.getReceptor().getUsername());
         assunto.setText(m.getAssunto());
@@ -189,17 +188,7 @@ public class Ler_Mensagem extends javax.swing.JDialog {
         root.setBody(new Mensagem_Main(root), "Caixa de Mensagens");
         dispose();
 
-
-
     }//GEN-LAST:event_apagarActionPerformed
-
-    private void reponderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reponderActionPerformed
-        // TODO add your handling code here:
-        JDialog frame = new Enviar_Mensagem(root, tipoMensagem == ENVIADA ? para.getText() : de.getText(), assunto.getText(), "");
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_reponderActionPerformed
 
     private void reencaminharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reencaminharActionPerformed
         // TODO add your handling code here:
@@ -208,6 +197,14 @@ public class Ler_Mensagem extends javax.swing.JDialog {
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_reencaminharActionPerformed
+
+    private void reponderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reponderActionPerformed
+        // TODO add your handling code here:
+        JDialog frame = new Enviar_Mensagem(root, tipoMensagem == ENVIADA ? para.getText() : de.getText(), assunto.getText(), "");
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_reponderActionPerformed
 
     private void deActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deActionPerformed
         // TODO add your handling code here:

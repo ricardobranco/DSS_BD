@@ -10,6 +10,7 @@ import Presentation_Layer.Componentes.HyperLinkRenderer;
 import Presentation_Layer.Sale_Squared;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -29,15 +30,16 @@ public class Caixa_Envio extends javax.swing.JPanel {
      */
     List<Integer> mensagens;
     int rowcount;
-    private final Sale_Squared root;
+    private  Sale_Squared root;
 
     public Caixa_Envio(final Sale_Squared root) {
         initComponents();
         this.root = root;
+        this.mensagens = new ArrayList<>();
         rowcount = 0;
         ActionListener abre = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                 JDialog frame = new Ler_Mensagem(root, mensagens.get(jXTable1.getSelectedRow()), Ler_Mensagem.ENVIADA);
+                JDialog frame = new Ler_Mensagem(root, mensagens.get(jXTable1.getSelectedRow()), Ler_Mensagem.ENVIADA);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
