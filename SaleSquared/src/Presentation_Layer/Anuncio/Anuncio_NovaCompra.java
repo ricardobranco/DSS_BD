@@ -172,10 +172,8 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
                 }
                 case 2: {
                     this.root.getSistema().encontrarAnuncio(idanuncio).getAnunciante().inserirTransaccao(t);
+                    t.setId(root.getSistema().registaIdTransac());
                     this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).inserirTransaccao(t);
-                    String html1 = "<html><body style='width: ";
-                    String html2 = "";
-                    JOptionPane.showMessageDialog(this, new JLabel(html1 + "300" + html2 + "Proposta de compra efectuada com êxito"), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
                     root.setBody(new Anuncio_Main(root, idanuncio), root.getSistema().encontrarAnuncio(idanuncio).getTitulo());
                     dispose();
                 }

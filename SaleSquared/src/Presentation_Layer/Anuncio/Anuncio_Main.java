@@ -28,16 +28,21 @@ public class Anuncio_Main extends javax.swing.JPanel {
         initComponents();
         this.idanuncio = idAnuncio;
         this.anuncio = root.getSistema().encontrarAnuncio(this.idanuncio);
-        if (Sale_Squared.REGISTADO)
+        if (Sale_Squared.REGISTADO) {
             root.getSistema().consultarAnuncio(Sale_Squared.UTILIZADOR, idanuncio);
+        }
         this.titulo.setText(this.anuncio.getTitulo());
         imagepanel = new ImagePanel();
 
-        this.imagem.add(imagepanel,"Imagem");
-        this.info.add(new Tabbed_Anuncio(root, idanuncio, imagepanel),"Info");
-        this.compra.add(new Anuncio_Info(root, idanuncio),"Compra");
-        this.sugestoes.add(new Tabbed_Sugestoes(root, idanuncio),"Sugestoes");
-        
+        this.imagem.add(imagepanel, "Imagem");
+        if (anuncio.getEstadoAnuncio() == Anuncio.ENCERRADO || anuncio.getEstadoAnuncio() == Anuncio.BLOQUEADO) {
+            this.info.setVisible(false);
+        } else {
+            this.info.add(new Tabbed_Anuncio(root, idanuncio, imagepanel), "Info");
+        }
+        this.compra.add(new Anuncio_Info(root, idanuncio), "Compra");
+        this.sugestoes.add(new Tabbed_Sugestoes(root, idanuncio), "Sugestoes");
+
         if (!this.anuncio.getImagens().isEmpty()) {
             List<Imagem> imagens = (List<Imagem>) this.anuncio.getImagens().values();
             this.imagepanel.setImage(imagens.get(0));

@@ -7,6 +7,8 @@ package Presentation_Layer.Anuncio;
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ModoVenda;
+import Business_Layer.Transaccao;
+import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Perfil.Perfil;
 import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
@@ -36,7 +38,7 @@ public class Anuncio_Info extends javax.swing.JPanel {
         inicio.setText(showdata(anuncio.getDataInser()));
         fim.setText(temporestante(new GregorianCalendar(), anuncio.getDataExpir()) + " (" + showdata(anuncio.getDataExpir()) + ")");
         quantidade.setText("" + anuncio.getQuantidade());
-        
+
         envioEst.setText("(Envio para o estrangeiro: " + (anuncio.isEnvioEstrangeiro() ? "Sim" : "Não"));
         String codPostal = this.root.getSistema().encontrarUtilizadorReg(username).getCodPostal();
         String localidade = this.root.getSistema().encontrarUtilizadorReg(username).getLocalidade();
@@ -48,24 +50,30 @@ public class Anuncio_Info extends javax.swing.JPanel {
                 seguir.setText("Deixar Anúncio");
             }
         }
-        loc.setText(codPostal+", "+localidade);
+        loc.setText(codPostal + ", " + localidade);
         user.setText(username);
-        estado.setText((this.anuncio.isEstadoProduto()==AnuncioVenda.NOVO)?"Novo":"Usado");
-        ModoVenda mv = anuncio.getTipoVenda();
-        if (mv.getClass().getSimpleName().equals("Leilao")) {
-            jPanel1.add(new Anuncio_Leilao(root, this.anuncio));
-        } else {
-            jPanel1.add(new Anuncio_Compra(root, idanuncio));
-        }
+        estado.setText((this.anuncio.isEstadoProduto() == AnuncioVenda.NOVO) ? "Novo" : "Usado");
+
+       
+            ModoVenda mv = anuncio.getTipoVenda();
+            if (mv.getClass().getSimpleName().equals("Leilao")) {
+                jPanel1.add(new Anuncio_Leilao(root, this.anuncio));
+            } else {
+               
+                jPanel1.add(new Anuncio_Compra(root, idanuncio));
+
+            }
+
         
+
+
     }
-    
-    
+
     private String showdata(GregorianCalendar gc) {
         int dia, mes, ano, hora, minutos;
 
         dia = gc.get(GregorianCalendar.DAY_OF_MONTH);
-        mes = gc.get(GregorianCalendar.MONTH)+1;
+        mes = gc.get(GregorianCalendar.MONTH) + 1;
         ano = gc.get(GregorianCalendar.YEAR);
         hora = gc.get(GregorianCalendar.HOUR_OF_DAY);
         minutos = gc.get(GregorianCalendar.MINUTE);
@@ -297,12 +305,12 @@ public class Anuncio_Info extends javax.swing.JPanel {
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         // TODO add your handling code here:
         root.setBody(new Perfil(root, username), username);
-       
+
     }//GEN-LAST:event_perfilActionPerformed
 
     private void seguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seguirActionPerformed
         // TODO add your handling code here:
-         removerSeguir();
+        removerSeguir();
     }//GEN-LAST:event_seguirActionPerformed
 
     private void reportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportarActionPerformed

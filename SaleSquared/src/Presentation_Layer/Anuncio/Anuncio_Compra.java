@@ -6,6 +6,7 @@ package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
+import Business_Layer.Transaccao;
 import Presentation_Layer.Registo.Registo_Main;
 import Presentation_Layer.Sale_Squared;
 
@@ -14,10 +15,11 @@ import Presentation_Layer.Sale_Squared;
  * @author ricardobranco
  */
 public class Anuncio_Compra extends javax.swing.JPanel {
+
     private final Sale_Squared root;
     private final int idanuncio;
     private final AnuncioVenda anuncio;
-   
+
     /**
      * Creates new form Anuncio_Compra2
      */
@@ -26,9 +28,21 @@ public class Anuncio_Compra extends javax.swing.JPanel {
         this.root = root;
         this.idanuncio = idanuncio;
         this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
-        this.preco.setText("€ "+anuncio.getPreco());
-        this.troca.setText("Este utilizador "+(anuncio.getPossivelTrocar()?"":"não ")+"aceita trocas");
-        
+        this.preco.setText("€ " + anuncio.getPreco());
+        this.troca.setText("Este utilizador " + (anuncio.getPossivelTrocar() ? "" : "não ") + "aceita trocas");
+        if (anuncio.getAnunciante().getUsername().equals(Sale_Squared.UTILIZADOR)) {
+            jButton1.setEnabled(false);
+        } else {
+            for (Transaccao t : anuncio.getAnunciante().getTransaccoes().values()) {
+                if (t.getComprador().getUsername().equals(Sale_Squared.UTILIZADOR))
+                {
+                    jButton1.setEnabled(false);
+                    break;
+                }
+            }
+        }
+
+
     }
 
     /**
@@ -88,12 +102,12 @@ public class Anuncio_Compra extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(Sale_Squared.REGISTADO)
-        new Anuncio_NovaCompra(root, idanuncio).setVisible(true);
-        else
+        if (Sale_Squared.REGISTADO) {
+            new Anuncio_NovaCompra(root, idanuncio).setVisible(true);
+        } else {
             root.setBody(new Registo_Main(root), "Novo Registo");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
