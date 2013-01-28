@@ -4,22 +4,35 @@ import java.util.GregorianCalendar;
 
 public class Avaliacao {
 
+        public static final int avaliacao = 0 ;
+        public static final int report = 1 ;
+    
 	// v. i.
 	private int id;
 	private UtilizadorRegistado avaliador;
 	private GregorianCalendar data;
 	private double classificacao;
 	private String comentario;
+        private int tipo ;
 
 	// construtor
 	public Avaliacao(int id, UtilizadorRegistado avaliador,
-			GregorianCalendar data, Double classificacao, String comentario) {
+			GregorianCalendar data, Double classificacao, String comentario, int tipo) {
 		this.id = id;
 		this.avaliador = avaliador;
 		this.data = data;
 		this.classificacao = classificacao;
 		this.comentario = comentario;
+                this.tipo = tipo ;
 	}
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
 
 	// get e set
 	public int getId() {
@@ -89,6 +102,6 @@ public class Avaliacao {
 	@Override
 	public Avaliacao clone() {
 		return new Avaliacao(this.id, this.avaliador.clone(), this.data,
-				this.classificacao, this.comentario);
+				this.classificacao, this.comentario, this.tipo);
 	}
 }

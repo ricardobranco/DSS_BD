@@ -24,6 +24,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 	public static final int CLASSIFICACAO = 4;
 	public static final int COMENTARIO = 5;
 	public static final int DATA = 6;
+        public static final int TIPO = 7 ;
 
 	// v. i.
 	private int codAnunc;
@@ -83,7 +84,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			stm.setInt(1, this.codAnunc);
-			stm.setInt(2, chave);
+			stm.setInt(2, chave);                        
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
 				UtilizadorRegistadoDAO u = new UtilizadorRegistadoDAO();
@@ -91,7 +92,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 				rs.getTimestamp(DATA, data);
 				res = new Avaliacao(chave, u.get(rs.getString(AVALIADOR)),
 						data, rs.getDouble(CLASSIFICACAO),
-						rs.getString(COMENTARIO));
+						rs.getString(COMENTARIO), rs.getInt(TIPO));
 			}
                         ConexaoBD.fecharCursor(rs, stm);
 			return res;
@@ -145,7 +146,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 		try {
 			Avaliacao res = null;
 			String sql = "INSERT INTO " + AVALIACAO_T
-					+ " VALUES (?, ?, ?, ?, ?, ?)";
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stm = ConexaoBD.getConexao()
 					.prepareStatement(sql);
 			Timestamp t = new Timestamp(value.getData().getTimeInMillis());
@@ -155,6 +156,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 			stm.setInt(ANUNCIO, this.codAnunc);
 			stm.setDouble(CLASSIFICACAO, value.getClassificacao());
 			stm.setTimestamp(DATA, t);
+                        stm.setInt(TIPO, value.getTipo()) ;
 			stm.execute();
                         ConexaoBD.fecharCursor(null, stm);
 			return res;
@@ -208,7 +210,7 @@ public class AvaliacaoAnuncioDAO implements Map<Integer, Avaliacao> {
 				GregorianCalendar data = new GregorianCalendar();
 				rs.getTimestamp(DATA, data);
 				a = new Avaliacao(chave, u.get(rs.getString(AVALIADOR)), data,
-						rs.getDouble(CLASSIFICACAO), rs.getString(COMENTARIO));
+						rs.getDouble(CLASSIFICACAO), rs.getString(COMENTARIO), rs.getInt(TIPO));
 				res.add(a);
 			}
                         ConexaoBD.fecharCursor(rs, stm);
