@@ -57,7 +57,7 @@ public class Anuncio_Info extends javax.swing.JPanel {
        
             ModoVenda mv = anuncio.getTipoVenda();
             if (mv.getClass().getSimpleName().equals("Leilao")) {
-                jPanel1.add(new Anuncio_Leilao(root, this.anuncio));
+                jPanel1.add(new Anuncio_Leilao(root, idanuncio));
             } else {
                
                 jPanel1.add(new Anuncio_Compra(root, idanuncio));

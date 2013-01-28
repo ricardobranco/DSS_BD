@@ -168,7 +168,7 @@ public class MsgRecebidaDAO implements Map<Integer, Mensagem> {
 			if (existe)
 				sql = "UPDATE "
 						+ MENSAGEM_T
-						+ " SET m.id = ?, m.assunto = ?, m.corpo = ?, m.dataEnvio = ?, m.lida = ?, m.emissor = ?, m.receptor = ?, m.pertence = ? WHERE m.id = "
+						+ " SET m.id = ?, m.assunto = ?, m.corpo = ?, m.dataEnvio = ?, m.estado = ?, m.emissor = ?, m.receptor = ?, m.pertence = ? WHERE m.id = "
 						+ key;
 			else
 				sql = "INSERT INTO " + MENSAGEM_T

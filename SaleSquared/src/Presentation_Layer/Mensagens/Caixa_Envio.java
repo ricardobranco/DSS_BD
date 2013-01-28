@@ -1,139 +1,175 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.Mensagens;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import org.jdesktop.swingx.JXTable;
-
 import Business_Layer.Mensagem;
-import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Componentes.CWCheckBoxRenderer;
-import Presentation_Layer.Componentes.CheckBoxCellEditor;
 import Presentation_Layer.Componentes.HyperLinkEditor;
 import Presentation_Layer.Componentes.HyperLinkRenderer;
-import Presentation_Layer.Perfil.Perfil;
+import Presentation_Layer.Sale_Squared;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.GregorianCalendar;
+import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.JXTable;
 
-public class Caixa_Envio extends JPanel {
-	private JTable table;
-	private List<Mensagem> mensagens;
+/**
+ *
+ * @author ricardobranco
+ */
+public class Caixa_Envio extends javax.swing.JPanel {
 
-	private List<Mensagem> enviadas;
-	private DefaultTableModel dm;
+    /**
+     * Creates new form Caixa_Rec2
+     */
+    List<Integer> mensagens;
+    int rowcount;
+    private  Sale_Squared root;
 
-	public Caixa_Envio(final Sale_Squared root, List<Mensagem> enviadas) {
-		this.enviadas = enviadas;
-		this.mensagens = new LinkedList<>();
-		preenche(enviadas);
-		JScrollPane scrollPane = new JScrollPane();
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE,
-								430, Short.MAX_VALUE).addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE,
-								278, Short.MAX_VALUE).addContainerGap()));
+    public Caixa_Envio(final Sale_Squared root) {
+        initComponents();
+        this.root = root;
+        this.mensagens = new ArrayList<>();
+        rowcount = 0;
+        ActionListener abre = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JDialog frame = new Ler_Mensagem(root, mensagens.get(jXTable1.getSelectedRow()), Ler_Mensagem.ENVIADA);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+        };
+        jXTable1.getColumn("Assunto").setCellRenderer(new HyperLinkRenderer());
+        jXTable1.getColumn("Assunto").setCellEditor(
+                new HyperLinkEditor(new JCheckBox(), abre));
+        preenche();
 
-		dm = new DefaultTableModel() {
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { Object.class, Object.class,
-					Object.class, Object.class };
+    }
 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
+    public void preenche() {
 
-			boolean[] columnEditables = new boolean[] { true, false, true,
-					false };
+        jXTable1.selectAll();
+        jXTable1.clearSelection();
+        rowcount = 0;
+        mensagens.clear();
+        Collection<Mensagem> enviadas = this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getEnviadas().values();
 
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};
+        for (Mensagem m : enviadas) {
 
-		ActionListener abre = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int sel = table.getSelectedRow();
-				root.setBody(new Ler_mensagem(root, mensagens.get(sel)),
-						mensagens.get(sel).getAssunto());
-			}
-		};
-		dm.setDataVector(new Object[][] {}, new Object[] { "", "De", "Assunto",
-				"Data" });
+            if (m.getEstado() != Mensagem.ELIMINADA) {
+                Object[] row1 = {false, m.getReceptor().getUsername(),
+                    m.getAssunto(), formatoData(m.getDataEnvio())};
+                ((DefaultTableModel) jXTable1.getModel()).addRow(row1);
+                this.mensagens.add(m.getId());
 
-		JXTable table = new JXTable(dm);
-		table.getColumn("Assunto").setCellRenderer(new HyperLinkRenderer());
-		table.getColumn("Assunto").setCellEditor(
-				new HyperLinkEditor(new JCheckBox(), abre));
+                if (m.getEstado() == Mensagem.NAO_LIDA) {
+                    ((HyperLinkRenderer) jXTable1.getCellRenderer(rowcount, 2)).setBold();
+                } else {
+                    ((HyperLinkRenderer) jXTable1.getCellRenderer(rowcount, 2)).setNormal();
+                }
+                rowcount++;
+            }
+        }
+    }
 
-		table.getColumn("").setCellRenderer(new CWCheckBoxRenderer());
-		table.getColumn("").setCellEditor(new CheckBoxCellEditor());
-		table.getColumn("").setWidth(JCheckBox.WIDTH);
+    public void remMarcadas() {
+        for (int i = jXTable1.getModel().getRowCount(); i >= 0; i--) {
 
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.setCellSelectionEnabled(false);
-		scrollPane.setViewportView(table);
-		// teste
+            Object o = jXTable1.getModel().getValueAt(i, 0);
+            boolean marcado = (boolean) o;
 
-		scrollPane.setViewportView(table);
-		setLayout(groupLayout);
+            if (marcado) {
+                root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(mensagens.get(i)).setEstado(Mensagem.ELIMINADA);
+            }
+        }
+        preenche();
 
-	}
 
-	public void preenche(List<Mensagem> enviadas) {
-		for (Mensagem m : enviadas) {
+    }
 
-			Object[] row1 = { false, m.getReceptor().getUsername(),
-					m.getAssunto(), formatoData(m.getDataEnvio()) };
-			dm.addRow(row1);
-			this.mensagens.add(m);
+    private String formatoData(final GregorianCalendar gc) {
+        return "" + gc.get(GregorianCalendar.DAY_OF_MONTH) + "/"
+                + gc.get(GregorianCalendar.MONTH) + "/"
+                + gc.get(GregorianCalendar.YEAR) + " "
+                + gc.get(GregorianCalendar.HOUR_OF_DAY) + ":"
+                + gc.get(GregorianCalendar.MINUTE);
+    }
 
-		}
-	}
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-	public void remMarcadas() {
-		for (int i = dm.getRowCount();i>=0;i--){
-			
-			Object o =  dm.getValueAt(i, 0);
-			boolean marcado = (boolean) o;
-			
-			if(marcado)
-				{
-				dm.removeRow(i);
-				mensagens.get(i).setEstado(Mensagem.ELIMINADA);
-				mensagens.remove(i);
-				}
-			
-		}
+        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jXTable1 = new org.jdesktop.swingx.JXTable();
 
-	}
+        jButton1.setText("Apagar");
 
-	private String formatoData(final GregorianCalendar gc) {
-		return "" + gc.get(GregorianCalendar.DAY_OF_MONTH) + "/"
-				+ gc.get(GregorianCalendar.MONTH) + "/"
-				+ gc.get(GregorianCalendar.YEAR) + " "
-				+ gc.get(GregorianCalendar.HOUR_OF_DAY) + ":"
-				+ gc.get(GregorianCalendar.MINUTE);
-	}
+        jXTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
+            },
+            new String [] {
+                "", "De", "Assunto", "Data"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jXTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jXTable1);
+        jXTable1.getColumnModel().getColumn(0).setResizable(false);
+        jXTable1.getColumnModel().getColumn(1).setResizable(false);
+        jXTable1.getColumnModel().getColumn(3).setResizable(false);
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jButton1))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.jdesktop.swingx.JXTable jXTable1;
+    // End of variables declaration//GEN-END:variables
 }
