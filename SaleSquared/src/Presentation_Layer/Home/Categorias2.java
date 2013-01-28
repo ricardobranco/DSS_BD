@@ -79,6 +79,7 @@ public class Categorias2 extends javax.swing.JPanel {
         Object[] valores = {"Auto"};
 
         Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+        
         root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_jXHyperlink1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
