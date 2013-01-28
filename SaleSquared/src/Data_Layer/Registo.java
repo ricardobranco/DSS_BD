@@ -392,6 +392,7 @@ public class Registo {
                 stm.setString(USERNAME, username) ;
                 stm.setTimestamp(DATA_LOGIN, ts);
                 stm.execute() ;
+                ConexaoBD.fecharCursor(null, stm);
             } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
         }
         
@@ -405,6 +406,7 @@ public class Registo {
                 stm.setInt(ANUNCIO, anuncio) ;
                 stm.setTimestamp(DATA_V, ts);
                 stm.execute() ;
+                ConexaoBD.fecharCursor(null, stm);
             } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
         }
 

@@ -213,4 +213,6 @@ public interface SaleSquaredFacade {
 	public void registaUtilizador();
         
         public void consultarAnuncio(String username, int anuncio) ;
+        
+        public boolean temMensagemPorLer (String username) ;
 }

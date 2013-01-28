@@ -14,6 +14,7 @@ import Data_Layer.MsgRecebidaDAO;
 import Data_Layer.TransaccaoDAO;
 import Data_Layer.UserSeguidoDAO;
 import java.security.MessageDigest;
+import java.util.Iterator;
 
 
 public class UtilizadorRegistado extends Utilizador {
@@ -493,6 +494,17 @@ public class UtilizadorRegistado extends Utilizador {
                 System.out.println("pw user :" + this.password) ;
 		return this.password.equals(encriptarPassword(pw));
 	}
+        
+        public boolean temMensagemPorLer () {
+            
+            boolean res = false ;
+            for(Iterator<Mensagem> it = this.recebidas.values().iterator(); it.hasNext() && !res ; ) {
+                Mensagem m = it.next() ;
+                if(m.getEstado() == Mensagem.NAO_LIDA) 
+                    res = true ;                                   
+            }
+            return res ;
+        }
 
 	/*
 	 * public boolean eRecomendado () {return this.calcularRating() >=
@@ -560,7 +572,9 @@ public class UtilizadorRegistado extends Utilizador {
             res = big.toString(16) ;            
         } catch (Exception e) {throw new NullPointerException(e.getMessage()) ;}
         return res ;
-    }
+        }
+        
+        
 
 	/*
 	 * public static boolean validaContacto (String contacto) {

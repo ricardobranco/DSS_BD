@@ -1158,6 +1158,11 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
             Registo.adicionarVisitaAnuncio(username, anuncio, agora) ;
         }
         
+        public boolean temMensagemPorLer (String username) {
+            
+            return this.users.get(username).temMensagemPorLer() ;
+        }
+        
         
 
    
