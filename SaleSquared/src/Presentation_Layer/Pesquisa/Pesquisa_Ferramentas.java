@@ -33,7 +33,7 @@ public class Pesquisa_Ferramentas extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextField min;
     private JTextField max;
-    private TreeSet<AnuncioVenda> anuncios;
+    private TreeSet<Anuncio> anuncios;
     private JCheckBox portesgratis;
     private JCheckBox portespagos;
     private JCheckBox tb;
