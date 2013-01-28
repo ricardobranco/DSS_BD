@@ -116,6 +116,7 @@ public class Entrar extends javax.swing.JDialog {
             sistema.setEmSessao(utilizador);
             Sale_Squared.UTILIZADOR = username;
             Sale_Squared.REGISTADO = true;
+            root.getSistema().login(username);
             root.reloadHeader();
             root.setBody(new Home(root), username);
             root.setEnabled(true);

@@ -6,6 +6,7 @@ package Presentation_Layer.Anuncio;
 
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
+import Business_Layer.Leilao;
 import Business_Layer.Transaccao;
 import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
@@ -22,6 +23,8 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
     /**
      * Creates new form Anuncio_NovaCompra
      */
+    public static final int LEILAO = 1;
+    public static final int VENDA = 2;
     private Anuncio_NovaCompra1 step1;
     private Anuncio_NovaCompra2 step2;
     int step;
@@ -29,15 +32,17 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
     private final Sale_Squared root;
     private AnuncioVenda anuncio;
     private Transaccao t;
+    private int tipo;
 
-    public Anuncio_NovaCompra(final Sale_Squared root, int idanuncio) {
+    public Anuncio_NovaCompra(final Sale_Squared root, int idanuncio, int tipo) {
         super(root, true);
         initComponents();
+        this.tipo = tipo;
         this.idanuncio = idanuncio;
         this.root = root;
         this.anuncio = (AnuncioVenda) this.root.getSistema().encontrarAnuncio(idanuncio);
         step = 1;
-        step1 = new Anuncio_NovaCompra1(root, idanuncio);
+        step1 = new Anuncio_NovaCompra1(root, idanuncio, this);
         jPanel1.add(step1, "1");
         pack();
 
@@ -171,7 +176,14 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
                     break;
                 }
                 case 2: {
-                    this.root.getSistema().encontrarAnuncio(idanuncio).getAnunciante().inserirTransaccao(t);
+                    AnuncioVenda av = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
+                    if (tipo == LEILAO) {
+                        root.getSistema().adicionarLeilaoLicitacao(idanuncio, ((Leilao) av.getTipoVenda()).getPrecoActual());
+                    } else {
+                        root.getSistema().adicionarVendaDirectaProposta(idanuncio);
+                        }
+                    av.getAnunciante().inserirTransaccao(t);
+                    
                     t.setId(root.getSistema().registaIdTransac());
                     this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).inserirTransaccao(t);
                     root.setBody(new Anuncio_Main(root, idanuncio), root.getSistema().encontrarAnuncio(idanuncio).getTitulo());

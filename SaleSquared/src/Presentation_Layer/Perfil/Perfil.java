@@ -45,7 +45,7 @@ public class Perfil extends javax.swing.JPanel {
         this.registo.setText("Registado desde " + showdata(this.ur.getDataRegisto()));
         this.top.setVisible(root.getSistema().eUserConfiavel(this.username));
         this.seguir.setVisible(Sale_Squared.REGISTADO);
-        if (username.equals(Sale_Squared.REGISTADO)) {
+        if (username.equals(Sale_Squared.REGISTADO) || !Sale_Squared.REGISTADO) {
             seguir.setVisible(false);
             enviar.setVisible(false);
         }

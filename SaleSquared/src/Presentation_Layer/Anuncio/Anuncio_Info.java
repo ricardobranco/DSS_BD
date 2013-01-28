@@ -121,7 +121,7 @@ public class Anuncio_Info extends javax.swing.JPanel {
 
 
         if (seguir.getText().equals("Seguir Anúncio")) {
-            seguir.setText("Seguir Anúncio");
+            seguir.setText("Deixar Anúncio");
             root.getSistema().seguirAnuncio(Sale_Squared.UTILIZADOR, root.getSistema().encontrarAnuncio(this.idanuncio));
         } else {
             seguir.setText("Seguir Anúncio");

@@ -4,37 +4,65 @@
  */
 package Presentation_Layer.Anuncio;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.Leilao;
 import Business_Layer.SaleSquared;
+import Business_Layer.Transaccao;
+import Business_Layer.UtilizadorRegistado;
+import Presentation_Layer.Registo.Registo_Main;
 import Presentation_Layer.Sale_Squared;
+import java.util.GregorianCalendar;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import sun.util.calendar.Gregorian;
 
 /**
  *
  * @author ricardobranco
  */
 public class Anuncio_Leilao extends javax.swing.JPanel {
+
     private final Sale_Squared root;
     private final int idanuncio;
     private double vlicmin;
+
     /**
      * Creates new form Anuncio_Leilao2
      */
-    
     public Anuncio_Leilao(final Sale_Squared root, int idanuncio) {
         initComponents();
         this.root = root;
         this.idanuncio = idanuncio;
-        
-        Leilao l = (Leilao) ((AnuncioVenda)root.getSistema().encontrarAnuncio(idanuncio)).getTipoVenda();
-        licatual.setText("€ "+l.getPrecoActual());
-        vlicmin = l.getPrecoActual()+l.getIncrementoMinimo();
-        licmin.setText("(Tem que licitar €" + vlicmin +" para cima)");
-        
-		
-        
-        
-        
+        AnuncioVenda av = ((AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio));
+        if (av.getAnunciante().getUsername().equals(Sale_Squared.REGISTADO)) {
+            licitacao.setEnabled(false);
+        }
+
+        Leilao l = (Leilao) av.getTipoVenda();
+        licatual.setText("€ " + l.getPrecoActual());
+        vlicmin = l.getPrecoActual() + l.getIncrementoMinimo();
+        licmin.setText("(Tem que licitar €" + vlicmin + " para cima)");
+
+
+
+
+
+    }
+
+    public double getLicitacao() throws Exception {
+        double res = 0;
+        try {
+            res = new Double(licmac.getText());
+
+        } catch (Exception e) {
+            throw new Exception("Insira uma licitação válida");
+        }
+        if (res < vlicmin) {
+            throw new Exception("Insira uma licitação superior a € " + vlicmin);
+        }
+        return res;
     }
 
     /**
@@ -112,8 +140,16 @@ public class Anuncio_Leilao extends javax.swing.JPanel {
 
     private void licitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_licitacaoActionPerformed
         // TODO add your handling code here:
+       if (Sale_Squared.REGISTADO) {
+            
+            JDialog frame = new Anuncio_NovaCompra(root, idanuncio,Anuncio_NovaCompra.LEILAO);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            
+        } else {
+            root.setBody(new Registo_Main(root), "Novo Registo");
+        }
     }//GEN-LAST:event_licitacaoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

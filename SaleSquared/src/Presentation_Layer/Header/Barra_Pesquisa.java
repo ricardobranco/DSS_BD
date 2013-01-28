@@ -29,6 +29,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
     public Barra_Pesquisa(final Sale_Squared root) {
         initComponents();
         this.root = root;
+        this.pesqavan.setVisible(false);
         this.jComboBox1.setModel(new DefaultComboBoxModel<Object>(new String[]{"Todos",
                     "    Moda", "        Vestuário",
                     "        Acessórios", "    Casa e Jardim",
@@ -60,7 +61,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
         jXSearchField1 = new org.jdesktop.swingx.JXSearchField();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        pesqavan = new javax.swing.JButton();
 
         jXSearchField1.setToolTipText("Procurar");
         jXSearchField1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +84,12 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Pesquisa Avançada");
+        pesqavan.setText("Pesquisa Avançada");
+        pesqavan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesqavanActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -100,7 +106,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
                         .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton2))))
+                        .add(pesqavan))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -110,7 +116,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
                     .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2))
+                .add(pesqavan))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,7 +126,7 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
         String[] camposcat = {"c"};
         String categoria = (String) this.jComboBox1.getModel().getElementAt(jComboBox1.getSelectedIndex());
         String critpesq = jXSearchField1.getText();
-
+        
         Object[] valorestext = {critpesq, critpesq, critpesq
         };
         Object[] valorescat = {noSpaceBegin(categoria)};
@@ -160,10 +166,15 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
             pesquisar();
         }
     }//GEN-LAST:event_jXSearchField1KeyPressed
+
+    private void pesqavanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesqavanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesqavanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private org.jdesktop.swingx.JXSearchField jXSearchField1;
+    private javax.swing.JButton pesqavan;
     // End of variables declaration//GEN-END:variables
 }
