@@ -194,12 +194,9 @@ public class Perfil extends javax.swing.JPanel {
                 String[] user = {"user"};
                 Object[] nome = {this.username};
                 Set<Anuncio> panuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), user, nome, 0);
-                Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
-                for (Anuncio a : panuncios) {
-                    anuncios.add((AnuncioVenda) a);
-                }
+                
                 jPanel2.removeAll();
-                jPanel2.add(new Pesquisa_Resultado(root, anuncios), "Negócios");
+                jPanel2.add(new Pesquisa_Resultado(root, panuncios), "Negócios");
                 jPanel2.updateUI();
                 jPanel2.validate();
                 break;

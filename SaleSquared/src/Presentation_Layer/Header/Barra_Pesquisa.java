@@ -135,12 +135,10 @@ public class Barra_Pesquisa extends javax.swing.JPanel {
                 root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campostext, valorestext, 1),
                 camposcat, valorescat, 0);
         Set<AnuncioVenda> anuncios = new TreeSet<>(new ComparadorUltimosAnunc());
-        for (Anuncio a : panuncios) {
-            anuncios.add((AnuncioVenda) a);
-        }
+        
 
 
-        root.setBody(new Pesquisa_Resultado(root, anuncios), "Resultados");
+        root.setBody(new Pesquisa_Resultado(root, panuncios), "Resultados");
     }
 
     public static String noSpaceBegin(String s) {

@@ -29,7 +29,7 @@ public class Ler_Mensagem extends javax.swing.JDialog {
         initComponents();
         this.root = root;
         this.idmensagem = idmensagem;
-        this.tipoMensagem = tipoMensagem;
+        this.tipoMensagem = tipoMensagem; 
 
         Mensagem m = tipoMensagem == ENVIADA ? this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgEnv(idmensagem) : this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(idmensagem);
         if(m.getEstado()==Mensagem.NAO_LIDA)
@@ -183,6 +183,7 @@ public class Ler_Mensagem extends javax.swing.JDialog {
 
     private void apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarActionPerformed
         // TODO add your handling code here:
+       
         if (tipoMensagem == ENVIADA) {
             root.getSistema().apagarMensagemEnviada(de.getText(), idmensagem);
         } else {
