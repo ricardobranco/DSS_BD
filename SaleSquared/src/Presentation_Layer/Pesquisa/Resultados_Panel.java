@@ -4,6 +4,7 @@
  */
 package Presentation_Layer.Pesquisa;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ComparadorATerminar;
 import Business_Layer.ComparadorAnuncNVis;
@@ -30,11 +31,11 @@ public class Resultados_Panel extends javax.swing.JPanel {
      * Creates new form Resultados_Panel
      */
     private List<JPanel> jpanels;
-    private Set<AnuncioVenda> anuncios;
+    private Set<Anuncio> anuncios;
     private List<JSeparator> jseparators;
     private final Sale_Squared root;
 
-    public Resultados_Panel(final Sale_Squared root, Set<AnuncioVenda> anuncios) {
+    public Resultados_Panel(final Sale_Squared root, Set<Anuncio> anuncios) {
         initComponents();
         this.anuncios = anuncios;
         this.root = root;
@@ -79,7 +80,7 @@ public class Resultados_Panel extends javax.swing.JPanel {
 
     }
 
-    public void setanuncios(Set<AnuncioVenda> anuncios) {
+    public void setanuncios(Set<Anuncio> anuncios) {
         this.anuncios = anuncios;
         jComboBox2.setModel(new DefaultComboBoxModel(listaPagina(npaginas(this.anuncios.size()))));
         ordena();
@@ -88,7 +89,7 @@ public class Resultados_Panel extends javax.swing.JPanel {
 
     public void ordena() {
         String criterio = (String) jComboBox1.getModel().getElementAt(jComboBox1.getSelectedIndex());
-        TreeSet<AnuncioVenda> ordenado = null;
+        TreeSet<Anuncio> ordenado = null;
         int numeroPag;
         if ((String) this.jComboBox2.getModel().getElementAt(this.jComboBox2.getSelectedIndex()) == null) {
             numeroPag = 0;
@@ -137,12 +138,12 @@ public class Resultados_Panel extends javax.swing.JPanel {
 
                 break;
         }
-        for (AnuncioVenda av : this.anuncios) {
+        for (Anuncio av : this.anuncios) {
             ordenado.add(av);
         }
 
-        Iterator<AnuncioVenda> it = ordenado.iterator();
-        List<AnuncioVenda> la = new ArrayList<>();
+        Iterator<Anuncio> it = ordenado.iterator();
+        List<Anuncio> la = new ArrayList<>();
         while (it.hasNext()) {
             la.add(it.next());
         }

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JRadioButton;
 import javax.swing.SpinnerNumberModel;
 
@@ -31,12 +32,14 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
     private final AnuncioVenda anuncio;
     private final Icon certo = new ImageIcon(getClass().getResource("/Imagens/certo.png"));
     private final Icon errado = new ImageIcon(getClass().getResource("/Imagens/errado.png"));
+    private final JDialog jd;
     
-    public Anuncio_NovaCompra1(final Sale_Squared root, int idanuncio) {
+    public Anuncio_NovaCompra1(final Sale_Squared root, int idanuncio,JDialog jd) {
         initComponents();
         this.idanuncio = idanuncio;
         this.root = root;
         this.anuncio = (AnuncioVenda) root.getSistema().encontrarAnuncio(idanuncio);
+        this.jd = jd;
         pagamentos = new HashMap<>();
         pagamentos.put(paypal.getText(), paypal);
         pagamentos.put(jRadioButton5.getText(), jRadioButton5);
@@ -133,6 +136,7 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
         return scp1 + "-" + scp2;
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -392,6 +396,8 @@ public class Anuncio_NovaCompra1 extends javax.swing.JPanel {
             pais.setVisible(false);
             jLabel5.setVisible(false);
         }
+        jd.pack();
+        
 
 
 

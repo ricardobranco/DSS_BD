@@ -9,6 +9,7 @@ import Business_Layer.AnuncioVenda;
 import Business_Layer.Transaccao;
 import Presentation_Layer.Registo.Registo_Main;
 import Presentation_Layer.Sale_Squared;
+import javax.swing.JDialog;
 
 /**
  *
@@ -103,7 +104,11 @@ public class Anuncio_Compra extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (Sale_Squared.REGISTADO) {
-            new Anuncio_NovaCompra(root, idanuncio).setVisible(true);
+            
+            JDialog frame = new Anuncio_NovaCompra(root, idanuncio,Anuncio_NovaCompra.VENDA);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            
         } else {
             root.setBody(new Registo_Main(root), "Novo Registo");
         }
@@ -114,4 +119,6 @@ public class Anuncio_Compra extends javax.swing.JPanel {
     private javax.swing.JLabel preco;
     private javax.swing.JLabel troca;
     // End of variables declaration//GEN-END:variables
+
+  
 }

@@ -1,5 +1,6 @@
 package Presentation_Layer.Tabbed;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.ComparadorUltimosAnunc;
 import Business_Layer.ModoVenda;
@@ -23,16 +24,16 @@ public class Tabbed_Resultados extends JPanel {
      *
      */
     private static final long serialVersionUID = 1L;
-    private Set<AnuncioVenda> todos;
-    private Set<AnuncioVenda> leiloes;
-    private Set<AnuncioVenda> comprar;
+    private Set<Anuncio> todos;
+    private Set<Anuncio> leiloes;
+    private Set<Anuncio> comprar;
     private Resultados_Panel rptodos, rpleiloes, rpcompras;
     private JTabbedPane tabbedPane;
 
     /**
      * Create the panel.
      */
-    public Tabbed_Resultados(final Sale_Squared root, Set<AnuncioVenda> anuncios) {
+    public Tabbed_Resultados(final Sale_Squared root, Set<Anuncio> anuncios) {
 
 
         setAnuncios(anuncios);
@@ -93,13 +94,13 @@ public class Tabbed_Resultados extends JPanel {
 
     }
 
-    public void setAnuncios(Set<AnuncioVenda> anuncios) {
+    public void setAnuncios(Set<Anuncio> anuncios) {
         this.todos = anuncios;
         this.leiloes = new TreeSet<>(new ComparadorUltimosAnunc());
         this.comprar = new TreeSet<>(new ComparadorUltimosAnunc());
 
-        for (AnuncioVenda a : this.todos) {
-            ModoVenda mv = a.getTipoVenda();
+        for (Anuncio a : this.todos) {
+            ModoVenda mv = ((AnuncioVenda)a).getTipoVenda();
             if (mv.getClass().getSimpleName().equals("Leilao")) {
                 this.leiloes.add(a);
             } else {

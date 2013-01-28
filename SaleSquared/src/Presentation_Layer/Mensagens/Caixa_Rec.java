@@ -53,12 +53,16 @@ public class Caixa_Rec extends javax.swing.JPanel {
 
     }
 
-    public void preenche() {
-        jXTable1.selectAll();
-        jXTable1.clearSelection();
-        rowcount = 0;
+    private void clean() {
+        for (int i = 0; i < jXTable1.getRowCount(); i++) {
+            jXTable1.remove(i);
+        }
         mensagens.clear();
+        rowcount = 0;
+    }
 
+    public void preenche() {
+        clean();
         Collection<Mensagem> recebidas = this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getRecebidas().values();
         for (Mensagem m : recebidas) {
 
@@ -79,13 +83,14 @@ public class Caixa_Rec extends javax.swing.JPanel {
     }
 
     public void remMarcadas() {
-        for (int i = jXTable1.getModel().getRowCount(); i >= 0; i--) {
+        for (int i = jXTable1.getModel().getRowCount() - 1; i >= 0; i--) {
 
             Object o = jXTable1.getModel().getValueAt(i, 0);
+            String de = (String) jXTable1.getModel().getValueAt(i, 1);
             boolean marcado = (boolean) o;
 
             if (marcado) {
-                root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(mensagens.get(i)).setEstado(Mensagem.ELIMINADA);
+                root.getSistema().apagarMensagemRecebida(de, mensagens.get(i));
             }
         }
         preenche();
@@ -94,13 +99,13 @@ public class Caixa_Rec extends javax.swing.JPanel {
     }
 
     public void marcarLidas() {
-        for (int i = jXTable1.getModel().getRowCount(); i >= 0; i--) {
+        for (int i = jXTable1.getModel().getRowCount() - 1; i >= 0; i--) {
 
             Object o = jXTable1.getModel().getValueAt(i, 0);
             boolean marcado = (boolean) o;
 
             if (marcado) {
-                root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(mensagens.get(i)).setEstado(Mensagem.LIDA);
+                root.getSistema().marcarMsgComoLida(Sale_Squared.UTILIZADOR, mensagens.get(i));
             }
 
         }

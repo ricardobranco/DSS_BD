@@ -1,5 +1,6 @@
 package Presentation_Layer.Pesquisa;
 
+import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import java.awt.CardLayout;
 
@@ -19,14 +20,14 @@ public class Pesquisa_Resultado extends JPanel {
 	 * 
 	 */
 	
-    private Set<AnuncioVenda> anuncios;
+    private Set<Anuncio> anuncios;
     
     private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.
 	 */
-	public Pesquisa_Resultado(final Sale_Squared root,Set<AnuncioVenda> anuncios) {
+	public Pesquisa_Resultado(final Sale_Squared root,Set<Anuncio> anuncios) {
             
                 this.anuncios = anuncios;
 
@@ -71,7 +72,7 @@ public class Pesquisa_Resultado extends JPanel {
 
 	}
         
-        public Set<AnuncioVenda> getAnuncios(){
+        public Set<Anuncio> getAnuncios(){
             return this.anuncios;
             
         }   
