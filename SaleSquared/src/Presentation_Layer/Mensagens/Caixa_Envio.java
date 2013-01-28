@@ -30,7 +30,7 @@ public class Caixa_Envio extends javax.swing.JPanel {
      */
     List<Integer> mensagens;
     int rowcount;
-    private  Sale_Squared root;
+    private Sale_Squared root;
 
     public Caixa_Envio(final Sale_Squared root) {
         initComponents();
@@ -51,12 +51,17 @@ public class Caixa_Envio extends javax.swing.JPanel {
 
     }
 
+    private void clean() {
+        for (int i = 0; i < jXTable1.getRowCount(); i++) {
+            jXTable1.remove(i);
+        }
+        mensagens.clear();
+        rowcount = 0;
+    }
+
     public void preenche() {
 
-        jXTable1.selectAll();
-        jXTable1.clearSelection();
-        rowcount = 0;
-        mensagens.clear();
+        clean();
         Collection<Mensagem> enviadas = this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getEnviadas().values();
 
         for (Mensagem m : enviadas) {
@@ -78,13 +83,13 @@ public class Caixa_Envio extends javax.swing.JPanel {
     }
 
     public void remMarcadas() {
-        for (int i = jXTable1.getModel().getRowCount(); i >= 0; i--) {
+        for (int i = jXTable1.getModel().getRowCount() - 1; i >= 0; i--) {
 
             Object o = jXTable1.getModel().getValueAt(i, 0);
             boolean marcado = (boolean) o;
 
             if (marcado) {
-                root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(mensagens.get(i)).setEstado(Mensagem.ELIMINADA);
+                root.getSistema().apagarMensagemEnviada(Sale_Squared.UTILIZADOR, mensagens.get(i));
             }
         }
         preenche();
@@ -114,6 +119,11 @@ public class Caixa_Envio extends javax.swing.JPanel {
         jXTable1 = new org.jdesktop.swingx.JXTable();
 
         jButton1.setText("Apagar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jXTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,6 +177,11 @@ public class Caixa_Envio extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        remMarcadas();
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane2;

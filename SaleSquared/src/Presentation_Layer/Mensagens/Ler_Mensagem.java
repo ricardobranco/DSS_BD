@@ -32,6 +32,9 @@ public class Ler_Mensagem extends javax.swing.JDialog {
         this.tipoMensagem = tipoMensagem;
 
         Mensagem m = tipoMensagem == ENVIADA ? this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgEnv(idmensagem) : this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).encontrarMsgRec(idmensagem);
+        if(m.getEstado()==Mensagem.NAO_LIDA)
+            root.getSistema().marcarMsgComoLida(Sale_Squared.UTILIZADOR, idmensagem);
+        
         de.setText(m.getEmissor().getUsername());
         para.setText(m.getReceptor().getUsername());
         assunto.setText(m.getAssunto());
