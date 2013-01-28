@@ -137,10 +137,21 @@ public class Enviar_Mensagem extends javax.swing.JDialog {
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
         // TODO add your handling code here:
         try {
-            Mensagem mR = new Mensagem(root.getSistema().registaIdMsg(), root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(getUsername()), new GregorianCalendar(), getAssunto(), getCorpo(), Mensagem.NAO_LIDA);
-            Mensagem mE = new Mensagem(root.getSistema().registaIdMsg(), root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(getUsername()), new GregorianCalendar(), getAssunto(), getCorpo(), Mensagem.LIDA);
+            GregorianCalendar data = new GregorianCalendar();
+            String destino = getUsername();
+            String massunto = getAssunto();
+            String mcorpo = getCorpo();
+            int ir = root.getSistema().registaIdMsg();
+            int ie = root.getSistema().registaIdMsg();
+            Mensagem mR = new Mensagem(ir, root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(destino), data, massunto, mcorpo, Mensagem.NAO_LIDA);
+            Mensagem mE = new Mensagem(ie, root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR), root.getSistema().encontrarUtilizadorReg(destino), data, massunto, mcorpo, Mensagem.LIDA);
 
-            root.getSistema().enviarMensagem(mE, mR);
+            try {
+                root.getSistema().enviarMensagem(mE, mR);
+            } catch (Exception e) {
+            }
+
+
             root.setBody(new Mensagem_Main(root), "Caixa de Mensagens");
             dispose();
 

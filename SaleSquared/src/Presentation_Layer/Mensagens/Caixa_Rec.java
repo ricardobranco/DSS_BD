@@ -40,7 +40,7 @@ public class Caixa_Rec extends javax.swing.JPanel {
         rowcount = 0;
         ActionListener abre = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                ((HyperLinkRenderer) jXTable1.getCellRenderer(jXTable1.getSelectedRow(), 2)).setNormal();
                 JDialog frame = new Ler_Mensagem(root, mensagens.get(jXTable1.getSelectedRow()), Ler_Mensagem.RECEBIDA);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);

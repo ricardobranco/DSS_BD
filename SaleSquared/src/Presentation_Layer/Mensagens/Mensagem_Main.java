@@ -19,8 +19,9 @@ public class Mensagem_Main extends javax.swing.JPanel {
      * Creates new form Mensagem_Main2
      */
     public Mensagem_Main(final Sale_Squared root) {
-        initComponents();
         this.root = root;
+        initComponents();
+
 
     }
 
@@ -102,12 +103,11 @@ public class Mensagem_Main extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JDialog frame = new Enviar_Mensagem(root, "","","");
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-              
-    }//GEN-LAST:event_jButton1ActionPerformed
+        JDialog frame = new Enviar_Mensagem(root, "", "", "");
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
