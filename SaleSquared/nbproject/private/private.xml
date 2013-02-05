@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/SaleSquared.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/SaleSquaredFacade.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/Anuncio.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Data_Layer/AnuncioDAO.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/UtilizadorRegistado.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Data_Layer/Registo.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Data_Layer/MsgEnviadaDAO.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/Mensagem.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/AnuncioVenda.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Business_Layer/Avaliacao.java</file>
+        <file>file:/C:/Users/psfdc/Dropbox/LEI/DSS/trabalho/fase_2_dss_2/SaleSquared/src/Data_Layer/AvaliacaoAnuncioDAO.java</file>
+    </open-files>
 </project-private>
