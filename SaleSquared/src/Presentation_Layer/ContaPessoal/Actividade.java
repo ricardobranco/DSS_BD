@@ -1,108 +1,131 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation_Layer.ContaPessoal;
 
-import java.awt.CardLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.jdesktop.swingx.JXTaskPane;
-
+import Business_Layer.Anuncio;
+import Business_Layer.AnuncioVenda;
+import Business_Layer.ComparadorATerminar;
+import Business_Layer.Leilao;
+import Business_Layer.ModoVenda;
+import Business_Layer.Transaccao;
 import Presentation_Layer.Sale_Squared;
-import Presentation_Layer.Tabelas.Tabela_Vendas;
-import Presentation_Layer.Tabelas.Tabela_licitacao;
+import Presentation_Layer.Tabelas.Tabela_Licitacao;
+import java.util.Set;
+import java.util.TreeSet;
 
+/**
+ *
+ * @author ricardobranco
+ */
+public class Actividade extends javax.swing.JPanel {
 
-public class Actividade extends JPanel {
+    private final Sale_Squared root;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Creates new form Actividade
+     */
+    public Actividade(final Sale_Squared root) {
+        this.root = root;
+        initComponents();
+        jXTaskPane1.add(new Tabela_Licitacao(root, getLeiloes()));
+    }
 
-	/**
-	 * Create the panel.
-	 */
-	public Actividade(final Sale_Squared root) {
+    private Set<Anuncio> getLeiloes() {
+        Set<Anuncio> res = new TreeSet<>(new ComparadorATerminar());
+        for (Transaccao t : this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getTransaccoes().values()) {
+            AnuncioVenda a = (AnuncioVenda) t.getAnuncio();
+            ModoVenda mv = a.getTipoVenda();
+            if (mv.getClass().getSimpleName().equals("Leilao") && t.getComprador().getUsername().equals(Sale_Squared.UTILIZADOR)) {
+                res.add(a);
+            }
 
-		JXTaskPane taskPane = new JXTaskPane();
-		taskPane.setCollapsed(true);
-		taskPane.setTitle("Licita��es");
+        }
 
-		JXTaskPane taskPane_1 = new JXTaskPane();
-		taskPane_1.setCollapsed(true);
-		taskPane_1.setTitle("Vendas");
+        return res;
+    }
 
-		JXTaskPane taskPane_2 = new JXTaskPane();
-		taskPane_2.setCollapsed(true);
-		taskPane_2.setTitle("Compras");
+    private Set<Anuncio> getVendas() {
+        Set<Anuncio> res = new TreeSet<>(new ComparadorATerminar());
+        for (Transaccao t : this.root.getSistema().encontrarUtilizadorReg(Sale_Squared.UTILIZADOR).getTransaccoes().values()) {
+            AnuncioVenda a = (AnuncioVenda) t.getAnuncio();
+            ModoVenda mv = a.getTipoVenda();
+            if (!mv.getClass().getSimpleName().equals("Leilao") && t.getComprador().getUsername().equals(Sale_Squared.UTILIZADOR)) {
+                res.add(a);
+            }
 
-		JXTaskPane taskPane_3 = new JXTaskPane();
-		taskPane_3.setCollapsed(true);
-		taskPane_3.setTitle("Neg�cios Seguidos");
+        }
 
-		JXTaskPane taskPane_4 = new JXTaskPane();
-		taskPane_4.setCollapsed(true);
-		taskPane_4.setTitle("Utilizadores Seguidos");
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								groupLayout
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(taskPane_4,
-												Alignment.TRAILING,
-												GroupLayout.DEFAULT_SIZE, 741,
-												Short.MAX_VALUE)
-										.addComponent(taskPane_3,
-												Alignment.TRAILING,
-												GroupLayout.DEFAULT_SIZE, 741,
-												Short.MAX_VALUE)
-										.addComponent(taskPane_2,
-												GroupLayout.DEFAULT_SIZE, 741,
-												Short.MAX_VALUE)
-										.addComponent(taskPane_1,
-												GroupLayout.DEFAULT_SIZE, 741,
-												Short.MAX_VALUE)
-										.addComponent(taskPane,
-												GroupLayout.DEFAULT_SIZE, 741,
-												Short.MAX_VALUE))
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(taskPane, GroupLayout.DEFAULT_SIZE, 25,
-								Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(taskPane_1, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(taskPane_2, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(taskPane_3, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(taskPane_4, GroupLayout.DEFAULT_SIZE, 25,
-								Short.MAX_VALUE).addGap(12)));
-		taskPane_2.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane_1.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane_4.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane_3.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane.getContentPane().setLayout(new CardLayout(0, 0));
-		taskPane.getContentPane().add(new Tabela_licitacao(root), "licita��es");
-		taskPane_1.getContentPane().add(new Tabela_Vendas(root), "vendas");
+        return res;
 
-		setLayout(groupLayout);
-	}
+    }
 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jXTaskPane2 = new org.jdesktop.swingx.JXTaskPane();
+        jXTaskPane1 = new org.jdesktop.swingx.JXTaskPane();
+        jXTaskPane3 = new org.jdesktop.swingx.JXTaskPane();
+        jXTaskPane4 = new org.jdesktop.swingx.JXTaskPane();
+        jXTaskPane5 = new org.jdesktop.swingx.JXTaskPane();
+
+        jXTaskPane2.setCollapsed(true);
+        jXTaskPane2.setTitle("Licitações");
+
+        jXTaskPane1.setCollapsed(true);
+        jXTaskPane1.setTitle("Compras");
+
+        jXTaskPane3.setCollapsed(true);
+        jXTaskPane3.setTitle("Vendas");
+
+        jXTaskPane4.setCollapsed(true);
+        jXTaskPane4.setTitle("Anúncios Seguidos");
+
+        jXTaskPane5.setCollapsed(true);
+        jXTaskPane5.setTitle("Utilizadores Seguidos");
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jXTaskPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .add(jXTaskPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jXTaskPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jXTaskPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jXTaskPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jXTaskPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jXTaskPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jXTaskPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jXTaskPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jXTaskPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXTaskPane jXTaskPane1;
+    private org.jdesktop.swingx.JXTaskPane jXTaskPane2;
+    private org.jdesktop.swingx.JXTaskPane jXTaskPane3;
+    private org.jdesktop.swingx.JXTaskPane jXTaskPane4;
+    private org.jdesktop.swingx.JXTaskPane jXTaskPane5;
+    // End of variables declaration//GEN-END:variables
 }

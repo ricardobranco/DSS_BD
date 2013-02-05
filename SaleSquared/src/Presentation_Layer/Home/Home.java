@@ -89,7 +89,7 @@ public class Home extends JPanel {
 		panel_2.setLayout(new CardLayout(0, 0));
 		panel_1.setLayout(new CardLayout(0, 0));
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(new Categorias(), "Categorias");
+		panel.add(new Categorias(root), "Categorias");
 		panel_1.add(new Tabbed_Produtos(root), "Negocios");
                 panel_2.add(new Tabbed_Outros(root), "Outros");
 		
