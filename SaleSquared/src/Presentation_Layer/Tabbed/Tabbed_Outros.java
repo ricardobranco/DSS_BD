@@ -60,7 +60,7 @@ public class Tabbed_Outros extends JPanel {
         JPanel panel = new JPanel();
         tabbedPane.addTab("Mais Procurados", null, panel, null);
         panel.setLayout(new CardLayout(0, 0));
-        panel.add(new Top_Tags(tags), "Top Produtos");
+        panel.add(new Top_Tags(root,tags), "Top Produtos");
 
         if (Sale_Squared.REGISTADO) {
 

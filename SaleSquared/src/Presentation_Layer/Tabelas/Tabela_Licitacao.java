@@ -7,6 +7,8 @@ package Presentation_Layer.Tabelas;
 import Business_Layer.Anuncio;
 import Business_Layer.AnuncioVenda;
 import Business_Layer.Leilao;
+import Business_Layer.ModoVenda;
+import Business_Layer.VendaDirecta;
 import Presentation_Layer.Anuncio.Anuncio_Main;
 import Presentation_Layer.Componentes.HyperLinkEditor;
 import Presentation_Layer.Componentes.HyperLinkRenderer;
@@ -65,11 +67,19 @@ public class Tabela_Licitacao extends javax.swing.JPanel {
         clean();
         for (Anuncio a : leiloes) {
             AnuncioVenda av = (AnuncioVenda) a;
-            Leilao l = (Leilao) av.getTipoVenda();
+            ModoVenda mv = av.getTipoVenda();
+            String valor;
+            if (mv.getClass().getSimpleName().equals("Leilao")) {
+                Leilao l = (Leilao) mv;
+                valor = "€ " + l.getPrecoActual();
+            } else {
+                VendaDirecta vd = (VendaDirecta) mv;
+                valor = "€ " + vd.getPreco();
+            }
+
             String inicio = formatoData(a.getDataInser());
             String fim = formatoData(a.getDataExpir());
             String estado = a.getEstadoAnuncio() == Anuncio.ABERTO ? "Aberto" : "Encerrado";
-            String valor = "€ " + l.getPrecoActual();
             String titulo = a.getTitulo();
             Object[] dados = {inicio, titulo, valor, estado, fim};
             ((DefaultTableModel) jTable1.getModel()).addRow(dados);
@@ -105,10 +115,7 @@ public class Tabela_Licitacao extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Data", "Anúncio", "Valor", "Estado", "Expira"

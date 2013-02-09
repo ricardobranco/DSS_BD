@@ -54,6 +54,7 @@ public class Resultado_Label extends javax.swing.JPanel {
         
         
         
+        
     }
     
     private String temporestante(GregorianCalendar in, GregorianCalendar end) {

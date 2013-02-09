@@ -19,8 +19,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jXTaskPane2" pref="388" max="32767" attributes="0"/>
-                  <Component id="jXTaskPane1" max="32767" attributes="0"/>
+                  <Component id="lic" pref="388" max="32767" attributes="0"/>
+                  <Component id="compras" max="32767" attributes="0"/>
                   <Component id="jXTaskPane3" alignment="0" max="32767" attributes="0"/>
                   <Component id="jXTaskPane4" alignment="0" max="32767" attributes="0"/>
                   <Component id="jXTaskPane5" alignment="0" max="32767" attributes="0"/>
@@ -33,28 +33,28 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jXTaskPane2" min="-2" max="-2" attributes="0"/>
+              <Component id="lic" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jXTaskPane1" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="compras" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jXTaskPane3" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="jXTaskPane3" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jXTaskPane4" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="jXTaskPane4" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jXTaskPane5" min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="jXTaskPane5" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="org.jdesktop.swingx.JXTaskPane" name="jXTaskPane2">
+    <Component class="org.jdesktop.swingx.JXTaskPane" name="lic">
       <Properties>
         <Property name="collapsed" type="boolean" value="true"/>
         <Property name="title" type="java.lang.String" value="Licita&#xe7;&#xf5;es"/>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXTaskPane" name="jXTaskPane1">
+    <Component class="org.jdesktop.swingx.JXTaskPane" name="compras">
       <Properties>
         <Property name="collapsed" type="boolean" value="true"/>
         <Property name="title" type="java.lang.String" value="Compras"/>

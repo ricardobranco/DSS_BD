@@ -105,7 +105,7 @@ public class Anuncio_Compra extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (Sale_Squared.REGISTADO) {
             
-            JDialog frame = new Anuncio_NovaCompra(root, idanuncio,Anuncio_NovaCompra.VENDA);
+            JDialog frame = new Anuncio_NovaCompra(root, idanuncio,Anuncio_NovaCompra.VENDA,root.getSistema().encontrarAnuncio(idanuncio).getPreco());
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
             

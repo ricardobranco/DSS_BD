@@ -4,7 +4,10 @@
  */
 package Presentation_Layer.Home;
 
+import Business_Layer.Anuncio;
 import Business_Layer.Tag;
+import Presentation_Layer.Pesquisa.Pesquisa_Resultado;
+import Presentation_Layer.Sale_Squared;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,10 +27,11 @@ public class Top_Tags extends javax.swing.JPanel {
     private List<JProgressBar> barras;
     private List<JXHyperlink> tags;
     private List<Tag> ltags;
+    private final Sale_Squared root;
 
-    public Top_Tags(Set<Tag> stags) {
+    public Top_Tags(final Sale_Squared root, Set<Tag> stags) {
         initComponents();
-
+        this.root = root;
         this.ltags = new ArrayList<>();
         for (Tag tg : stags) {
             ltags.add(tg);
@@ -237,84 +241,151 @@ public class Top_Tags extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(tag1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jProgressBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jProgressBar2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(tag2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jProgressBar2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jProgressBar3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(tag3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(tag4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jProgressBar4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jProgressBar3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jProgressBar5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(tag5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jProgressBar4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jProgressBar5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .add(12, 12, 12)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(tag6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jProgressBar6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jProgressBar6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(tag7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jProgressBar7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(4, 4, 4)
+                        .add(tag7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jProgressBar7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jProgressBar8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jProgressBar8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jProgressBar9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jProgressBar9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(tag8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(4, 4, 4)
+                        .add(tag8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(16, 16, 16)
-                        .add(tag9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(tag9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tag3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag3ActionPerformed
         // TODO add your handling code here:
-       
+        String[] campos = {"t"};
+        Object[] valores = {tag3.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
+
     }//GEN-LAST:event_tag3ActionPerformed
 
     private void tag6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag6ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag6.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag6ActionPerformed
 
     private void tag9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag9ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag9.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag9ActionPerformed
 
     private void tag1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag1ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag1.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag1ActionPerformed
 
     private void tag2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag2ActionPerformed
         // TODO add your handling code here:
-      
+        String[] campos = {"t"};
+        Object[] valores = {tag2.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag2ActionPerformed
 
     private void tag4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag4ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag4.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag4ActionPerformed
 
     private void tag5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag5ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag5.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag5ActionPerformed
 
     private void tag7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag7ActionPerformed
         // TODO add your handling code here:
+        String[] campos = {"t"};
+        Object[] valores = {tag7.getText()};
+
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
     }//GEN-LAST:event_tag7ActionPerformed
 
     private void tag8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tag8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tag8ActionPerformed
+        String[] campos = {"t"};
+        Object[] valores = {tag8.getText()};
 
+        Set<Anuncio> anuncios = root.getSistema().procurarAnuncAvanc(root.getSistema().getAnuncios().values(), campos, valores, 1);
+
+        root.setBody(new Pesquisa_Resultado(root, anuncios), "Pesquisa");
+    }//GEN-LAST:event_tag8ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;

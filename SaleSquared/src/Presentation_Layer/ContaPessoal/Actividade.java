@@ -29,7 +29,10 @@ public class Actividade extends javax.swing.JPanel {
     public Actividade(final Sale_Squared root) {
         this.root = root;
         initComponents();
-        jXTaskPane1.add(new Tabela_Licitacao(root, getLeiloes()));
+        compras.add(new Tabela_Licitacao(root, getVendas()), "Compras");
+
+        lic.add(new Tabela_Licitacao(root, getLeiloes()), "Leiloes");
+
     }
 
     private Set<Anuncio> getLeiloes() {
@@ -70,17 +73,17 @@ public class Actividade extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jXTaskPane2 = new org.jdesktop.swingx.JXTaskPane();
-        jXTaskPane1 = new org.jdesktop.swingx.JXTaskPane();
+        lic = new org.jdesktop.swingx.JXTaskPane();
+        compras = new org.jdesktop.swingx.JXTaskPane();
         jXTaskPane3 = new org.jdesktop.swingx.JXTaskPane();
         jXTaskPane4 = new org.jdesktop.swingx.JXTaskPane();
         jXTaskPane5 = new org.jdesktop.swingx.JXTaskPane();
 
-        jXTaskPane2.setCollapsed(true);
-        jXTaskPane2.setTitle("Licitações");
+        lic.setCollapsed(true);
+        lic.setTitle("Licitações");
 
-        jXTaskPane1.setCollapsed(true);
-        jXTaskPane1.setTitle("Compras");
+        compras.setCollapsed(true);
+        compras.setTitle("Compras");
 
         jXTaskPane3.setCollapsed(true);
         jXTaskPane3.setTitle("Vendas");
@@ -98,8 +101,8 @@ public class Actividade extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jXTaskPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .add(jXTaskPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(lic, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .add(compras, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jXTaskPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jXTaskPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jXTaskPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -109,23 +112,23 @@ public class Actividade extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jXTaskPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(lic, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jXTaskPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(compras, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jXTaskPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jXTaskPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jXTaskPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jXTaskPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jXTaskPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jXTaskPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXTaskPane jXTaskPane1;
-    private org.jdesktop.swingx.JXTaskPane jXTaskPane2;
+    private org.jdesktop.swingx.JXTaskPane compras;
     private org.jdesktop.swingx.JXTaskPane jXTaskPane3;
     private org.jdesktop.swingx.JXTaskPane jXTaskPane4;
     private org.jdesktop.swingx.JXTaskPane jXTaskPane5;
+    private org.jdesktop.swingx.JXTaskPane lic;
     // End of variables declaration//GEN-END:variables
 }

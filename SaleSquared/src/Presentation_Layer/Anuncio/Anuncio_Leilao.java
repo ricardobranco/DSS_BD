@@ -13,10 +13,11 @@ import Business_Layer.UtilizadorRegistado;
 import Presentation_Layer.Registo.Registo_Main;
 import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -140,12 +141,24 @@ public class Anuncio_Leilao extends javax.swing.JPanel {
 
     private void licitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_licitacaoActionPerformed
         // TODO add your handling code here:
-       if (Sale_Squared.REGISTADO) {
-            
-            JDialog frame = new Anuncio_NovaCompra(root, idanuncio,Anuncio_NovaCompra.LEILAO);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            
+
+
+        if (Sale_Squared.REGISTADO) {
+
+
+            JDialog frame;
+            try {
+                frame = new Anuncio_NovaCompra(root, idanuncio, Anuncio_NovaCompra.LEILAO, getLicitacao());
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            } catch (Exception ex) {
+                String html1 = "<html><body style='width: ";
+                String html2 = "Dados Invalidos";
+                JOptionPane.showMessageDialog(root, new JLabel(html1 + "300" + html2 + ex.getMessage()), html2, WIDTH, new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem_Imagem.png")));
+                
+            }
+
+
         } else {
             root.setBody(new Registo_Main(root), "Novo Registo");
         }

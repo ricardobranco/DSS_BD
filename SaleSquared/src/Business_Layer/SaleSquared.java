@@ -790,6 +790,8 @@ public class SaleSquared extends Observable implements SaleSquaredFacade {
                 Bool e = new Bool(true), ou = new Bool(false);
 		for (Iterator<Anuncio> it = anuncs.iterator(); it
 				.hasNext();) {
+                        e.setB(true);
+                        ou.setB(false) ;
 			Anuncio a = it.next();
                         if(a.getEstadoAnuncio() != Anuncio.ABERTO)
                             continue ;

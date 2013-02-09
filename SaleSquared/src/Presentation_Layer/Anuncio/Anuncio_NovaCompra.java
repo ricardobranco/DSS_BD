@@ -12,7 +12,6 @@ import Presentation_Layer.Sale_Squared;
 import java.util.GregorianCalendar;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -33,10 +32,12 @@ public class Anuncio_NovaCompra extends javax.swing.JDialog {
     private AnuncioVenda anuncio;
     private Transaccao t;
     private int tipo;
+    private final double preco;
 
-    public Anuncio_NovaCompra(final Sale_Squared root, int idanuncio, int tipo) {
+    public Anuncio_NovaCompra(final Sale_Squared root, int idanuncio, int tipo,double preco) {
         super(root, true);
         initComponents();
+        this.preco = preco;
         this.tipo = tipo;
         this.idanuncio = idanuncio;
         this.root = root;
